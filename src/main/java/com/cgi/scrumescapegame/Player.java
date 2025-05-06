@@ -1,7 +1,7 @@
 package com.cgi.scrumescapegame;
 
 public class Player {
-    private String name;
+    private final String name;
     private Room currentRoom;
     private int lives;
     // Later: score, inventory, etc.
@@ -25,7 +25,7 @@ public class Player {
 
     public String getStatus() {
         if (currentRoom != null) {
-            return "Speler: " + name + "\nLocatie: " + currentRoom.getName() + "\nStatus: Je bent de wondere wereld van Scrum aan het ontdekken.";
+            return "Speler: " + name + "\nLocatie: " + currentRoom.getName() + "\nLevens: " + this.lives + "/3 levens." + "\nStatus: Je bent de wondere wereld van Scrum aan het ontdekken.";
         }
         return "Speler: " + name + "\nStatus: Nog niet in het spel.";
     }
