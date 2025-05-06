@@ -21,6 +21,7 @@ public abstract class Room {
     // Voor nu print het de beschrijving, kan later uitgebreid worden.
     public void enterRoom(Player player) {
         System.out.println("\n--- " + getName() + " ---");
+        player.showLives();
         System.out.println(getDescription());
     }
 }
