@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Game {
-    private Player player;
-    private List<Room> rooms;
-    private Scanner scanner;
+    private final Player player;
+    private final List<Room> rooms;
+    private final Scanner scanner;
     private boolean isRunning;
 
     public Game() {
@@ -35,7 +35,7 @@ public class Game {
     public void start() {
         printWelcome();
         if (!rooms.isEmpty()) {
-            player.setCurrentRoom(rooms.get(0)); // Start in de eerste kamer
+            player.setCurrentRoom(rooms.getFirst()); // Start in de Eerste Kamer
             player.getCurrentRoom().enterRoom(player); // Roep enterRoom aan voor de initiële kamer
         } else {
             System.out.println("Fout: Geen kamers gedefinieerd. Het spel kan niet starten.");
@@ -63,7 +63,7 @@ public class Game {
         System.out.println("  ga naar kamer [nummer] - Verplaats naar de opgegeven kamer (bv. 'ga naar kamer 1').");
         System.out.println("  status                 - Toon je huidige status en locatie.");
         System.out.println("  kijk rond              - Krijg de beschrijving van de huidige kamer opnieuw.");
-        System.out.println("  help                   - Toon dit helpbericht.");
+        System.out.println("  help                   - Toon dit Help bericht.");
         System.out.println("  quit                   - Stop het spel.");
         System.out.println("\nBeschikbare kamers (voor 'ga naar kamer X'):");
         for (int i = 0; i < rooms.size(); i++) {

@@ -1,7 +1,7 @@
 package com.cgi.scrumescapegame;
 
 public class Player {
-    private String name;
+    private final String name;
     private Room currentRoom;
     private int lives;
     // Later: score, inventory, etc.
