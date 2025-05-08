@@ -12,5 +12,10 @@ public class KamerReview extends Room {
     public void enterRoom(Player player) {
         super.enterRoom(player);
         // Specifieke acties voor de review kamer
+        String[] texts = {
+                "Je zwemt in feedback!",
+                " Wat is de impact?"
+        };
+        createSpeechBubble(texts);
     }
 }
