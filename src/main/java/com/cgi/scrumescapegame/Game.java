@@ -52,7 +52,7 @@ public class Game {
     }
 
     private void printWelcome() {
-        ImagePrinter.printImage("logo.png", 60);
+        ImagePrinter.printImage("logo.png", 50);
         System.out.println("===================================");
         System.out.println(" Welkom bij Scrum Escape Game!");
         System.out.println("===================================");

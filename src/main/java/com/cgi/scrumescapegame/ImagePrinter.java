@@ -44,7 +44,7 @@ public class ImagePrinter {
             }
 
             BufferedImage scaledImage = scaleImage(originalImage, targetWidthChars);
-            convertToTextAndPrint(scaledImage);
+            printBufferedImage(scaledImage);
         } catch (IOException e) {
             System.err.println("Error processing image '" + imagePath + "': " + e.getMessage());
             e.printStackTrace();
@@ -81,7 +81,7 @@ public class ImagePrinter {
         return outputImage;
     }
 
-    private static void convertToTextAndPrint(BufferedImage image) {
+    public static void printBufferedImage(BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();
 

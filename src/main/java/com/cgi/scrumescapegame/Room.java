@@ -1,5 +1,7 @@
 package com.cgi.scrumescapegame;
 
+import java.awt.Color;
+
 public abstract class Room {
     protected String name;
     protected String description;
@@ -21,7 +23,8 @@ public abstract class Room {
     // Wordt aangeroepen als een speler de kamer binnenkomt.
     // Voor nu print het de beschrijving, kan later uitgebreid worden.
     public void enterRoom(Player player) {
-        System.out.println("\n--- " + getName() + " ---");
+        // System.out.println("\n--- " + getName() + " ---");
+		TextToImageRenderer.printGradientText(getName(), new Color(255, 255, 255), new Color(127, 127, 127), new Color(63, 63, 63), new Color(31, 31, 31), 2, true);
         player.showLives();
         System.out.println(getDescription());
     }
@@ -44,7 +47,7 @@ public abstract class Room {
 
         System.out.println(speechBubble);
 
-        ImagePrinter.printImage("matt.png");
+        ImagePrinter.printImage("cat_top_half.png", 60);
     }
 }
 

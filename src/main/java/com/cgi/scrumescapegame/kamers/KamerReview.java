@@ -5,7 +5,7 @@ import com.cgi.scrumescapegame.Room;
 
 public class KamerReview extends Room {
     public KamerReview() {
-        super("Kamer Review", "Welkom in de Sprint Review kamer. Hier presenteer je het werkende product aan de stakeholders.");
+        super("Review Kamer", "Welkom in de Sprint Review kamer. Hier presenteer je het werkende product aan de stakeholders.");
     }
 
     @Override
