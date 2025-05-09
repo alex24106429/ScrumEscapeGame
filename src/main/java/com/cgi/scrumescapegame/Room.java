@@ -55,7 +55,7 @@ public abstract class Room {
         String fish = "><(((('>\n";
         // Voeg het dier toe, maar zorg ervoor dat het goed uitgelijnd is
         int padding = 15; // Zorg ervoor dat het dier gecentreerd is
-        for (String line : cat.split("\n")) {
+        for (String line : fish.split("\n")) {
             speechBubble.append(" ".repeat(padding)).append(line).append("\n");
         }
         System.out.println(speechBubble);
