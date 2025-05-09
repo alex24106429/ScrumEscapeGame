@@ -5,8 +5,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
+
 import java.io.IOException;
+import java.io.InputStream;
 
 public class ImagePrinter {
 
@@ -16,12 +17,6 @@ public class ImagePrinter {
     private static final int DEFAULT_OUTPUT_WIDTH_CHARS = 80;
 
     public static void printImage(String imagePath, int... optionalOutputWidthChars) {
-        File imageFile = new File(imagePath);
-
-        if (!imageFile.exists()) {
-            System.err.println("Error: Image file not found at " + imagePath);
-            return;
-        }
 
         int targetWidthChars = DEFAULT_OUTPUT_WIDTH_CHARS;
         if (optionalOutputWidthChars != null && optionalOutputWidthChars.length > 0 && optionalOutputWidthChars[0] > 0) {
@@ -30,10 +25,16 @@ public class ImagePrinter {
             System.err.println("Warning: Specified output width (" + optionalOutputWidthChars[0] + ") is invalid. Using default width: " + DEFAULT_OUTPUT_WIDTH_CHARS);
         }
 
-        try {
-            BufferedImage originalImage = ImageIO.read(imageFile);
+        try (InputStream imageStream = ImagePrinter.class.getClassLoader().getResourceAsStream(imagePath)) {
+
+            if (imageStream == null) {
+                System.err.println("Error: Image resource not found at classpath location: " + imagePath);
+                return;
+            }
+
+            BufferedImage originalImage = ImageIO.read(imageStream);
             if (originalImage == null) {
-                System.err.println("Error: Could not read image. Unsupported format or corrupt file: " + imagePath);
+                System.err.println("Error: Could not read image. Unsupported format or corrupt file (from classpath): " + imagePath);
                 return;
             }
 
@@ -46,7 +47,7 @@ public class ImagePrinter {
             convertToTextAndPrint(scaledImage);
         } catch (IOException e) {
             System.err.println("Error processing image '" + imagePath + "': " + e.getMessage());
-
+            e.printStackTrace();
         } catch (IllegalArgumentException e) {
             System.err.println("Error with image dimensions for '" + imagePath + "': " + e.getMessage());
         }
@@ -60,7 +61,7 @@ public class ImagePrinter {
             throw new IllegalArgumentException("Image has zero width or height.");
         }
 
-        int targetPixelHeight = (int) (originalHeight * ((double) targetWidth / originalWidth));
+        int targetPixelHeight = (int) Math.round(originalHeight * ((double) targetWidth / originalWidth));
 
         if (targetPixelHeight % 2 != 0) {
             targetPixelHeight--;
@@ -84,6 +85,11 @@ public class ImagePrinter {
         int width = image.getWidth();
         int height = image.getHeight();
 
+        if (width == 0 || height == 0 || height < 2) {
+            System.err.println("Warning: Image is too small to print after scaling (" + width + "x" + height + ").");
+            return;
+        }
+
         StringBuilder textArt = new StringBuilder();
 
         for (int y = 0; y < height - 1; y += 2) {
@@ -105,5 +111,6 @@ public class ImagePrinter {
             }
         }
         System.out.println(textArt);
+        System.out.print(ANSI_RESET);
     }
 }
