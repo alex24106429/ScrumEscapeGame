@@ -3,6 +3,7 @@ package com.cgi.scrumescapegame;
 public abstract class Room {
     protected String name;
     protected String description;
+    protected Obstacle obstacle;
 
     public Room(String name, String description) {
         this.name = name;

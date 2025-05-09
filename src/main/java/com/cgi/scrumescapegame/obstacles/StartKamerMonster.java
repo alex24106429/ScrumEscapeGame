@@ -1,8 +1,9 @@
-package com.cgi.scrumescapegame.kamers;
+package com.cgi.scrumescapegame.obstacles;
 
+import com.cgi.scrumescapegame.Obstacle;
 import com.cgi.scrumescapegame.Player;
 
-public class Monster implements Obstacle{
+public class StartKamerMonster implements Obstacle {
     public boolean isOvercome;
 
     public boolean getIsOvercome(){
@@ -10,6 +11,6 @@ public class Monster implements Obstacle{
     }
 
     public void attempt(Player p){
-
+        System.out.println("Monster is hier!");
     }
 }

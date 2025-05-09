@@ -1,6 +1,4 @@
-package com.cgi.scrumescapegame.kamers;
-
-import com.cgi.scrumescapegame.Player;
+package com.cgi.scrumescapegame;
 
 public interface Obstacle {
     public boolean getIsOvercome();
