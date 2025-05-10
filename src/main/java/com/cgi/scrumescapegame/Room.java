@@ -24,7 +24,7 @@ public abstract class Room {
     // Voor nu print het de beschrijving, kan later uitgebreid worden.
     public void enterRoom(Player player) {
         // System.out.println("\n--- " + getName() + " ---");
-		TextToImageRenderer.printGradientText(getName(), new Color(255, 255, 255), new Color(127, 127, 127), new Color(63, 63, 63), new Color(31, 31, 31), 2, true);
+		TextToImageRenderer.printGradientText(getName(), new Color(255, 255, 255), new Color(127, 127, 127), new Color(63, 63, 63), new Color(31, 31, 31), 2, true, false);
         player.showLives();
         System.out.println(getDescription());
     }
@@ -47,7 +47,7 @@ public abstract class Room {
 
         System.out.println(speechBubble);
 
-        ImagePrinter.printImage("cat_top_half.png", 60);
+        ImagePrinter.printImage("cat_top_half.png");
     }
 }
 

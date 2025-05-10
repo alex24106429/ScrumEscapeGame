@@ -69,10 +69,11 @@ public class TextToImageRenderer {
 	 * 					3: "GravityBold8.ttf", Size 8, Bottom Padding 0
 	 * 					4: "fibberish.ttf", Size 16, Bottom Padding -8 (Note: code uses -7)
 	 * 					5: "antiquity-print.ttf", Size 13, Bottom Padding 0
+	 * @param halfWidth A boolean that controls if the text is printed at half the width using quadrant characters.
 	 * @throws IllegalArgumentException if fontIndex is not one of the defined values (1-5).
 	 * @throws RuntimeException if the selected font file cannot be found or loaded during image creation.
 	 */
-    public static void printText(String text, Color fgColor, Color bgColor, int fontIndex) {
+    public static void printText(String text, Color fgColor, Color bgColor, int fontIndex, boolean halfWidth) {
         Object[] fontConfig = getFontConfig(fontIndex);
         String selectedFontFilename = (String) fontConfig[0];
         int selectedFontSize = (Integer) fontConfig[1];
@@ -82,11 +83,7 @@ public class TextToImageRenderer {
 
         if (text == null || text.trim().isEmpty()) {
             System.err.println("Input text is null or empty. Printing a minimal 1x1 image.");
-            imageToPrint = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g = imageToPrint.createGraphics();
-            g.setColor(bgColor);
-            g.fillRect(0, 0, 1, 1);
-            g.dispose();
+            return;
         } else {
             Object[] metrics = prepareImageMetrics(text, selectedFontFilename, selectedFontSize, selectedBottomPadding);
             Font customFont = (Font) metrics[0];
@@ -107,7 +104,11 @@ public class TextToImageRenderer {
             g2d.dispose();
             imageToPrint = image;
         }
-        ImagePrinter.printBufferedImage(imageToPrint);
+		if(halfWidth) {
+			ImagePrinter.printBufferedImageQuadrant(imageToPrint);
+		} else {
+			ImagePrinter.printBufferedImage(imageToPrint);
+		}
     }
 
     /**
@@ -128,13 +129,12 @@ public class TextToImageRenderer {
 	 * 					5: "antiquity-print.ttf", Size 13, Bottom Padding 0
 	 * @param verticalGradient If true, gradients are vertical (top to bottom).
 	 *                         If false, gradients are horizontal (left to right).
+	 * @param halfWidth A boolean that controls if the text is printed at half the width using quadrant characters.
 	 * @throws IllegalArgumentException if fontIndex is not one of the defined values (1-5),
 	 *                                  or if any Color parameter is null.
 	 * @throws RuntimeException if the selected font file cannot be found or loaded during image creation.
 	 */
-    public static void printGradientText(String text, Color fgColorStart, Color fgColorEnd,
-                                         Color bgColorStart, Color bgColorEnd,
-                                         int fontIndex, boolean verticalGradient) {
+    public static void printGradientText(String text, Color fgColorStart, Color fgColorEnd, Color bgColorStart, Color bgColorEnd, int fontIndex, boolean verticalGradient, boolean halfWidth) {
         if (fgColorStart == null || fgColorEnd == null || bgColorStart == null || bgColorEnd == null) {
             throw new IllegalArgumentException("Color parameters cannot be null.");
         }
@@ -148,11 +148,7 @@ public class TextToImageRenderer {
 
         if (text == null || text.trim().isEmpty()) {
             System.err.println("Input text is null or empty. Printing a minimal 1x1 image with bgColorStart.");
-            imageToPrint = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g = imageToPrint.createGraphics();
-            g.setColor(bgColorStart);
-            g.fillRect(0, 0, 1, 1);
-            g.dispose();
+            return;
         } else {
             Object[] metrics = prepareImageMetrics(text, selectedFontFilename, selectedFontSize, selectedBottomPadding);
             Font customFont = (Font) metrics[0];
@@ -188,6 +184,10 @@ public class TextToImageRenderer {
             g2d.dispose();
             imageToPrint = image;
         }
-        ImagePrinter.printBufferedImage(imageToPrint);
+        if(halfWidth) {
+			ImagePrinter.printBufferedImageQuadrant(imageToPrint);
+		} else {
+			ImagePrinter.printBufferedImage(imageToPrint);
+		}
     }
 }
