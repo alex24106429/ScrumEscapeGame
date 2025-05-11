@@ -25,8 +25,8 @@ public abstract class Room {
     public void enterRoom(Player player) {
         // System.out.println("\n--- " + getName() + " ---");
 		TextToImageRenderer.printGradientText(getName(), new Color(255, 255, 255), new Color(127, 127, 127), new Color(63, 63, 63), new Color(31, 31, 31), 2, true, false);
-        player.showLives();
         System.out.println(getDescription());
+        System.out.println(player.getStatus());
     }
 
     public void createSpeechBubble(String[] texts) {
@@ -45,9 +45,7 @@ public abstract class Room {
         speechBubble.append(" ".repeat(10)).append("  \\\n");
         speechBubble.append(" ".repeat(11)).append("  \\\n");
 
-        System.out.println(speechBubble);
-
-        ImagePrinter.printImage("cat_top_half.png");
+        System.out.print(speechBubble);
     }
 
 }
