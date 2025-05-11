@@ -49,5 +49,6 @@ public abstract class Room {
 
         ImagePrinter.printImage("cat_top_half.png");
     }
+
 }
 
