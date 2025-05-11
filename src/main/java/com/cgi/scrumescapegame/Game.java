@@ -72,7 +72,6 @@ public class Game {
             Point p = positions.get(i);
             System.out.println("Kamer " + (i) + " positie: (" + p.x + ", " + p.y + ")");
         }
-        generateMap();
     }
 
     public boolean checkAddRoom(int x, int y) {
@@ -137,6 +136,7 @@ public class Game {
     }
     public void start() {
         generateMapLayout();
+//        generateMap();
         printWelcome();
         if (!rooms.isEmpty()) {
             player.setCurrentRoom(rooms.getFirst()); // Start in de Eerste Kamer
