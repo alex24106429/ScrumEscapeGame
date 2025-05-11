@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+		{
+			"type": "java",
+			"name": "ConsoleUITest",
+			"request": "launch",
+			"mainClass": "com.cgi.scrumescapegame.ConsoleUITest",
+			"projectName": "scrumescape"
+		},
+		{
+			"type": "java",
+			"name": "Run ScrumEscapeGame",
+			"request": "launch",
+			"mainClass": "com.cgi.scrumescapegame.ScrumEscapeGame",
+			"projectName": "scrumescape"
+		}
+	]
+}
