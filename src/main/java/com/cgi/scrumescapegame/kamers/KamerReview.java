@@ -1,5 +1,6 @@
 package com.cgi.scrumescapegame.kamers;
 
+import com.cgi.scrumescapegame.ImagePrinter;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Room;
 
@@ -17,5 +18,6 @@ public class KamerReview extends Room {
                 " Wat is de impact?"
         };
         createSpeechBubble(texts);
+		ImagePrinter.printImage("fish.png");
     }
 }

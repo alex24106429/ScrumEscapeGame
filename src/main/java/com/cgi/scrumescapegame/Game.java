@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import com.diogonunes.jcolor.Ansi;
+import com.diogonunes.jcolor.Attribute;
+
 public class Game {
     private final Player player;
     private final List<Room> rooms;
@@ -155,12 +158,15 @@ public class Game {
         scanner.close();
     }
 
+	public void printlnColor(String text, Attribute colorAttribute) {
+		System.out.println(Ansi.colorize(text, colorAttribute));
+	}
+
     private void printWelcome() {
         ImagePrinter.printImage("logo.png");
         System.out.println("===================================");
-        System.out.println(" Welkom bij Scrum Escape Game!");
+		printlnColor("Welkom bij Scrum Escape Game!", Attribute.BRIGHT_YELLOW_TEXT());
         System.out.println("===================================");
-        System.out.println("Leer Scrum op een speelse manier.");
     }
 
     private void printHelp() {
