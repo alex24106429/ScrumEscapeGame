@@ -5,6 +5,7 @@ import com.cgi.scrumescapegame.kamers.KamerReview;
 import com.cgi.scrumescapegame.kamers.StartKamer;
 
 import java.awt.Point;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -46,10 +47,9 @@ public class Game {
 
 
     public void start() {
-        printWelcome();
-        map.generateMap();
-
-        if (debug) {
+        if(!debug) {
+            clearScreen();
+        } else {
             new Thread(() -> {
                 try {
                     Console.main(new String[]{"-web"});
@@ -58,6 +58,8 @@ public class Game {
                 }
             }).start();
         }
+        printWelcome();
+        map.generateMap();
 
         if (!rooms.isEmpty()) {
             player.setCurrentRoom(rooms.getFirst());
@@ -98,6 +100,23 @@ public class Game {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void clearScreen() {
+        try {
+            // Determine the operating system
+            String os = System.getProperty("os.name").toLowerCase();
+
+            if (os.contains("win")) {
+                // For Windows
+                new ProcessBuilder("cls").inheritIO().start().waitFor();
+            } else {
+                // For Unix
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+        } catch (IOException | InterruptedException e) {
+            if (debug) System.err.println("Error clearing console: " + e.getMessage());
         }
     }
 
