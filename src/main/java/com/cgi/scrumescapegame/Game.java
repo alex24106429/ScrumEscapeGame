@@ -72,8 +72,33 @@ public class Game {
             String input = scanner.nextLine().trim().toLowerCase();
             processInput(input);
         }
-        System.out.println("Bedankt voor het spelen van Scrum Escape Game!");
         scanner.close();
+    }
+
+    public void saveGame() {
+        printlnColor("Gamegegevens opslaan...", Attribute.BRIGHT_YELLOW_TEXT());
+        String jdbcUrl = "jdbc:h2:./scrumescapedb;USER=sa;PASSWORD=sa";
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            conn = DriverManager.getConnection(jdbcUrl);
+            stmt = conn.createStatement();
+            String createTableSql = "CREATE TABLE IF NOT EXISTS game_state (id INT PRIMARY KEY, current_room_index INT, player_lives INT)";
+            stmt.execute(createTableSql);
+            String upsertSql = String.format("MERGE INTO game_state KEY(id) VALUES (1, %d, %d)",
+                    rooms.indexOf(player.getCurrentRoom()), player.getLives());
+            stmt.execute(upsertSql);
+            printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
+        } catch (SQLException e) {
+            System.err.println("Fout bij opslaan van gamegegevens: " + e.getMessage());
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 	public void printlnColor(String text, Attribute colorAttribute) {
@@ -121,34 +146,18 @@ public class Game {
                 System.out.println("Je bent nog nergens!");
             }
         } else if (input.equals("opslaan")) {
-            printlnColor("Gamegegevens opslaan...", Attribute.BRIGHT_YELLOW_TEXT());
-            String jdbcUrl = "jdbc:h2:./scrumescapedb;USER=sa;PASSWORD=sa";
-            Connection conn = null;
-            Statement stmt = null;
-            try {
-                conn = DriverManager.getConnection(jdbcUrl);
-                stmt = conn.createStatement();
-                String createTableSql = "CREATE TABLE IF NOT EXISTS game_state (id INT PRIMARY KEY, current_room_index INT, player_lives INT)";
-                stmt.execute(createTableSql);
-                String upsertSql = String.format("MERGE INTO game_state KEY(id) VALUES (1, %d, %d)",
-                        rooms.indexOf(player.getCurrentRoom()), player.getLives());
-                stmt.execute(upsertSql);
-                printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
-            } catch (SQLException e) {
-                System.err.println("Fout bij opslaan van gamegegevens: " + e.getMessage());
-            } finally {
-                try {
-                    if (stmt != null) stmt.close();
-                    if (conn != null) conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            saveGame();            
         }
         else if (input.equals("help")) {
             printHelp();
         } else if (input.equals("quit")) {
+            printlnColor("Wil je opslaan? ja/nee", Attribute.BRIGHT_RED_TEXT());
+            String option = scanner.nextLine();
+            if (option.equals("ja")) {
+                saveGame();
+            }
             isRunning = false;
+            System.exit(0);
         } else {
             System.out.println("Onbekend commando. Typ 'help' voor een lijst met commando's.");
         }
