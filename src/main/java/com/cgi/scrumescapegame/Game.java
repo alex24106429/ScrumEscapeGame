@@ -77,6 +77,7 @@ public class Game {
         System.out.println("  ga naar kamer [nummer] - Verplaats naar de opgegeven kamer (bv. 'ga naar kamer 1').");
         System.out.println("  status                 - Toon je huidige status en locatie.");
         System.out.println("  kijk rond              - Krijg de beschrijving van de huidige kamer opnieuw.");
+        System.out.println("  opslaan                - Sla de gamegegevens op.");
         System.out.println("  help                   - Toon dit Help bericht.");
         System.out.println("  quit                   - Stop het spel.");
         System.out.println("\nBeschikbare kamers (voor 'ga naar kamer X'):");
@@ -104,9 +105,14 @@ public class Game {
             } else {
                 System.out.println("Je bent nog nergens!");
             }
-        } else if (input.equals("help")) {
+        } else if (input.equals("opslaan")) {
+            printlnColor("Gamegegevens opslaan...", Attribute.BRIGHT_YELLOW_TEXT());
+            // Logica hier
+            printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
+        }
+        else if (input.equals("help")) {
             printHelp();
-        } else if (input.equals("quit") || input.equals("stop")) {
+        } else if (input.equals("quit")) {
             isRunning = false;
         } else {
             System.out.println("Onbekend commando. Typ 'help' voor een lijst met commando's.");
