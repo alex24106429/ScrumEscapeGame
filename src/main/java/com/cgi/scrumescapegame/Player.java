@@ -26,6 +26,10 @@ public class Player {
         return name;
     }
 
+    public int getLives() {
+        return lives;
+    }
+
     public String getStatus() {
 		return
 		Ansi.colorize("[ Speler: " + Ansi.colorize(name, Attribute.BOLD()), Attribute.BRIGHT_YELLOW_TEXT()) + Ansi.colorize(" ] ", Attribute.BRIGHT_YELLOW_TEXT()) +

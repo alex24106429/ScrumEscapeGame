@@ -13,6 +13,11 @@ import java.util.Scanner;
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class Game {
     private final Player player;
     private final List<Room> rooms;
@@ -21,7 +26,7 @@ public class Game {
     private final Map map;
 
     public Game() {
-        this.player = new Player("Avonturier"); // Standaard naam, kan later gevraagd worden
+        this.player = new Player("Avonturier");
         this.rooms = new ArrayList<>();
         this.scanner = new Scanner(System.in);
         this.map = new Map();
@@ -31,13 +36,9 @@ public class Game {
     }
 
     private void initializeRooms() {
-        // Kamer 0 (index 0, maar voor speler kamer 1)
         rooms.add(new StartKamer());
-        // Kamer 1 (index 1, voor speler kamer 2)
         rooms.add(new KamerPlanning());
-        // Kamer 2 (index 2, voor speler kamer 3)
         rooms.add(new KamerReview());
-        // Voeg hier meer kamers toe
     }
 
 
@@ -45,8 +46,8 @@ public class Game {
         printWelcome();
         map.generateMap();
         if (!rooms.isEmpty()) {
-            player.setCurrentRoom(rooms.getFirst()); // Start in de Eerste Kamer
-            player.getCurrentRoom().enterRoom(player); // Roep enterRoom aan voor de initiële kamer
+            player.setCurrentRoom(rooms.getFirst());
+            player.getCurrentRoom().enterRoom(player);
         } else {
             System.out.println("Fout: Geen kamers gedefinieerd. Het spel kan niet starten.");
             isRunning = false;
@@ -107,8 +108,28 @@ public class Game {
             }
         } else if (input.equals("opslaan")) {
             printlnColor("Gamegegevens opslaan...", Attribute.BRIGHT_YELLOW_TEXT());
-            // Logica hier
-            printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
+            String jdbcUrl = "jdbc:h2:./scrumescapedb;USER=sa;PASSWORD=sa";
+            Connection conn = null;
+            Statement stmt = null;
+            try {
+                conn = DriverManager.getConnection(jdbcUrl);
+                stmt = conn.createStatement();
+                String createTableSql = "CREATE TABLE IF NOT EXISTS game_state (id INT PRIMARY KEY, current_room_index INT, player_lives INT)";
+                stmt.execute(createTableSql);
+                String upsertSql = String.format("MERGE INTO game_state KEY(id) VALUES (1, %d, %d)",
+                        rooms.indexOf(player.getCurrentRoom()), player.getLives());
+                stmt.execute(upsertSql);
+                printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
+            } catch (SQLException e) {
+                System.err.println("Fout bij opslaan van gamegegevens: " + e.getMessage());
+            } finally {
+                try {
+                    if (stmt != null) stmt.close();
+                    if (conn != null) conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         else if (input.equals("help")) {
             printHelp();
@@ -120,12 +141,11 @@ public class Game {
     }
 
     private void moveToRoom(int roomNumber) {
-        // Kamernummers zijn 1-based voor de speler, maar 0-based in de lijst
         int roomIndex = roomNumber - 1;
         if (roomIndex >= 0 && roomIndex < rooms.size()) {
             Room targetRoom = rooms.get(roomIndex);
             player.setCurrentRoom(targetRoom);
-            targetRoom.enterRoom(player); // Roep enterRoom aan bij het betreden
+            targetRoom.enterRoom(player);
         } else {
             System.out.println("Ongeldig kamernummer. Kamer " + roomNumber + " bestaat niet.");
             System.out.println("Beschikbare kamers zijn 1 t/m " + rooms.size() + ".");
