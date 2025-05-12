@@ -28,6 +28,7 @@ public class Game {
     private boolean isRunning;
     private final Map map;
     private boolean debug = true;
+    boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
 
     public Game() {
         this.player = new Player("Avonturier");
@@ -47,9 +48,7 @@ public class Game {
 
 
     public void start() {
-        if(!debug) {
-            clearScreen();
-        } else {
+        if(debug) {
             new Thread(() -> {
                 try {
                     Console.main(new String[]{"-web"});
@@ -58,6 +57,7 @@ public class Game {
                 }
             }).start();
         }
+        clearScreen();
         printWelcome();
         map.generateMap();
 
@@ -104,11 +104,10 @@ public class Game {
     }
 
     public void clearScreen() {
-        try {
-            // Determine the operating system
-            String os = System.getProperty("os.name").toLowerCase();
+        if(debug) return;
 
-            if (os.contains("win")) {
+        try {
+            if (isWindows) {
                 // For Windows
                 new ProcessBuilder("cls").inheritIO().start().waitFor();
             } else {
