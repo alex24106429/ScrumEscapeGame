@@ -6,10 +6,7 @@ import com.cgi.scrumescapegame.kamers.StartKamer;
 
 import java.awt.Point;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
@@ -31,7 +28,7 @@ public class Game {
     boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
 
     public Game() {
-        this.player = new Player("Avonturier");
+        this.player = new Player("Avonturier"); // Standaard naam, kan later gevraagd worden
         this.rooms = new ArrayList<>();
         this.scanner = new Scanner(System.in);
         this.map = new Map();
@@ -41,9 +38,21 @@ public class Game {
     }
 
     private void initializeRooms() {
-        rooms.add(new StartKamer());
-        rooms.add(new KamerPlanning());
-        rooms.add(new KamerReview());
+        // Kamer 0 (index 0, maar voor speler kamer 1)
+        rooms.add(new StartKamer(0, 0));
+//        map.getPositions().remove(0);
+
+        Random rand = new Random();
+        for (int i = 1; i < map.getPositions().size(); i++) {
+            int roomType = rand.nextInt(4);
+            switch (roomType) {
+                case 0 -> rooms.add(new KamerPlanning(map.getPositions().get(i).x, map.getPositions().get(i).y));
+                case 1 -> rooms.add(new KamerReview(map.getPositions().get(i).x, map.getPositions().get(i).y));
+                case 2 -> rooms.add(new KamerPlanning(map.getPositions().get(i).x, map.getPositions().get(i).y));
+                case 3 -> rooms.add(new KamerReview(map.getPositions().get(i).x, map.getPositions().get(i).y));
+            }
+        }
+        insertAdjacentRoom();
     }
 
 
@@ -62,8 +71,8 @@ public class Game {
         map.generateMap();
 
         if (!rooms.isEmpty()) {
-            player.setCurrentRoom(rooms.getFirst());
-            player.getCurrentRoom().enterRoom(player);
+            player.setCurrentRoom(rooms.getFirst()); // Start in de Eerste Kamer
+            player.getCurrentRoom().enterRoom(player); // Roep enterRoom aan voor de initiële kamer
         } else {
             System.out.println("Fout: Geen kamers gedefinieerd. Het spel kan niet starten.");
             isRunning = false;
@@ -166,7 +175,7 @@ public class Game {
                 System.out.println("Je bent nog nergens!");
             }
         } else if (input.equals("opslaan")) {
-            saveGame();            
+            saveGame();
         }
         else if (input.equals("help")) {
             printHelp();
@@ -184,6 +193,7 @@ public class Game {
     }
 
     private void moveToRoom(int roomNumber) {
+        // Kamernummers zijn 1-based voor de speler, maar 0-based in de lijst
         int roomIndex = roomNumber - 1;
         if (roomIndex >= 0 && roomIndex < rooms.size()) {
             Room targetRoom = rooms.get(roomIndex);
@@ -194,4 +204,26 @@ public class Game {
             System.out.println("Beschikbare kamers zijn 1 t/m " + rooms.size() + ".");
         }
     }
+    private void insertAdjacentRoom() {
+        for (Room room : rooms) {
+            java.util.Map<String, Boolean> status = map.getAdjacentRoomStatus(room.roomX, room.roomY);
+
+            System.out.println("Kamernummer: " + room.getName());
+            System.out.println(status);
+            // Set adjacent rooms based on the status
+            if (status.get("right")) {
+                room.setAdjacentRoom("right", true);
+            }
+            if (status.get("left")) {
+                room.setAdjacentRoom("left", true);
+            }
+            if (status.get("up")) {
+                room.setAdjacentRoom("up", true);
+            }
+            if (status.get("down")) {
+                room.setAdjacentRoom("down", true);
+            }
+        }
+    }
+
 }

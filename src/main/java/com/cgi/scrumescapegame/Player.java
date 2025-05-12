@@ -35,7 +35,7 @@ public class Player {
     public int getStatusInt() {
         return Progression;
     }
-	
+
 
 
     public String getStatus() {
@@ -46,7 +46,9 @@ public class Player {
 
 		Ansi.colorize("[ Levens: " + getLivesString() + " ] ", Attribute.BRIGHT_RED_TEXT()) +
 
-        	Ansi.colorize("[ Voortgang: " + getStatusInt() + " ] ", Attribute.BRIGHT_GREEN_TEXT());
+        Ansi.colorize("[ Toegankelijke Kamers: " + currentRoom.availableRooms() + " ] ", Attribute.BRIGHT_GREEN_TEXT()) +
+
+        Ansi.colorize("[ Coordianten: " + currentRoom.getCurrentPosition().x + ", " + currentRoom.getCurrentPosition().y + " ]", Attribute.BRIGHT_CYAN_TEXT());
     }
 
 	public String getLivesString() {
