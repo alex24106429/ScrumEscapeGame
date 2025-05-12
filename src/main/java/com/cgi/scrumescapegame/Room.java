@@ -1,15 +1,28 @@
 package com.cgi.scrumescapegame;
 
 import java.awt.Color;
+import java.awt.Point;
+import java.util.HashMap;
+import com.cgi.scrumescapegame.Map;
 
 public abstract class Room {
     protected String name;
     protected String description;
     protected Obstacle obstacle;
+    protected int roomX = 0;
+    protected int roomY = 0;
+    protected HashMap<String, Boolean> adjacentRooms = new HashMap<>();
 
-    public Room(String name, String description) {
+
+    public Room(String name, String description, int roomX, int roomY) {
         this.name = name;
         this.description = description;
+        this.roomX = roomX;
+        this.roomY = roomY;
+    }
+
+    public Point getCurrentPosition() {
+        return new Point(roomX, roomY);
     }
 
     public String getName() {
@@ -48,5 +61,51 @@ public abstract class Room {
         System.out.print(speechBubble);
     }
 
+    public void setAdjacentRoom(String direction, boolean status) {
+        adjacentRooms.put(direction, status);
+    }
+
+    public String availableRooms() {
+
+        StringBuilder availableRooms = new StringBuilder();
+
+        if (adjacentRooms.getOrDefault("up", false)) {
+            availableRooms.append("↑ ");
+        }
+
+        if (adjacentRooms.getOrDefault("left", false)) {
+            availableRooms.append("← ");
+        }
+
+        if (adjacentRooms.getOrDefault("down", false)) {
+            availableRooms.append("↓ ");
+        }
+
+        if (adjacentRooms.getOrDefault("right", false)) {
+            availableRooms.append("→ ");
+        }
+
+        availableRooms.append("( ");
+
+        if (adjacentRooms.getOrDefault("up", false)) {
+            availableRooms.append("W ");
+        }
+
+        if (adjacentRooms.getOrDefault("left", false)) {
+            availableRooms.append("A ");
+        }
+
+        if (adjacentRooms.getOrDefault("down", false)) {
+            availableRooms.append("S ");
+        }
+
+        if (adjacentRooms.getOrDefault("right", false)) {
+            availableRooms.append("D ");
+        }
+
+        availableRooms.append(")");
+
+        return availableRooms.toString();
+    }
 }
 

@@ -2,6 +2,7 @@ package com.cgi.scrumescapegame;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -126,4 +127,42 @@ public class Map {
         }
         return false; // Kamer bestaat niet
     }
+
+    public List<Point> getPositions() {
+        return positions;
+    }
+
+    public java.util.Map<String, Boolean> getAdjacentRoomStatus(int x, int y) {
+        java.util.Map<String, Boolean> adjacentStatus = new java.util.HashMap<>();
+
+        System.out.println("Positions list size: " + positions.size());
+        System.out.println("Positions list contents: " + positions);
+
+        // Default all directions to false before checking
+        adjacentStatus.put("right", false);
+        adjacentStatus.put("left", false);
+        adjacentStatus.put("up", false);
+        adjacentStatus.put("down", false);
+
+        for (Point p : positions) {
+            System.out.println("testing: " + p.x + ", " + p.y);
+            if (p.x == x + 1 && p.y == y) {
+                adjacentStatus.put("right", hasRoom(x + 1, y));
+            }
+            if (p.x == x - 1 && p.y == y) {
+                adjacentStatus.put("left", hasRoom(x - 1, y));
+            }
+            if (p.x == x && p.y == y + 1) {
+                adjacentStatus.put("up", hasRoom(x, y + 1));
+            }
+            if (p.x == x && p.y == y - 1) {
+                adjacentStatus.put("down", hasRoom(x, y - 1));
+            }
+        }
+
+        return adjacentStatus;
+    }
+
+
+
 }
