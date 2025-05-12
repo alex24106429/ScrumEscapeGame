@@ -22,18 +22,16 @@ public class Game {
     private final Player player;
     private final List<Room> rooms;
     private final Scanner scanner;
-    private boolean isRunning;
     private final Map map;
-    private boolean debug = true;
+    public static final boolean debug = true; // Zet dit op false voor de eindversie
     boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
 
     public Game() {
-        this.player = new Player("Avonturier"); // Standaard naam, kan later gevraagd worden
+        this.player = new Player();
         this.rooms = new ArrayList<>();
         this.scanner = new Scanner(System.in);
         this.map = new Map();
         map.generateMapLayout();
-        this.isRunning = true;
         initializeRooms();
     }
 
@@ -57,33 +55,28 @@ public class Game {
 
 
     public void start() {
-        if(debug) {
-            new Thread(() -> {
-                try {
-                    Console.main(new String[]{"-web"});
-                } catch (SQLException e) {
-                    System.err.println("Error starting H2 console: " + e.getMessage());
-                }
-            }).start();
-        }
         clearScreen();
         printWelcome();
         map.generateMap();
+        player.setCurrentRoom(rooms.getFirst());
 
-        if (!rooms.isEmpty()) {
-            player.setCurrentRoom(rooms.getFirst()); // Start in de Eerste Kamer
-            player.getCurrentRoom().enterRoom(player); // Roep enterRoom aan voor de initiële kamer
-        } else {
+        if(!debug) {
+            printColor("Kies een naam: ", Attribute.BRIGHT_YELLOW_TEXT());
+            player.setName(scanner.nextLine());
+        }
+        
+        player.getCurrentRoom().enterRoom(player); // Roep enterRoom aan voor de initiële kamer
+
+        if (rooms.isEmpty()) {
             System.out.println("Fout: Geen kamers gedefinieerd. Het spel kan niet starten.");
-            isRunning = false;
+            System.exit(1);
         }
 
-        while (isRunning) {
+        while (true) {
             System.out.print("\n> ");
             String input = scanner.nextLine().trim().toLowerCase();
             processInput(input);
         }
-        scanner.close();
     }
 
     public void saveGame() {
@@ -130,14 +123,18 @@ public class Game {
         }
     }
 
-	public void printlnColor(String text, Attribute colorAttribute) {
-		System.out.println(Ansi.colorize(text, colorAttribute));
-	}
+    public void printColor(String text, Attribute colorAttribute) {
+        System.out.print(Ansi.colorize(text, colorAttribute));
+    }
+
+    public void printlnColor(String text, Attribute colorAttribute) {
+        System.out.println(Ansi.colorize(text, colorAttribute));
+    }
 
     private void printWelcome() {
         ImagePrinter.printImage("logo.png");
         System.out.println("===================================");
-		printlnColor("Welkom bij Scrum Escape Game!", Attribute.BRIGHT_YELLOW_TEXT());
+        printlnColor("     Welkom bij Scrum Escape!", Attribute.BRIGHT_YELLOW_TEXT());
         System.out.println("===================================");
     }
 
@@ -180,12 +177,13 @@ public class Game {
         else if (input.equals("help")) {
             printHelp();
         } else if (input.equals("quit")) {
+            if (debug) System.exit(0);
+            
             printlnColor("Wil je opslaan? ja/nee", Attribute.BRIGHT_RED_TEXT());
             String option = scanner.nextLine();
             if (option.equals("ja")) {
                 saveGame();
             }
-            isRunning = false;
             System.exit(0);
         } else {
             System.out.println("Onbekend commando. Typ 'help' voor een lijst met commando's.");
