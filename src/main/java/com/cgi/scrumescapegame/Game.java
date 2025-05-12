@@ -106,10 +106,12 @@ public class Game {
     public void clearScreen() {
         if(debug) return;
 
+        System.out.print("\033\143");
+
         try {
             if (isWindows) {
                 // For Windows
-                new ProcessBuilder("cls").inheritIO().start().waitFor();
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
                 // For Unix
                 new ProcessBuilder("clear").inheritIO().start().waitFor();
