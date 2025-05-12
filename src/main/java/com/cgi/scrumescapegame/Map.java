@@ -9,41 +9,56 @@ public class Map {
     private List<Point> positions = new ArrayList<>();
     private int roomCount = 24;
     public void generateMapLayout() {
-        //start room = x1 y1
-        int x = 0;
-        int y = 0;
-        positions.add(new Point(x, y));
+        // Start room at (0,0)
+        positions.add(new Point(0, 0));
+
         Random rand = new Random();
 
-        System.out.println("Kamer beginpositie: (" + x + ", " + y + ")");
-        for (int i = 1; i <= roomCount; i++) {
-            boolean valid = false;
-            while (!valid) {
+        System.out.println("Kamer beginpositie: (0, 0)");
 
-                int prevX = x;
-                int prevY = y;
+        // We need to add 'roomCount' more rooms.
+        // The list starts with 1 room, so we need to reach a size of roomCount + 1.
+        int targetRoomCount = roomCount + 1;
 
-                int result = rand.nextInt(4);
+        // Keep adding rooms until we have the desired total
+        while (positions.size() < targetRoomCount) {
+            boolean roomAddedThisAttempt = false;
+            // This inner loop keeps trying random existing rooms and directions
+            // until a valid position for a *new* room is found.
+            while (!roomAddedThisAttempt) {
+                // 1. Pick a random existing room from the list
+                int randomIndex = rand.nextInt(positions.size());
+                Point baseRoom = positions.get(randomIndex);
 
-                switch (result) {
-                    case 0 -> x++;
-                    case 1 -> y++;
-                    case 2 -> x--;
-                    case 3 -> y--;
+                // 2. Try a random direction (up, down, left, or right) from the chosen room
+                int newX = baseRoom.x;
+                int newY = baseRoom.y;
+                int direction = rand.nextInt(4); // 0: Right, 1: Up, 2: Left, 3: Down
+
+                switch (direction) {
+                    case 0 -> newX++;
+                    case 1 -> newY++;
+                    case 2 -> newX--;
+                    case 3 -> newY--;
                 }
 
-                if (checkAddRoom(x, y)) {
-                    valid = true;
-                    positions.add(new Point(x, y));
-                } else {
-                    x = prevX;
-                    y = prevY;
+                // 3. Check if the potential new position is valid
+                if (checkAddRoom(newX, newY)) {
+                    // 4. If valid, add it to the list and mark success for this room-adding iteration
+                    positions.add(new Point(newX, newY));
+                    roomAddedThisAttempt = true; // Exit the inner while loop
+                    // System.out.println("Added room at (" + newX + ", " + newY + ") adjacent to (" + baseRoom.x + ", " + baseRoom.y + ")"); // Optional debug print
                 }
+                // If checkAddRoom returned false, the inner loop repeats, picking another random existing room and direction.
             }
+            // Once a room is successfully added, the outer while loop continues if the target count hasn't been reached.
         }
-        for  ( int i = 1; i < positions.size(); i++) {
+
+        // Print the positions of all rooms (excluding the start room if matching original output style)
+        // The original code printed rooms 1 to roomCount, which are indices 1 to roomCount in the list.
+         for  ( int i = 1; i < positions.size(); i++) {
             Point p = positions.get(i);
-            System.out.println("Kamer " + (i) + " positie: (" + p.x + ", " + p.y + ")");
+            System.out.println("Kamer " + (i) + " positie: (" + p.x + ", + " + p.y + ")");
         }
     }
 
