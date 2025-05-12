@@ -3,9 +3,9 @@
     "configurations": [
 		{
 			"type": "java",
-			"name": "ConsoleUITest",
+			"name": "H2Connect",
 			"request": "launch",
-			"mainClass": "com.cgi.scrumescapegame.ConsoleUITest",
+			"mainClass": "com.cgi.scrumescapegame.H2Connect",
 			"projectName": "scrumescape"
 		},
 		{
