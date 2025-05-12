@@ -18,12 +18,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.h2.tools.Console;
+
 public class Game {
     private final Player player;
     private final List<Room> rooms;
     private final Scanner scanner;
     private boolean isRunning;
     private final Map map;
+    private boolean debug = true;
 
     public Game() {
         this.player = new Player("Avonturier");
@@ -45,6 +48,17 @@ public class Game {
     public void start() {
         printWelcome();
         map.generateMap();
+
+        if (debug) {
+            new Thread(() -> {
+                try {
+                    Console.main(new String[]{"-web"});
+                } catch (SQLException e) {
+                    System.err.println("Error starting H2 console: " + e.getMessage());
+                }
+            }).start();
+        }
+
         if (!rooms.isEmpty()) {
             player.setCurrentRoom(rooms.getFirst());
             player.getCurrentRoom().enterRoom(player);
