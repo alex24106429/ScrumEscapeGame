@@ -7,11 +7,13 @@ public class Player {
     private final String name;
     private Room currentRoom;
     private int lives;
+    private int Progression;
     // Later: score, inventory, etc.
 
     public Player(String name) {
         this.name = name;
         this.lives = 3; // Standaard levens
+	this.Progression = 0;
     }
 
     public Room getCurrentRoom() {
@@ -30,13 +32,21 @@ public class Player {
         return lives;
     }
 
+    public int getStatusInt() {
+        return Progression;
+    }
+	
+
+
     public String getStatus() {
 		return
 		Ansi.colorize("[ Speler: " + Ansi.colorize(name, Attribute.BOLD()), Attribute.BRIGHT_YELLOW_TEXT()) + Ansi.colorize(" ] ", Attribute.BRIGHT_YELLOW_TEXT()) +
 
 		Ansi.colorize("[ Locatie: " + Ansi.colorize(currentRoom.getName(), Attribute.BOLD()), Attribute.BRIGHT_BLUE_TEXT()) + Ansi.colorize(" ] ", Attribute.BRIGHT_BLUE_TEXT()) +
 
-		Ansi.colorize("[ Levens: " + getLivesString() + " ] ", Attribute.BRIGHT_RED_TEXT());
+		Ansi.colorize("[ Levens: " + getLivesString() + " ] ", Attribute.BRIGHT_RED_TEXT()) +
+
+        	Ansi.colorize("[ Voortgang: " + getStatusInt() + " ] ", Attribute.BRIGHT_GREEN_TEXT());
     }
 
 	public String getLivesString() {
