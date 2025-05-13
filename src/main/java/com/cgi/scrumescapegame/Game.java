@@ -206,8 +206,8 @@ public class Game {
         for (Room room : rooms) {
             java.util.Map<String, Boolean> status = map.getAdjacentRoomStatus(room.roomX, room.roomY);
 
-            System.out.println("Kamernummer: " + room.getName());
-            System.out.println(status);
+            if(Game.debug) System.out.println("Kamernummer: " + room.getName());
+            if(Game.debug) System.out.println(status);
             // Set adjacent rooms based on the status
             if (status.get("right")) {
                 room.setAdjacentRoom("right", true);
