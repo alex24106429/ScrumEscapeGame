@@ -1,9 +1,7 @@
 package com.cgi.scrumescapegame;
 
-import java.io.IOException;
 import java.util.*;
 
-import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
 import com.google.gson.Gson;
 
@@ -24,7 +22,7 @@ public class Game {
     public final static Scanner scanner = new Scanner(System.in);
     private final Map map;
     public static final boolean debug = true; // Zet dit op false voor de eindversie
-    boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
+    public static boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
 
     public Game() {
         this.player = new Player();
@@ -32,7 +30,6 @@ public class Game {
         this.map = new Map();
         map.generateMapLayout();
         initializeRooms();
-        typeText(gson.toJson(player));
     }
 
     private void initializeRooms() {
@@ -55,13 +52,13 @@ public class Game {
 
 
     public void start() {
-        clearScreen();
+        PrintMethods.clearScreen();
         printWelcome();
         map.generateMap();
         player.setCurrentRoom(rooms.getFirst());
 
         if(!debug) {
-            printColor("Kies een naam: ", Attribute.BRIGHT_YELLOW_TEXT());
+            PrintMethods.printColor("Kies een naam: ", Attribute.BRIGHT_YELLOW_TEXT());
             player.setName(scanner.nextLine());
         }
         
@@ -81,7 +78,7 @@ public class Game {
     }
 
     public void saveGame() {
-        printlnColor("Gamegegevens opslaan...", Attribute.BRIGHT_YELLOW_TEXT());
+        PrintMethods.printlnColor("Gamegegevens opslaan...", Attribute.BRIGHT_YELLOW_TEXT());
         String jdbcUrl = "jdbc:h2:./scrumescapedb;USER=sa;PASSWORD=sa";
         Connection conn = null;
         Statement stmt = null;
@@ -93,7 +90,7 @@ public class Game {
             String upsertSql = String.format("MERGE INTO game_state KEY(id) VALUES (1, %d, %d)",
                     rooms.indexOf(player.getCurrentRoom()), player.getLives());
             stmt.execute(upsertSql);
-            printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
+            PrintMethods.printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
         } catch (SQLException e) {
             System.err.println("Fout bij opslaan van gamegegevens: " + e.getMessage());
         } finally {
@@ -106,74 +103,10 @@ public class Game {
         }
     }
 
-    public void clearScreen() {
-        if(debug) return;
-
-        System.out.print("\033\143");
-
-        try {
-            if (isWindows) {
-                // For Windows
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                // For Unix
-                new ProcessBuilder("clear").inheritIO().start().waitFor();
-            }
-        } catch (IOException | InterruptedException e) {
-            if (debug) System.err.println("Error clearing console: " + e.getMessage());
-        }
-    }
-
-    public static void typeText(String text) {
-        Random random = new Random();
-        StringBuilder currentText = new StringBuilder();
-    
-        for (int i = 0; i < text.length(); i++) {
-            char targetChar = text.charAt(i);
-    
-            if (i > 0) {
-                long animationDuration = 30;
-                long switchInterval = 17;
-                long elapsed = 0;
-    
-                while (elapsed < animationDuration) {
-                    char randomChar = (char) (random.nextInt(94) + 33);
-                    System.out.print("\r" + currentText.toString() + randomChar);
-                    System.out.flush();
-    
-                    long sleepTime = switchInterval;
-                    if (elapsed + switchInterval > animationDuration) {
-                        sleepTime = animationDuration - elapsed;
-                    }
-                    
-                    try {
-                        Thread.sleep(sleepTime);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        return;
-                    }
-                    elapsed += sleepTime;
-                }
-            }
-    
-            currentText.append(targetChar);
-            System.out.print("\r" + currentText.toString());
-            System.out.flush();
-        }
-    }
-
-    public void printColor(String text, Attribute colorAttribute) {
-        System.out.print(Ansi.colorize(text, colorAttribute));
-    }
-
-    public void printlnColor(String text, Attribute colorAttribute) {
-        System.out.println(Ansi.colorize(text, colorAttribute));
-    }
-
     private void printWelcome() {
         ImagePrinter.printImage("logo.png");
         System.out.println("===================================");
-        printlnColor("     Welkom bij Scrum Escape!", Attribute.BRIGHT_YELLOW_TEXT());
+        PrintMethods.printlnColor("     Welkom bij Scrum Escape!", Attribute.BRIGHT_YELLOW_TEXT());
         System.out.println("===================================");
     }
 
@@ -205,7 +138,7 @@ public class Game {
         } else if (input.equals("status")) {
             System.out.println(player.getStatus());
         } else if (input.equals("kijk rond")) {
-            printlnColor(player.getCurrentRoom().description, Attribute.BRIGHT_YELLOW_TEXT());
+            PrintMethods.printlnColor(player.getCurrentRoom().description, Attribute.BRIGHT_YELLOW_TEXT());
         } else if (input.equals("opslaan")) {
             saveGame();
         }
@@ -214,7 +147,7 @@ public class Game {
         } else if (input.equals("quit")) {
             if (debug) System.exit(0);
             
-            printlnColor("Wil je opslaan? ja/nee", Attribute.BRIGHT_RED_TEXT());
+            PrintMethods.printlnColor("Wil je opslaan? ja/nee", Attribute.BRIGHT_RED_TEXT());
             String option = scanner.nextLine();
             if (option.equals("ja")) {
                 saveGame();
