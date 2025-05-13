@@ -15,6 +15,6 @@ public class KamerReview extends Room {
     public void enterRoom(Player player) {
         super.enterRoom(player);
         ImagePrinter.printImage(monster.getImagepath());
-        monster.getPuzzle().start();
+        player.changeScore(monster.getPuzzle().start() * 10);
     }
 }
