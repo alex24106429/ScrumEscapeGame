@@ -5,17 +5,14 @@ import java.util.*;
 import com.diogonunes.jcolor.Attribute;
 import com.google.gson.Gson;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import com.cgi.scrumescapegame.kamers.KamerPlanning;
 import com.cgi.scrumescapegame.kamers.KamerReview;
 import com.cgi.scrumescapegame.kamers.StartKamer;
 
 public class Game {
     public final static Gson gson = new Gson();
+
+    public final static DatabaseManager db = new DatabaseManager();
 
     private final Player player;
     private final List<Room> rooms;
@@ -81,28 +78,12 @@ public class Game {
 
     public void saveGame() {
         PrintMethods.printlnColor("Gamegegevens opslaan...", Attribute.BRIGHT_YELLOW_TEXT());
-        String jdbcUrl = "jdbc:h2:./scrumescapedb;USER=sa;PASSWORD=sa";
-        Connection conn = null;
-        Statement stmt = null;
-        try {
-            conn = DriverManager.getConnection(jdbcUrl);
-            stmt = conn.createStatement();
-            String createTableSql = "CREATE TABLE IF NOT EXISTS game_state (id INT PRIMARY KEY, current_room_index INT, player_lives INT)";
-            stmt.execute(createTableSql);
-            String upsertSql = String.format("MERGE INTO game_state KEY(id) VALUES (1, %d, %d)",
-                    rooms.indexOf(player.getCurrentRoom()), player.getLives());
-            stmt.execute(upsertSql);
-            PrintMethods.printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
-        } catch (SQLException e) {
-            System.err.println("Fout bij opslaan van gamegegevens: " + e.getMessage());
-        } finally {
-            try {
-                if (stmt != null) stmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        String createTableSql = "CREATE TABLE IF NOT EXISTS game_state (id INT PRIMARY KEY, current_room_index INT, player_lives INT)";
+        db.executeQuery(createTableSql);
+        String upsertSql = String.format("MERGE INTO game_state KEY(id) VALUES (1, %d, %d)",
+                rooms.indexOf(player.getCurrentRoom()), player.getLives());
+        db.executeQuery(upsertSql);
+        PrintMethods.printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
     }
 
     private void printWelcome() {
