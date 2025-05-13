@@ -21,7 +21,7 @@ import org.h2.tools.Console;
 public class Game {
     private final Player player;
     private final List<Room> rooms;
-    private final Scanner scanner;
+    public final static Scanner scanner = new Scanner(System.in);
     private final Map map;
     public static final boolean debug = true; // Zet dit op false voor de eindversie
     boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
@@ -29,7 +29,6 @@ public class Game {
     public Game() {
         this.player = new Player();
         this.rooms = new ArrayList<>();
-        this.scanner = new Scanner(System.in);
         this.map = new Map();
         map.generateMapLayout();
         initializeRooms();
@@ -73,6 +72,7 @@ public class Game {
         }
 
         while (true) {
+            // if(!scanner.hasNextLine()) continue;
             System.out.print("\n> ");
             String input = scanner.nextLine().trim().toLowerCase();
             processInput(input);
