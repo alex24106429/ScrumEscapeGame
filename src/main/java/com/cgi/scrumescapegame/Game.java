@@ -69,6 +69,8 @@ public class Game {
             System.exit(1);
         }
 
+        if(debug) printBeschikbareKamers();
+
         while (true) {
             // if(!scanner.hasNextLine()) continue;
             System.out.print("\n> ");
@@ -110,18 +112,22 @@ public class Game {
         System.out.println("===================================");
     }
 
-    private void printHelp() {
-        System.out.println("\nBeschikbare commando's:");
-        System.out.println("  ga naar kamer [nummer] - Verplaats naar de opgegeven kamer (bv. 'ga naar kamer 1').");
-        System.out.println("  status                 - Toon je huidige status en locatie.");
-        System.out.println("  kijk rond              - Krijg de beschrijving van de huidige kamer opnieuw.");
-        System.out.println("  opslaan                - Sla de gamegegevens op.");
-        System.out.println("  help                   - Toon dit Help bericht.");
-        System.out.println("  quit                   - Stop het spel.");
-        System.out.println("\nBeschikbare kamers (voor 'ga naar kamer X'):");
+    private void printBeschikbareKamers() {
+        PrintMethods.printlnColor("\nBeschikbare kamers (voor 'ga naar kamer X'):", Attribute.BOLD());
         for (int i = 0; i < rooms.size(); i++) {
             System.out.println("  Kamer " + (i + 1) + ": " + rooms.get(i).getName());
         }
+    }
+
+    private void printHelp() {
+        PrintMethods.printlnColor("Beschikbare commando's:", Attribute.BOLD());
+        System.out.println("  ga naar kamer [nummer] - Verplaats naar de opgegeven kamer (bv. 'ga naar kamer 1').");
+        System.out.println("  status                 - Toon je huidige status en locatie.");
+        System.out.println("  kijk rond              - Krijg de beschrijving van de huidige kamer opnieuw.");
+        System.out.println("  kamers                 - Toon een lijst van beschikbare kamers.");
+        System.out.println("  opslaan                - Sla de gamegegevens op.");
+        System.out.println("  help                   - Toon dit Help bericht.");
+        System.out.println("  quit                   - Stop het spel.");
     }
 
     private void processInput(String input) {
@@ -139,6 +145,8 @@ public class Game {
             player.printStatus();
         } else if (input.equals("kijk rond")) {
             PrintMethods.printlnColor(player.getCurrentRoom().description, Attribute.BRIGHT_YELLOW_TEXT());
+        } else if (input.equals("kamers")) {
+            printBeschikbareKamers();
         } else if (input.equals("opslaan")) {
             saveGame();
         }
