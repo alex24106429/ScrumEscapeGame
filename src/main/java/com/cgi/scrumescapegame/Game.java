@@ -23,7 +23,7 @@ public class Game {
     private final List<Room> rooms;
     public final static Scanner scanner = new Scanner(System.in);
     private final Map map;
-    public static final boolean debug = true; // Zet dit op false voor de eindversie
+    public static final boolean debug = false; // Zet dit op false voor de eindversie
     boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
 
     public Game() {
@@ -166,11 +166,7 @@ public class Game {
         } else if (input.equals("status")) {
             System.out.println(player.getStatus());
         } else if (input.equals("kijk rond")) {
-            if (player.getCurrentRoom() != null) {
-                player.getCurrentRoom().enterRoom(player);
-            } else {
-                System.out.println("Je bent nog nergens!");
-            }
+            printlnColor(player.getCurrentRoom().description, Attribute.BRIGHT_YELLOW_TEXT());
         } else if (input.equals("opslaan")) {
             saveGame();
         }
