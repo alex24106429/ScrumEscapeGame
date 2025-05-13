@@ -136,7 +136,7 @@ public class Game {
                 System.out.println("Die kamer bestaat niet. Typ 'help' om beschikbare kamers te zien.");
             }
         } else if (input.equals("status")) {
-            System.out.println(player.getStatus());
+            player.printStatus();
         } else if (input.equals("kijk rond")) {
             PrintMethods.printlnColor(player.getCurrentRoom().description, Attribute.BRIGHT_YELLOW_TEXT());
         } else if (input.equals("opslaan")) {

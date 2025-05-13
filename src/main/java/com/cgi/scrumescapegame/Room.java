@@ -39,7 +39,7 @@ public abstract class Room {
         // System.out.println("\n--- " + getName() + " ---");
 		TextToImageRenderer.printGradientText(getName(), new Color(255, 255, 255), new Color(127, 127, 127), new Color(63, 63, 63), new Color(31, 31, 31), 2, true, false);
         PrintMethods.typeText(getDescription());
-        System.out.println(player.getStatus());
+        player.printStatus();
     }
 
     public void createSpeechBubble(String[] texts) {
