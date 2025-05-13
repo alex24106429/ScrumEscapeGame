@@ -1,36 +1,25 @@
 package com.cgi.scrumescapegame.obstacles;
 
-import com.cgi.scrumescapegame.MonsterAction;
+import java.util.Arrays;
+
 import com.cgi.scrumescapegame.Obstacle;
-import com.cgi.scrumescapegame.Player;
+import com.cgi.scrumescapegame.vragen.MeerkeuzeVraag;
+import com.cgi.scrumescapegame.Puzzle;
 
 public class ReviewMonster implements Obstacle {
-    public boolean isOvercome;
-    private String vraag;
-    private String imagepath;
+    public final Puzzle puzzle;
+    private static final String imagepath = "reviewmonster.png";
 
-    public ReviewMonster(String imagepath, String vraag){
-        this.imagepath = imagepath;
-        this.vraag = vraag;
+    public ReviewMonster() {
+        puzzle = new Puzzle();
+        puzzle.addQuestion(new MeerkeuzeVraag("Dit is een test vraag voor de review monster.", Arrays.asList("Optie A (correct)", "Optie B", "Optie C", "Optie D"), 0));
     }
 
-    public boolean getIsOvercome(){
-        return isOvercome;
+    public Puzzle getPuzzle() {
+        return this.puzzle;
     }
 
-    public void setIsOvercome(boolean isOvercome){
-        this.isOvercome = isOvercome;
-    }
-
-    public String getImagepath(){
+    public String getImagepath() {
         return imagepath;
-    }
-
-    public String getVraag(){
-        return vraag;
-    }
-
-    public void attempt(Player p){
-        System.out.println("ReviewMonster is hier!");
     }
 }
