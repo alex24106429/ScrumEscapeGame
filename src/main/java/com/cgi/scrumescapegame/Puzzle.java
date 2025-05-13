@@ -17,15 +17,13 @@ public class Puzzle {
         this.vragen.add(vraag);
     }
 
-    public void start() {
+    public int start() {
         if (vragen.isEmpty()) {
             System.out.println("De puzzle bevat nog geen vragen.");
-            return;
+            return 0;
         }
 
         Scanner scanner = Game.scanner;
-        System.out.println("Welkom bij de Puzzle!");
-        System.out.println("----------------------");
 
         for (int i = 0; i < vragen.size(); i++) {
             Vraag huidigeVraag = vragen.get(i);
@@ -46,5 +44,7 @@ public class Puzzle {
 
         System.out.println("\nPuzzle voltooid!");
         System.out.println("Uw score: " + score + " van de " + vragen.size() + " vragen correct.");
+
+        return score;
     }
 }
