@@ -1,17 +1,17 @@
 package com.cgi.scrumescapegame.vragen;
 
+import com.cgi.scrumescapegame.PrintMethods;
 import com.cgi.scrumescapegame.Vraag;
+import com.diogonunes.jcolor.Attribute;
 
 import java.util.List;
 
 public class Matching implements Vraag {
-    private String tekst;
     private List<String> optiesL;
     private List<String> optiesR;
     private List<String> correcteAntwoorden;
 
-    public Matching(String tekst, List<String> optiesL, List<String> optiesR, List<String> correcteAntwoorden) {
-        this.tekst = tekst;
+    public Matching(List<String> optiesL, List<String> optiesR, List<String> correcteAntwoorden) {
         this.optiesL = optiesL;
         this.optiesR = optiesR;
         this.correcteAntwoorden = correcteAntwoorden;
@@ -19,15 +19,19 @@ public class Matching implements Vraag {
 
     @Override
     public String getTekst() {
-        return tekst;
+        return "Match de volgende termen:";
     }
 
     @Override
     public void toonVraag() {
-        System.out.println(tekst);
+        System.out.println("Match de volgende termen:");
         for (int i = 0; i < optiesL.size(); i++) {
-                System.out.print((char) ('1' + i) + ".      " + optiesL.get(i));
-                System.out.println((char) ('A' + i) + ". " + optiesR.get(i));
+            if(optiesL.get(i).length() > 40) {
+                PrintMethods.printlnColor(i + 1 + ". " + optiesL.get(i), Attribute.BRIGHT_CYAN_TEXT());
+            } else {
+                PrintMethods.printColor(i + 1 + ". " + String.format("%-40s", optiesL.get(i)), Attribute.BRIGHT_CYAN_TEXT());
+            }
+            PrintMethods.printlnColor((char) ('A' + i) + ". " + optiesR.get(i), Attribute.BRIGHT_GREEN_TEXT());
         }
         System.out.print("Uw antwoord (1A, 2B, 3C etc...): ");
     }
