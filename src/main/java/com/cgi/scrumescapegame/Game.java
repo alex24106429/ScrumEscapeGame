@@ -1,24 +1,24 @@
 package com.cgi.scrumescapegame;
 
-import com.cgi.scrumescapegame.kamers.KamerPlanning;
-import com.cgi.scrumescapegame.kamers.KamerReview;
-import com.cgi.scrumescapegame.kamers.StartKamer;
-
-import java.awt.Point;
 import java.io.IOException;
 import java.util.*;
 
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
+import com.google.gson.Gson;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.h2.tools.Console;
+import com.cgi.scrumescapegame.kamers.KamerPlanning;
+import com.cgi.scrumescapegame.kamers.KamerReview;
+import com.cgi.scrumescapegame.kamers.StartKamer;
 
 public class Game {
+    public final static Gson gson = new Gson();
+
     private final Player player;
     private final List<Room> rooms;
     public final static Scanner scanner = new Scanner(System.in);
@@ -32,6 +32,7 @@ public class Game {
         this.map = new Map();
         map.generateMapLayout();
         initializeRooms();
+        typeText(gson.toJson(player));
     }
 
     private void initializeRooms() {
@@ -120,6 +121,44 @@ public class Game {
             }
         } catch (IOException | InterruptedException e) {
             if (debug) System.err.println("Error clearing console: " + e.getMessage());
+        }
+    }
+
+    public static void typeText(String text) {
+        Random random = new Random();
+        StringBuilder currentText = new StringBuilder();
+    
+        for (int i = 0; i < text.length(); i++) {
+            char targetChar = text.charAt(i);
+    
+            if (i > 0) {
+                long animationDuration = 30;
+                long switchInterval = 17;
+                long elapsed = 0;
+    
+                while (elapsed < animationDuration) {
+                    char randomChar = (char) (random.nextInt(94) + 33);
+                    System.out.print("\r" + currentText.toString() + randomChar);
+                    System.out.flush();
+    
+                    long sleepTime = switchInterval;
+                    if (elapsed + switchInterval > animationDuration) {
+                        sleepTime = animationDuration - elapsed;
+                    }
+                    
+                    try {
+                        Thread.sleep(sleepTime);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        return;
+                    }
+                    elapsed += sleepTime;
+                }
+            }
+    
+            currentText.append(targetChar);
+            System.out.print("\r" + currentText.toString());
+            System.out.flush();
         }
     }
 

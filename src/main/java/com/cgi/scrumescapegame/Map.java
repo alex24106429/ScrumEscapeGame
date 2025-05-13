@@ -59,7 +59,7 @@ public class Map {
         // The original code printed rooms 1 to roomCount, which are indices 1 to roomCount in the list.
          for  ( int i = 1; i < positions.size(); i++) {
             Point p = positions.get(i);
-            System.out.println("Kamer " + (i) + " positie: (" + p.x + ", + " + p.y + ")");
+            if(Game.debug) System.out.println("Kamer " + (i) + " positie: (" + p.x + ", + " + p.y + ")");
         }
     }
 
@@ -135,8 +135,8 @@ public class Map {
     public java.util.Map<String, Boolean> getAdjacentRoomStatus(int x, int y) {
         java.util.Map<String, Boolean> adjacentStatus = new java.util.HashMap<>();
 
-        System.out.println("Positions list size: " + positions.size());
-        System.out.println("Positions list contents: " + positions);
+        if(Game.debug) System.out.println("Positions list size: " + positions.size());
+        if(Game.debug) System.out.println("Positions list contents: " + positions);
 
         // Default all directions to false before checking
         adjacentStatus.put("right", false);
@@ -145,7 +145,7 @@ public class Map {
         adjacentStatus.put("down", false);
 
         for (Point p : positions) {
-            System.out.println("testing: " + p.x + ", " + p.y);
+            if(Game.debug) System.out.println("testing: " + p.x + ", " + p.y);
             if (p.x == x + 1 && p.y == y) {
                 adjacentStatus.put("right", hasRoom(x + 1, y));
             }

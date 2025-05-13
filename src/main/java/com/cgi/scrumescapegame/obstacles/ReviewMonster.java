@@ -1,6 +1,5 @@
 package com.cgi.scrumescapegame.obstacles;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.cgi.scrumescapegame.Obstacle;
