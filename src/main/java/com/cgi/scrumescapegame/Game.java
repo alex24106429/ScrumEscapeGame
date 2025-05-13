@@ -23,7 +23,7 @@ public class Game {
     private final List<Room> rooms;
     public final static Scanner scanner = new Scanner(System.in);
     private final Map map;
-    public static final boolean debug = false; // Zet dit op false voor de eindversie
+    public static final boolean debug = true; // Zet dit op false voor de eindversie
     boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
 
     public Game() {
