@@ -94,6 +94,7 @@ public class Player {
             lives--;
             System.out.println(Ansi.colorize("Je hebt een leven verloren! Je hebt nog " + lives + " levens over.",
                     Attribute.BRIGHT_RED_TEXT()));
+            System.out.println(getStatus());
         } else {
             System.out.println(Ansi.colorize("Game over! Je hebt geen levens meer.", Attribute.BRIGHT_RED_TEXT()));
         }

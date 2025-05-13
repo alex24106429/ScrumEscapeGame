@@ -17,10 +17,10 @@ public class Puzzle {
         this.vragen.add(vraag);
     }
 
-    public int start() {
+    public void start(Player player) {
         if (vragen.isEmpty()) {
             System.out.println("De puzzle bevat nog geen vragen.");
-            return 0;
+            return;
         }
 
         Scanner scanner = Game.scanner;
@@ -38,6 +38,7 @@ public class Puzzle {
             } else {
                 System.out.println("Helaas, dat is niet correct.");
                 System.out.println("Het juiste antwoord was: " + huidigeVraag.getCorrectAntwoord());
+                player.loseLife();
             }
             System.out.println("----------------------");
         }
@@ -45,6 +46,6 @@ public class Puzzle {
         System.out.println("\nPuzzle voltooid!");
         System.out.println("Uw score: " + score + " van de " + vragen.size() + " vragen correct.");
 
-        return score;
+        player.changeScore(score * 10);
     }
 }
