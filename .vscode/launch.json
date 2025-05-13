@@ -3,17 +3,11 @@
     "configurations": [
 		{
 			"type": "java",
-			"name": "H2Connect",
-			"request": "launch",
-			"mainClass": "com.cgi.scrumescapegame.H2Connect",
-			"projectName": "scrumescape"
-		},
-		{
-			"type": "java",
 			"name": "Run ScrumEscapeGame",
 			"request": "launch",
 			"mainClass": "com.cgi.scrumescapegame.ScrumEscapeGame",
-			"projectName": "scrumescape"
+			"projectName": "scrumescape",
+			"console": "integratedTerminal"
 		}
 	]
 }
