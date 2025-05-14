@@ -44,7 +44,7 @@ public class Player {
         return this.score += amount;
     }
 
-    public String getStatus() {
+    public void printStatus() {
         String output = "";
         // Speler naam
         output += Ansi.colorize("[ Speler: " + Ansi.colorize(name, Attribute.BOLD()), Attribute.BRIGHT_CYAN_TEXT())
@@ -71,7 +71,7 @@ public class Player {
         Ansi.colorize("[ Coordianten: " + Ansi.colorize(currentRoom.getCurrentPosition().x + ", " + currentRoom.getCurrentPosition().y,
         Attribute.BOLD()), Attribute.BRIGHT_CYAN_TEXT()) + Ansi.colorize(" ] ", Attribute.BRIGHT_CYAN_TEXT());
 
-        return output;
+        System.out.println(output);
     }
 
     public String getLivesString() {
@@ -85,28 +85,22 @@ public class Player {
         return output.trim();
     }
 
-    public void showLives() {
-        System.out.println(Ansi.colorize(getLivesString(), Attribute.BRIGHT_RED_TEXT()));
-    }
-
     public void loseLife() {
         if (lives > 0) {
             lives--;
-            System.out.println(Ansi.colorize("Je hebt een leven verloren! Je hebt nog " + lives + " levens over.",
-                    Attribute.BRIGHT_RED_TEXT()));
-            System.out.println(getStatus());
+            PrintMethods.printlnColor("Je hebt een leven verloren! Je hebt nog " + lives + " levens over.", Attribute.BRIGHT_RED_TEXT());
+            printStatus();
         } else {
-            System.out.println(Ansi.colorize("Game over! Je hebt geen levens meer.", Attribute.BRIGHT_RED_TEXT()));
+            PrintMethods.printlnColor("Game over! Je hebt geen levens meer.", Attribute.BRIGHT_RED_TEXT());
         }
     }
 
     public void gainLife() {
         if (lives < 3) {
             lives++;
-            System.out.println(Ansi.colorize("Je hebt een leven gewonnen! Je hebt nu " + lives + " levens.",
-                    Attribute.BRIGHT_GREEN_TEXT()));
+            PrintMethods.printlnColor("Je hebt een leven gewonnen! Je hebt nu " + lives + " levens.", Attribute.BRIGHT_GREEN_TEXT());
         } else {
-            System.out.println(Ansi.colorize("Je hebt al het maximale aantal levens.", Attribute.BRIGHT_GREEN_TEXT()));
+            PrintMethods.printlnColor("Je hebt al het maximale aantal levens.", Attribute.BRIGHT_GREEN_TEXT());
         }
     }
 }

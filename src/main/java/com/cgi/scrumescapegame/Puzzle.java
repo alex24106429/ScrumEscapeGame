@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.diogonunes.jcolor.Attribute;
+
 public class Puzzle {
     private final List<Vraag> vragen;
     private int score;
@@ -27,7 +29,7 @@ public class Puzzle {
 
         for (int i = 0; i < vragen.size(); i++) {
             Vraag huidigeVraag = vragen.get(i);
-            System.out.println("\nVraag " + (i + 1) + " van " + vragen.size() + ":");
+            PrintMethods.printlnColor("Vraag " + (i + 1) + " van " + vragen.size() + ":", Attribute.BOLD());
             huidigeVraag.toonVraag(); 
 
             String gebruikersAntwoord = scanner.nextLine();

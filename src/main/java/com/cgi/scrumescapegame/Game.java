@@ -1,30 +1,25 @@
 package com.cgi.scrumescapegame;
 
+import java.util.*;
+
+import com.diogonunes.jcolor.Attribute;
+import com.google.gson.Gson;
+
 import com.cgi.scrumescapegame.kamers.KamerPlanning;
 import com.cgi.scrumescapegame.kamers.KamerReview;
 import com.cgi.scrumescapegame.kamers.StartKamer;
 
-import java.awt.Point;
-import java.io.IOException;
-import java.util.*;
-
-import com.diogonunes.jcolor.Ansi;
-import com.diogonunes.jcolor.Attribute;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import org.h2.tools.Console;
-
 public class Game {
+    public final static Gson gson = new Gson();
+
+    public final static DatabaseManager db = new DatabaseManager();
+
     private final Player player;
     private final List<Room> rooms;
     public final static Scanner scanner = new Scanner(System.in);
     private final Map map;
     public static final boolean debug = true; // Zet dit op false voor de eindversie
-    boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
+    public static boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
 
     public Game() {
         this.player = new Player();
@@ -54,13 +49,13 @@ public class Game {
 
 
     public void start() {
-        clearScreen();
+        PrintMethods.clearScreen();
         printWelcome();
         map.generateMap();
         player.setCurrentRoom(rooms.getFirst());
 
         if(!debug) {
-            printColor("Kies een naam: ", Attribute.BRIGHT_YELLOW_TEXT());
+            PrintMethods.printColor("Kies een naam: ", Attribute.BRIGHT_YELLOW_TEXT());
             player.setName(scanner.nextLine());
         }
         
@@ -71,6 +66,8 @@ public class Game {
             System.exit(1);
         }
 
+        if(debug) printBeschikbareKamers();
+
         while (true) {
             // if(!scanner.hasNextLine()) continue;
             System.out.print("\n> ");
@@ -80,76 +77,38 @@ public class Game {
     }
 
     public void saveGame() {
-        printlnColor("Gamegegevens opslaan...", Attribute.BRIGHT_YELLOW_TEXT());
-        String jdbcUrl = "jdbc:h2:./scrumescapedb;USER=sa;PASSWORD=sa";
-        Connection conn = null;
-        Statement stmt = null;
-        try {
-            conn = DriverManager.getConnection(jdbcUrl);
-            stmt = conn.createStatement();
-            String createTableSql = "CREATE TABLE IF NOT EXISTS game_state (id INT PRIMARY KEY, current_room_index INT, player_lives INT)";
-            stmt.execute(createTableSql);
-            String upsertSql = String.format("MERGE INTO game_state KEY(id) VALUES (1, %d, %d)",
-                    rooms.indexOf(player.getCurrentRoom()), player.getLives());
-            stmt.execute(upsertSql);
-            printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
-        } catch (SQLException e) {
-            System.err.println("Fout bij opslaan van gamegegevens: " + e.getMessage());
-        } finally {
-            try {
-                if (stmt != null) stmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void clearScreen() {
-        if(debug) return;
-
-        System.out.print("\033\143");
-
-        try {
-            if (isWindows) {
-                // For Windows
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                // For Unix
-                new ProcessBuilder("clear").inheritIO().start().waitFor();
-            }
-        } catch (IOException | InterruptedException e) {
-            if (debug) System.err.println("Error clearing console: " + e.getMessage());
-        }
-    }
-
-    public void printColor(String text, Attribute colorAttribute) {
-        System.out.print(Ansi.colorize(text, colorAttribute));
-    }
-
-    public void printlnColor(String text, Attribute colorAttribute) {
-        System.out.println(Ansi.colorize(text, colorAttribute));
+        PrintMethods.printlnColor("Gamegegevens opslaan...", Attribute.BRIGHT_YELLOW_TEXT());
+        String createTableSql = "CREATE TABLE IF NOT EXISTS game_state (id INT PRIMARY KEY, current_room_index INT, player_lives INT)";
+        db.executeQuery(createTableSql);
+        String upsertSql = String.format("MERGE INTO game_state KEY(id) VALUES (1, %d, %d)",
+                rooms.indexOf(player.getCurrentRoom()), player.getLives());
+        db.executeQuery(upsertSql);
+        PrintMethods.printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
     }
 
     private void printWelcome() {
         ImagePrinter.printImage("logo.png");
         System.out.println("===================================");
-        printlnColor("     Welkom bij Scrum Escape!", Attribute.BRIGHT_YELLOW_TEXT());
+        PrintMethods.printlnColor("     Welkom bij Scrum Escape!", Attribute.BRIGHT_YELLOW_TEXT());
         System.out.println("===================================");
     }
 
-    private void printHelp() {
-        System.out.println("\nBeschikbare commando's:");
-        System.out.println("  ga naar kamer [nummer] - Verplaats naar de opgegeven kamer (bv. 'ga naar kamer 1').");
-        System.out.println("  status                 - Toon je huidige status en locatie.");
-        System.out.println("  kijk rond              - Krijg de beschrijving van de huidige kamer opnieuw.");
-        System.out.println("  opslaan                - Sla de gamegegevens op.");
-        System.out.println("  help                   - Toon dit Help bericht.");
-        System.out.println("  quit                   - Stop het spel.");
-        System.out.println("\nBeschikbare kamers (voor 'ga naar kamer X'):");
+    private void printBeschikbareKamers() {
+        PrintMethods.printlnColor("\nBeschikbare kamers (voor 'ga naar kamer X'):", Attribute.BOLD());
         for (int i = 0; i < rooms.size(); i++) {
             System.out.println("  Kamer " + (i + 1) + ": " + rooms.get(i).getName());
         }
+    }
+
+    private void printHelp() {
+        PrintMethods.printlnColor("Beschikbare commando's:", Attribute.BOLD());
+        System.out.println("  ga naar kamer [nummer] - Verplaats naar de opgegeven kamer (bv. 'ga naar kamer 1').");
+        System.out.println("  status                 - Toon je huidige status en locatie.");
+        System.out.println("  kijk rond              - Krijg de beschrijving van de huidige kamer opnieuw.");
+        System.out.println("  kamers                 - Toon een lijst van beschikbare kamers.");
+        System.out.println("  opslaan                - Sla de gamegegevens op.");
+        System.out.println("  help                   - Toon dit Help bericht.");
+        System.out.println("  quit                   - Stop het spel.");
     }
 
     private void processInput(String input) {
@@ -164,9 +123,11 @@ public class Game {
                 System.out.println("Die kamer bestaat niet. Typ 'help' om beschikbare kamers te zien.");
             }
         } else if (input.equals("status")) {
-            System.out.println(player.getStatus());
+            player.printStatus();
         } else if (input.equals("kijk rond")) {
-            printlnColor(player.getCurrentRoom().description, Attribute.BRIGHT_YELLOW_TEXT());
+            PrintMethods.printlnColor(player.getCurrentRoom().description, Attribute.BRIGHT_YELLOW_TEXT());
+        } else if (input.equals("kamers")) {
+            printBeschikbareKamers();
         } else if (input.equals("opslaan")) {
             saveGame();
         }
@@ -175,7 +136,7 @@ public class Game {
         } else if (input.equals("quit")) {
             if (debug) System.exit(0);
             
-            printlnColor("Wil je opslaan? ja/nee", Attribute.BRIGHT_RED_TEXT());
+            PrintMethods.printlnColor("Wil je opslaan? ja/nee", Attribute.BRIGHT_RED_TEXT());
             String option = scanner.nextLine();
             if (option.equals("ja")) {
                 saveGame();
