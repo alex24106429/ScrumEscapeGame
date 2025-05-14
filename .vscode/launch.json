@@ -3,6 +3,14 @@
     "configurations": [
 		{
 			"type": "java",
+			"name": "LlamaExample",
+			"request": "launch",
+			"mainClass": "com.cgi.scrumescapegame.LlamaExample",
+			"projectName": "scrumescape",
+			"vmArgs": "--enable-preview --add-modules jdk.incubator.vector"
+		},
+		{
+			"type": "java",
 			"name": "Run ScrumEscapeGame",
 			"request": "launch",
 			"mainClass": "com.cgi.scrumescapegame.ScrumEscapeGame",
