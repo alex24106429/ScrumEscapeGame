@@ -34,5 +34,11 @@ build/
 ### Mac OS ###
 .DS_Store
 
-### Database ##
+### Database ###
 *.db
+
+### LLMs ###
+*.gguf
+
+### Downloads ###
+*.part
