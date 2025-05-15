@@ -5,7 +5,6 @@ import java.util.*;
 import com.diogonunes.jcolor.Attribute;
 import com.google.gson.Gson;
 
-import com.cgi.scrumescapegame.kamers.KamerPlanning;
 import com.cgi.scrumescapegame.kamers.KamerReview;
 import com.cgi.scrumescapegame.kamers.StartKamer;
 
