@@ -8,7 +8,7 @@ import com.cgi.scrumescapegame.Puzzle;
 
 public class StartKamerMonster implements Obstacle {
     public final Puzzle puzzle;
-    private static final String imagepath = "reviewmonster.png";
+    private static final String imagepath = "monsters/reviewmonster.png";
 
     public StartKamerMonster() {
         puzzle = new Puzzle();

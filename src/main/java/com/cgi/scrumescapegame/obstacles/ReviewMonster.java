@@ -10,7 +10,7 @@ import com.cgi.scrumescapegame.vragen.OpenVraag;
 
 public class ReviewMonster implements Obstacle {
     public final Puzzle puzzle;
-    private static final String imagepath = "reviewmonster.png";
+    private static final String imagepath = "monsters/reviewmonster.png";
 
     public ReviewMonster() {
         puzzle = new Puzzle();
