@@ -11,53 +11,101 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 
 public class LlamaExample {
 
     public static void main(String[] args) {
-        String modelResourcePath = "/Llama-3.2-1B-Instruct-Q4_0.gguf"; // https://huggingface.co/mukel/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q4_0.gguf
+        String modelResourcePath = "/Llama-3.2-1B-Instruct-Q4_0.gguf"; 
         int contextLength = 2048;
-        int maxTokens = 128;
-        float temperature = 0.8f; // Deterministic sampling
-        float topp = 0.95f; // Wordt niet gebruikt als temperature 0 is
+        int maxTokensToGenerate = 256; 
+        float temperature = 0.7f;
+        float topp = 0.9f;
 
-        try (InputStream modelStream = LlamaExample.class.getResourceAsStream(modelResourcePath)) {
+        try (InputStream modelStream = LlamaExample.class.getResourceAsStream(modelResourcePath);
+             Scanner userInputScanner = new Scanner(System.in)) {
+
             if (modelStream == null) {
                 System.err.println("Model resource not found: " + modelResourcePath);
+                System.err.println("Please ensure the model file is in your resources directory (e.g., src/main/resources)");
+                System.err.println("And the path starts with a '/' if it's at the root of resources.");
                 return;
             }
 
-            // Load the model from the InputStream
+            System.out.println("Loading model... This might take a moment.");
             Llama model = ModelLoader.loadModel(modelStream, contextLength, true);
+            System.out.println("Model loaded.");
 
-            // Create a new state for the model
-            Llama.State state = model.createNewState(1); // Batch size 1 for simplicity
+            Llama.State state = model.createNewState(1); 
 
-            // Prepare the prompt
             Tokenizer tokenizer = model.tokenizer();
             ChatFormat chatFormat = new ChatFormat(tokenizer);
-            List<Integer> promptTokens = new ArrayList<>();
-            promptTokens.add(chatFormat.beginOfText);
-            promptTokens.addAll(chatFormat.encodeMessage(new ChatFormat.Message(ChatFormat.Role.USER, "Vertel me een kort verhaal over een software engineer.")));
-            promptTokens.addAll(chatFormat.encodeHeader(new ChatFormat.Message(ChatFormat.Role.ASSISTANT, "")));
-
-            // Select a sampler
             Sampler sampler = Llama3.selectSampler(model.configuration().vocabularySize, temperature, topp, System.nanoTime());
-
-            // Generate tokens
             Set<Integer> stopTokens = chatFormat.getStopTokens();
-            List<Integer> responseTokens = Llama.generateTokens(model, state, 0, promptTokens, stopTokens, maxTokens, sampler, false, token -> {
-                // Optional: Process streamed tokens here if needed
-            });
 
-            // Decode and print the response
-            String responseText = tokenizer.decode(responseTokens);
-            System.out.println("Generated Response:");
-            System.out.println(responseText);
+            List<ChatFormat.Message> conversationHistory = new ArrayList<>();
+
+            System.out.println("Chat with the LLM! Type 'quit' or 'exit' to end.");
+
+            while (true) {
+                System.out.print("\nYou: ");
+                String userMessageContent = userInputScanner.nextLine();
+
+                if (userMessageContent.equalsIgnoreCase("quit") || userMessageContent.equalsIgnoreCase("exit")) {
+                    System.out.println("Exiting chat.");
+                    break;
+                }
+
+                conversationHistory.add(new ChatFormat.Message(ChatFormat.Role.USER, userMessageContent));
+
+                List<Integer> promptTokens = new ArrayList<>();
+                promptTokens.add(chatFormat.beginOfText); 
+
+                for (ChatFormat.Message msg : conversationHistory) {
+                    promptTokens.addAll(chatFormat.encodeMessage(msg));
+                }
+
+                promptTokens.addAll(chatFormat.encodeHeader(new ChatFormat.Message(ChatFormat.Role.ASSISTANT, "")));
+
+                if (promptTokens.size() >= contextLength - maxTokensToGenerate) {
+                    System.err.println("\n[Warning] Conversation history is getting long and might exceed context window.");
+
+                }
+
+                System.out.print("Assistant: ");
+                StringBuilder assistantResponseBuilder = new StringBuilder();
+
+                List<Integer> generatedResponseTokens = Llama.generateTokens(
+                        model,
+                        state,
+                        0, 
+                        promptTokens,
+                        stopTokens,
+                        maxTokensToGenerate,
+                        sampler,
+                        false, 
+                        token -> {
+                            String decodedToken = tokenizer.decode(List.of(token));
+                            System.out.print(decodedToken);
+                            System.out.flush(); 
+                            assistantResponseBuilder.append(decodedToken);
+                        }
+                );
+                System.out.println(); 
+
+                conversationHistory.add(new ChatFormat.Message(ChatFormat.Role.ASSISTANT, assistantResponseBuilder.toString().trim()));
+            }
 
         } catch (IOException e) {
+            System.err.println("An I/O error occurred:");
             e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred:");
+            e.printStackTrace();
+        } finally {
+
+            System.out.println("Application finished.");
         }
     }
 }
