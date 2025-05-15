@@ -1,6 +1,7 @@
 package com.cgi.scrumescapegame.llm;
 
 import java.lang.foreign.MemorySegment;
+import java.lang.foreign.ValueLayout;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
@@ -36,13 +37,11 @@ abstract class FloatTensor {
     }
 
     static short readShort(MemorySegment memorySegment, long offset) {
-        // The MemorySegment.get* methods should be used instead.
-        return UNSAFE.getShort(memorySegment.address() + offset);
+        return memorySegment.get(ValueLayout.JAVA_SHORT, offset);
     }
 
     static byte readByte(MemorySegment memorySegment, long offset) {
-        // The MemorySegment.get* methods should be used instead.
-        return UNSAFE.getByte(memorySegment.address() + offset);
+        return memorySegment.get(ValueLayout.JAVA_BYTE, offset);
     }
 
     // Preferred vector size for the fast multiplication routines.
