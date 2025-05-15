@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
+import com.cgi.scrumescapegame.items.HealingPotion;
 
 public class Player {
     private String name = "Avonturier";
@@ -16,6 +17,8 @@ public class Player {
         // Standaard gegevens
         this.lives = 3;
         this.score = 0;
+        this.items = new ArrayList<>(); 
+        addItem(new HealingPotion());
     }
 
     public Room getCurrentRoom() {
@@ -110,13 +113,24 @@ public class Player {
         return items;
     }
 
+    public void printItems() {
+        PrintMethods.printlnColor("Je items:", Attribute.BOLD());
+        for (int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
+            System.out.println((i + 1) + ": " + item.getName());
+            ImagePrinter.printImage(item.getImagepath());
+        }
+    }
+
     public void addItem(Item item) {
         PrintMethods.printlnColor("Je hebt de item " + item.getName() + " gekregen!", Attribute.BRIGHT_GREEN_TEXT());
         items.add(item);
     }
     
     public void useItem(int itemIndex) {
-        items.get(itemIndex).useItem(this);
-        items.remove(itemIndex);
+        // Itemnummers zijn 1-based voor de speler, maar 0-based in de lijst
+        int index = itemIndex - 1;
+        items.get(index).useItem(this);
+        items.remove(index);
     }
 }

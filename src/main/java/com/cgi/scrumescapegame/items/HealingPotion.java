@@ -1,8 +1,9 @@
 package com.cgi.scrumescapegame.items;
 
+import com.cgi.scrumescapegame.Item;
 import com.cgi.scrumescapegame.Player;
 
-public class HealingPotion {
+public class HealingPotion implements Item {
 	public String getName() {
 		return "Healing Potion";
 	}
@@ -11,7 +12,7 @@ public class HealingPotion {
 		return "Healing Potion";
 	}
 
-	public String getImagePath() {
+	public String getImagepath() {
 		return "items/healingpotion.png";
 	}
 

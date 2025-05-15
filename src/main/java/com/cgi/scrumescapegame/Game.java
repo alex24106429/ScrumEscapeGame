@@ -104,9 +104,11 @@ public class Game {
     private void printHelp() {
         PrintMethods.printlnColor("Beschikbare commando's:", Attribute.BOLD());
         System.out.println("  ga naar kamer [nummer] - Verplaats naar de opgegeven kamer (bv. 'ga naar kamer 1').");
+        System.out.println("  gebruik item [nummer]  - Gebruik de opgegeven item (bv. 'gebruik item 1').");
         System.out.println("  status                 - Toon je huidige status en locatie.");
         System.out.println("  kijk rond              - Krijg de beschrijving van de huidige kamer opnieuw.");
         System.out.println("  kamers                 - Toon een lijst van beschikbare kamers.");
+        System.out.println("  items                  - Toon een lijst van jouw items.");
         System.out.println("  opslaan                - Sla de gamegegevens op.");
         System.out.println("  help                   - Toon dit Help bericht.");
         System.out.println("  quit                   - Stop het spel.");
@@ -121,7 +123,17 @@ public class Game {
             } catch (NumberFormatException e) {
                 System.out.println("Ongeldig kamernummer. Gebruik bijvoorbeeld 'ga naar kamer 1'.");
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Die kamer bestaat niet. Typ 'help' om beschikbare kamers te zien.");
+                System.out.println("Die kamer bestaat niet. Typ 'kamers' om beschikbare kamers te zien.");
+            }
+        } else if (input.startsWith("gebruik item ")) {
+            try {
+                String itemNumberStr = input.substring("gebruik item ".length()).trim();
+                int itemNumber = Integer.parseInt(itemNumberStr);
+                this.player.useItem(itemNumber);
+            } catch (NumberFormatException e) {
+                System.out.println("Ongeldig itemnummer. Gebruik bijvoorbeeld 'gebruik item 1'.");
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Die item bestaat niet. Typ 'items' om beschikbare items te zien.");
             }
         } else if (input.equals("status")) {
             player.printStatus();
@@ -129,7 +141,9 @@ public class Game {
             PrintMethods.printlnColor(player.getCurrentRoom().description, Attribute.BRIGHT_YELLOW_TEXT());
         } else if (input.equals("kamers")) {
             printBeschikbareKamers();
-        } else if (input.equals("opslaan")) {
+        } else if (input.equals("items")) {
+            player.printItems();
+        }else if (input.equals("opslaan")) {
             saveGame();
         }
         else if (input.equals("help")) {
