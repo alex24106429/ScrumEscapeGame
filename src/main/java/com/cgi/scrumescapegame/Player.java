@@ -1,5 +1,7 @@
 package com.cgi.scrumescapegame;
 
+import java.util.ArrayList;
+
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
 
@@ -8,7 +10,7 @@ public class Player {
     private Room currentRoom;
     private int lives;
     private int score;
-    // Later: score, inventory, etc.
+    private ArrayList<Item> items;
 
     public Player() {
         // Standaard gegevens
@@ -102,5 +104,19 @@ public class Player {
         } else {
             PrintMethods.printlnColor("Je hebt al het maximale aantal levens.", Attribute.BRIGHT_GREEN_TEXT());
         }
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
+    public void addItem(Item item) {
+        PrintMethods.printlnColor("Je hebt de item " + item.getName() + " gekregen!", Attribute.BRIGHT_GREEN_TEXT());
+        items.add(item);
+    }
+    
+    public void useItem(int itemIndex) {
+        items.get(itemIndex).useItem(this);
+        items.remove(itemIndex);
     }
 }
