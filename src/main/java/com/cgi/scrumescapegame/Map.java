@@ -76,13 +76,6 @@ public class Map {
 
         return true; // Kamer kan worden toegevoegd
     }
-//    public boolean check2x2(int x, int y) {
-//        return (hasRoom(x - 1, y) && hasRoom(x, y - 1) && hasRoom(x - 1, y - 1) ||
-//                        hasRoom(x + 1, y) && hasRoom(x, y - 1) && hasRoom(x + 1, y - 1) ||
-//                        hasRoom(x - 1, y) && hasRoom(x, y + 1) && hasRoom(x - 1, y + 1) ||
-//                        hasRoom(x + 1, y) && hasRoom(x, y + 1) && hasRoom(x + 1, y + 1)
-//        );
-//    }
 
     public void generateMap() {
         // Find the min and max x and y values from the room positions
@@ -119,6 +112,7 @@ public class Map {
             System.out.println();
         }
     }
+
     public boolean hasRoom(int x, int y) {
         for (Point p : positions) {
             if (p.x == x && p.y == y) {
