@@ -2,6 +2,7 @@ package com.cgi.scrumescapegame;
 
 import java.util.ArrayList;
 
+import com.cgi.scrumescapegame.items.Book;
 import com.cgi.scrumescapegame.items.HealingPotion;
 import com.cgi.scrumescapegame.items.Shield;
 import com.cgi.scrumescapegame.items.Sword;
@@ -29,6 +30,7 @@ public class Player {
         addItem(new HealingPotion());
         addItem(new Sword());
         addItem(new Shield());
+        addItem(new Book());
     }
 
     public Room getCurrentRoom() {
