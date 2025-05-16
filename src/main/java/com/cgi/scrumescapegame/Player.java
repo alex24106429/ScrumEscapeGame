@@ -86,7 +86,7 @@ public class Player {
         output += Ansi.colorize("[ ATK: " + Ansi.colorize("" + attack, Attribute.BOLD()),
                 Attribute.BRIGHT_RED_TEXT())
                 + Ansi.colorize(" ] ", Attribute.BRIGHT_RED_TEXT());
-        
+
         // Defense
         output += Ansi.colorize("[ DEF: " + Ansi.colorize("" + defense, Attribute.BOLD()),
                 Attribute.GREEN_TEXT())
@@ -148,12 +148,18 @@ public class Player {
     public void printItems() {
         if (equippedWeapon != null) {
             PrintMethods.printlnColor("Huidig wapen: " + equippedWeapon.getName(), Attribute.BOLD());
-            PrintMethods.printlnColor(equippedWeapon.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
+            PrintMethods.printColor(equippedWeapon.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
+
+            PrintMethods.printDurability(equippedWeapon);
+
             ImagePrinter.printImage(equippedWeapon.getImagepath());
         }
         if (equippedArmor != null) {
             PrintMethods.printlnColor("Huidig armor: " + equippedArmor.getName(), Attribute.BOLD());
-            PrintMethods.printlnColor(equippedArmor.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
+            PrintMethods.printColor(equippedArmor.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
+
+            PrintMethods.printDurability(equippedArmor);
+
             ImagePrinter.printImage(equippedArmor.getImagepath());
         }
         PrintMethods.printlnColor("\nJe items:", Attribute.BOLD());
@@ -177,7 +183,8 @@ public class Player {
     }
 
     public void unequipWeapon() {
-        if(this.equippedWeapon == null) return;
+        if (this.equippedWeapon == null)
+            return;
         this.equippedWeapon.unequip(this);
         items.add(this.equippedWeapon);
         this.equippedWeapon = null;
@@ -190,7 +197,8 @@ public class Player {
     }
 
     public void unequipArmor() {
-        if(this.equippedArmor == null) return;
+        if (this.equippedArmor == null)
+            return;
         this.equippedArmor.unequip(this);
         items.add(this.equippedArmor);
         this.equippedArmor = null;
@@ -202,7 +210,8 @@ public class Player {
             Item item = items.get(index);
             if (item instanceof UsableItem) {
                 ((UsableItem) item).useItem(this);
-                if(((UsableItem) item).getUsesLeft() == 0) items.remove(index);
+                if (((UsableItem) item).getUsesLeft() == 0)
+                    items.remove(index);
             } else if (item instanceof EquipableItem) {
                 if (item instanceof Weapon) {
                     equipWeapon((Weapon) item);
