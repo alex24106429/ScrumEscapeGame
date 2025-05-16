@@ -1,15 +1,15 @@
 package com.cgi.scrumescapegame.items;
 
-import com.cgi.scrumescapegame.Item;
 import com.cgi.scrumescapegame.Player;
+import com.cgi.scrumescapegame.UsableItem;
 
-public class HealingPotion implements Item {
+public class HealingPotion implements UsableItem {
 	public String getName() {
 		return "Healing Potion";
 	}
 
 	public String getDescription() {
-		return "Healing Potion";
+		return "+1 Leven";
 	}
 
 	public String getImagepath() {

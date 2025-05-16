@@ -1,8 +1,7 @@
 package com.cgi.scrumescapegame;
 
 public interface Item {
-	public String getName();
-	public String getDescription();
-	public String getImagepath();
-	public void useItem(Player player);
+    public String getName();
+    public String getDescription();
+    public String getImagepath();
 }
