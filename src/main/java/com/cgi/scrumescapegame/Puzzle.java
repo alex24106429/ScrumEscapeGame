@@ -6,13 +6,32 @@ import java.util.Scanner;
 
 import com.diogonunes.jcolor.Attribute;
 
-public class Puzzle {
+public class Puzzle implements Subject{
     private final List<Vraag> vragen;
+    private final List<Observer> observers;
     private int score;
 
     public Puzzle() {
         this.vragen = new ArrayList<>();
+        this.observers = new ArrayList<>();
         this.score = 0;
+    }
+
+    @Override
+    public void registerObserver(Observer observer){
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer){
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObserver(Boolean isCorrect){
+        for(Observer observer : observers){
+            observer.update(isCorrect);
+        }
     }
 
     public void addQuestion(Vraag vraag) {
@@ -30,17 +49,17 @@ public class Puzzle {
         for (int i = 0; i < vragen.size(); i++) {
             Vraag huidigeVraag = vragen.get(i);
             PrintMethods.printlnColor("Vraag " + (i + 1) + " van " + vragen.size() + ":", Attribute.BOLD());
-            huidigeVraag.toonVraag(); 
+            huidigeVraag.toonVraag();
 
             String gebruikersAntwoord = scanner.nextLine();
 
-            if (huidigeVraag.controleerAntwoord(gebruikersAntwoord)) {
-                System.out.println("Correct!");
+            boolean correct = huidigeVraag.controleerAntwoord(gebruikersAntwoord);
+            notifyObserver(correct);
+
+            if (correct) {
                 score++;
             } else {
-                System.out.println("Helaas, dat is niet correct.");
                 System.out.println("Het juiste antwoord was: " + huidigeVraag.getCorrectAntwoord());
-                player.loseLife();
             }
             System.out.println("----------------------");
         }
@@ -51,3 +70,4 @@ public class Puzzle {
         player.changeScore(score * 10);
     }
 }
+

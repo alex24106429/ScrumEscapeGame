@@ -16,5 +16,8 @@ public class ScrumEscapeGame {
     public static void main(String[] args) {
         Game game = new Game();
         game.start();
+
+        Observer monsterobserver = new MonsterObserver();
+        Observer feedbackobserver = new FeedbackObserver();
     }
 }
