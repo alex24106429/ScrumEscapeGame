@@ -73,7 +73,7 @@ public class Game {
             // if(!scanner.hasNextLine()) continue;
             System.out.print("\n> ");
             String input = scanner.nextLine().trim().toLowerCase();
-            processInput(input);
+            InputProcessor.processInput(input, player, this, Game.scanner);
         }
     }
 
@@ -94,14 +94,14 @@ public class Game {
         System.out.println("===================================");
     }
 
-    private void printBeschikbareKamers() {
+    void printBeschikbareKamers() {
         PrintMethods.printlnColor("\nBeschikbare kamers (voor 'ga naar kamer X'):", Attribute.BOLD());
         for (int i = 0; i < rooms.size(); i++) {
             System.out.println("  Kamer " + (i + 1) + ": " + rooms.get(i).getName());
         }
     }
 
-    private void printHelp() {
+    void printHelp() {
         PrintMethods.printlnColor("Beschikbare commando's:", Attribute.BOLD());
         System.out.println("  ga naar kamer [nummer] - Verplaats naar de opgegeven kamer (bv. 'ga naar kamer 1').");
         System.out.println("  gebruik item [nummer]  - Gebruik de opgegeven item (bv. 'gebruik item 1').");
@@ -114,55 +114,7 @@ public class Game {
         System.out.println("  quit                   - Stop het spel.");
     }
 
-    private void processInput(String input) {
-        if (input.startsWith("ga naar kamer ")) {
-            try {
-                String roomNumberStr = input.substring("ga naar kamer ".length()).trim();
-                int roomNumber = Integer.parseInt(roomNumberStr);
-                moveToRoom(roomNumber);
-            } catch (NumberFormatException e) {
-                System.out.println("Ongeldig kamernummer. Gebruik bijvoorbeeld 'ga naar kamer 1'.");
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Die kamer bestaat niet. Typ 'kamers' om beschikbare kamers te zien.");
-            }
-        } else if (input.startsWith("gebruik item ")) {
-            try {
-                String itemNumberStr = input.substring("gebruik item ".length()).trim();
-                int itemNumber = Integer.parseInt(itemNumberStr);
-                this.player.useItem(itemNumber);
-            } catch (NumberFormatException e) {
-                System.out.println("Ongeldig itemnummer. Gebruik bijvoorbeeld 'gebruik item 1'.");
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Die item bestaat niet. Typ 'items' om beschikbare items te zien.");
-            }
-        } else if (input.equals("status")) {
-            player.printStatus();
-        } else if (input.equals("kijk rond")) {
-            PrintMethods.printlnColor(player.getCurrentRoom().description, Attribute.BRIGHT_YELLOW_TEXT());
-        } else if (input.equals("kamers")) {
-            printBeschikbareKamers();
-        } else if (input.equals("items")) {
-            player.printItems();
-        }else if (input.equals("opslaan")) {
-            saveGame();
-        }
-        else if (input.equals("help")) {
-            printHelp();
-        } else if (input.equals("quit")) {
-            if (debug) System.exit(0);
-            
-            PrintMethods.printlnColor("Wil je opslaan? ja/nee", Attribute.BRIGHT_RED_TEXT());
-            String option = scanner.nextLine();
-            if (option.equals("ja")) {
-                saveGame();
-            }
-            System.exit(0);
-        } else {
-            System.out.println("Onbekend commando. Typ 'help' voor een lijst met commando's.");
-        }
-    }
-
-    private void moveToRoom(int roomNumber) {
+    void moveToRoom(int roomNumber) {
         // Kamernummers zijn 1-based voor de speler, maar 0-based in de lijst
         int roomIndex = roomNumber - 1;
         if (roomIndex >= 0 && roomIndex < rooms.size()) {
