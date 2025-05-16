@@ -21,4 +21,8 @@ public class Book implements UsableItem {
 	public void useItem(Player player) {
 		PrintMethods.printlnColor(player.getCurrentRoom().getDescription(), Attribute.BRIGHT_YELLOW_TEXT());
 	}
+
+    public int getUsesLeft() {
+        return Integer.MAX_VALUE;
+    }
 }

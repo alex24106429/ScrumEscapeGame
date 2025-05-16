@@ -202,7 +202,7 @@ public class Player {
             Item item = items.get(index);
             if (item instanceof UsableItem) {
                 ((UsableItem) item).useItem(this);
-                items.remove(index);
+                if(((UsableItem) item).getUsesLeft() == 0) items.remove(index);
             } else if (item instanceof EquipableItem) {
                 if (item instanceof Weapon) {
                     equipWeapon((Weapon) item);

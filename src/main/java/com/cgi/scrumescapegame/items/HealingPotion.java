@@ -19,4 +19,8 @@ public class HealingPotion implements UsableItem {
 	public void useItem(Player player) {
 		player.gainLife();
 	}
+
+	public int getUsesLeft() {
+		return 0;
+	}
 }
