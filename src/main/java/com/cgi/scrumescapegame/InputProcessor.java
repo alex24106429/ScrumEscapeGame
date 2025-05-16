@@ -26,6 +26,10 @@ public class InputProcessor {
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Die item bestaat niet. Typ 'items' om beschikbare items te zien.");
             }
+        } else if (input.equals("unequip armor")) {
+            player.unequipArmor();
+        } else if (input.equals("unequip weapon")) {
+            player.unequipWeapon();
         } else if (input.equals("status")) {
             player.printStatus();
         } else if (input.equals("kijk rond")) {

@@ -142,17 +142,17 @@ public class Player {
     }
 
     public void printItems() {
-        PrintMethods.printlnColor("Je items:", Attribute.BOLD());
         if (equippedWeapon != null) {
-            System.out.println("Je wapen: " + equippedWeapon.getName());
+            PrintMethods.printlnColor("Huidig wapen: " + equippedWeapon.getName(), Attribute.BOLD());
             PrintMethods.printlnColor(equippedWeapon.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
             ImagePrinter.printImage(equippedWeapon.getImagepath());
         }
         if (equippedArmor != null) {
-            System.out.println("Je armor: " + equippedArmor.getName());
+            PrintMethods.printlnColor("Huidig armor: " + equippedArmor.getName(), Attribute.BOLD());
             PrintMethods.printlnColor(equippedArmor.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
             ImagePrinter.printImage(equippedArmor.getImagepath());
         }
+        PrintMethods.printlnColor("\nJe items:", Attribute.BOLD());
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
             System.out.println((i + 1) + ": " + item.getName());
@@ -167,13 +167,29 @@ public class Player {
     }
 
     public void equipWeapon(Weapon weapon) {
+        unequipWeapon();
         this.equippedWeapon = weapon;
         weapon.equip(this);
     }
 
+    public void unequipWeapon() {
+        if(this.equippedWeapon == null) return;
+        this.equippedWeapon.unequip(this);
+        items.add(this.equippedWeapon);
+        this.equippedWeapon = null;
+    }
+
     public void equipArmor(Armor armor) {
+        unequipArmor();
         this.equippedArmor = armor;
         armor.equip(this);
+    }
+
+    public void unequipArmor() {
+        if(this.equippedArmor == null) return;
+        this.equippedArmor.unequip(this);
+        items.add(this.equippedArmor);
+        this.equippedArmor = null;
     }
 
     public void useItem(int itemIndex) {

@@ -105,6 +105,8 @@ public class Game {
         PrintMethods.printlnColor("Beschikbare commando's:", Attribute.BOLD());
         System.out.println("  ga naar kamer [nummer] - Verplaats naar de opgegeven kamer (bv. 'ga naar kamer 1').");
         System.out.println("  gebruik item [nummer]  - Gebruik de opgegeven item (bv. 'gebruik item 1').");
+        System.out.println("  unequip armor          - Unequipt je huidige armor.");
+        System.out.println("  unequip weapon         - Unequipt je huidige wapen.");
         System.out.println("  status                 - Toon je huidige status en locatie.");
         System.out.println("  kijk rond              - Krijg de beschrijving van de huidige kamer opnieuw.");
         System.out.println("  kamers                 - Toon een lijst van beschikbare kamers.");
