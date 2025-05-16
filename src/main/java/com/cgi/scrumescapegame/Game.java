@@ -46,6 +46,11 @@ public class Game {
             }
         }
         insertAdjacentRoom();
+        Puzzle puzzle = new Puzzle();
+        ObserverManager observerManager = new ObserverManager();
+        observerManager.startAllObservers(puzzle);
+        System.out.println("buh");
+        observerManager.pingObservers(puzzle, true);
     }
 
 

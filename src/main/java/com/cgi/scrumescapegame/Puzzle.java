@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.cgi.scrumescapegame.obstacles.ScoreBoard;
 import com.diogonunes.jcolor.Attribute;
 
 public class Puzzle implements Subject{
     private final List<Vraag> vragen;
     private final List<Observer> observers;
-    private int score;
+    private ScoreBoard scoreBoard;
 
     public Puzzle() {
         this.vragen = new ArrayList<>();
         this.observers = new ArrayList<>();
-        this.score = 0;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class Puzzle implements Subject{
     }
 
     @Override
-    public void notifyObserver(Boolean isCorrect){
+    public void notifyObserver(boolean isCorrect){
         for(Observer observer : observers){
             observer.update(isCorrect);
         }
@@ -57,7 +57,6 @@ public class Puzzle implements Subject{
             notifyObserver(correct);
 
             if (correct) {
-                score++;
             } else {
                 System.out.println("Het juiste antwoord was: " + huidigeVraag.getCorrectAntwoord());
             }
@@ -65,9 +64,10 @@ public class Puzzle implements Subject{
         }
 
         System.out.println("\nPuzzle voltooid!");
-        System.out.println("Uw score: " + score + " van de " + vragen.size() + " vragen correct.");
-
-        player.changeScore(score * 10);
+        System.out.println("Uw score: " + (scoreBoard.getScore()/10) + "/" + vragen.size());
+    }
+    public void getScoreBoard(ScoreBoard scoreBoard) {
+        this.scoreBoard = scoreBoard;
     }
 }
 

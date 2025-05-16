@@ -139,7 +139,6 @@ public class Map {
         adjacentStatus.put("down", false);
 
         for (Point p : positions) {
-            if(Game.debug) System.out.println("testing: " + p.x + ", " + p.y);
             if (p.x == x + 1 && p.y == y) {
                 adjacentStatus.put("right", hasRoom(x + 1, y));
             }
