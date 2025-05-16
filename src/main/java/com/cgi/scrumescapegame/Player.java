@@ -3,6 +3,7 @@ package com.cgi.scrumescapegame;
 import java.util.ArrayList;
 
 import com.cgi.scrumescapegame.items.HealingPotion;
+import com.cgi.scrumescapegame.items.Shield;
 import com.cgi.scrumescapegame.items.Sword;
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
@@ -27,6 +28,7 @@ public class Player {
         this.items = new ArrayList<>();
         addItem(new HealingPotion());
         addItem(new Sword());
+        addItem(new Shield());
     }
 
     public Room getCurrentRoom() {
