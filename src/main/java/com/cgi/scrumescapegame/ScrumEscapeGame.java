@@ -18,6 +18,5 @@ public class ScrumEscapeGame {
         game.start();
 
         Observer monsterobserver = new MonsterObserver();
-        Observer feedbackobserver = new FeedbackObserver();
     }
 }

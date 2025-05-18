@@ -1,6 +1,7 @@
 package com.cgi.scrumescapegame.obstacles;
 
 import com.cgi.scrumescapegame.Observer;
+import com.cgi.scrumescapegame.Vraag;
 
 public class ScoreBoard implements Observer {
     private int score;
@@ -12,7 +13,7 @@ public class ScoreBoard implements Observer {
     }
 
     @Override
-    public void update(boolean isCorrect) {
+    public void update(boolean isCorrect, Vraag vraag) {
         if (isCorrect) {
             score += 10;
             System.out.println("Correct! Score: " + score);
