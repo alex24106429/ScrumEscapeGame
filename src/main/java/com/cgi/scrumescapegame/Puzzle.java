@@ -6,13 +6,31 @@ import java.util.Scanner;
 
 import com.diogonunes.jcolor.Attribute;
 
-public class Puzzle {
+public class Puzzle implements Subject{
     private final List<Vraag> vragen;
-    private int score;
+    private final List<Observer> observers;
+    private Vraag currentVraag;
 
     public Puzzle() {
         this.vragen = new ArrayList<>();
-        this.score = 0;
+        this.observers = new ArrayList<>();
+    }
+
+    @Override
+    public void registerObserver(Observer observer){
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer){
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObserver(boolean isCorrect){
+        for(Observer observer : observers){
+            observer.update(isCorrect, currentVraag);
+        }
     }
 
     public void addQuestion(Vraag vraag) {
@@ -29,25 +47,19 @@ public class Puzzle {
 
         for (int i = 0; i < vragen.size(); i++) {
             Vraag huidigeVraag = vragen.get(i);
+            this.currentVraag = huidigeVraag;
             PrintMethods.printlnColor("Vraag " + (i + 1) + " van " + vragen.size() + ":", Attribute.BOLD());
-            huidigeVraag.toonVraag(); 
+            huidigeVraag.toonVraag();
 
             String gebruikersAntwoord = scanner.nextLine();
 
-            if (huidigeVraag.controleerAntwoord(gebruikersAntwoord)) {
-                System.out.println("Correct!");
-                score++;
-            } else {
-                System.out.println("Helaas, dat is niet correct.");
-                System.out.println("Het juiste antwoord was: " + huidigeVraag.getCorrectAntwoord());
-                player.loseLife();
-            }
+            boolean correct = huidigeVraag.controleerAntwoord(gebruikersAntwoord);
+            notifyObserver(correct);
+
             System.out.println("----------------------");
         }
 
         System.out.println("\nPuzzle voltooid!");
-        System.out.println("Uw score: " + score + " van de " + vragen.size() + " vragen correct.");
-
-        player.changeScore(score * 10);
     }
 }
+
