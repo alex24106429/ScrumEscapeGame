@@ -64,8 +64,8 @@ public class Game {
             PrintMethods.printColor("Kies een naam: ", Attribute.BRIGHT_YELLOW_TEXT());
             player.setName(scanner.nextLine());
         }
-        
-        player.getCurrentRoom().enterRoom(player); // Roep enterRoom aan voor de initiële kamer
+
+        RoomRenderer.renderRoom(player.getCurrentRoom(), player);
 
         if (rooms.isEmpty()) {
             System.out.println("Fout: Geen kamers gedefinieerd. Het spel kan niet starten.");
@@ -127,7 +127,7 @@ public class Game {
         if (roomIndex >= 0 && roomIndex < rooms.size()) {
             Room targetRoom = rooms.get(roomIndex);
             player.setCurrentRoom(targetRoom);
-            targetRoom.enterRoom(player);
+            RoomRenderer.renderRoom(targetRoom, player);
         } else {
             System.out.println("Ongeldig kamernummer. Kamer " + roomNumber + " bestaat niet.");
             System.out.println("Beschikbare kamers zijn 1 t/m " + rooms.size() + ".");

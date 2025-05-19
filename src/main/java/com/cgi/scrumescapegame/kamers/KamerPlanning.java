@@ -2,6 +2,7 @@ package com.cgi.scrumescapegame.kamers;
 
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Room;
+import com.cgi.scrumescapegame.RoomRenderer;
 
 public class KamerPlanning extends Room {
     public KamerPlanning(int roomX, int roomY) {
@@ -10,7 +11,7 @@ public class KamerPlanning extends Room {
 
     @Override
     public void enterRoom(Player player) {
-        super.enterRoom(player);
+        RoomRenderer.renderRoom(this, player);
         // Specifieke acties voor de planningskamer
     }
 }

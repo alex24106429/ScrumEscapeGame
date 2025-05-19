@@ -1,6 +1,7 @@
 package com.cgi.scrumescapegame;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.cgi.scrumescapegame.items.Book;
 import com.cgi.scrumescapegame.items.HealingPotion;
@@ -95,8 +96,9 @@ public class Player {
         output += "\n";
 
         // Toegankelijke kamers
-        output += Ansi.colorize("[ Toegankelijke Kamers: " + currentRoom.availableRooms() + " ] ",
+        output += Ansi.colorize("[ Toegankelijke Kamers: " + RoomRenderer.renderAvailableRooms(currentRoom.getAdjacentRooms()) + " ] ",
                 Attribute.BRIGHT_GREEN_TEXT());
+
 
         // Coordinaten (alleen in debug)
         if (Game.debug)

@@ -13,7 +13,7 @@ public class KamerReview extends Room {
 
     @Override
     public void enterRoom(Player player) {
-        super.enterRoom(player);
+        RoomRenderer.renderRoom(this, player);
         ImagePrinter.printImage(monster.getImagepath());
         monster.getPuzzle().start(player);
         player.printStatus();

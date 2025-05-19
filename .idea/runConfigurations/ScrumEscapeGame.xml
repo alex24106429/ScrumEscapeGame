@@ -4,7 +4,7 @@
     <module name="scrumescape" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="com.cgi.scrumescapegame.*" />
+        <option name="PATTERN" value="com.cgi.scrumescapegame.kamers.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

@@ -2,6 +2,7 @@ package com.cgi.scrumescapegame.kamers;
 
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Room;
+import com.cgi.scrumescapegame.RoomRenderer;
 
 public class EindKamer extends Room {
     public EindKamer(int roomX, int roomY) {
@@ -10,7 +11,7 @@ public class EindKamer extends Room {
 
     @Override
     public void enterRoom(Player player) {
-        super.enterRoom(player);
+        RoomRenderer.renderRoom(this, player);
         // Specifieke acties voor de dailystandupkamer
     }
 }
