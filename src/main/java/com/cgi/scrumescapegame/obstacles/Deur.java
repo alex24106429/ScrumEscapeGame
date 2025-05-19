@@ -1,9 +1,10 @@
 package com.cgi.scrumescapegame.obstacles;
 
 import com.cgi.scrumescapegame.Observer;
+import com.cgi.scrumescapegame.Vraag;
 
 public class Deur implements Observer {
-    public void update(boolean isCorrect) {
+    public void update(boolean isCorrect, Vraag vraag) {
         // Implement the logic to update the door state based on the puzzle result
         if (isCorrect) {
             System.out.println("De deur gaat open!");
