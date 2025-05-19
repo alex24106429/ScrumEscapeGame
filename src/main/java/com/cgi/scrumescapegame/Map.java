@@ -2,13 +2,12 @@ package com.cgi.scrumescapegame;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 public class Map {
-    private List<Point> positions = new ArrayList<>();
-    private int roomCount = 24;
+    private final List<Point> positions = new ArrayList<>();
+    private final int roomCount = 24;
     public void generateMapLayout() {
         // Start room at (0,0)
         positions.add(new Point(0, 0));
@@ -67,14 +66,7 @@ public class Map {
         if (x < -roomCount/2 || x > roomCount/2 || y < 1 || y > roomCount) {
             return false; // Kamer kan niet worden toegevoegd, omdat deze buiten de grenzen ligt
         }
-        if (hasRoom(x, y)) {
-            return false; // Kamer kan niet worden toegevoegd, omdat deze al bestaat
-        }
-//            if (check2x2(x, y)) {
-//                return false; // Kamer kan niet worden toegevoegd, omdat deze al bestaat
-//            }
-
-        return true; // Kamer kan worden toegevoegd
+        return !hasRoom(x, y);
     }
 
     public void generateMap() {
@@ -92,15 +84,11 @@ public class Map {
             yMax = Math.max(yMax, p.y);
         }
 
-        // Adjust the grid size to fit the max position
-        int gridWidth = xMax - xMin + 1;
-        int gridHeight = yMax - yMin + 1;
-
         // Print the grid
         for (int y = yMax; y >= yMin; y--) {  // Go from top (yMax) to bottom (yMin)
             for (int x = xMin; x <= xMax; x++) {
                 if (hasRoom(x, y)) {
-                    if (positions.get(positions.size() - 1).equals(new Point(x, y))) {
+                    if (positions.getLast().equals(new Point(x, y))) {
                         System.out.print("🔴");
                     } else {
                         System.out.print("⚪");
