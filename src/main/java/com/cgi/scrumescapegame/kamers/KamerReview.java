@@ -16,6 +16,6 @@ public class KamerReview extends Room {
         RoomRenderer.renderRoom(this, player);
         ImagePrinter.printImage(monster.getImagepath());
         monster.getPuzzle().start(player);
-        player.printStatus();
+        PlayerPrinter.printStatus(player);
     }
 }

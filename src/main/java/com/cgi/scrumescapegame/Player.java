@@ -1,240 +1,64 @@
 package com.cgi.scrumescapegame;
-
-import java.util.ArrayList;
-import java.util.Map;
-
 import com.cgi.scrumescapegame.items.Book;
 import com.cgi.scrumescapegame.items.HealingPotion;
 import com.cgi.scrumescapegame.items.Shield;
 import com.cgi.scrumescapegame.items.Sword;
-import com.diogonunes.jcolor.Ansi;
-import com.diogonunes.jcolor.Attribute;
 
 public class Player {
     private String name = "Avonturier";
     private Room currentRoom;
-    private int lives;
-    private int attack;
-    private int defense;
-    private int score;
-    private ArrayList<Item> items;
-    private Weapon equippedWeapon;
-    private Armor equippedArmor;
+    private int lives = 3;
+    private int score = 0;
+    private int attack = 10;
+    private int defense = 10;
+
+    private Inventory inventory = new Inventory(this);
+    private Equipment equipment = new Equipment(this);
 
     public Player() {
-        // Standaard gegevens
-        this.lives = 3;
-        this.score = 0;
-        this.attack = 10;
-        this.defense = 10;
-        this.items = new ArrayList<>();
-        addItem(new HealingPotion());
-        addItem(new Sword());
-        addItem(new Shield());
-        addItem(new Book());
+        inventory.addItem(new HealingPotion());
+        inventory.addItem(new Sword());
+        inventory.addItem(new Shield());
+        inventory.addItem(new Book());
     }
 
-    public Room getCurrentRoom() {
-        return currentRoom;
-    }
+    // Getters/setters
+    public String getName() { return name; }
+    public void setName(String newName) { this.name = newName; }
 
-    public void setCurrentRoom(Room currentRoom) {
-        this.currentRoom = currentRoom;
-    }
+    public Room getCurrentRoom() { return currentRoom; }
+    public void setCurrentRoom(Room room) { this.currentRoom = room; }
 
-    public String getName() {
-        return name;
-    }
+    public int getLives() { return lives; }
+    public int getScore() { return score; }
+    public int getAttack() { return attack; }
+    public int getDefense() { return defense; }
 
-    public void setName(String newName) {
-        this.name = newName;
-    }
-
-    public int getLives() {
-        return lives;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public int changeScore(int amount) {
-        return this.score += amount;
-    }
-
-    public void printStatus() {
-        String output = "";
-        // Speler naam
-        output += Ansi.colorize("[ Speler: " + Ansi.colorize(name, Attribute.BOLD()), Attribute.BRIGHT_CYAN_TEXT())
-                + Ansi.colorize(" ] ", Attribute.BRIGHT_CYAN_TEXT());
-
-        // Kamernaam
-        output += Ansi.colorize("[ Locatie: " + Ansi.colorize(currentRoom.getName(), Attribute.BOLD()),
-                Attribute.BRIGHT_BLUE_TEXT())
-                + Ansi.colorize(" ] ", Attribute.BRIGHT_BLUE_TEXT());
-
-        // Aantal levens
-        output += Ansi.colorize("[ Levens: " + getLivesString() + " ] ", Attribute.BRIGHT_RED_TEXT());
-
-        // Score
-        output += Ansi.colorize("[ Score: " + Ansi.colorize("" + score, Attribute.BOLD()),
-                Attribute.BRIGHT_YELLOW_TEXT())
-                + Ansi.colorize(" ] ", Attribute.BRIGHT_YELLOW_TEXT());
-
-        output += "\n";
-
-        // Attack
-        output += Ansi.colorize("[ ATK: " + Ansi.colorize("" + attack, Attribute.BOLD()),
-                Attribute.BRIGHT_RED_TEXT())
-                + Ansi.colorize(" ] ", Attribute.BRIGHT_RED_TEXT());
-
-        // Defense
-        output += Ansi.colorize("[ DEF: " + Ansi.colorize("" + defense, Attribute.BOLD()),
-                Attribute.GREEN_TEXT())
-                + Ansi.colorize(" ] ", Attribute.GREEN_TEXT());
-
-        output += "\n";
-
-        // Toegankelijke kamers
-        output += Ansi.colorize("[ Toegankelijke Kamers: " + RoomRenderer.renderAvailableRooms(currentRoom.getAdjacentRooms()) + " ] ",
-                Attribute.BRIGHT_GREEN_TEXT());
-
-
-        // Coordinaten (alleen in debug)
-        if (Game.debug)
-            output += Ansi
-                    .colorize("[ Coordianten: " + Ansi.colorize(
-                            currentRoom.getCurrentPosition().x + ", " + currentRoom.getCurrentPosition().y,
-                            Attribute.BOLD()), Attribute.BRIGHT_CYAN_TEXT())
-                    + Ansi.colorize(" ] ", Attribute.BRIGHT_CYAN_TEXT());
-
-        System.out.println(output);
-    }
-
-    public String getLivesString() {
-        String output = "";
-        for (int i = 0; i < lives; i++) {
-            output += "♥ ";
-        }
-        for (int i = lives; i < 3; i++) {
-            output += "♡ ";
-        }
-        return output.trim();
-    }
+    public void addAttackModifier(int amount) { attack += amount; }
+    public void addDefenseModifier(int amount) { defense += amount; }
 
     public void loseLife() {
         if (lives > 0) {
             lives--;
-            PrintMethods.printlnColor("Je hebt een leven verloren! Je hebt nog " + lives + " levens over.",
-                    Attribute.BRIGHT_RED_TEXT());
-            printStatus();
+            PlayerPrinter.printLifeLost(this);
         } else {
-            PrintMethods.printlnColor("Game over! Je hebt geen levens meer.", Attribute.BRIGHT_RED_TEXT());
+            PlayerPrinter.printGameOver();
         }
     }
 
     public void gainLife() {
         if (lives < 3) {
             lives++;
-            PrintMethods.printlnColor("Je hebt een leven gewonnen! Je hebt nu " + lives + " levens.",
-                    Attribute.BRIGHT_GREEN_TEXT());
+            PlayerPrinter.printLifeGained(this);
         } else {
-            PrintMethods.printlnColor("Je hebt al het maximale aantal levens.", Attribute.BRIGHT_GREEN_TEXT());
+            PlayerPrinter.printMaxLives();
         }
     }
 
-    public ArrayList<Item> getItems() {
-        return items;
+    public void changeScore(int amount) {
+        score += amount;
     }
 
-    public void printItems() {
-        if (equippedWeapon != null) {
-            PrintMethods.printlnColor("Huidig wapen: " + equippedWeapon.getName(), Attribute.BOLD());
-            PrintMethods.printColor(equippedWeapon.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
-
-            PrintMethods.printDurability(equippedWeapon);
-
-            ImagePrinter.printImage(equippedWeapon.getImagepath());
-        }
-        if (equippedArmor != null) {
-            PrintMethods.printlnColor("Huidig armor: " + equippedArmor.getName(), Attribute.BOLD());
-            PrintMethods.printColor(equippedArmor.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
-
-            PrintMethods.printDurability(equippedArmor);
-
-            ImagePrinter.printImage(equippedArmor.getImagepath());
-        }
-        PrintMethods.printlnColor("\nJe items:", Attribute.BOLD());
-        for (int i = 0; i < items.size(); i++) {
-            Item item = items.get(i);
-            System.out.println((i + 1) + ": " + item.getName());
-            PrintMethods.printlnColor(item.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
-            ImagePrinter.printImage(item.getImagepath());
-        }
-    }
-
-    public void addItem(Item item) {
-        PrintMethods.printlnColor("Je hebt de item " + item.getName() + " gekregen!", Attribute.BRIGHT_GREEN_TEXT());
-        items.add(item);
-    }
-
-    public void equipWeapon(Weapon weapon) {
-        unequipWeapon();
-        this.equippedWeapon = weapon;
-        weapon.equip(this);
-    }
-
-    public void unequipWeapon() {
-        if (this.equippedWeapon == null)
-            return;
-        this.equippedWeapon.unequip(this);
-        items.add(this.equippedWeapon);
-        this.equippedWeapon = null;
-    }
-
-    public void equipArmor(Armor armor) {
-        unequipArmor();
-        this.equippedArmor = armor;
-        armor.equip(this);
-    }
-
-    public void unequipArmor() {
-        if (this.equippedArmor == null)
-            return;
-        this.equippedArmor.unequip(this);
-        items.add(this.equippedArmor);
-        this.equippedArmor = null;
-    }
-
-    public void useItem(int itemIndex) {
-        int index = itemIndex - 1;
-        if (index >= 0 && index < items.size()) {
-            Item item = items.get(index);
-            if (item instanceof UsableItem) {
-                ((UsableItem) item).useItem(this);
-                if (((UsableItem) item).getUsesLeft() == 0)
-                    items.remove(index);
-            } else if (item instanceof EquipableItem) {
-                if (item instanceof Weapon) {
-                    equipWeapon((Weapon) item);
-                } else if (item instanceof Armor) {
-                    equipArmor((Armor) item);
-                }
-                PrintMethods.printlnColor("Je equipped " + item.getName(), Attribute.BRIGHT_GREEN_TEXT());
-                items.remove(index);
-            } else {
-                PrintMethods.printlnColor("This item cannot be used or equipped.", Attribute.RED_TEXT());
-            }
-        } else {
-            PrintMethods.printlnColor("Invalid item index.", Attribute.RED_TEXT());
-        }
-    }
-
-    public void addAttackModifier(int amount) {
-        this.attack += amount;
-    }
-
-    public void addDefenseModifier(int amount) {
-        this.defense += amount;
-    }
+    public Inventory getInventory() { return inventory; }
+    public Equipment getEquipment() { return equipment; }
 }

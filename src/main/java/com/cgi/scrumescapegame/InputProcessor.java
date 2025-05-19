@@ -20,24 +20,24 @@ public class InputProcessor {
             try {
                 String itemNumberStr = input.substring("gebruik item ".length()).trim();
                 int itemNumber = Integer.parseInt(itemNumberStr);
-                player.useItem(itemNumber);
+                player.getInventory().useItem(itemNumber);
             } catch (NumberFormatException e) {
                 System.out.println("Ongeldig itemnummer. Gebruik bijvoorbeeld 'gebruik item 1'.");
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Die item bestaat niet. Typ 'items' om beschikbare items te zien.");
             }
         } else if (input.equals("unequip armor")) {
-            player.unequipArmor();
+            player.getEquipment().unequipArmor();
         } else if (input.equals("unequip weapon")) {
-            player.unequipWeapon();
+            player.getEquipment().unequipArmor();
         } else if (input.equals("status")) {
-            player.printStatus();
+            PlayerPrinter.printStatus(player);
         } else if (input.equals("kijk rond")) {
             PrintMethods.printlnColor(player.getCurrentRoom().description, Attribute.BRIGHT_YELLOW_TEXT());
         } else if (input.equals("kamers")) {
             game.printBeschikbareKamers();
         } else if (input.equals("items")) {
-            player.printItems();
+            player.getInventory().printItems();
         }else if (input.equals("opslaan")) {
             game.saveGame();
         }
