@@ -3,7 +3,6 @@ package com.cgi.scrumescapegame;
 import java.util.*;
 
 import com.cgi.scrumescapegame.kamers.KamerPlanning;
-import com.cgi.scrumescapegame.kamers.KamerRetrospective;
 import com.diogonunes.jcolor.Attribute;
 import com.google.gson.Gson;
 
@@ -19,7 +18,7 @@ public class Game {
     private final List<Room> rooms;
     public final static Scanner scanner = new Scanner(System.in);
     private final Map map;
-    public static final boolean debug = true; // Zet dit op false voor de eindversie
+    public static final boolean debug = false; // Zet dit op false voor de eindversie
     public static boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
 
     public Game() {
@@ -78,7 +77,7 @@ public class Game {
             // if(!scanner.hasNextLine()) continue;
             System.out.print("\n> ");
             String input = scanner.nextLine().trim().toLowerCase();
-            InputProcessor.processInput(input, player, this, Game.scanner);
+            InputProcessor.processInput(input, player, this, Game.scanner, map);
         }
     }
 
@@ -117,6 +116,7 @@ public class Game {
         System.out.println("  kamers                 - Toon een lijst van beschikbare kamers.");
         System.out.println("  items                  - Toon een lijst van jouw items.");
         System.out.println("  opslaan                - Sla de gamegegevens op.");
+        System.out.println("  map                   - Toon de huidige map.");
         System.out.println("  help                   - Toon dit Help bericht.");
         System.out.println("  quit                   - Stop het spel.");
     }

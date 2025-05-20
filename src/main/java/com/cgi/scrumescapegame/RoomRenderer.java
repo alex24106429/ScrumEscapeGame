@@ -23,11 +23,9 @@ public class RoomRenderer {
         PrintMethods.typeText(room.getDescription());
 
         // Print speler status
-        player.getInventory().printItems();
+        PlayerPrinter.printStatus(player);
 
         // Print beschikbare aangrenzende kamers via helper
-        System.out.println(Ansi.colorize("[ Toegankelijke Kamers: " + renderAvailableRooms(room.getAdjacentRooms()) + " ] ",
-                Attribute.BRIGHT_GREEN_TEXT()));
     }
 
     public static String renderAvailableRooms(Map<String, Boolean> adjacentRooms) {

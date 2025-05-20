@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.diogonunes.jcolor.Attribute;
 
 public class InputProcessor {
-    public static void processInput(String input, Player player, Game game, Scanner scanner) {
+    public static void processInput(String input, Player player, Game game, Scanner scanner, Map map) {
         if (input.startsWith("ga naar kamer ")) {
             try {
                 String roomNumberStr = input.substring("ga naar kamer ".length()).trim();
@@ -40,6 +40,8 @@ public class InputProcessor {
             player.getInventory().printItems();
         }else if (input.equals("opslaan")) {
             game.saveGame();
+        } else if (input.equals("map")) {
+            map.generateMap();
         }
         else if (input.equals("help")) {
             game.printHelp();
