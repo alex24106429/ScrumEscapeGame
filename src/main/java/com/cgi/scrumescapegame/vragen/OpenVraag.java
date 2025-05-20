@@ -18,12 +18,6 @@ public class OpenVraag implements Vraag {
     }
 
     @Override
-    public void toonVraag() {
-        System.out.println("Openvraag: " + tekst);
-        System.out.println("Uw antwoord: ");
-    }
-
-    @Override
     public boolean controleerAntwoord(String antwoord) {
         if (antwoord == null || antwoord.trim().isEmpty()) {
             return false;

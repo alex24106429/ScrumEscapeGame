@@ -18,18 +18,13 @@ public class MeerkeuzeVraag implements Vraag {
         this.correcteOptieIndex = correcteOptieIndex;
     }
 
-    @Override
-    public String getTekst() {
-        return tekst;
+    public List<String> getOpties() {
+        return opties;
     }
 
     @Override
-    public void toonVraag() {
-        System.out.println("Meerkeuzevraag: " + tekst);
-        for (int i = 0; i < opties.size(); i++) {
-            System.out.println((char)('A' + i) + ". " + opties.get(i));
-        }
-        System.out.print("Uw antwoord (A, B, C, ...): ");
+    public String getTekst() {
+        return tekst;
     }
 
     @Override
