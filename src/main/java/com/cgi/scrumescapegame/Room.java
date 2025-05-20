@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.HashMap;
 import com.cgi.scrumescapegame.Map;
+import com.cgi.scrumescapegame.graphics.PrintMethods;
+import com.cgi.scrumescapegame.graphics.TextToImageRenderer;
 
 public abstract class Room {
     protected String name;

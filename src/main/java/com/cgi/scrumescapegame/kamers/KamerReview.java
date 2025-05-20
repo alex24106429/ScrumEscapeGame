@@ -1,6 +1,7 @@
 package com.cgi.scrumescapegame.kamers;
 
 import com.cgi.scrumescapegame.*;
+import com.cgi.scrumescapegame.graphics.ImagePrinter;
 import com.cgi.scrumescapegame.obstacles.ReviewMonster;
 
 public class KamerReview extends Room {

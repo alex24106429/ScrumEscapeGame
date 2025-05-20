@@ -1,8 +1,8 @@
 package com.cgi.scrumescapegame.items;
 
 import com.cgi.scrumescapegame.Player;
-import com.cgi.scrumescapegame.PrintMethods;
 import com.cgi.scrumescapegame.UsableItem;
+import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.diogonunes.jcolor.Attribute;
 
 public class Book implements UsableItem {

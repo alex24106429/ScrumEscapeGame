@@ -2,6 +2,8 @@ package com.cgi.scrumescapegame;
 
 import java.util.*;
 
+import com.cgi.scrumescapegame.graphics.ImagePrinter;
+import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.kamers.KamerPlanning;
 import com.cgi.scrumescapegame.kamers.KamerRetrospective;
 import com.diogonunes.jcolor.Attribute;

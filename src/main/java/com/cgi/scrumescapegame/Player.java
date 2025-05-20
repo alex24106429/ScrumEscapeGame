@@ -2,6 +2,8 @@ package com.cgi.scrumescapegame;
 
 import java.util.ArrayList;
 
+import com.cgi.scrumescapegame.graphics.ImagePrinter;
+import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.items.Book;
 import com.cgi.scrumescapegame.items.HealingPotion;
 import com.cgi.scrumescapegame.items.Shield;

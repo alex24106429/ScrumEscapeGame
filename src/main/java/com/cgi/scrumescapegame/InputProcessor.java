@@ -2,6 +2,7 @@ package com.cgi.scrumescapegame;
 
 import java.util.Scanner;
 
+import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.diogonunes.jcolor.Attribute;
 
 public class InputProcessor {

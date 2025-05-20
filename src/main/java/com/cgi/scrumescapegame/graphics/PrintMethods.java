@@ -1,8 +1,10 @@
-package com.cgi.scrumescapegame;
+package com.cgi.scrumescapegame.graphics;
 
 import java.io.IOException;
 import java.util.Random;
 
+import com.cgi.scrumescapegame.EquipableItem;
+import com.cgi.scrumescapegame.Game;
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
 

@@ -1,4 +1,4 @@
-package com.cgi.scrumescapegame;
+package com.cgi.scrumescapegame.graphics;
 
 import javax.imageio.ImageIO;
 import java.awt.Color;
