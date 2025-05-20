@@ -13,8 +13,6 @@ import com.cgi.scrumescapegame.kamers.StartKamer;
 public class Game {
     public final static Gson gson = new Gson();
 
-    public final static DatabaseManager db = new DatabaseManager();
-
     private final Player player;
     private final List<Room> rooms;
     public final static Scanner scanner = new Scanner(System.in);
@@ -84,12 +82,7 @@ public class Game {
 
     public void saveGame() {
         PrintMethods.printlnColor("Gamegegevens opslaan...", Attribute.BRIGHT_YELLOW_TEXT());
-        String createTableSql = "CREATE TABLE IF NOT EXISTS game_state (id INT PRIMARY KEY, current_room_index INT, player_lives INT)";
-        db.executeQuery(createTableSql);
-        String upsertSql = String.format("MERGE INTO game_state KEY(id) VALUES (1, %d, %d)",
-                rooms.indexOf(player.getCurrentRoom()), player.getLives());
-        db.executeQuery(upsertSql);
-        PrintMethods.printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
+        // PrintMethods.printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
     }
 
     private void printWelcome() {
