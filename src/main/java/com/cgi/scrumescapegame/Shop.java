@@ -20,7 +20,7 @@ public class Shop {
 
     public void buyItem(int itemIndex, Player player) {
         Item itemToBuy = items.get(itemIndex);
-        int itemPrice = itemToBuy.getPrice();
+        int itemPrice = itemToBuy.getCurrentValue();
 
         if (player.getGold() < itemPrice) {
             PrintMethods.printlnColor("You don't have enough gold to buy " + itemToBuy.getName() + "!", Attribute.BRIGHT_RED_TEXT());
@@ -32,7 +32,7 @@ public class Shop {
 
     public void sellItem(int playerItemIndex, Player player) {
         Item itemToSell = player.getItem(playerItemIndex);
-        int sellPrice = itemToSell.getPrice();
+        int sellPrice = itemToSell.getCurrentValue();
         if(sellPrice < 1) {
             PrintMethods.printlnColor("You can't sell " + itemToSell.getName() + ".", Attribute.BRIGHT_RED_TEXT());
             return;
@@ -102,7 +102,7 @@ public class Shop {
                     PrintMethods.printlnColor("\n--- Your Items to Sell ---", Attribute.CYAN_TEXT());
                     for (int i = 0; i < playerItems.size(); i++) {
                         Item item = playerItems.get(i);
-                        if(item.getPrice() < 1) continue;
+                        if(item.getCurrentValue() < 1) continue;
                         System.out.print(String.format("%d. ", i + 1));
                         PrintMethods.printItem(item);
                     }

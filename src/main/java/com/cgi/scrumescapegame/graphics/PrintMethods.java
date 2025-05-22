@@ -143,7 +143,7 @@ public class PrintMethods {
             PrintMethods.printColor("Durability ┃", Attribute.CLEAR());
             PrintMethods.printColor(PrintMethods.getProgressBarString(durabilityPercentage, 13), color);
             PrintMethods.printColor("┃ ", Attribute.CLEAR());
-            PrintMethods.printlnColor(durabilityPercentage + "%", color);
+            PrintMethods.printlnColor(durability + "/" + maxDurability, color);
         }
 
         if(item instanceof UsableItem) {
@@ -152,7 +152,7 @@ public class PrintMethods {
             if(usesLeft != Integer.MAX_VALUE) printlnColor(usesLeft + " use(s) left", Attribute.DIM());
         }
 
-        int price = item.getPrice();
+        int price = item.getCurrentValue();
 
         if(price > 0) PrintMethods.printlnColor("Value: "+ price + "G", Attribute.YELLOW_TEXT());
 
