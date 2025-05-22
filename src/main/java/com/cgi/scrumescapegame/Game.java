@@ -57,8 +57,8 @@ public class Game {
     public void start() {
         PrintMethods.clearScreen();
         GamePrints.printWelcome();
-        map.generateMap();
         player.setCurrentRoom(rooms.getFirst());
+        map.printMap(player);
 
         if(!debug) {
             PrintMethods.printColor("Kies een naam: ", Attribute.BRIGHT_YELLOW_TEXT());

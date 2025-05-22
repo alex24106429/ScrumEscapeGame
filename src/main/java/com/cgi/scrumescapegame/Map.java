@@ -69,7 +69,10 @@ public class Map {
         return !hasRoom(x, y);
     }
 
-    public void generateMap() {
+    public void printMap(Player player) {
+        int playerX = player.currentRoom.getCurrentPosition().x;
+        int playerY = player.currentRoom.getCurrentPosition().y;
+        
         // Find the min and max x and y values from the room positions
         int xMin = Integer.MAX_VALUE;
         int xMax = Integer.MIN_VALUE;
@@ -87,7 +90,9 @@ public class Map {
         // Print the grid
         for (int y = yMax; y >= yMin; y--) {  // Go from top (yMax) to bottom (yMin)
             for (int x = xMin; x <= xMax; x++) {
-                if (hasRoom(x, y)) {
+                if (x == playerX && y == playerY) {
+                    System.out.print("🟢");
+                } else if (hasRoom(x, y)) {
                     if (positions.getLast().equals(new Point(x, y))) {
                         System.out.print("🔴");
                     } else {
