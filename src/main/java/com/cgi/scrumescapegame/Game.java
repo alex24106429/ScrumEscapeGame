@@ -16,7 +16,7 @@ public class Game {
     public final static Gson gson = new Gson();
 
     private final Player player;
-    private final List<Room> rooms;
+    public static final List<Room> rooms = new ArrayList<>();
     public final static Scanner scanner = new Scanner(System.in);
     private final Map map;
     public static final boolean debug = true; // Zet dit op false voor de eindversie
@@ -24,7 +24,6 @@ public class Game {
 
     public Game() {
         this.player = new Player();
-        this.rooms = new ArrayList<>();
         this.map = new Map();
         map.generateMapLayout();
         initializeRooms();
@@ -56,7 +55,7 @@ public class Game {
 
     public void start() {
         PrintMethods.clearScreen();
-        printWelcome();
+        GamePrints.printWelcome();
         map.generateMap();
         player.setCurrentRoom(rooms.getFirst());
 
@@ -72,7 +71,7 @@ public class Game {
             System.exit(1);
         }
 
-        if(debug) printBeschikbareKamers();
+        if(debug) GamePrints.printBeschikbareKamers();
 
         while (true) {
             // if(!scanner.hasNextLine()) continue;
@@ -85,35 +84,6 @@ public class Game {
     public void saveGame() {
         PrintMethods.printlnColor("Gamegegevens opslaan...", Attribute.BRIGHT_YELLOW_TEXT());
         // PrintMethods.printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
-    }
-
-    private void printWelcome() {
-        ImagePrinter.printImage("logo.png");
-        System.out.println("===================================");
-        PrintMethods.printlnColor("     Welkom bij Scrum Escape!", Attribute.BRIGHT_YELLOW_TEXT());
-        System.out.println("===================================");
-    }
-
-    void printBeschikbareKamers() {
-        PrintMethods.printlnColor("\nBeschikbare kamers (voor 'ga naar kamer X'):", Attribute.BOLD());
-        for (int i = 0; i < rooms.size(); i++) {
-            System.out.println("  Kamer " + (i + 1) + ": " + rooms.get(i).getName());
-        }
-    }
-
-    void printHelp() {
-        PrintMethods.printlnColor("Beschikbare commando's:", Attribute.BOLD());
-        System.out.println("  ga naar kamer [nummer] - Verplaats naar de opgegeven kamer (bv. 'ga naar kamer 1').");
-        System.out.println("  gebruik item [nummer]  - Gebruik de opgegeven item (bv. 'gebruik item 1').");
-        System.out.println("  unequip armor          - Unequipt je huidige armor.");
-        System.out.println("  unequip weapon         - Unequipt je huidige wapen.");
-        System.out.println("  status                 - Toon je huidige status en locatie.");
-        System.out.println("  kijk rond              - Krijg de beschrijving van de huidige kamer opnieuw.");
-        System.out.println("  kamers                 - Toon een lijst van beschikbare kamers.");
-        System.out.println("  items                  - Toon een lijst van jouw items.");
-        System.out.println("  opslaan                - Sla de gamegegevens op.");
-        System.out.println("  help                   - Toon dit Help bericht.");
-        System.out.println("  quit                   - Stop het spel.");
     }
 
     void moveToRoom(int roomNumber) {

@@ -36,14 +36,14 @@ public class InputProcessor {
         } else if (input.equals("kijk rond")) {
             PrintMethods.printlnColor(player.getCurrentRoom().description, Attribute.BRIGHT_YELLOW_TEXT());
         } else if (input.equals("kamers")) {
-            game.printBeschikbareKamers();
+            GamePrints.printBeschikbareKamers();
         } else if (input.equals("items")) {
             player.printItems();
         }else if (input.equals("opslaan")) {
             game.saveGame();
         }
         else if (input.equals("help")) {
-            game.printHelp();
+            GamePrints.printHelp();
         } else if (input.equals("quit")) {
             if (Game.debug) System.exit(0);
             
