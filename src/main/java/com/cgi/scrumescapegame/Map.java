@@ -91,20 +91,24 @@ public class Map {
             yMax = Math.max(yMax, p.y);
         }
 
-        // Calculate image dimensions
+        // Calculate logical image dimensions (as if rooms were 1x1)
         // +1 because if xMin=0, xMax=0, width is 1 pixel.
-        int imageWidth = xMax - xMin + 1;
-        int imageHeight = yMax - yMin + 1;
+        int logicalWidth = xMax - xMin + 1;
+        int logicalHeight = yMax - yMin + 1;
 
         // Ensure dimensions are positive
-        if (imageWidth <= 0 || imageHeight <= 0) return;
+        if (logicalWidth <= 0 || logicalHeight <= 0) return;
+
+        // Actual image dimensions for 2x2 rooms
+        int imageWidth = logicalWidth * 2;
+        int imageHeight = logicalHeight * 2;
 
         BufferedImage mapImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
 
         // Define colors
-        Color playerColor = Color.GREEN;
+        Color playerColor = Color.BLUE;
         Color lastRoomColor = Color.RED;
-        Color roomColor = Color.WHITE;
+        Color roomColor = Color.BLACK;
         Color emptySpaceColor = Color.DARK_GRAY;
 
         // Populate the image
@@ -112,9 +116,13 @@ public class Map {
         // We need to map world coordinates (x, y) to image pixel coordinates (imgX, imgY).
         for (int worldY = yMax; worldY >= yMin; worldY--) {
             for (int worldX = xMin; worldX <= xMax; worldX++) {
-                // Convert world coordinates to image pixel coordinates
-                int imgX = worldX - xMin;
-                int imgY = yMax - worldY; // Invert Y-axis: world yMax is img y=0
+                // Convert world coordinates to logical 1x1 image pixel coordinates
+                int logicalImgX = worldX - xMin;
+                int logicalImgY = yMax - worldY; // Invert Y-axis: world yMax is img y=0
+
+                // Scale to get top-left pixel of the 2x2 block in the actual image
+                int imgX = logicalImgX * 2;
+                int imgY = logicalImgY * 2;
 
                 Color pixelColor;
 
@@ -130,7 +138,12 @@ public class Map {
                 } else {
                     pixelColor = emptySpaceColor;
                 }
-                mapImage.setRGB(imgX, imgY, pixelColor.getRGB());
+                
+                // Set the 2x2 block of pixels
+                mapImage.setRGB(imgX,     imgY,     pixelColor.getRGB());
+                mapImage.setRGB(imgX + 1, imgY,     pixelColor.getRGB());
+                mapImage.setRGB(imgX,     imgY + 1, pixelColor.getRGB());
+                mapImage.setRGB(imgX + 1, imgY + 1, pixelColor.getRGB());
             }
         }
         ImagePrinter.printBufferedImage(mapImage);

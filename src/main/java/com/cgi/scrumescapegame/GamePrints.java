@@ -14,7 +14,7 @@ public class GamePrints {
 
     public static void printHelp() {
         PrintMethods.printlnColor("Beschikbare commando's:", Attribute.BOLD());
-        System.out.println("  ga naar kamer [nummer] - Verplaats naar de opgegeven kamer (bv. 'ga naar kamer 1').");
+        System.out.println("  go forward/backward/left/right - Move in the specified direction.");
         System.out.println("  gebruik item [nummer]  - Gebruik de opgegeven item (bv. 'gebruik item 1').");
         System.out.println("  unequip armor          - Unequipt je huidige armor.");
         System.out.println("  unequip weapon         - Unequipt je huidige wapen.");

@@ -323,4 +323,18 @@ public class ImagePrinter {
 		}
 		System.out.println(textArt);
 	}
+
+	public static Color brighten(Color color, float factor) {
+		int r = color.getRed();
+		int g = color.getGreen();
+		int b = color.getBlue();
+
+		float[] hsb = Color.RGBtoHSB(r, g, b, null);
+
+		hsb[2] = Math.min(1.0f, hsb[2] + ( (1.0f - hsb[2]) * factor) );
+
+		Color newColor = Color.getHSBColor(hsb[0], hsb[1], hsb[2]);
+
+		return new Color(newColor.getRed(), newColor.getGreen(), newColor.getBlue());
+	}
 }
