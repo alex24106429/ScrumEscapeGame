@@ -20,7 +20,7 @@ public class HealingPotion implements UsableItem {
 	}
 
 	public int getUsesLeft() {
-		return 0;
+		return 1;
 	}
 
 	public int getPrice() {

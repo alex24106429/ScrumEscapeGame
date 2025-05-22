@@ -6,6 +6,7 @@ import java.util.Random;
 import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.items.EquipableItem;
 import com.cgi.scrumescapegame.items.Item;
+import com.cgi.scrumescapegame.items.UsableItem;
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
 
@@ -141,7 +142,14 @@ public class PrintMethods {
 
             PrintMethods.printColor("Durability ┃", Attribute.CLEAR());
             PrintMethods.printColor(PrintMethods.getProgressBarString(durabilityPercentage, 13), color);
-            PrintMethods.printlnColor("┃", Attribute.CLEAR());
+            PrintMethods.printColor("┃ ", Attribute.CLEAR());
+            PrintMethods.printlnColor(durabilityPercentage + "%", color);
+        }
+
+        if(item instanceof UsableItem) {
+            UsableItem usableItem = (UsableItem) item;
+            int usesLeft = usableItem.getUsesLeft();
+            if(usesLeft != Integer.MAX_VALUE) printlnColor(usesLeft + " use(s) left", Attribute.DIM());
         }
 
         int price = item.getPrice();
