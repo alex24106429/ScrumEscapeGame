@@ -34,9 +34,6 @@ public class Player {
         this.attack = 10;
         this.defense = 10;
         this.items = new ArrayList<>();
-        addItem(new HealingPotion());
-        addItem(new Sword());
-        addItem(new Shield());
         addItem(new Book());
     }
 
@@ -154,6 +151,10 @@ public class Player {
         }
     }
 
+    public Item getItem(int itemIndex) {
+        return items.get(itemIndex);
+    }
+
     public ArrayList<Item> getItems() {
         return items;
     }
@@ -177,6 +178,10 @@ public class Player {
     public void addItem(Item item) {
         PrintMethods.printlnColor("Je hebt de item " + item.getName() + " gekregen!", Attribute.BRIGHT_GREEN_TEXT());
         items.add(item);
+    }
+
+    public void removeItem(int itemIndex) {
+        items.remove(itemIndex);
     }
 
     public void equipWeapon(Weapon weapon) {
