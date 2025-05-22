@@ -1,9 +1,13 @@
 package com.cgi.scrumescapegame;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import com.cgi.scrumescapegame.graphics.ImagePrinter;
+import com.cgi.scrumescapegame.graphics.PrintMethods;
 
 public class Map {
     private final List<Point> positions = new ArrayList<>();
@@ -72,7 +76,7 @@ public class Map {
     public void printMap(Player player) {
         int playerX = player.currentRoom.getCurrentPosition().x;
         int playerY = player.currentRoom.getCurrentPosition().y;
-        
+
         // Find the min and max x and y values from the room positions
         int xMin = Integer.MAX_VALUE;
         int xMax = Integer.MIN_VALUE;
@@ -87,23 +91,49 @@ public class Map {
             yMax = Math.max(yMax, p.y);
         }
 
-        // Print the grid
-        for (int y = yMax; y >= yMin; y--) {  // Go from top (yMax) to bottom (yMin)
-            for (int x = xMin; x <= xMax; x++) {
-                if (x == playerX && y == playerY) {
-                    System.out.print("🟢");
-                } else if (hasRoom(x, y)) {
-                    if (positions.getLast().equals(new Point(x, y))) {
-                        System.out.print("🔴");
+        // Calculate image dimensions
+        // +1 because if xMin=0, xMax=0, width is 1 pixel.
+        int imageWidth = xMax - xMin + 1;
+        int imageHeight = yMax - yMin + 1;
+
+        // Ensure dimensions are positive
+        if (imageWidth <= 0 || imageHeight <= 0) return;
+
+        BufferedImage mapImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+
+        // Define colors
+        Color playerColor = Color.GREEN;
+        Color lastRoomColor = Color.RED;
+        Color roomColor = Color.WHITE;
+        Color emptySpaceColor = Color.DARK_GRAY;
+
+        // Populate the image
+        // Note: BufferedImage y-coordinates are 0 at the top, increasing downwards.
+        // We need to map world coordinates (x, y) to image pixel coordinates (imgX, imgY).
+        for (int worldY = yMax; worldY >= yMin; worldY--) {
+            for (int worldX = xMin; worldX <= xMax; worldX++) {
+                // Convert world coordinates to image pixel coordinates
+                int imgX = worldX - xMin;
+                int imgY = yMax - worldY; // Invert Y-axis: world yMax is img y=0
+
+                Color pixelColor;
+
+                if (worldX == playerX && worldY == playerY) {
+                    pixelColor = playerColor;
+                } else if (hasRoom(worldX, worldY)) {
+                    // Ensure positions is not empty before calling getLast()
+                    if (!positions.isEmpty() && positions.getLast().equals(new Point(worldX, worldY))) {
+                        pixelColor = lastRoomColor;
                     } else {
-                        System.out.print("⚪");
+                        pixelColor = roomColor;
                     }
                 } else {
-                    System.out.print("🔳");
+                    pixelColor = emptySpaceColor;
                 }
+                mapImage.setRGB(imgX, imgY, pixelColor.getRGB());
             }
-            System.out.println();
         }
+        ImagePrinter.printBufferedImage(mapImage);
     }
 
     public boolean hasRoom(int x, int y) {

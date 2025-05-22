@@ -74,40 +74,20 @@ public abstract class Room {
         StringBuilder availableRooms = new StringBuilder();
 
         if (adjacentRooms.getOrDefault("up", false)) {
-            availableRooms.append("↑ ");
+            availableRooms.append("▲ ");
         }
 
         if (adjacentRooms.getOrDefault("left", false)) {
-            availableRooms.append("← ");
+            availableRooms.append("◀ ");
         }
 
         if (adjacentRooms.getOrDefault("down", false)) {
-            availableRooms.append("↓ ");
+            availableRooms.append("▼ ");
         }
 
         if (adjacentRooms.getOrDefault("right", false)) {
-            availableRooms.append("→ ");
+            availableRooms.append("▶ ");
         }
-
-        availableRooms.append("( ");
-
-        if (adjacentRooms.getOrDefault("up", false)) {
-            availableRooms.append("W ");
-        }
-
-        if (adjacentRooms.getOrDefault("left", false)) {
-            availableRooms.append("A ");
-        }
-
-        if (adjacentRooms.getOrDefault("down", false)) {
-            availableRooms.append("S ");
-        }
-
-        if (adjacentRooms.getOrDefault("right", false)) {
-            availableRooms.append("D ");
-        }
-
-        availableRooms.append(")");
 
         return availableRooms.toString();
     }
