@@ -65,6 +65,12 @@ public class Player {
     }
 
     public int changeGold(int amount) {
+        if (amount > 0) {
+            PrintMethods.printlnColor("You gained " + amount + " gold!", Attribute.BRIGHT_GREEN_TEXT());
+        }
+        if (amount < 0) {
+            PrintMethods.printlnColor("You lost " + amount + " gold.", Attribute.BRIGHT_RED_TEXT());
+        }
         return this.gold += amount;
     }
 

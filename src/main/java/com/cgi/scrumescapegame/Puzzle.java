@@ -57,6 +57,12 @@ public class Puzzle implements PuzzleSubject {
             String gebruikersAntwoord = scanner.nextLine();
 
             boolean correct = huidigeVraag.controleerAntwoord(gebruikersAntwoord);
+            if(Game.debug && gebruikersAntwoord.equals("skip")) correct = true;
+            if (correct) {
+                player.changeGold(10);
+            } else {
+                player.loseLife();
+            }
             notifyObserver(correct);
 
             System.out.println("----------------------");
