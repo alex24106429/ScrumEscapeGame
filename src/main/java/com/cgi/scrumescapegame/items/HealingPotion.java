@@ -1,7 +1,6 @@
 package com.cgi.scrumescapegame.items;
 
 import com.cgi.scrumescapegame.Player;
-import com.cgi.scrumescapegame.UsableItem;
 
 public class HealingPotion implements UsableItem {
 	public String getName() {

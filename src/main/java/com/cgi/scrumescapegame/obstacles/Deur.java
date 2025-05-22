@@ -1,7 +1,7 @@
 package com.cgi.scrumescapegame.obstacles;
 
-import com.cgi.scrumescapegame.PuzzleObserver;
 import com.cgi.scrumescapegame.Vraag;
+import com.cgi.scrumescapegame.observers.PuzzleObserver;
 
 public class Deur implements PuzzleObserver {
     public void update(boolean isCorrect, Vraag vraag) {

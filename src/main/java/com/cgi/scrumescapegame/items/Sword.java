@@ -1,7 +1,6 @@
 package com.cgi.scrumescapegame.items;
 
 import com.cgi.scrumescapegame.Player;
-import com.cgi.scrumescapegame.Weapon;
 
 public class Sword implements Weapon {
     private static final int maxDurability = 10;

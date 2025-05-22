@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.cgi.scrumescapegame.graphics.PrintMethods;
+import com.cgi.scrumescapegame.observers.PuzzleObserver;
+import com.cgi.scrumescapegame.observers.PuzzleSubject;
 import com.diogonunes.jcolor.Attribute;
 
 public class Puzzle implements PuzzleSubject {

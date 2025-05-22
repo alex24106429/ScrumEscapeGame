@@ -1,4 +1,4 @@
-package com.cgi.scrumescapegame;
+package com.cgi.scrumescapegame.observers;
 
 public interface PuzzleSubject {
     void registerObserver(PuzzleObserver observer);

@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 
 import com.cgi.scrumescapegame.kamers.KamerReview;
 import com.cgi.scrumescapegame.kamers.StartKamer;
+import com.cgi.scrumescapegame.observers.ObserverManager;
 
 public class Game {
     public final static Gson gson = new Gson();
