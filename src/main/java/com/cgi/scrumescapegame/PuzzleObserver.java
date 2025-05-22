@@ -1,6 +1,6 @@
 package com.cgi.scrumescapegame;
 
-public interface Observer {
+public interface PuzzleObserver {
     void update(boolean isCorrect, Vraag vraag);
 }
 

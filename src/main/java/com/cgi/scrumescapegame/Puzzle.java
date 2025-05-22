@@ -7,9 +7,9 @@ import java.util.Scanner;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.diogonunes.jcolor.Attribute;
 
-public class Puzzle implements Subject{
+public class Puzzle implements PuzzleSubject {
     private final List<Vraag> vragen;
-    private final List<Observer> observers;
+    private final List<PuzzleObserver> observers;
     private Vraag currentVraag;
 
     public Puzzle() {
@@ -18,18 +18,18 @@ public class Puzzle implements Subject{
     }
 
     @Override
-    public void registerObserver(Observer observer){
+    public void registerObserver(PuzzleObserver observer){
         observers.add(observer);
     }
 
     @Override
-    public void removeObserver(Observer observer){
+    public void removeObserver(PuzzleObserver observer){
         observers.remove(observer);
     }
 
     @Override
     public void notifyObserver(boolean isCorrect){
-        for(Observer observer : observers){
+        for(PuzzleObserver observer : observers){
             observer.update(isCorrect, currentVraag);
         }
     }

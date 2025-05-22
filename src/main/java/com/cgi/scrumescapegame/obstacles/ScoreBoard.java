@@ -1,9 +1,9 @@
 package com.cgi.scrumescapegame.obstacles;
 
-import com.cgi.scrumescapegame.Observer;
+import com.cgi.scrumescapegame.PuzzleObserver;
 import com.cgi.scrumescapegame.Vraag;
 
-public class ScoreBoard implements Observer {
+public class ScoreBoard implements PuzzleObserver {
     private int score;
     private int highScore;
 

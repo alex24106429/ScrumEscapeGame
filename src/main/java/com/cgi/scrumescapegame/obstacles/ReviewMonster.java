@@ -2,7 +2,6 @@ package com.cgi.scrumescapegame.obstacles;
 
 import java.util.Arrays;
 
-import com.cgi.scrumescapegame.Observer;
 import com.cgi.scrumescapegame.Obstacle;
 import com.cgi.scrumescapegame.vragen.Matching;
 import com.cgi.scrumescapegame.vragen.MeerkeuzeVraag;

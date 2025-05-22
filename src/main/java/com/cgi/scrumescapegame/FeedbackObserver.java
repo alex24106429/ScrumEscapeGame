@@ -1,6 +1,6 @@
 package com.cgi.scrumescapegame;
 
-public class FeedbackObserver implements Observer{
+public class FeedbackObserver implements PuzzleObserver {
     private int correctAnswers;
 
     public FeedbackObserver(int correctAnswers){

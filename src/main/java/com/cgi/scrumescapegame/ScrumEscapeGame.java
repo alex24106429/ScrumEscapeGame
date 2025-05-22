@@ -17,6 +17,6 @@ public class ScrumEscapeGame {
         Game game = new Game();
         game.start();
 
-        Observer monsterobserver = new MonsterObserver();
+        PuzzleObserver monsterobserver = new MonsterObserver();
     }
 }

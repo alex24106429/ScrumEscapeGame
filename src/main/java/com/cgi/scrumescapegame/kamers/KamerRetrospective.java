@@ -9,8 +9,7 @@ public class KamerRetrospective extends Room {
     }
 
     @Override
-    public void enterRoom(Player player) {
-        super.enterRoom(player);
+    public void roomLogic(Player player) {
         // Specifieke acties voor de retrospectiveskamer
     }
 }

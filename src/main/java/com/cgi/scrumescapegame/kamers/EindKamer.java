@@ -9,8 +9,6 @@ public class EindKamer extends Room {
     }
 
     @Override
-    public void enterRoom(Player player) {
-        super.enterRoom(player);
-        // Specifieke acties voor de dailystandupkamer
+    public void roomLogic(Player player) {
     }
 }
