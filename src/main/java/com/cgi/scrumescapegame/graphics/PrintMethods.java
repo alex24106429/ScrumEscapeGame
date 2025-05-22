@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.items.EquipableItem;
+import com.cgi.scrumescapegame.items.Item;
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
 
@@ -118,24 +119,36 @@ public class PrintMethods {
         return sb.toString();
     }
 
-    public static void printDurability(EquipableItem item) {
-        int durability = item.getCurrentDurability();
-        int maxDurability = item.getMaxDurability();
+    public static void printItem(Item item) {
+        printlnColor(item.getName(), Attribute.BOLD());
 
-        int durabilityPercentage = (durability * 100) / maxDurability;
+        if(item instanceof EquipableItem) {
+            EquipableItem equipableItem = (EquipableItem) item;
+            int durability = equipableItem.getCurrentDurability();
+            int maxDurability = equipableItem.getMaxDurability();
 
-        Attribute color;
+            int durabilityPercentage = (durability * 100) / maxDurability;
 
-        if (durabilityPercentage < 25) {
-            color = Attribute.BRIGHT_RED_TEXT();
-        } else if (durabilityPercentage <= 50) {
-            color = Attribute.BRIGHT_YELLOW_TEXT();
-        } else {
-            color = Attribute.BRIGHT_GREEN_TEXT();
+            Attribute color;
+
+            if (durabilityPercentage < 25) {
+                color = Attribute.BRIGHT_RED_TEXT();
+            } else if (durabilityPercentage <= 50) {
+                color = Attribute.BRIGHT_YELLOW_TEXT();
+            } else {
+                color = Attribute.BRIGHT_GREEN_TEXT();
+            }
+
+            PrintMethods.printColor("Durability ┃", Attribute.CLEAR());
+            PrintMethods.printColor(PrintMethods.getProgressBarString(durabilityPercentage, 13), color);
+            PrintMethods.printlnColor("┃", Attribute.CLEAR());
         }
 
-        PrintMethods.printColor(" Durability ┃", Attribute.CLEAR());
-        PrintMethods.printColor(PrintMethods.getProgressBarString(durabilityPercentage, 13), color);
-        PrintMethods.printlnColor("┃", Attribute.CLEAR());
+        int price = item.getPrice();
+
+        if(price > 0) PrintMethods.printlnColor("Value: "+ price + "G", Attribute.YELLOW_TEXT());
+
+        PrintMethods.printlnColor(item.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
+        ImagePrinter.printImage(item.getImagepath());
     }
 }

@@ -154,27 +154,17 @@ public class Player {
 
     public void printItems() {
         if (equippedWeapon != null) {
-            PrintMethods.printlnColor("Huidig wapen: " + equippedWeapon.getName(), Attribute.BOLD());
-            PrintMethods.printColor(equippedWeapon.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
+            PrintMethods.printlnColor("Huidig wapen: ", Attribute.BOLD());
+            PrintMethods.printItem(equippedWeapon);
 
-            PrintMethods.printDurability(equippedWeapon);
-
-            ImagePrinter.printImage(equippedWeapon.getImagepath());
         }
         if (equippedArmor != null) {
-            PrintMethods.printlnColor("Huidig armor: " + equippedArmor.getName(), Attribute.BOLD());
-            PrintMethods.printColor(equippedArmor.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
-
-            PrintMethods.printDurability(equippedArmor);
-
-            ImagePrinter.printImage(equippedArmor.getImagepath());
+            PrintMethods.printlnColor("Huidig armor: ", Attribute.BOLD());
+            PrintMethods.printItem(equippedArmor);
         }
         PrintMethods.printlnColor("\nJe items:", Attribute.BOLD());
         for (int i = 0; i < items.size(); i++) {
-            Item item = items.get(i);
-            System.out.println((i + 1) + ": " + item.getName());
-            PrintMethods.printlnColor(item.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
-            ImagePrinter.printImage(item.getImagepath());
+            PrintMethods.printItem(items.get(i));
         }
     }
 
