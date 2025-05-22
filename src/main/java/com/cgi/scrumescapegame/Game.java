@@ -17,7 +17,7 @@ public class Game {
     private final Player player;
     public static final List<Room> rooms = new ArrayList<>();
     public final static Scanner scanner = new Scanner(System.in);
-    private final Map map;
+    public final Map map; // Made map public
     public static final boolean debug = true; // Zet dit op false voor de eindversie
     public static boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
 
@@ -62,15 +62,13 @@ public class Game {
             PrintMethods.printColor("Kies een naam: ", Attribute.BRIGHT_YELLOW_TEXT());
             player.setName(scanner.nextLine());
         }
-        
+
         player.getCurrentRoom().enterRoom(player); // Roep enterRoom aan voor de initiële kamer
 
         if (rooms.isEmpty()) {
             System.out.println("Fout: Geen kamers gedefinieerd. Het spel kan niet starten.");
             System.exit(1);
         }
-
-        if(debug) GamePrints.printBeschikbareKamers();
 
         while (true) {
             // if(!scanner.hasNextLine()) continue;
@@ -85,18 +83,6 @@ public class Game {
         // PrintMethods.printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
     }
 
-    void moveToRoom(int roomNumber) {
-        // Kamernummers zijn 1-based voor de speler, maar 0-based in de lijst
-        int roomIndex = roomNumber - 1;
-        if (roomIndex >= 0 && roomIndex < rooms.size()) {
-            Room targetRoom = rooms.get(roomIndex);
-            player.setCurrentRoom(targetRoom);
-            targetRoom.enterRoom(player);
-        } else {
-            System.out.println("Ongeldig kamernummer. Kamer " + roomNumber + " bestaat niet.");
-            System.out.println("Beschikbare kamers zijn 1 t/m " + rooms.size() + ".");
-        }
-    }
     private void insertAdjacentRoom() {
         for (Room room : rooms) {
             java.util.Map<String, Boolean> status = map.getAdjacentRoomStatus(room.roomX, room.roomY);

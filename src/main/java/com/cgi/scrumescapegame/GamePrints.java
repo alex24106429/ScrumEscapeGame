@@ -12,13 +12,6 @@ public class GamePrints {
         System.out.println("===================================");
     }
 
-    public static void printBeschikbareKamers() {
-        PrintMethods.printlnColor("\nBeschikbare kamers (voor 'ga naar kamer X'):", Attribute.BOLD());
-        for (int i = 0; i < Game.rooms.size(); i++) {
-            System.out.println("  Kamer " + (i + 1) + ": " + Game.rooms.get(i).getName());
-        }
-    }
-
     public static void printHelp() {
         PrintMethods.printlnColor("Beschikbare commando's:", Attribute.BOLD());
         System.out.println("  ga naar kamer [nummer] - Verplaats naar de opgegeven kamer (bv. 'ga naar kamer 1').");
@@ -27,7 +20,6 @@ public class GamePrints {
         System.out.println("  unequip weapon         - Unequipt je huidige wapen.");
         System.out.println("  status                 - Toon je huidige status en locatie.");
         System.out.println("  kijk rond              - Krijg de beschrijving van de huidige kamer opnieuw.");
-        System.out.println("  kamers                 - Toon een lijst van beschikbare kamers.");
         System.out.println("  items                  - Toon een lijst van jouw items.");
         System.out.println("  opslaan                - Sla de gamegegevens op.");
         System.out.println("  help                   - Toon dit Help bericht.");
