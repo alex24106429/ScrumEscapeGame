@@ -22,7 +22,7 @@ public class Player {
     private int lives;
     private int attack;
     private int defense;
-    private int score;
+    private int gold;
     private ArrayList<Item> items;
     private Weapon equippedWeapon;
     private Armor equippedArmor;
@@ -30,7 +30,7 @@ public class Player {
     public Player() {
         // Standaard gegevens
         this.lives = 3;
-        this.score = 0;
+        this.gold = 0;
         this.attack = 10;
         this.defense = 10;
         this.items = new ArrayList<>();
@@ -60,12 +60,12 @@ public class Player {
         return lives;
     }
 
-    public int getScore() {
-        return score;
+    public int getGold() {
+        return gold;
     }
 
-    public int changeScore(int amount) {
-        return this.score += amount;
+    public int changeGold(int amount) {
+        return this.gold += amount;
     }
 
     public void printStatus() {
@@ -82,8 +82,8 @@ public class Player {
         // Aantal levens
         output += Ansi.colorize("[ Levens: " + getLivesString() + " ] ", Attribute.BRIGHT_RED_TEXT());
 
-        // Score
-        output += Ansi.colorize("[ Score: " + Ansi.colorize("" + score, Attribute.BOLD()),
+        // Gold
+        output += Ansi.colorize("[ Gold: " + Ansi.colorize("" + gold, Attribute.BOLD()),
                 Attribute.BRIGHT_YELLOW_TEXT())
                 + Ansi.colorize(" ] ", Attribute.BRIGHT_YELLOW_TEXT());
 

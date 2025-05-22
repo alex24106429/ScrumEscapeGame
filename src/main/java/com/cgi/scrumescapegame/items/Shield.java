@@ -41,4 +41,8 @@ public class Shield implements Armor {
     public void changeDurability(int amount) {
         this.currentDurability += amount;
     }
+
+    public int getPrice() {
+        return 50;
+    }
 }

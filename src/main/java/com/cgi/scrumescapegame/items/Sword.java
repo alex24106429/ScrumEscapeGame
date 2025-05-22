@@ -41,4 +41,8 @@ public class Sword implements Weapon {
     public void changeDurability(int amount) {
         this.currentDurability += amount;
     }
+
+    public int getPrice() {
+        return 50;
+    }
 }

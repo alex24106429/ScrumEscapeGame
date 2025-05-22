@@ -22,4 +22,8 @@ public class HealingPotion implements UsableItem {
 	public int getUsesLeft() {
 		return 0;
 	}
+
+	public int getPrice() {
+		return 25;
+	}
 }

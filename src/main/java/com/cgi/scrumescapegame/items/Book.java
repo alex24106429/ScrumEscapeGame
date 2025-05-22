@@ -24,4 +24,8 @@ public class Book implements UsableItem {
     public int getUsesLeft() {
         return Integer.MAX_VALUE;
     }
+
+	public int getPrice() {
+		return 0;
+	}
 }
