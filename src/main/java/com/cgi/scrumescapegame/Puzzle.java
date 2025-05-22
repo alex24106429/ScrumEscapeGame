@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.diogonunes.jcolor.Attribute;
+import com.cgi.scrumescapegame.vragen.VraagPrinter;
 
 public class Puzzle implements Subject{
     private final List<Vraag> vragen;
@@ -49,7 +50,7 @@ public class Puzzle implements Subject{
             Vraag huidigeVraag = vragen.get(i);
             this.currentVraag = huidigeVraag;
             PrintMethods.printlnColor("Vraag " + (i + 1) + " van " + vragen.size() + ":", Attribute.BOLD());
-            huidigeVraag.toonVraag();
+            VraagPrinter.toonVraag(huidigeVraag);
 
             String gebruikersAntwoord = scanner.nextLine();
 

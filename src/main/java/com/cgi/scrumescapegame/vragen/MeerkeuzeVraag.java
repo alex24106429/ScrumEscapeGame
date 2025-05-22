@@ -27,6 +27,8 @@ public class MeerkeuzeVraag implements Vraag {
         return tekst;
     }
 
+
+
     @Override
     public boolean controleerAntwoord(String antwoord) {
         if (antwoord == null || antwoord.trim().isEmpty()) {
