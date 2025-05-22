@@ -2,15 +2,11 @@ package com.cgi.scrumescapegame;
 
 import java.util.ArrayList;
 
-import com.cgi.scrumescapegame.graphics.ImagePrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.items.Armor;
 import com.cgi.scrumescapegame.items.Book;
 import com.cgi.scrumescapegame.items.EquipableItem;
-import com.cgi.scrumescapegame.items.HealingPotion;
 import com.cgi.scrumescapegame.items.Item;
-import com.cgi.scrumescapegame.items.Shield;
-import com.cgi.scrumescapegame.items.Sword;
 import com.cgi.scrumescapegame.items.UsableItem;
 import com.cgi.scrumescapegame.items.Weapon;
 import com.diogonunes.jcolor.Ansi;
