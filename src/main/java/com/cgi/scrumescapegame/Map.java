@@ -77,73 +77,105 @@ public class Map {
         int playerX = player.currentRoom.getCurrentPosition().x;
         int playerY = player.currentRoom.getCurrentPosition().y;
 
-        // Find the min and max x and y values from the room positions
-        int xMin = Integer.MAX_VALUE;
-        int xMax = Integer.MIN_VALUE;
-        int yMin = Integer.MAX_VALUE;
-        int yMax = Integer.MIN_VALUE;
+        int roomExtentXMin = Integer.MAX_VALUE;
+        int roomExtentXMax = Integer.MIN_VALUE;
+        int roomExtentYMin = Integer.MAX_VALUE;
+        int roomExtentYMax = Integer.MIN_VALUE;
 
-        // Loop through the positions to determine the grid boundaries
         for (Point p : positions) {
-            xMin = Math.min(xMin, p.x);
-            xMax = Math.max(xMax, p.x);
-            yMin = Math.min(yMin, p.y);
-            yMax = Math.max(yMax, p.y);
+            roomExtentXMin = Math.min(roomExtentXMin, p.x);
+            roomExtentXMax = Math.max(roomExtentXMax, p.x);
+            roomExtentYMin = Math.min(roomExtentYMin, p.y);
+            roomExtentYMax = Math.max(roomExtentYMax, p.y);
         }
 
-        // Calculate logical image dimensions (as if rooms were 1x1)
-        // +1 because if xMin=0, xMax=0, width is 1 pixel.
-        int logicalWidth = xMax - xMin + 1;
-        int logicalHeight = yMax - yMin + 1;
+        int drawAreaXMin = roomExtentXMin - 1;
+        int drawAreaXMax = roomExtentXMax + 1;
+        int drawAreaYMin = roomExtentYMin - 1;
+        int drawAreaYMax = roomExtentYMax + 1;
 
-        // Ensure dimensions are positive
-        if (logicalWidth <= 0 || logicalHeight <= 0) return;
+        int logicalMapWidth = drawAreaXMax - drawAreaXMin + 1;
+        int logicalMapHeight = drawAreaYMax - drawAreaYMin + 1;
 
-        // Actual image dimensions for 2x2 rooms
-        int imageWidth = logicalWidth * 2;
-        int imageHeight = logicalHeight * 2;
+        if (logicalMapWidth <= 0 || logicalMapHeight <= 0) {
+            System.out.println("Invalid map dimensions calculated. Cannot print map.");
+            return;
+        }
 
-        BufferedImage mapImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+        int pixelImageWidth = logicalMapWidth * 2;
+        int pixelImageHeight = logicalMapHeight * 2;
 
-        // Define colors
+        BufferedImage mapImage = new BufferedImage(pixelImageWidth, pixelImageHeight, BufferedImage.TYPE_INT_RGB);
+
         Color playerColor = Color.BLUE;
         Color lastRoomColor = Color.RED;
         Color roomColor = Color.BLACK;
         Color emptySpaceColor = Color.DARK_GRAY;
+        Color outlineColor = Color.LIGHT_GRAY; // Color for the 1-pixel outline
 
-        // Populate the image
-        // Note: BufferedImage y-coordinates are 0 at the top, increasing downwards.
-        // We need to map world coordinates (x, y) to image pixel coordinates (imgX, imgY).
-        for (int worldY = yMax; worldY >= yMin; worldY--) {
-            for (int worldX = xMin; worldX <= xMax; worldX++) {
-                // Convert world coordinates to logical 1x1 image pixel coordinates
-                int logicalImgX = worldX - xMin;
-                int logicalImgY = yMax - worldY; // Invert Y-axis: world yMax is img y=0
+        for (int worldY = drawAreaYMax; worldY >= drawAreaYMin; worldY--) {
+            for (int worldX = drawAreaXMin; worldX <= drawAreaXMax; worldX++) {
+                int logicalImgX = worldX - drawAreaXMin;
+                int logicalImgY = drawAreaYMax - worldY;
 
-                // Scale to get top-left pixel of the 2x2 block in the actual image
-                int imgX = logicalImgX * 2;
-                int imgY = logicalImgY * 2;
-
-                Color pixelColor;
+                int imgX = logicalImgX * 2; // Top-left X of the 2x2 block
+                int imgY = logicalImgY * 2; // Top-left Y of the 2x2 block
 
                 if (worldX == playerX && worldY == playerY) {
-                    pixelColor = playerColor;
+                    // Player tile: fill 2x2 block with playerColor
+                    mapImage.setRGB(imgX,     imgY,     playerColor.getRGB());
+                    mapImage.setRGB(imgX + 1, imgY,     playerColor.getRGB());
+                    mapImage.setRGB(imgX,     imgY + 1, playerColor.getRGB());
+                    mapImage.setRGB(imgX + 1, imgY + 1, playerColor.getRGB());
                 } else if (hasRoom(worldX, worldY)) {
-                    // Ensure positions is not empty before calling getLast()
-                    if (!positions.isEmpty() && positions.getLast().equals(new Point(worldX, worldY))) {
-                        pixelColor = lastRoomColor;
+                    // Room tile: fill 2x2 block with roomColor or lastRoomColor
+                    Color currentRoomColor;
+                    if (positions.getLast().equals(new Point(worldX, worldY))) {
+                        currentRoomColor = lastRoomColor;
                     } else {
-                        pixelColor = roomColor;
+                        currentRoomColor = roomColor;
                     }
+                    mapImage.setRGB(imgX,     imgY,     currentRoomColor.getRGB());
+                    mapImage.setRGB(imgX + 1, imgY,     currentRoomColor.getRGB());
+                    mapImage.setRGB(imgX,     imgY + 1, currentRoomColor.getRGB());
+                    mapImage.setRGB(imgX + 1, imgY + 1, currentRoomColor.getRGB());
                 } else {
-                    pixelColor = emptySpaceColor;
+                    // Empty space tile: determine pixel colors for outline
+                    Color[] pixelBlockColors = new Color[4]; // P00, P10, P01, P11
+                                                                // (imgX,imgY), (imgX+1,imgY), (imgX,imgY+1), (imgX+1,imgY+1)
+                    
+                    // Initialize all 4 pixels to emptySpaceColor
+                    pixelBlockColors[0] = emptySpaceColor; // Top-left
+                    pixelBlockColors[1] = emptySpaceColor; // Top-right
+                    pixelBlockColors[2] = emptySpaceColor; // Bottom-left
+                    pixelBlockColors[3] = emptySpaceColor; // Bottom-right
+
+                    // Check North neighbor (worldY + 1)
+                    if (hasRoom(worldX, worldY + 1)) {
+                        pixelBlockColors[0] = outlineColor; // Top-left pixel of current empty tile
+                        pixelBlockColors[1] = outlineColor; // Top-right pixel of current empty tile
+                    }
+                    // Check South neighbor (worldY - 1)
+                    if (hasRoom(worldX, worldY - 1)) {
+                        pixelBlockColors[2] = outlineColor; // Bottom-left pixel
+                        pixelBlockColors[3] = outlineColor; // Bottom-right pixel
+                    }
+                    // Check East neighbor (worldX + 1)
+                    if (hasRoom(worldX + 1, worldY)) {
+                        pixelBlockColors[1] = outlineColor; // Top-right pixel
+                        pixelBlockColors[3] = outlineColor; // Bottom-right pixel
+                    }
+                    // Check West neighbor (worldX - 1)
+                    if (hasRoom(worldX - 1, worldY)) {
+                        pixelBlockColors[0] = outlineColor; // Top-left pixel
+                        pixelBlockColors[2] = outlineColor; // Bottom-left pixel
+                    }
+                    
+                    mapImage.setRGB(imgX,     imgY,     pixelBlockColors[0].getRGB());
+                    mapImage.setRGB(imgX + 1, imgY,     pixelBlockColors[1].getRGB());
+                    mapImage.setRGB(imgX,     imgY + 1, pixelBlockColors[2].getRGB());
+                    mapImage.setRGB(imgX + 1, imgY + 1, pixelBlockColors[3].getRGB());
                 }
-                
-                // Set the 2x2 block of pixels
-                mapImage.setRGB(imgX,     imgY,     pixelColor.getRGB());
-                mapImage.setRGB(imgX + 1, imgY,     pixelColor.getRGB());
-                mapImage.setRGB(imgX,     imgY + 1, pixelColor.getRGB());
-                mapImage.setRGB(imgX + 1, imgY + 1, pixelColor.getRGB());
             }
         }
         ImagePrinter.printBufferedImage(mapImage);
