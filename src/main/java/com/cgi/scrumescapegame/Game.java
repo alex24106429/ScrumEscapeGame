@@ -56,7 +56,6 @@ public class Game {
         PrintMethods.clearScreen();
         GamePrints.printWelcome();
         player.setCurrentRoom(rooms.getFirst());
-        map.printMap(player);
 
         if(!debug) {
             PrintMethods.printColor("Kies een naam: ", Attribute.BRIGHT_YELLOW_TEXT());
@@ -69,6 +68,8 @@ public class Game {
             System.out.println("Fout: Geen kamers gedefinieerd. Het spel kan niet starten.");
             System.exit(1);
         }
+
+        map.printMap(player);
 
         while (true) {
             // if(!scanner.hasNextLine()) continue;

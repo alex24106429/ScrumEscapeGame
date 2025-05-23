@@ -32,46 +32,21 @@ public class PrintMethods {
     }
 
     public static void typeText(String text) {
-        if (Game.debug) {
+        if(Game.debug) {
             System.out.println(text);
             return;
         }
-        Random random = new Random();
-        StringBuilder currentText = new StringBuilder();
-
-        for (int i = 0; i < text.length(); i++) {
-            char targetChar = text.charAt(i);
-
-            if (i > 0) {
-                long animationDuration = 30;
-                long switchInterval = 17;
-                long elapsed = 0;
-
-                while (elapsed < animationDuration) {
-                    char randomChar = (char) (random.nextInt(94) + 33);
-                    System.out.print("\r" + currentText.toString() + randomChar);
-                    System.out.flush();
-
-                    long sleepTime = switchInterval;
-                    if (elapsed + switchInterval > animationDuration) {
-                        sleepTime = animationDuration - elapsed;
-                    }
-
-                    try {
-                        Thread.sleep(sleepTime);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        return;
-                    }
-                    elapsed += sleepTime;
-                }
-            }
-
-            currentText.append(targetChar);
-            System.out.print("\r" + currentText.toString());
-            System.out.flush();
+        for (char c : text.toCharArray()) {
+            System.out.print(c);
+            try {
+                Thread.sleep(30);
+            } catch (InterruptedException ignored) {}
         }
         System.out.println();
+    }
+
+    public static void typeTextColor(String text, Attribute colorAttribute) {
+        typeText(Ansi.colorize(text, colorAttribute));
     }
 
     public static void printColor(String text, Attribute colorAttribute) {

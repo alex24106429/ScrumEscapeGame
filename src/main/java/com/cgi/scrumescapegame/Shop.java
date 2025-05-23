@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.items.Item;
+import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
 
 public class Shop {
@@ -45,7 +46,7 @@ public class Shop {
     }
 
     public void interactiveMode(Scanner scanner, Player player) {
-        PrintMethods.printlnColor("Welcome to the shop!", Attribute.BRIGHT_GREEN_TEXT());
+        PrintMethods.typeText(Ansi.colorize("Welcome to my shop! How can I help you today?", Attribute.BRIGHT_GREEN_TEXT()));
         boolean shopping = true;
 
         while (shopping) {
@@ -129,7 +130,7 @@ public class Shop {
 
                 case "exit":
                 case "3":
-                    PrintMethods.printlnColor("Thank you for visiting the shop! Come again soon!", Attribute.BRIGHT_GREEN_TEXT());
+                    PrintMethods.typeTextColor("Thank you for visiting! Come again soon!", Attribute.BRIGHT_GREEN_TEXT());
                     shopping = false;
                     break;
 

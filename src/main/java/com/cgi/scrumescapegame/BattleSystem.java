@@ -1,16 +1,21 @@
 package com.cgi.scrumescapegame;
 
 import java.util.Scanner;
+
+import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
 
 import com.cgi.scrumescapegame.enemies.Enemy;
+import com.cgi.scrumescapegame.graphics.ImagePrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 
 public class BattleSystem {
 
     public static void startBattle(Player player, Enemy enemy, Scanner scanner) {
-        PrintMethods.printColor("\nA wild " + enemy.getName() + " appears!", Attribute.BRIGHT_RED_TEXT());
-        System.out.println(" HP: " + enemy.getHealth());
+        PrintMethods.clearScreen();
+        ImagePrinter.printImage(enemy.getImagePath());
+        PrintMethods.typeTextColor("\nA wild " + enemy.getName() + " appears!", Attribute.BRIGHT_RED_TEXT());
+        System.out.println("HP: " + enemy.getHealth());
         player.printStatus();
 
         while (player.isAlive() && enemy.isAlive()) {
@@ -24,24 +29,24 @@ public class BattleSystem {
             if (input.equalsIgnoreCase("1")) {
                 int playerDamage = player.getAttack();
                 enemy.takeDamage(playerDamage);
-                PrintMethods.printlnColor("You attacked " + enemy.getName() + ", and dealt " + playerDamage + " damage!", Attribute.BRIGHT_GREEN_TEXT());
+                PrintMethods.typeTextColor("You attacked " + enemy.getName() + ", and dealt " + playerDamage + " damage!", Attribute.BRIGHT_GREEN_TEXT());
             } else {
                 System.out.println("Invalid action.");
                 continue;
             }
 
             if (!enemy.isAlive()) {
-                PrintMethods.printlnColor(enemy.getName() + " has been defeated!", Attribute.BRIGHT_GREEN_TEXT());
+                PrintMethods.typeTextColor(enemy.getName() + " has been defeated!", Attribute.BRIGHT_GREEN_TEXT());
                 break;
             }
 
             System.out.println("\n--- " + enemy.getName() + "'s Turn ---");
             int monsterDamage = enemy.getAttack();
-            PrintMethods.printlnColor(enemy.getName() + " attacked you and dealt " + monsterDamage + " damage!", Attribute.BRIGHT_RED_TEXT());
+            PrintMethods.typeTextColor(enemy.getName() + " attacked you and dealt " + monsterDamage + " damage!", Attribute.BRIGHT_RED_TEXT());
             player.loseHp(monsterDamage);
 
             if (!player.isAlive()) {
-                PrintMethods.printlnColor("You have been defeated!", Attribute.BRIGHT_RED_TEXT());
+                PrintMethods.typeTextColor("You have been defeated!", Attribute.BRIGHT_RED_TEXT());
                 break;
             }
 
