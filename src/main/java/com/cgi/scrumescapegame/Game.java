@@ -3,11 +3,14 @@ package com.cgi.scrumescapegame;
 import java.util.*;
 
 import com.cgi.scrumescapegame.graphics.PrintMethods;
+import com.cgi.scrumescapegame.kamers.KamerDailyStandup;
 import com.cgi.scrumescapegame.kamers.KamerPlanning;
+import com.cgi.scrumescapegame.kamers.KamerRetrospective;
 import com.diogonunes.jcolor.Attribute;
 import com.google.gson.Gson;
 
 import com.cgi.scrumescapegame.kamers.KamerReview;
+import com.cgi.scrumescapegame.kamers.KamerScrumboard;
 import com.cgi.scrumescapegame.kamers.StartKamer;
 import com.cgi.scrumescapegame.observers.ObserverManager;
 
@@ -29,25 +32,27 @@ public class Game {
     }
 
     private void initializeRooms() {
-        // Kamer 0 (index 0, maar voor speler kamer 1)
         rooms.add(new StartKamer(0, 0));
-//        map.getPositions().remove(0);
 
         Random rand = new Random();
+
         for (int i = 1; i < map.getPositions().size(); i++) {
-            int roomType = rand.nextInt(4);
+            int x = map.getPositions().get(i).x;
+            int y = map.getPositions().get(i).y;
+
+            int roomType = rand.nextInt(5);
             switch (roomType) {
-                case 0 -> rooms.add(new KamerPlanning(map.getPositions().get(i).x, map.getPositions().get(i).y));
-                case 1 -> rooms.add(new KamerReview(map.getPositions().get(i).x, map.getPositions().get(i).y));
-                case 2 -> rooms.add(new KamerPlanning(map.getPositions().get(i).x, map.getPositions().get(i).y));
-                case 3 -> rooms.add(new KamerReview(map.getPositions().get(i).x, map.getPositions().get(i).y));
+                case 0 -> rooms.add(new KamerDailyStandup(x, y));
+                case 1 -> rooms.add(new KamerPlanning(x, y));
+                case 2 -> rooms.add(new KamerRetrospective(x, y));
+                case 3 -> rooms.add(new KamerReview(x, y));
+                case 4 -> rooms.add(new KamerScrumboard(x, y));
             }
         }
         insertAdjacentRoom();
         Puzzle puzzle = new Puzzle();
         ObserverManager observerManager = new ObserverManager();
         observerManager.startAllObservers(puzzle);
-        System.out.println("buh");
         observerManager.pingObservers(puzzle, true);
     }
 
