@@ -3,6 +3,7 @@ package com.cgi.scrumescapegame.observers;
 import com.cgi.scrumescapegame.Vraag;
 
 public class FeedbackObserver implements PuzzleObserver {
+    @SuppressWarnings("unused")
     private int correctAnswers;
 
     public FeedbackObserver(int correctAnswers){

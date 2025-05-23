@@ -2,7 +2,6 @@ package com.cgi.scrumescapegame;
 
 import java.util.Scanner;
 
-import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
 
 import com.cgi.scrumescapegame.enemies.Enemy;
