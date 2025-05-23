@@ -3,6 +3,7 @@ package com.cgi.scrumescapegame;
 import java.util.*;
 
 import com.cgi.scrumescapegame.graphics.PrintMethods;
+import com.cgi.scrumescapegame.kamers.EindKamer;
 import com.cgi.scrumescapegame.kamers.KamerDailyStandup;
 import com.cgi.scrumescapegame.kamers.KamerPlanning;
 import com.cgi.scrumescapegame.kamers.KamerRetrospective;
@@ -50,6 +51,9 @@ public class Game {
             }
         }
         insertAdjacentRoom();
+
+        Room lastRoom = rooms.getLast();
+        rooms.set(rooms.size() - 1, new EindKamer(lastRoom.roomX, lastRoom.roomY));
         Puzzle puzzle = new Puzzle();
         ObserverManager observerManager = new ObserverManager();
         observerManager.startAllObservers(puzzle);

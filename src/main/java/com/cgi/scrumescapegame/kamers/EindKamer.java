@@ -5,7 +5,7 @@ import com.cgi.scrumescapegame.Room;
 
 public class EindKamer extends Room {
     public EindKamer(int roomX, int roomY) {
-        super("TIA kamer", "TIA staat voor transparancy, inspection en Adaptation. Dit zijn de drie pilaren van scrum", roomX, roomY);
+        super("Final Room", "This is the final room.", roomX, roomY);
     }
 
     @Override
