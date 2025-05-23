@@ -1,8 +1,6 @@
 package com.cgi.scrumescapegame.observers;
 
 import com.cgi.scrumescapegame.Puzzle;
-import com.cgi.scrumescapegame.obstacles.Deur;
-import com.cgi.scrumescapegame.obstacles.ScoreBoard;
 
 public class ObserverManager {
     private ScoreBoard scoreBoard;

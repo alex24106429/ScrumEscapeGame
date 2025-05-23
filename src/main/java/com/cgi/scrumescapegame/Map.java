@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Random;
 
 import com.cgi.scrumescapegame.graphics.ImagePrinter;
-import com.cgi.scrumescapegame.graphics.PrintMethods;
 
 public class Map {
     private final List<Point> positions = new ArrayList<>();
