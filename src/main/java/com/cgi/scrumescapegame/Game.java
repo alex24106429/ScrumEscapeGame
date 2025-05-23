@@ -50,14 +50,10 @@ public class Game {
                 case 4 -> rooms.add(new KamerScrumboard(x, y));
             }
         }
-        insertAdjacentRoom();
-
         Room lastRoom = rooms.getLast();
         rooms.set(rooms.size() - 1, new EindKamer(lastRoom.roomX, lastRoom.roomY));
-        Puzzle puzzle = new Puzzle();
-        ObserverManager observerManager = new ObserverManager();
-        observerManager.startAllObservers(puzzle);
-        observerManager.pingObservers(puzzle, true);
+
+        insertAdjacentRoom();
     }
 
 
