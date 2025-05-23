@@ -1,5 +1,5 @@
 package com.cgi.scrumescapegame;
 
-public interface Obstacle {
+public interface Enemy {
     String getImagepath();
 }

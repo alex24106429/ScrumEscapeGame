@@ -1,8 +1,8 @@
-package com.cgi.scrumescapegame.obstacles;
+package com.cgi.scrumescapegame.enemies;
 
-import com.cgi.scrumescapegame.Obstacle;
+import com.cgi.scrumescapegame.Enemy;
 
-public class StartKamerMonster implements Obstacle {
+public class StartKamerMonster implements Enemy {
     private static final String imagepath = "monsters/reviewmonster.png";
 
     public StartKamerMonster() {
