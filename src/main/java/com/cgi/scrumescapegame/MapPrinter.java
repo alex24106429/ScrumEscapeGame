@@ -135,18 +135,28 @@ public class MapPrinter {
         directions.put("right", new Point(playerX + 1, playerY));
 
         for (Map.Entry<String, Boolean> entry : player.currentRoom.adjacentRooms.entrySet()) {
-            String direction = entry.getKey();
+            String internalDirectionKey = entry.getKey(); // This will be "up", "down", "left", "right"
             boolean isAvailable = entry.getValue();
 
             if (isAvailable) {
-                Point targetPos = directions.get(direction);
+                Point targetPos = directions.get(internalDirectionKey);
                 if (targetPos != null) {
                     Room adjacentRoom = GameMap.getRoomAt(targetPos.x, targetPos.y, Game.rooms);
                     if (adjacentRoom != null) {
                         float hue = getRoomHue(adjacentRoom);
                         Color roomColor = Color.getHSBColor(hue, 1.0f, 0.5f);
                         Attribute textColor = Attribute.TEXT_COLOR(roomColor.getRed(), roomColor.getGreen(), roomColor.getBlue());
-                        PrintMethods.printColor(direction + ": " + adjacentRoom.getName() + " ", textColor);
+
+                        String displayDirection;
+                        if (internalDirectionKey.equals("up")) {
+                            displayDirection = "forward";
+                        } else if (internalDirectionKey.equals("down")) {
+                            displayDirection = "backward";
+                        } else {
+                            displayDirection = internalDirectionKey; // For "left", "right"
+                        }
+                        
+                        PrintMethods.printColor(displayDirection + ": " + adjacentRoom.getName() + " ", textColor);
                     }
                 }
             }
