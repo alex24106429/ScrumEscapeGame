@@ -5,10 +5,12 @@ public class Sword extends Weapon {
         super(10, 10, 50);
     }
 
+    @Override
     public String getName() {
         return "Iron Sword";
     }
 
+    @Override
     public String getImagepath() {
         return "items/sword.png";
     }

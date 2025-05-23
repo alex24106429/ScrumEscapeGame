@@ -2,11 +2,15 @@ package com.cgi.scrumescapegame;
 
 import java.util.ArrayList;
 
+import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.items.Armor;
+import com.cgi.scrumescapegame.items.BattleItem;
 import com.cgi.scrumescapegame.items.Book;
+import com.cgi.scrumescapegame.items.DamagePotion;
 import com.cgi.scrumescapegame.items.EquipableItem;
 import com.cgi.scrumescapegame.items.Item;
+import com.cgi.scrumescapegame.items.LimitedUseItem;
 import com.cgi.scrumescapegame.items.UsableItem;
 import com.cgi.scrumescapegame.items.Weapon;
 import com.diogonunes.jcolor.Ansi;
@@ -33,6 +37,7 @@ public class Player {
         this.defense = 10;
         this.items = new ArrayList<>();
         addItem(new Book());
+        addItem(new DamagePotion());
     }
 
     public Room getCurrentRoom() {
@@ -179,6 +184,7 @@ public class Player {
         }
         PrintMethods.printlnColor("\nJe items:", Attribute.BOLD());
         for (int i = 0; i < items.size(); i++) {
+            System.out.print(String.format("%d. ", i + 1));
             PrintMethods.printItem(items.get(i));
         }
     }
@@ -220,13 +226,12 @@ public class Player {
         this.equippedArmor = null;
     }
 
-    public void useItem(int itemIndex) {
-        int index = itemIndex - 1;
+    public void useItem(int index) {
         if (index >= 0 && index < items.size()) {
             Item item = items.get(index);
             if (item instanceof UsableItem) {
                 ((UsableItem) item).useItem(this);
-                if (((UsableItem) item).getUsesLeft() == 0)
+                if (item instanceof LimitedUseItem && ((LimitedUseItem) item).getUsesLeft() == 0)
                     items.remove(index);
             } else if (item instanceof EquipableItem) {
                 if (item instanceof Weapon) {
@@ -234,10 +239,23 @@ public class Player {
                 } else if (item instanceof Armor) {
                     equipArmor((Armor) item);
                 }
-                PrintMethods.printlnColor("Je equipped " + item.getName(), Attribute.BRIGHT_GREEN_TEXT());
+                PrintMethods.printlnColor("You equipped " + item.getName(), Attribute.BRIGHT_GREEN_TEXT());
                 items.remove(index);
             } else {
                 PrintMethods.printlnColor("This item cannot be used or equipped.", Attribute.RED_TEXT());
+            }
+        } else {
+            PrintMethods.printlnColor("Invalid item index.", Attribute.RED_TEXT());
+        }
+    }
+
+    public void useBattleItem(int index, Enemy enemy) {
+        if (index >= 0 && index < items.size()) {
+            Item item = items.get(index);
+            if (item instanceof BattleItem) {
+                ((BattleItem) item).useBattleItem(this, enemy);
+            } else {
+                PrintMethods.printlnColor("The item " + item.getName() + " is not a battle item.", Attribute.RED_TEXT());
             }
         } else {
             PrintMethods.printlnColor("Invalid item index.", Attribute.RED_TEXT());

@@ -81,7 +81,7 @@ public class InputProcessor {
             try {
                 String itemNumberStr = input.substring("gebruik item ".length()).trim();
                 int itemNumber = Integer.parseInt(itemNumberStr);
-                player.useItem(itemNumber);
+                player.useItem(itemNumber - 1);
             } catch (NumberFormatException e) {
                 System.out.println("Ongeldig itemnummer. Gebruik bijvoorbeeld 'gebruik item 1'.");
             } catch (IndexOutOfBoundsException e) {

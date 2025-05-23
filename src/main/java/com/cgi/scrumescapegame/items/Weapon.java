@@ -14,6 +14,7 @@ public abstract class Weapon extends EquipableItem {
         return attackBonus;
     }
 
+    @Override
     public String getDescription() {
         return "+" + getAttackBonus() + " ATK";
     }

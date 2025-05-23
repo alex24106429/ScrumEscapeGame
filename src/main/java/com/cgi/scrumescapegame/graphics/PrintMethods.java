@@ -3,9 +3,13 @@ package com.cgi.scrumescapegame.graphics;
 import java.io.IOException;
 
 import com.cgi.scrumescapegame.Game;
+import com.cgi.scrumescapegame.items.Armor;
+import com.cgi.scrumescapegame.items.BattleItem;
 import com.cgi.scrumescapegame.items.EquipableItem;
 import com.cgi.scrumescapegame.items.Item;
+import com.cgi.scrumescapegame.items.LimitedUseItem;
 import com.cgi.scrumescapegame.items.UsableItem;
+import com.cgi.scrumescapegame.items.Weapon;
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
 
@@ -94,7 +98,16 @@ public class PrintMethods {
         return sb.toString();
     }
 
+    public static void printBadge(String text, Attribute colorAttribute) {
+        printColor(" " + text + " ", colorAttribute);
+        System.out.print(" ");
+    }
+
     public static void printItem(Item item) {
+        if(item instanceof UsableItem) printBadge("Usable", Attribute.BRIGHT_GREEN_BACK());
+        if(item instanceof Armor) printBadge("Armor", Attribute.BRIGHT_BLUE_BACK());
+        if(item instanceof Weapon) printBadge("Weapon", Attribute.BRIGHT_YELLOW_BACK());
+        if(item instanceof BattleItem) printBadge("Battle", Attribute.BRIGHT_RED_BACK());
         printlnColor(item.getName(), Attribute.BOLD());
 
         if(item instanceof EquipableItem) {
@@ -120,8 +133,8 @@ public class PrintMethods {
             PrintMethods.printlnColor(durability + "/" + maxDurability, color);
         }
 
-        if(item instanceof UsableItem) {
-            UsableItem usableItem = (UsableItem) item;
+        if(item instanceof LimitedUseItem) {
+            LimitedUseItem usableItem = (LimitedUseItem) item;
             int usesLeft = usableItem.getUsesLeft();
             if(usesLeft != Integer.MAX_VALUE) printlnColor(usesLeft + " use(s) left", Attribute.DIM());
         }

@@ -22,6 +22,7 @@ public abstract class Armor extends EquipableItem {
         player.addDefenseModifier(-getDefenseBonus());
     }
 
+    @Override
     public String getDescription() {
         return "+" + getDefenseBonus() + " DEF";
     }
