@@ -3,8 +3,11 @@ package com.cgi.scrumescapegame;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.cgi.scrumescapegame.graphics.ImagePrinter;
+import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.kamers.EindKamer;
 import com.cgi.scrumescapegame.kamers.KamerDailyStandup;
 import com.cgi.scrumescapegame.kamers.KamerPlanning;
@@ -12,6 +15,7 @@ import com.cgi.scrumescapegame.kamers.KamerRetrospective;
 import com.cgi.scrumescapegame.kamers.KamerReview;
 import com.cgi.scrumescapegame.kamers.KamerScrumboard;
 import com.cgi.scrumescapegame.kamers.StartKamer;
+import com.diogonunes.jcolor.Attribute;
 
 public class MapPrinter {
 	public static void printMap(Player player) {
@@ -23,7 +27,7 @@ public class MapPrinter {
         int roomExtentYMin = Integer.MAX_VALUE;
         int roomExtentYMax = Integer.MIN_VALUE;
 
-        for (Point p : Map.positions) {
+        for (Point p : GameMap.positions) {
             roomExtentXMin = Math.min(roomExtentXMin, p.x);
             roomExtentXMax = Math.max(roomExtentXMax, p.x);
             roomExtentYMin = Math.min(roomExtentYMin, p.y);
@@ -66,29 +70,12 @@ public class MapPrinter {
                     mapImage.setRGB(imgX + 1, imgY,     playerColor.getRGB());
                     mapImage.setRGB(imgX,     imgY + 1, playerColor.getRGB());
                     mapImage.setRGB(imgX + 1, imgY + 1, playerColor.getRGB());
-                } else if (Map.hasRoom(worldX, worldY)) {
-                    // Room tile: determine color based on room type and distance
-                    Room currentRoom = Map.getRoomAt(worldX, worldY, Game.rooms);
+                } else if (GameMap.hasRoom(worldX, worldY)) {
+                    Room currentRoom = GameMap.getRoomAt(worldX, worldY, Game.rooms);
                     Color roomColor = Color.BLACK; // Default color
 
                     if (currentRoom != null) {
-                        float hue = 0.0f;
-                        if (currentRoom instanceof StartKamer) {
-                            hue = 45f / 360f;
-                        } else if (currentRoom instanceof KamerScrumboard) {
-                            hue = 140f / 360f;
-                        } else if (currentRoom instanceof KamerReview) {
-                            hue = 240f / 360f;
-                        } else if (currentRoom instanceof KamerRetrospective) {
-                            hue = 275f / 360f;
-                        } else if (currentRoom instanceof KamerPlanning) {
-                            hue = 60f / 360f;
-                        } else if (currentRoom instanceof KamerDailyStandup) {
-                            hue = 35f / 360f;
-                        } else if (currentRoom instanceof EindKamer) {
-                            hue = 0f / 360f;
-                        }
-
+                        float hue = getRoomHue(currentRoom);
                         int distance = Math.abs(playerX - worldX) + Math.abs(playerY - worldY);
                         
                         if (distance == 1) {
@@ -107,35 +94,28 @@ public class MapPrinter {
                     mapImage.setRGB(imgX,     imgY + 1, roomColor.getRGB());
                     mapImage.setRGB(imgX + 1, imgY + 1, roomColor.getRGB());
                 } else {
-                    // Empty space tile: determine pixel colors for outline
-                    Color[] pixelBlockColors = new Color[4]; // P00, P10, P01, P11
-                                                                // (imgX,imgY), (imgX+1,imgY), (imgX,imgY+1), (imgX+1,imgY+1)
+                    Color[] pixelBlockColors = new Color[4];
                     
-                    // Initialize all 4 pixels to emptySpaceColor
-                    pixelBlockColors[0] = emptySpaceColor; // Top-left
-                    pixelBlockColors[1] = emptySpaceColor; // Top-right
-                    pixelBlockColors[2] = emptySpaceColor; // Bottom-left
-                    pixelBlockColors[3] = emptySpaceColor; // Bottom-right
+                    pixelBlockColors[0] = emptySpaceColor;
+                    pixelBlockColors[1] = emptySpaceColor;
+                    pixelBlockColors[2] = emptySpaceColor;
+                    pixelBlockColors[3] = emptySpaceColor;
 
-                    // Check North neighbor (worldY + 1)
-                    if (Map.hasRoom(worldX, worldY + 1)) {
-                        pixelBlockColors[0] = outlineColor; // Top-left pixel of current empty tile
-                        pixelBlockColors[1] = outlineColor; // Top-right pixel of current empty tile
+                    if (GameMap.hasRoom(worldX, worldY + 1)) {
+                        pixelBlockColors[0] = outlineColor;
+                        pixelBlockColors[1] = outlineColor;
                     }
-                    // Check South neighbor (worldY - 1)
-                    if (Map.hasRoom(worldX, worldY - 1)) {
-                        pixelBlockColors[2] = outlineColor; // Bottom-left pixel
-                        pixelBlockColors[3] = outlineColor; // Bottom-right pixel
+                    if (GameMap.hasRoom(worldX, worldY - 1)) {
+                        pixelBlockColors[2] = outlineColor;
+                        pixelBlockColors[3] = outlineColor;
                     }
-                    // Check East neighbor (worldX + 1)
-                    if (Map.hasRoom(worldX + 1, worldY)) {
-                        pixelBlockColors[1] = outlineColor; // Top-right pixel
-                        pixelBlockColors[3] = outlineColor; // Bottom-right pixel
+                    if (GameMap.hasRoom(worldX + 1, worldY)) {
+                        pixelBlockColors[1] = outlineColor;
+                        pixelBlockColors[3] = outlineColor;
                     }
-                    // Check West neighbor (worldX - 1)
-                    if (Map.hasRoom(worldX - 1, worldY)) {
-                        pixelBlockColors[0] = outlineColor; // Top-left pixel
-                        pixelBlockColors[2] = outlineColor; // Bottom-left pixel
+                    if (GameMap.hasRoom(worldX - 1, worldY)) {
+                        pixelBlockColors[0] = outlineColor;
+                        pixelBlockColors[2] = outlineColor;
                     }
                     
                     mapImage.setRGB(imgX,     imgY,     pixelBlockColors[0].getRGB());
@@ -146,5 +126,49 @@ public class MapPrinter {
             }
         }
         ImagePrinter.printBufferedImage(mapImage);
+
+        PrintMethods.printColor("Available Rooms: ", Attribute.BOLD());
+        Map<String, Point> directions = new LinkedHashMap<>();
+        directions.put("up", new Point(playerX, playerY + 1));
+        directions.put("left", new Point(playerX - 1, playerY));
+        directions.put("down", new Point(playerX, playerY - 1));
+        directions.put("right", new Point(playerX + 1, playerY));
+
+        for (Map.Entry<String, Boolean> entry : player.currentRoom.adjacentRooms.entrySet()) {
+            String direction = entry.getKey();
+            boolean isAvailable = entry.getValue();
+
+            if (isAvailable) {
+                Point targetPos = directions.get(direction);
+                if (targetPos != null) {
+                    Room adjacentRoom = GameMap.getRoomAt(targetPos.x, targetPos.y, Game.rooms);
+                    if (adjacentRoom != null) {
+                        float hue = getRoomHue(adjacentRoom);
+                        Color roomColor = Color.getHSBColor(hue, 1.0f, 0.5f);
+                        Attribute textColor = Attribute.TEXT_COLOR(roomColor.getRed(), roomColor.getGreen(), roomColor.getBlue());
+                        PrintMethods.printColor(direction + ": " + adjacentRoom.getName() + " ", textColor);
+                    }
+                }
+            }
+        }
+    }
+
+    private static float getRoomHue(Room room) {
+        if (room instanceof StartKamer) {
+            return 45f / 360f;
+        } else if (room instanceof KamerScrumboard) {
+            return 140f / 360f;
+        } else if (room instanceof KamerReview) {
+            return 240f / 360f;
+        } else if (room instanceof KamerRetrospective) {
+            return 275f / 360f;
+        } else if (room instanceof KamerPlanning) {
+            return 60f / 360f;
+        } else if (room instanceof KamerDailyStandup) {
+            return 35f / 360f;
+        } else if (room instanceof EindKamer) {
+            return 0f / 360f;
+        }
+        return 0.0f;
     }
 }

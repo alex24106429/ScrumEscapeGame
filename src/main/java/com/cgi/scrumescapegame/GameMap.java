@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Map {
+public class GameMap {
     static final List<Point> positions = new ArrayList<>();
     private final int roomCount = 24;
 

@@ -21,13 +21,13 @@ public class Game {
     private final Player player;
     public static final List<Room> rooms = new ArrayList<>();
     public final static Scanner scanner = new Scanner(System.in);
-    public final Map map; // Made map public
+    public final GameMap map; // Made map public
     public static final boolean debug = true; // Zet dit op false voor de eindversie
     public static boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
 
     public Game() {
         this.player = new Player();
-        this.map = new Map();
+        this.map = new GameMap();
         map.generateMapLayout();
         initializeRooms();
     }
