@@ -108,16 +108,10 @@ public class Player {
                 Attribute.GREEN_TEXT())
                 + Ansi.colorize(" ] ", Attribute.GREEN_TEXT());
 
-        output += "\n";
-
-        // Toegankelijke kamers
-        output += Ansi.colorize("[ Toegankelijke Kamers: " + currentRoom.availableRooms() + " ] ",
-                Attribute.BRIGHT_GREEN_TEXT());
-
         // Coordinaten (alleen in debug)
         if (Game.debug)
             output += Ansi
-                    .colorize("[ Coordianten: " + Ansi.colorize(
+                    .colorize("\n[ Coordianten: " + Ansi.colorize(
                             currentRoom.getCurrentPosition().x + ", " + currentRoom.getCurrentPosition().y,
                             Attribute.BOLD()), Attribute.BRIGHT_CYAN_TEXT())
                     + Ansi.colorize(" ] ", Attribute.BRIGHT_CYAN_TEXT());

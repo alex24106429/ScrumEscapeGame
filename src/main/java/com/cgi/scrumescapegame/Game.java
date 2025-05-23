@@ -74,7 +74,7 @@ public class Game {
             System.exit(1);
         }
 
-        map.printMap(player);
+        MapPrinter.printMap(player);
 
         while (true) {
             // if(!scanner.hasNextLine()) continue;

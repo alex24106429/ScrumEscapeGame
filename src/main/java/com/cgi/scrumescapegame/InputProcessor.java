@@ -70,7 +70,7 @@ public class InputProcessor {
                 if (nextRoom != null) {
                     player.setCurrentRoom(nextRoom);
                     nextRoom.enterRoom(player);
-                    game.map.printMap(player); // Print map after moving
+                    MapPrinter.printMap(player);
                 } else {
                     // This case should ideally not happen if adjacentRooms is correctly set
                     System.out.println("Error: Could not find the next room.");
