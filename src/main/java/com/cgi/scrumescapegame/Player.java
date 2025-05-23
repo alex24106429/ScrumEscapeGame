@@ -91,7 +91,7 @@ public class Player {
         output += "\n";
 
         // HP
-        output += Ansi.colorize("[ HP: " + getLivesString() + " ] ", Attribute.BRIGHT_RED_TEXT());
+        output += Ansi.colorize("[ HP: " + getHpString() + " ] ", Attribute.BRIGHT_RED_TEXT());
 
         // Gold
         output += Ansi.colorize("[ Gold: " + Ansi.colorize("" + gold, Attribute.BOLD()),
@@ -125,16 +125,8 @@ public class Player {
         System.out.println(output);
     }
 
-    public String getLivesString() {
-        return PrintMethods.getProgressBarString((int) ((double) currentHp / maxHp) * 100, 5);
-        // String output = "";
-        // for (int i = 0; i < lives; i++) {
-        //     output += "♥ ";
-        // }
-        // for (int i = lives; i < 3; i++) {
-        //     output += "♡ ";
-        // }
-        // return output.trim();
+    public String getHpString() {
+        return PrintMethods.getProgressBarString((int) ((double) currentHp / maxHp * 100), 5) + " " + currentHp + "/" + maxHp;
     }
 
     public void loseHp(int amount) {

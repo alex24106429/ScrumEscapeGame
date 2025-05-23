@@ -10,7 +10,7 @@ public class BattleSystem {
     public void startBattle(Player player, Enemy enemy, Scanner scanner) {
         System.out.println("\nA wild " + enemy.getName() + " appears!");
         System.out.println(enemy.getName() + " HP: " + enemy.getHealth());
-        System.out.println(player.getName() + " HP: " + player.getLivesString());
+        System.out.println(player.getName() + " HP: " + player.getHpString());
 
         while (player.isAlive() && enemy.isAlive()) {
 
