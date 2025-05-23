@@ -126,7 +126,7 @@ public class Map {
                     mapImage.setRGB(imgX,     imgY + 1, playerColor.getRGB());
                     mapImage.setRGB(imgX + 1, imgY + 1, playerColor.getRGB());
                 } else if (hasRoom(worldX, worldY)) {
-                    // Room tile: determine color based on room type
+                    // Room tile: determine color based on room type and distance
                     Room currentRoom = getRoomAt(worldX, worldY, Game.rooms);
                     Color roomColor = Color.BLACK; // Default color
 
@@ -147,7 +147,18 @@ public class Map {
                         } else if (currentRoom instanceof EindKamer) {
                             hue = 0f / 360f;
                         }
-                        roomColor = Color.getHSBColor(hue, 0.5f, 0.2f);
+
+                        int distance = Math.abs(playerX - worldX) + Math.abs(playerY - worldY);
+                        
+                        if (distance == 1) {
+                            roomColor = Color.getHSBColor(hue, 0.5f, 0.4f);
+                        } else if (distance == 2) {
+                            roomColor = Color.getHSBColor(hue, 0.5f, 0.2f);
+                        } else if (Game.debug) {
+                            roomColor = Color.getHSBColor(hue, 0.5f, 0.2f);
+                        } else {
+                            roomColor = Color.BLACK;
+                        }
                     }
 
                     mapImage.setRGB(imgX,     imgY,     roomColor.getRGB());
