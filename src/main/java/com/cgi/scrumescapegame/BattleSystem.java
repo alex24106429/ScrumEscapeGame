@@ -1,47 +1,47 @@
 package com.cgi.scrumescapegame;
 
-import com.cgi.scrumescapegame.enemies.Enemy;
-import com.cgi.scrumescapegame.items.Weapon;
-import com.cgi.scrumescapegame.items.Armor;
 import java.util.Scanner;
+import com.diogonunes.jcolor.Attribute;
+
+import com.cgi.scrumescapegame.enemies.Enemy;
+import com.cgi.scrumescapegame.graphics.PrintMethods;
 
 public class BattleSystem {
 
-    public void startBattle(Player player, Enemy enemy, Scanner scanner) {
-        System.out.println("\nA wild " + enemy.getName() + " appears!");
-        System.out.println(enemy.getName() + " HP: " + enemy.getHealth());
-        System.out.println(player.getName() + " HP: " + player.getHpString());
+    public static void startBattle(Player player, Enemy enemy, Scanner scanner) {
+        PrintMethods.printColor("\nA wild " + enemy.getName() + " appears!", Attribute.BRIGHT_RED_TEXT());
+        System.out.println(" HP: " + enemy.getHealth());
+        player.printStatus();
 
         while (player.isAlive() && enemy.isAlive()) {
+            PrintMethods.printlnColor("\n--- Your Turn ---", Attribute.BOLD());
+            PrintMethods.printlnColor("1. Attack with " + player.getWeaponName(), Attribute.BRIGHT_CYAN_TEXT());
+            PrintMethods.printlnColor("2. Use Item (Not implemented yet)", Attribute.BRIGHT_CYAN_TEXT());
+            PrintMethods.printlnColor("Choose your action: ", Attribute.BRIGHT_CYAN_TEXT());
 
-            System.out.println("\n--- Your Turn ---");
-            System.out.println("1. Attack");
-            System.out.println("2. Use Item (Not implemented in this example)");
-            System.out.print("Choose your action: ");
             String input = scanner.nextLine();
 
             if (input.equalsIgnoreCase("1")) {
                 int playerDamage = player.getAttack();
                 enemy.takeDamage(playerDamage);
-                System.out.println("You attacked " + enemy.getName() + " for " + playerDamage + " damage!");
+                PrintMethods.printlnColor("You attacked " + enemy.getName() + ", and dealt " + playerDamage + " damage!", Attribute.BRIGHT_GREEN_TEXT());
             } else {
-                System.out.println("Invalid action. You lose your turn.");
+                System.out.println("Invalid action.");
+                continue;
             }
 
             if (!enemy.isAlive()) {
-                System.out.println(enemy.getName() + " has been defeated!");
-
+                PrintMethods.printlnColor(enemy.getName() + " has been defeated!", Attribute.BRIGHT_GREEN_TEXT());
                 break;
             }
 
             System.out.println("\n--- " + enemy.getName() + "'s Turn ---");
             int monsterDamage = enemy.getAttack();
+            PrintMethods.printlnColor(enemy.getName() + " attacked you and dealt " + monsterDamage + " damage!", Attribute.BRIGHT_RED_TEXT());
             player.loseHp(monsterDamage);
-            System.out.println(enemy.getName() + " attacked you for " + monsterDamage + " damage!");
 
             if (!player.isAlive()) {
-                System.out.println("You have been defeated!");
-
+                PrintMethods.printlnColor("You have been defeated!", Attribute.BRIGHT_RED_TEXT());
                 break;
             }
 
@@ -50,9 +50,9 @@ public class BattleSystem {
         }
 
         if (player.isAlive()) {
-            System.out.println("\nBattle won!");
+            PrintMethods.printlnColor("\nBattle won!", Attribute.BRIGHT_GREEN_TEXT());
         } else {
-            System.out.println("\nBattle lost!");
+            PrintMethods.printlnColor("\nBattle lost!", Attribute.BRIGHT_RED_TEXT());
         }
     }
 }

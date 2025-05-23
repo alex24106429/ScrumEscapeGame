@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.observers.PuzzleObserver;
 import com.cgi.scrumescapegame.observers.PuzzleSubject;
@@ -40,7 +41,7 @@ public class Puzzle implements PuzzleSubject {
         this.vragen.add(vraag);
     }
 
-    public void start(Player player) {
+    public void start(Player player, Enemy enemy) {
         if (vragen.isEmpty()) {
             System.out.println("De puzzle bevat nog geen vragen.");
             return;
@@ -61,7 +62,7 @@ public class Puzzle implements PuzzleSubject {
             if (correct) {
                 player.changeGold(10);
             } else {
-                player.loseHp(10);
+                BattleSystem.startBattle(player, enemy, scanner);
             }
             notifyObserver(correct);
 

@@ -133,9 +133,8 @@ public class Player {
         if (currentHp > 0) {
             currentHp -= amount;
             if(currentHp < 0) currentHp = 0;
-            PrintMethods.printlnColor("You lost " + amount + " HP!",
+            PrintMethods.printlnColor("You lost " + amount + " HP! Current HP: " + getHpString(),
                     Attribute.BRIGHT_RED_TEXT());
-            printStatus();
         } else {
             PrintMethods.printlnColor("Game over! You lost all HP.", Attribute.BRIGHT_RED_TEXT());
         }
@@ -158,6 +157,20 @@ public class Player {
 
     public ArrayList<Item> getItems() {
         return items;
+    }
+
+    public Weapon getWeapon() {
+        return this.equippedWeapon;
+    }
+
+    public String getWeaponName() {
+        Weapon weapon = getWeapon();
+        if(weapon == null) return "Your Fist";
+        return weapon.getName();
+    }
+
+    public Armor getArmor() {
+        return this.equippedArmor;
     }
 
     public void printItems() {
