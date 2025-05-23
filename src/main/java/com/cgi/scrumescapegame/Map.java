@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.cgi.scrumescapegame.graphics.ImagePrinter;
+import com.cgi.scrumescapegame.kamers.*; // Import all room types
 
 public class Map {
     private final List<Point> positions = new ArrayList<>();
@@ -107,8 +108,6 @@ public class Map {
         BufferedImage mapImage = new BufferedImage(pixelImageWidth, pixelImageHeight, BufferedImage.TYPE_INT_RGB);
 
         Color playerColor = Color.BLUE;
-        Color lastRoomColor = Color.RED;
-        Color roomColor = Color.BLACK;
         Color emptySpaceColor = Color.DARK_GRAY;
         Color outlineColor = Color.LIGHT_GRAY; // Color for the 1-pixel outline
 
@@ -127,17 +126,34 @@ public class Map {
                     mapImage.setRGB(imgX,     imgY + 1, playerColor.getRGB());
                     mapImage.setRGB(imgX + 1, imgY + 1, playerColor.getRGB());
                 } else if (hasRoom(worldX, worldY)) {
-                    // Room tile: fill 2x2 block with roomColor or lastRoomColor
-                    Color currentRoomColor;
-                    if (positions.getLast().equals(new Point(worldX, worldY))) {
-                        currentRoomColor = lastRoomColor;
-                    } else {
-                        currentRoomColor = roomColor;
+                    // Room tile: determine color based on room type
+                    Room currentRoom = getRoomAt(worldX, worldY, Game.rooms);
+                    Color roomColor = Color.BLACK; // Default color
+
+                    if (currentRoom != null) {
+                        float hue = 0.0f;
+                        if (currentRoom instanceof StartKamer) {
+                            hue = 45f / 360f;
+                        } else if (currentRoom instanceof KamerScrumboard) {
+                            hue = 140f / 360f;
+                        } else if (currentRoom instanceof KamerReview) {
+                            hue = 240f / 360f;
+                        } else if (currentRoom instanceof KamerRetrospective) {
+                            hue = 275f / 360f;
+                        } else if (currentRoom instanceof KamerPlanning) {
+                            hue = 60f / 360f;
+                        } else if (currentRoom instanceof KamerDailyStandup) {
+                            hue = 35f / 360f;
+                        } else if (currentRoom instanceof EindKamer) {
+                            hue = 0f / 360f;
+                        }
+                        roomColor = Color.getHSBColor(hue, 0.5f, 0.2f);
                     }
-                    mapImage.setRGB(imgX,     imgY,     currentRoomColor.getRGB());
-                    mapImage.setRGB(imgX + 1, imgY,     currentRoomColor.getRGB());
-                    mapImage.setRGB(imgX,     imgY + 1, currentRoomColor.getRGB());
-                    mapImage.setRGB(imgX + 1, imgY + 1, currentRoomColor.getRGB());
+
+                    mapImage.setRGB(imgX,     imgY,     roomColor.getRGB());
+                    mapImage.setRGB(imgX + 1, imgY,     roomColor.getRGB());
+                    mapImage.setRGB(imgX,     imgY + 1, roomColor.getRGB());
+                    mapImage.setRGB(imgX + 1, imgY + 1, roomColor.getRGB());
                 } else {
                     // Empty space tile: determine pixel colors for outline
                     Color[] pixelBlockColors = new Color[4]; // P00, P10, P01, P11
@@ -189,6 +205,15 @@ public class Map {
         return false; // Kamer bestaat niet
     }
 
+    private Room getRoomAt(int x, int y, List<Room> rooms) {
+        for (Room room : rooms) {
+            if (room.roomX == x && room.roomY == y) {
+                return room;
+            }
+        }
+        return null;
+    }
+
     public List<Point> getPositions() {
         return positions;
     }
@@ -222,7 +247,4 @@ public class Map {
 
         return adjacentStatus;
     }
-
-
-
 }
