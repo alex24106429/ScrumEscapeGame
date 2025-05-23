@@ -8,7 +8,7 @@ public class HealingPotion extends UsableItem {
     }
 
     public String getDescription() {
-        return "+1 Leven";
+        return "+10 HP";
     }
 
     public String getImagepath() {
@@ -16,7 +16,7 @@ public class HealingPotion extends UsableItem {
     }
 
     public void useItem(Player player) {
-        player.gainLife();
+        player.gainHp(10);
     }
 
     public int getUsesLeft() {

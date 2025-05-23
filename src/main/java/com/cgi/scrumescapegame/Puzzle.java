@@ -61,7 +61,7 @@ public class Puzzle implements PuzzleSubject {
             if (correct) {
                 player.changeGold(10);
             } else {
-                player.loseLife();
+                player.loseHp(10);
             }
             notifyObserver(correct);
 

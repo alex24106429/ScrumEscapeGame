@@ -8,7 +8,7 @@ public class MonsterObserver implements PuzzleObserver {
 
     public void update(boolean isCorrect, Vraag vraag){
         if(!isCorrect){
-            player.loseLife();
+            // player.loseLife();
         }
     }
 }

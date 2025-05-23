@@ -1,14 +1,12 @@
 package com.cgi.scrumescapegame.enemies;
 
-import com.cgi.scrumescapegame.Enemy;
-
-public class ReviewMonster implements Enemy {
-    private static final String imagepath = "monsters/reviewmonster.png";
-
+public class ReviewMonster extends Enemy {
+    private static String name = "Review Monster";
+    private static String imagePath = "monsters/reviewmonster.png";
+    private static int maxHp = 50;
+    private static int attackDamage = 10;
+    
     public ReviewMonster() {
-    }
-
-    public String getImagepath() {
-        return imagepath;
+        super(name, imagePath, maxHp, attackDamage);
     }
 }

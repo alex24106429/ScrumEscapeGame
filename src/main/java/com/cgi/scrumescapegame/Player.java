@@ -15,7 +15,8 @@ import com.diogonunes.jcolor.Attribute;
 public class Player {
     private String name = "Avonturier";
     Room currentRoom;
-    private int lives;
+    private int maxHp;
+    private int currentHp;
     private int attack;
     private int defense;
     private int gold;
@@ -25,7 +26,8 @@ public class Player {
 
     public Player() {
         // Standaard gegevens
-        this.lives = 3;
+        this.maxHp = 50;
+        this.currentHp = this.maxHp;
         this.gold = 0;
         this.attack = 10;
         this.defense = 10;
@@ -49,8 +51,16 @@ public class Player {
         this.name = newName;
     }
 
-    public int getLives() {
-        return lives;
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public int getCurrentHp() {
+        return currentHp;
+    }
+
+    public boolean isAlive() {
+        return getCurrentHp() > 0;
     }
 
     public int getGold() {
@@ -78,15 +88,15 @@ public class Player {
                 Attribute.BRIGHT_BLUE_TEXT())
                 + Ansi.colorize(" ] ", Attribute.BRIGHT_BLUE_TEXT());
 
-        // Aantal levens
-        output += Ansi.colorize("[ Levens: " + getLivesString() + " ] ", Attribute.BRIGHT_RED_TEXT());
+        output += "\n";
+
+        // HP
+        output += Ansi.colorize("[ HP: " + getLivesString() + " ] ", Attribute.BRIGHT_RED_TEXT());
 
         // Gold
         output += Ansi.colorize("[ Gold: " + Ansi.colorize("" + gold, Attribute.BOLD()),
                 Attribute.BRIGHT_YELLOW_TEXT())
                 + Ansi.colorize(" ] ", Attribute.BRIGHT_YELLOW_TEXT());
-
-        output += "\n";
 
         // Attack
         output += Ansi.colorize("[ ATK: " + Ansi.colorize("" + attack, Attribute.BOLD()),
@@ -116,34 +126,37 @@ public class Player {
     }
 
     public String getLivesString() {
-        String output = "";
-        for (int i = 0; i < lives; i++) {
-            output += "♥ ";
-        }
-        for (int i = lives; i < 3; i++) {
-            output += "♡ ";
-        }
-        return output.trim();
+        return PrintMethods.getProgressBarString((int) ((double) currentHp / maxHp) * 100, 5);
+        // String output = "";
+        // for (int i = 0; i < lives; i++) {
+        //     output += "♥ ";
+        // }
+        // for (int i = lives; i < 3; i++) {
+        //     output += "♡ ";
+        // }
+        // return output.trim();
     }
 
-    public void loseLife() {
-        if (lives > 0) {
-            lives--;
-            PrintMethods.printlnColor("Je hebt een leven verloren! Je hebt nog " + lives + " levens over.",
+    public void loseHp(int amount) {
+        if (currentHp > 0) {
+            currentHp -= amount;
+            if(currentHp < 0) currentHp = 0;
+            PrintMethods.printlnColor("You lost " + amount + " HP!",
                     Attribute.BRIGHT_RED_TEXT());
             printStatus();
         } else {
-            PrintMethods.printlnColor("Game over! Je hebt geen levens meer.", Attribute.BRIGHT_RED_TEXT());
+            PrintMethods.printlnColor("Game over! You lost all HP.", Attribute.BRIGHT_RED_TEXT());
         }
     }
 
-    public void gainLife() {
-        if (lives < 3) {
-            lives++;
-            PrintMethods.printlnColor("Je hebt een leven gewonnen! Je hebt nu " + lives + " levens.",
+    public void gainHp(int amount) {
+        if (currentHp < maxHp) {
+            currentHp += amount;
+            if(currentHp > maxHp) currentHp = maxHp;
+            PrintMethods.printlnColor("You gained " + amount + " HP.",
                     Attribute.BRIGHT_GREEN_TEXT());
         } else {
-            PrintMethods.printlnColor("Je hebt al het maximale aantal levens.", Attribute.BRIGHT_GREEN_TEXT());
+            PrintMethods.printlnColor("You already have the maximum HP.", Attribute.BRIGHT_GREEN_TEXT());
         }
     }
 
@@ -238,5 +251,13 @@ public class Player {
 
     public void addDefenseModifier(int amount) {
         this.defense += amount;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getDefense() {
+        return defense;
     }
 }
