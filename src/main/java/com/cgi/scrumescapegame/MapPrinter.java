@@ -52,49 +52,74 @@ public class MapPrinter {
 
         BufferedImage mapImage = new BufferedImage(pixelImageWidth, pixelImageHeight, BufferedImage.TYPE_INT_RGB);
 
-        Color playerColor = Color.BLUE;
-        Color emptySpaceColor = Color.DARK_GRAY;
-        Color outlineColor = Color.LIGHT_GRAY; // Color for the 1-pixel outline
+        int playerColor = Color.HSBtoRGB(180f / 360f, 1.0f, 1.0f);
+        int emptySpaceColor = Color.HSBtoRGB(0.0f, 0.0f, 0.2f);
+        int outlineColor = Color.HSBtoRGB(0.0f, 0.0f, 0.7f);
+
+        // Calculate player's top-left pixel coordinates in the mapImage space
+        int playerPxMin = (playerX - drawAreaXMin) * 2;
+        int playerPyMin = (drawAreaYMax - playerY) * 2; // Y is inverted for image coordinates
+
+        // Define the player's 2x2 tile area in continuous pixel coordinates.
+        double playerRectPx1 = (double)playerPxMin;
+        double playerRectPy1 = (double)playerPyMin;
+        double playerRectPx2 = (double)playerPxMin + 2.0;
+        double playerRectPy2 = (double)playerPyMin + 2.0;
 
         for (int worldY = drawAreaYMax; worldY >= drawAreaYMin; worldY--) {
             for (int worldX = drawAreaXMin; worldX <= drawAreaXMax; worldX++) {
                 int logicalImgX = worldX - drawAreaXMin;
                 int logicalImgY = drawAreaYMax - worldY;
 
-                int imgX = logicalImgX * 2; // Top-left X of the 2x2 block
-                int imgY = logicalImgY * 2; // Top-left Y of the 2x2 block
+                int imgX = logicalImgX * 2; // Top-left X of the 2x2 pixel block for this world tile
+                int imgY = logicalImgY * 2; // Top-left Y of the 2x2 pixel block for this world tile
 
                 if (worldX == playerX && worldY == playerY) {
                     // Player tile: fill 2x2 block with playerColor
-                    mapImage.setRGB(imgX,     imgY,     playerColor.getRGB());
-                    mapImage.setRGB(imgX + 1, imgY,     playerColor.getRGB());
-                    mapImage.setRGB(imgX,     imgY + 1, playerColor.getRGB());
-                    mapImage.setRGB(imgX + 1, imgY + 1, playerColor.getRGB());
+                    mapImage.setRGB(imgX,     imgY,     playerColor);
+                    mapImage.setRGB(imgX + 1, imgY,     playerColor);
+                    mapImage.setRGB(imgX,     imgY + 1, playerColor);
+                    mapImage.setRGB(imgX + 1, imgY + 1, playerColor);
                 } else if (GameMap.hasRoom(worldX, worldY)) {
                     Room currentRoom = GameMap.getRoomAt(worldX, worldY, Game.rooms);
-                    Color roomColor = Color.BLACK; // Default color
-
+                    
                     if (currentRoom != null) {
                         float hue = getRoomHue(currentRoom);
-                        int distance = Math.abs(playerX - worldX) + Math.abs(playerY - worldY);
-                        
-                        if (distance == 1) {
-                            roomColor = Color.getHSBColor(hue, 0.5f, 0.4f);
-                        } else if (distance == 2) {
-                            roomColor = Color.getHSBColor(hue, 0.5f, 0.2f);
-                        } else if (Game.debug) {
-                            roomColor = Color.getHSBColor(hue, 0.5f, 0.2f);
-                        } else {
-                            roomColor = Color.BLACK;
+ 
+                        // Apply pixel-based brightness for visible rooms
+                        for (int py_in_tile = 0; py_in_tile < 2; py_in_tile++) {
+                            for (int px_in_tile = 0; px_in_tile < 2; px_in_tile++) {
+                                int currentPixelXGlobal = imgX + px_in_tile;
+                                int currentPixelYGlobal = imgY + py_in_tile;
+
+                                // Center of the current pixel being rendered
+                                double currentPixelCenterX = currentPixelXGlobal + 0.5;
+                                double currentPixelCenterY = currentPixelYGlobal + 0.5;
+
+                                // Calculate the shortest Euclidean distance from the center of the current pixel
+                                // to any point within the player's 2x2 pixel area.
+                                double closestXInPlayerRect = Math.max(playerRectPx1, Math.min(currentPixelCenterX, playerRectPx2));
+                                double closestYInPlayerRect = Math.max(playerRectPy1, Math.min(currentPixelCenterY, playerRectPy2));
+
+                                double dx = currentPixelCenterX - closestXInPlayerRect;
+                                double dy = currentPixelCenterY - closestYInPlayerRect;
+                                
+                                double pixelEuclideanDistance = Math.sqrt(dx * dx + dy * dy);
+
+                                float minDistance = 1.0f;
+                                float maxDistance = 4.0f;
+                                float fullBrightness = 0.5f;
+                                float noBrightness = 0.0f;
+
+                                float brightness = (float) Math.max(noBrightness, fullBrightness * (float)Math.pow(Math.max(0.0f, 1.0f - Math.max(0.0f, (pixelEuclideanDistance - minDistance) / (maxDistance - minDistance))), 2.0f));
+
+                                Color pixelColor = Color.getHSBColor(hue, 0.5f, brightness);
+                                mapImage.setRGB(currentPixelXGlobal, currentPixelYGlobal, pixelColor.getRGB());
+                            }
                         }
                     }
-
-                    mapImage.setRGB(imgX,     imgY,     roomColor.getRGB());
-                    mapImage.setRGB(imgX + 1, imgY,     roomColor.getRGB());
-                    mapImage.setRGB(imgX,     imgY + 1, roomColor.getRGB());
-                    mapImage.setRGB(imgX + 1, imgY + 1, roomColor.getRGB());
                 } else {
-                    Color[] pixelBlockColors = new Color[4];
+                    int[] pixelBlockColors = new int[4];
                     
                     pixelBlockColors[0] = emptySpaceColor;
                     pixelBlockColors[1] = emptySpaceColor;
@@ -118,14 +143,20 @@ public class MapPrinter {
                         pixelBlockColors[2] = outlineColor;
                     }
                     
-                    mapImage.setRGB(imgX,     imgY,     pixelBlockColors[0].getRGB());
-                    mapImage.setRGB(imgX + 1, imgY,     pixelBlockColors[1].getRGB());
-                    mapImage.setRGB(imgX,     imgY + 1, pixelBlockColors[2].getRGB());
-                    mapImage.setRGB(imgX + 1, imgY + 1, pixelBlockColors[3].getRGB());
+                    mapImage.setRGB(imgX,     imgY,     pixelBlockColors[0]);
+                    mapImage.setRGB(imgX + 1, imgY,     pixelBlockColors[1]);
+                    mapImage.setRGB(imgX,     imgY + 1, pixelBlockColors[2]);
+                    mapImage.setRGB(imgX + 1, imgY + 1, pixelBlockColors[3]);
                 }
             }
         }
         ImagePrinter.printBufferedImage(mapImage);
+        printAvailableRooms(player);
+    }
+
+    private static void printAvailableRooms(Player player) {
+        int playerX = player.currentRoom.getCurrentPosition().x;
+        int playerY = player.currentRoom.getCurrentPosition().y;
 
         PrintMethods.printColor("Available Rooms: ", Attribute.BOLD());
         Map<String, Point> directions = new LinkedHashMap<>();
