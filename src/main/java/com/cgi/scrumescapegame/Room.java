@@ -12,7 +12,7 @@ public abstract class Room {
     protected Puzzle puzzle;
     protected int roomX = 0;
     protected int roomY = 0;
-    protected HashMap<String, Boolean> adjacentRooms = new HashMap<>();
+    public HashMap<String, Boolean> adjacentRooms = new HashMap<>();
 
     public Room(String name, String description, int roomX, int roomY) {
         this.name = name;

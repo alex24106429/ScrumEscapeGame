@@ -1,4 +1,4 @@
-package com.cgi.scrumescapegame;
+package com.cgi.scrumescapegame.graphics;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -6,8 +6,10 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.cgi.scrumescapegame.graphics.ImagePrinter;
-import com.cgi.scrumescapegame.graphics.PrintMethods;
+import com.cgi.scrumescapegame.Game;
+import com.cgi.scrumescapegame.GameMap;
+import com.cgi.scrumescapegame.Player;
+import com.cgi.scrumescapegame.Room;
 import com.cgi.scrumescapegame.items.Torch;
 import com.cgi.scrumescapegame.kamers.EindKamer;
 import com.cgi.scrumescapegame.kamers.KamerDailyStandup;

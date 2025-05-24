@@ -18,7 +18,7 @@ import com.diogonunes.jcolor.Attribute;
 
 public class Player {
     private String name = "Avonturier";
-    Room currentRoom;
+    public Room currentRoom;
     private int maxHp;
     private int currentHp;
     private int attack;

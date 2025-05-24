@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.Objects;
 import java.util.Scanner;
 
+import com.cgi.scrumescapegame.graphics.MapPrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.diogonunes.jcolor.Attribute;
 

@@ -2,6 +2,7 @@ package com.cgi.scrumescapegame;
 
 import java.util.*;
 
+import com.cgi.scrumescapegame.graphics.MapPrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.diogonunes.jcolor.Attribute;
 import com.google.gson.Gson;
