@@ -5,6 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.cgi.scrumescapegame.kamers.EindKamer;
+import com.cgi.scrumescapegame.kamers.KamerDailyStandup;
+import com.cgi.scrumescapegame.kamers.KamerPlanning;
+import com.cgi.scrumescapegame.kamers.KamerRetrospective;
+import com.cgi.scrumescapegame.kamers.KamerReview;
+import com.cgi.scrumescapegame.kamers.KamerScrumboard;
+import com.cgi.scrumescapegame.kamers.StartKamer;
+
 public class GameMap {
     static final List<Point> positions = new ArrayList<>();
     private final int roomCount = 24;
@@ -46,6 +54,52 @@ public class GameMap {
             Point p = positions.get(i);
             if (Game.debug)
                 System.out.println("Kamer " + (i) + " positie: (" + p.x + ", + " + p.y + ")");
+        }
+    }
+
+    public void initializeRooms(List<Room> rooms) {
+        rooms.add(new StartKamer(0, 0));
+
+        Random rand = new Random();
+
+        for (int i = 1; i < getPositions().size(); i++) {
+            int x = getPositions().get(i).x;
+            int y = getPositions().get(i).y;
+
+            int roomType = rand.nextInt(5);
+            switch (roomType) {
+                case 0 -> rooms.add(new KamerDailyStandup(x, y));
+                case 1 -> rooms.add(new KamerPlanning(x, y));
+                case 2 -> rooms.add(new KamerRetrospective(x, y));
+                case 3 -> rooms.add(new KamerReview(x, y));
+                case 4 -> rooms.add(new KamerScrumboard(x, y));
+            }
+        }
+        Room lastRoom = rooms.getLast();
+        rooms.set(rooms.size() - 1, new EindKamer(lastRoom.roomX, lastRoom.roomY));
+
+        insertAdjacentRoom(rooms);
+    }
+
+    private void insertAdjacentRoom(List<Room> rooms) {
+        for (Room room : rooms) {
+            java.util.Map<String, Boolean> status = getAdjacentRoomStatus(room.roomX, room.roomY);
+
+            if(Game.debug) System.out.println("Kamernummer: " + room.getName());
+            if(Game.debug) System.out.println(status);
+            // Set adjacent rooms based on the status
+            if (status.get("right")) {
+                room.setAdjacentRoom("right", true);
+            }
+            if (status.get("left")) {
+                room.setAdjacentRoom("left", true);
+            }
+            if (status.get("up")) {
+                room.setAdjacentRoom("up", true);
+            }
+            if (status.get("down")) {
+                room.setAdjacentRoom("down", true);
+            }
         }
     }
 

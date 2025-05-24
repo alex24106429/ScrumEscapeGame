@@ -3,17 +3,8 @@ package com.cgi.scrumescapegame;
 import java.util.*;
 
 import com.cgi.scrumescapegame.graphics.PrintMethods;
-import com.cgi.scrumescapegame.kamers.EindKamer;
-import com.cgi.scrumescapegame.kamers.KamerDailyStandup;
-import com.cgi.scrumescapegame.kamers.KamerPlanning;
-import com.cgi.scrumescapegame.kamers.KamerRetrospective;
 import com.diogonunes.jcolor.Attribute;
 import com.google.gson.Gson;
-
-import com.cgi.scrumescapegame.kamers.KamerReview;
-import com.cgi.scrumescapegame.kamers.KamerScrumboard;
-import com.cgi.scrumescapegame.kamers.StartKamer;
-import com.cgi.scrumescapegame.observers.ObserverManager;
 
 public class Game {
     public final static Gson gson = new Gson();
@@ -29,33 +20,8 @@ public class Game {
         this.player = new Player();
         this.map = new GameMap();
         map.generateMapLayout();
-        initializeRooms();
+        map.initializeRooms(rooms);
     }
-
-    private void initializeRooms() {
-        rooms.add(new StartKamer(0, 0));
-
-        Random rand = new Random();
-
-        for (int i = 1; i < map.getPositions().size(); i++) {
-            int x = map.getPositions().get(i).x;
-            int y = map.getPositions().get(i).y;
-
-            int roomType = rand.nextInt(5);
-            switch (roomType) {
-                case 0 -> rooms.add(new KamerDailyStandup(x, y));
-                case 1 -> rooms.add(new KamerPlanning(x, y));
-                case 2 -> rooms.add(new KamerRetrospective(x, y));
-                case 3 -> rooms.add(new KamerReview(x, y));
-                case 4 -> rooms.add(new KamerScrumboard(x, y));
-            }
-        }
-        Room lastRoom = rooms.getLast();
-        rooms.set(rooms.size() - 1, new EindKamer(lastRoom.roomX, lastRoom.roomY));
-
-        insertAdjacentRoom();
-    }
-
 
     public void start() {
         PrintMethods.clearScreen();
@@ -88,27 +54,4 @@ public class Game {
         PrintMethods.printlnColor("Gamegegevens opslaan...", Attribute.BRIGHT_YELLOW_TEXT());
         // PrintMethods.printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
     }
-
-    private void insertAdjacentRoom() {
-        for (Room room : rooms) {
-            java.util.Map<String, Boolean> status = map.getAdjacentRoomStatus(room.roomX, room.roomY);
-
-            if(Game.debug) System.out.println("Kamernummer: " + room.getName());
-            if(Game.debug) System.out.println(status);
-            // Set adjacent rooms based on the status
-            if (status.get("right")) {
-                room.setAdjacentRoom("right", true);
-            }
-            if (status.get("left")) {
-                room.setAdjacentRoom("left", true);
-            }
-            if (status.get("up")) {
-                room.setAdjacentRoom("up", true);
-            }
-            if (status.get("down")) {
-                room.setAdjacentRoom("down", true);
-            }
-        }
-    }
-
 }
