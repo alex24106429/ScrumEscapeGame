@@ -8,7 +8,7 @@ import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.diogonunes.jcolor.Attribute;
 
 public class InputProcessor {
-    public static void processInput(String input, Player player, Game game, Scanner scanner) {
+    public static void processInput(String input, Player player, Game game, Scanner scanner, GameMap map) {
         if (input.startsWith("go ")) {
             String direction = input.substring("go ".length()).trim();
             Room currentRoom = player.getCurrentRoom();
@@ -70,7 +70,7 @@ public class InputProcessor {
                 if (nextRoom != null) {
                     player.setCurrentRoom(nextRoom);
                     nextRoom.enterRoom(player);
-                    MapPrinter.printMap(player);
+                    MapPrinter.printMap(player, map);
                 } else {
                     // This case should ideally not happen if adjacentRooms is correctly set
                     System.out.println("Error: Could not find the next room.");

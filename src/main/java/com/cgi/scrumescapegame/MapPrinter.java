@@ -19,7 +19,7 @@ import com.cgi.scrumescapegame.kamers.StartKamer;
 import com.diogonunes.jcolor.Attribute;
 
 public class MapPrinter {
-	public static void printMap(Player player) {
+	public static void printMap(Player player, GameMap gameMap) {
         int playerX = player.currentRoom.getCurrentPosition().x;
         int playerY = player.currentRoom.getCurrentPosition().y;
 
@@ -28,7 +28,7 @@ public class MapPrinter {
         int roomExtentYMin = Integer.MAX_VALUE;
         int roomExtentYMax = Integer.MIN_VALUE;
 
-        for (Point p : GameMap.positions) {
+        for (Point p : gameMap.getPositions()) {
             roomExtentXMin = Math.min(roomExtentXMin, p.x);
             roomExtentXMax = Math.max(roomExtentXMax, p.x);
             roomExtentYMin = Math.min(roomExtentYMin, p.y);
@@ -81,7 +81,7 @@ public class MapPrinter {
                     mapImage.setRGB(imgX + 1, imgY,     playerColor);
                     mapImage.setRGB(imgX,     imgY + 1, playerColor);
                     mapImage.setRGB(imgX + 1, imgY + 1, playerColor);
-                } else if (GameMap.hasRoom(worldX, worldY)) {
+                } else if (gameMap.hasRoom(worldX, worldY)) {
                     Room currentRoom = GameMap.getRoomAt(worldX, worldY, Game.rooms);
                     
                     if (currentRoom != null) {
@@ -133,19 +133,19 @@ public class MapPrinter {
                     pixelBlockColors[2] = emptySpaceColor;
                     pixelBlockColors[3] = emptySpaceColor;
 
-                    if (GameMap.hasRoom(worldX, worldY + 1)) {
+                    if (gameMap.hasRoom(worldX, worldY + 1)) {
                         pixelBlockColors[0] = outlineColor;
                         pixelBlockColors[1] = outlineColor;
                     }
-                    if (GameMap.hasRoom(worldX, worldY - 1)) {
+                    if (gameMap.hasRoom(worldX, worldY - 1)) {
                         pixelBlockColors[2] = outlineColor;
                         pixelBlockColors[3] = outlineColor;
                     }
-                    if (GameMap.hasRoom(worldX + 1, worldY)) {
+                    if (gameMap.hasRoom(worldX + 1, worldY)) {
                         pixelBlockColors[1] = outlineColor;
                         pixelBlockColors[3] = outlineColor;
                     }
-                    if (GameMap.hasRoom(worldX - 1, worldY)) {
+                    if (gameMap.hasRoom(worldX - 1, worldY)) {
                         pixelBlockColors[0] = outlineColor;
                         pixelBlockColors[2] = outlineColor;
                     }

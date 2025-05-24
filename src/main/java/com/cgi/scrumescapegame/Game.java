@@ -40,13 +40,13 @@ public class Game {
             System.exit(1);
         }
 
-        MapPrinter.printMap(player);
+        MapPrinter.printMap(player, this.map);
 
         while (true) {
             // if(!scanner.hasNextLine()) continue;
             System.out.print("\n> ");
             String input = scanner.nextLine().trim().toLowerCase();
-            InputProcessor.processInput(input, player, this, Game.scanner);
+            InputProcessor.processInput(input, player, this, Game.scanner, this.map);
         }
     }
 
