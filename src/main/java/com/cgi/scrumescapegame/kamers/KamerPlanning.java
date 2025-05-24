@@ -12,6 +12,7 @@ import com.cgi.scrumescapegame.items.HealingPotion;
 import com.cgi.scrumescapegame.items.Item;
 import com.cgi.scrumescapegame.items.Shield;
 import com.cgi.scrumescapegame.items.Sword;
+import com.cgi.scrumescapegame.items.Torch;
 
 public class KamerPlanning extends Room {
     public KamerPlanning(int roomX, int roomY) {
@@ -24,7 +25,8 @@ public class KamerPlanning extends Room {
             new Shield(),
             new Sword(),
             new HealingPotion(),
-            new DamagePotion()
+            new DamagePotion(),
+            new Torch()
         )));
 
         planningKamerShop.interactiveMode(Game.scanner, player);

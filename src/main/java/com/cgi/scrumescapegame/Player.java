@@ -7,10 +7,10 @@ import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.items.Armor;
 import com.cgi.scrumescapegame.items.BattleItem;
 import com.cgi.scrumescapegame.items.Book;
-import com.cgi.scrumescapegame.items.DamagePotion;
 import com.cgi.scrumescapegame.items.EquipableItem;
 import com.cgi.scrumescapegame.items.Item;
 import com.cgi.scrumescapegame.items.LimitedUseItem;
+import com.cgi.scrumescapegame.items.Torch;
 import com.cgi.scrumescapegame.items.UsableItem;
 import com.cgi.scrumescapegame.items.Weapon;
 import com.diogonunes.jcolor.Ansi;
@@ -37,7 +37,7 @@ public class Player {
         this.defense = 10;
         this.items = new ArrayList<>();
         addItem(new Book());
-        addItem(new DamagePotion());
+        if (Game.debug) addItem(new Torch());
     }
 
     public Room getCurrentRoom() {

@@ -8,6 +8,8 @@ import java.util.Map;
 
 import com.cgi.scrumescapegame.graphics.ImagePrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
+import com.cgi.scrumescapegame.items.Item;
+import com.cgi.scrumescapegame.items.Torch;
 import com.cgi.scrumescapegame.kamers.EindKamer;
 import com.cgi.scrumescapegame.kamers.KamerDailyStandup;
 import com.cgi.scrumescapegame.kamers.KamerPlanning;
@@ -110,6 +112,12 @@ public class MapPrinter {
                                 float maxDistance = 4.0f;
                                 float fullBrightness = 0.5f;
                                 float noBrightness = 0.0f;
+
+                                // If the player has a Torch, make the lighting brighter
+                                if (player.getItems().stream().anyMatch(item -> item instanceof Torch)) {
+                                    fullBrightness = 0.8f;
+                                    maxDistance = 8.0f;
+                                }
 
                                 float brightness = (float) Math.max(noBrightness, fullBrightness * (float)Math.pow(Math.max(0.0f, 1.0f - Math.max(0.0f, (pixelEuclideanDistance - minDistance) / (maxDistance - minDistance))), 2.0f));
 
