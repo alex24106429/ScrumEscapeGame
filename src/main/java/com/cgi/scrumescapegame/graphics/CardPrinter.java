@@ -6,11 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
-public final class CardPainter {
+public final class CardPrinter {
 
     private static final BufferedImage SHEET;
     static {
-        try { SHEET = ImageIO.read(CardPainter.class.getResource("/cardcomponents.png")); }
+        try { SHEET = ImageIO.read(CardPrinter.class.getResource("/cardcomponents.png")); }
         catch (Exception e) { throw new RuntimeException(e); }
     }
 
