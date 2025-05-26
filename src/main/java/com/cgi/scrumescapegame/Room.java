@@ -3,6 +3,10 @@ package com.cgi.scrumescapegame;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.HashMap;
+import com.cgi.scrumescapegame.hints.HintFactory;
+import com.cgi.scrumescapegame.hints.HintProvider;
+import java.util.Scanner;
+import com.diogonunes.jcolor.Attribute;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.graphics.TextToImageRenderer;
 
@@ -41,15 +45,26 @@ public abstract class Room {
         PrintMethods.typeText(getDescription());
         player.printStatus();
         roomLogic(player);
-    }
 
+}
+
+    public void askForHint(Scanner scanner) {
+        PrintMethods.printlnColor("Wil je een hint? (ja/nee)", Attribute.BRIGHT_YELLOW_TEXT());
+        String choice = scanner.nextLine().trim().toLowerCase();
+        if (choice.equals("ja")) {
+            HintProvider hintProvider = HintFactory.getRandomHintProvider();
+            PrintMethods.printlnColor(hintProvider.getHint(), Attribute.CYAN_TEXT());
+        }
+    }
     public abstract void roomLogic(Player player);
 
     public void createSpeechBubble(String[] texts) {
         int length = 0;
         for (String t : texts) {
+
             if (t.length() > length) {
                 length = t.length();
+
             }
         }
         StringBuilder speechBubble = new StringBuilder();

@@ -63,6 +63,7 @@ public class Puzzle implements PuzzleSubject {
                 player.changeGold(10);
             } else {
                 BattleSystem.startBattle(player, enemy, scanner);
+                player.getCurrentRoom().askForHint(scanner);
             }
             notifyObserver(correct);
 
