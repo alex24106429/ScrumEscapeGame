@@ -56,6 +56,7 @@ public class Game {
         // PrintMethods.printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
     }
 
+    @SuppressWarnings("unused")
     public static void quitGame(boolean promptSave) {
         if (Game.debug || !promptSave) System.exit(0);
 
