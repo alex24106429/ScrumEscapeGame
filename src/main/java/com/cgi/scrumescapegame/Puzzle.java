@@ -62,10 +62,25 @@ public class Puzzle implements PuzzleSubject {
             if (correct) {
                 player.changeGold(10);
             } else {
-                BattleSystem.startBattle(player, enemy, scanner);
-                player.getCurrentRoom().askForHint(scanner, huidigeVraag);
+                PrintMethods.printlnColor("Wrong answer. Do you want a hint? (y/n)", Attribute.BRIGHT_RED_TEXT());
+                String hintChoice = scanner.nextLine();
+                if (hintChoice.trim().toLowerCase().startsWith("y")) {
+                    // Provide hint
+                    player.getCurrentRoom().askForHint(scanner, huidigeVraag);
+                    // Second chance
+                    PrintMethods.printlnColor("Try again: ", Attribute.BRIGHT_BLUE_TEXT());
+                    String secondAnswer = scanner.nextLine();
+                    boolean secondAnswerCorrect = huidigeVraag.controleerAntwoord(secondAnswer);
+                    if (Game.debug && secondAnswer.equals("skip")) secondAnswerCorrect = true;
+                    if (secondAnswerCorrect) {
+                        player.changeGold(5);
+                    } else {
+                        BattleSystem.startBattle(player, enemy, scanner);
+                    }
+                } else {
+                    BattleSystem.startBattle(player, enemy, scanner);
+                }
             }
-            notifyObserver(correct);
 
             System.out.println("----------------------");
         }
