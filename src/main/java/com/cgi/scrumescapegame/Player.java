@@ -79,6 +79,7 @@ public class Player {
         if (amount < 0) {
             PrintMethods.printlnColor("You lost " + amount + " gold.", Attribute.BRIGHT_RED_TEXT());
         }
+        if((this.gold + amount) < 0 ) this.gold = 0;
         return this.gold += amount;
     }
 
