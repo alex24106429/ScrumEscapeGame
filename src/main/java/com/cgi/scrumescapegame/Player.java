@@ -261,6 +261,9 @@ public class Player {
             Item item = items.get(index);
             if (item instanceof BattleItem) {
                 ((BattleItem) item).useBattleItem(this, enemy);
+                if (item instanceof LimitedUseItem && ((LimitedUseItem) item).getUsesLeft() == 0) {
+                    items.remove(index);
+                }
             } else {
                 PrintMethods.printlnColor("The item " + item.getName() + " is not a battle item.", Attribute.RED_TEXT());
             }
