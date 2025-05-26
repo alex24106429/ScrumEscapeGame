@@ -137,6 +137,12 @@ public class Player {
                     Attribute.BRIGHT_RED_TEXT());
         } else {
             PrintMethods.printlnColor("Game over! You lost all HP.", Attribute.BRIGHT_RED_TEXT());
+            if(!Game.debug) {
+                Game.quitGame(false);
+            } else {
+                PrintMethods.printlnColor("[Debug] Healing you instead of quitting game.", Attribute.BRIGHT_GREEN_TEXT());
+                this.currentHp = this.maxHp;
+            }
         }
     }
 
