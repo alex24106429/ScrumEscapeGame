@@ -6,8 +6,9 @@ public class OpenVraag implements Vraag {
     private String tekst;
     private String correctAntwoord;
     private String userinput;
+    private String hint;
 
-    public OpenVraag(String tekst, String correctAntwoord) {
+    public OpenVraag(String tekst, String correctAntwoord, String hint) {
         this.tekst = tekst;
         this.correctAntwoord = correctAntwoord;
     }
@@ -43,5 +44,10 @@ public class OpenVraag implements Vraag {
 
     public String getUserinput(){
         return userinput;
+    }
+
+    @Override
+    public String getHint() {
+        return this.hint;
     }
 }
