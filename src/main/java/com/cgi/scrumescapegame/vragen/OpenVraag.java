@@ -30,7 +30,7 @@ public class OpenVraag implements Vraag {
             return false;
         }
         String userinput = antwoord.trim().toLowerCase();
-        if(userinput.equals(correctAntwoord)){
+        if(userinput.equals(correctAntwoord.toLowerCase())){
             return true;
         }else{
             return false;
