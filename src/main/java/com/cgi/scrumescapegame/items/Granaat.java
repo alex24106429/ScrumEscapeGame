@@ -13,7 +13,7 @@ public class Granaat extends Item implements BattleItem, LimitedUseItem {
 
     @Override
     public String getDescription() {
-        return "Deals 999 damage to the enemy.";
+        return "Deals 100 damage to the enemy.";
     }
 
     @Override
@@ -23,8 +23,8 @@ public class Granaat extends Item implements BattleItem, LimitedUseItem {
 
     @Override
     public void useBattleItem(Player player, Enemy enemy) {
-        PrintMethods.printlnColor("The Granaat dealt 999 damage to " + enemy.getName() + "!", Attribute.BRIGHT_BLACK_TEXT());
-        enemy.takeDamage(999);
+        PrintMethods.printlnColor("The Granaat dealt 100 damage to " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
+        enemy.takeDamage(100);
     }
 
     @Override
@@ -33,6 +33,6 @@ public class Granaat extends Item implements BattleItem, LimitedUseItem {
     }
 
     public Granaat() {
-        super(1000);
+        super(200);
     }
 }

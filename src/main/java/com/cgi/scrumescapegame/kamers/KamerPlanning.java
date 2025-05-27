@@ -24,7 +24,8 @@ public class KamerPlanning extends Room {
             new HealingPotion(),
             new DamagePotion(),
             new Torch(),
-            new Granaat()
+            new Granaat(),
+            new GoldenGun()
         )));
 
         planningKamerShop.interactiveMode(Game.scanner, player);
