@@ -24,7 +24,7 @@ public class ReviewPuzzle {
     puzzle.addQuestion(new MeerkeuzeVraag(
         "Aan wie moet je tijdens de review het (deel)product opleveren?",
         Arrays.asList("Developers", "Product Owner", "De Stakeholders", "Product Owner en de Stakeholders"),
-        3, 
+        2,
         "Wie zijn de belangrijkste ontvangers van de productdemonstratie en feedback?"
     ));
 
