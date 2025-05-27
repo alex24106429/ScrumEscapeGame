@@ -13,6 +13,7 @@ public abstract class Room {
     protected int roomX;
     protected int roomY;
     private boolean lookedAround = false;
+    private boolean isCleared = false;
     public HashMap<String, Boolean> adjacentRooms = new HashMap<>();
 
     public Room(String name, String description, int roomX, int roomY) {
@@ -56,6 +57,14 @@ public abstract class Room {
 
     public void setAdjacentRoom(String direction, boolean status) {
         adjacentRooms.put(direction, status);
+    }
+
+    public boolean getCleared() {
+        return this.isCleared;
+    }
+
+    public void setCleared(boolean isCleared) {
+        this.isCleared = isCleared;
     }
 }
 
