@@ -95,7 +95,7 @@ public class InputProcessor {
         } else if (input.equals("status")) {
             player.printStatus();
         } else if (input.equals("kijk rond")) {
-            PrintMethods.printlnColor(player.getCurrentRoom().description, Attribute.BRIGHT_YELLOW_TEXT());
+            player.kijkRond();
         } else if (input.equals("items")) {
             player.printItems();
         } else if (input.equals("opslaan")) {

@@ -4,27 +4,19 @@ import java.util.ArrayList;
 
 import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
-import com.cgi.scrumescapegame.items.Armor;
-import com.cgi.scrumescapegame.items.BattleItem;
-import com.cgi.scrumescapegame.items.Book;
-import com.cgi.scrumescapegame.items.EquipableItem;
-import com.cgi.scrumescapegame.items.Item;
-import com.cgi.scrumescapegame.items.LimitedUseItem;
-import com.cgi.scrumescapegame.items.Torch;
-import com.cgi.scrumescapegame.items.UsableItem;
-import com.cgi.scrumescapegame.items.Weapon;
+import com.cgi.scrumescapegame.items.*;
 import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
 
 public class Player {
     private String name = "Avonturier";
     public Room currentRoom;
-    private int maxHp;
+    private final int maxHp;
     private int currentHp;
     private int attack;
     private int defense;
     private int gold;
-    private ArrayList<Item> items;
+    private final ArrayList<Item> items;
     private Weapon equippedWeapon;
     private Armor equippedArmor;
 
@@ -38,6 +30,7 @@ public class Player {
         this.items = new ArrayList<>();
         addItem(new Book());
         if (Game.debug) addItem(new Torch());
+        addItem(new BagOfGold());
     }
 
     public Room getCurrentRoom() {
@@ -80,6 +73,16 @@ public class Player {
             PrintMethods.printlnColor("You lost " + amount + " gold.", Attribute.BRIGHT_RED_TEXT());
         }
         return this.gold += amount;
+    }
+
+    public void kijkRond() {
+        if (currentRoom.hasLookedAround()) {
+            PrintMethods.printlnColor("Je hebt al rondgekeken in deze kamer.", Attribute.BRIGHT_YELLOW_TEXT());
+        } else {
+            PrintMethods.printlnColor("Je kijkt rond in de kamer: ", Attribute.BRIGHT_YELLOW_TEXT());
+            currentRoom.setLookedAround(true);
+        }
+
     }
 
     public void printStatus() {
@@ -150,6 +153,14 @@ public class Player {
         }
     }
 
+    public void gainGold(int amount) {
+        if (amount > 0) {
+            changeGold(amount);
+        } else {
+            PrintMethods.printlnColor("You cannot gain negative gold.", Attribute.RED_TEXT());
+        }
+    }
+
     public Item getItem(int itemIndex) {
         return items.get(itemIndex);
     }
@@ -184,7 +195,7 @@ public class Player {
         }
         PrintMethods.printlnColor("\nJe items:", Attribute.BOLD());
         for (int i = 0; i < items.size(); i++) {
-            System.out.print(String.format("%d. ", i + 1));
+            System.out.printf("%d. ", i + 1);
             PrintMethods.printItem(items.get(i));
         }
     }

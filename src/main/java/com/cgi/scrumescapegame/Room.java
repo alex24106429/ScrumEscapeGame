@@ -14,8 +14,9 @@ public abstract class Room {
     protected String name;
     protected String description;
     protected Puzzle puzzle;
-    protected int roomX = 0;
-    protected int roomY = 0;
+    protected int roomX;
+    protected int roomY;
+    private boolean lookedAround = false;
     public HashMap<String, Boolean> adjacentRooms = new HashMap<>();
 
     public Room(String name, String description, int roomX, int roomY) {
@@ -27,6 +28,14 @@ public abstract class Room {
 
     public Point getCurrentPosition() {
         return new Point(roomX, roomY);
+    }
+
+    public void setLookedAround(boolean lookedAround) {
+        this.lookedAround = lookedAround;
+    }
+
+    public boolean hasLookedAround() {
+        return lookedAround;
     }
 
     public String getName() {
@@ -45,6 +54,7 @@ public abstract class Room {
         PrintMethods.typeText(getDescription());
         player.printStatus();
         roomLogic(player);
+
 
 }
 
