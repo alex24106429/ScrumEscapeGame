@@ -69,7 +69,6 @@ public class BlackjackMinigame implements Minigame {
             PrintMethods.printlnColor("You win! +10 gold.", Attribute.GREEN_TEXT());
             player.changeGold(10);
         } else {
-            PrintMethods.printlnColor("You lose! -10 gold.", Attribute.RED_TEXT());
             player.changeGold(-10);
         }
     }

@@ -68,12 +68,17 @@ public class Player {
     public int changeGold(int amount) {
         if (amount > 0) {
             PrintMethods.printlnColor("You gained " + amount + " gold!", Attribute.BRIGHT_GREEN_TEXT());
+        } else if (amount < 0) {
+            PrintMethods.printlnColor("You lost " + Math.abs(amount) + " gold.", Attribute.BRIGHT_RED_TEXT());
         }
-        if (amount < 0) {
-            PrintMethods.printlnColor("You lost " + amount + " gold.", Attribute.BRIGHT_RED_TEXT());
+    
+        this.gold += amount;
+    
+        if (this.gold < 0) {
+            this.gold = 0;
         }
-        if((this.gold + amount) < 0 ) this.gold = 0;
-        return this.gold += amount;
+    
+        return this.gold;
     }
 
     public void kijkRond() {
