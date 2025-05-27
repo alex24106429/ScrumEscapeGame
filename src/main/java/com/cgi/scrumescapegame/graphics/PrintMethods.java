@@ -136,7 +136,7 @@ public class PrintMethods {
         if(item instanceof LimitedUseItem) {
             LimitedUseItem usableItem = (LimitedUseItem) item;
             int usesLeft = usableItem.getUsesLeft();
-            if(usesLeft != Integer.MAX_VALUE) printlnColor(usesLeft + " use(s) left", Attribute.DIM());
+            if(usesLeft != Integer.MAX_VALUE) printlnColor(usesLeft + 1 + " use(s) left", Attribute.DIM());
         }
 
         int price = item.getCurrentValue();

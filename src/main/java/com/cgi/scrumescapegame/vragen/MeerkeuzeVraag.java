@@ -8,8 +8,9 @@ public class MeerkeuzeVraag implements Vraag {
     private String tekst;
     private List<String> opties;
     private int correcteOptieIndex; 
+    private String hint;
 
-    public MeerkeuzeVraag(String tekst, List<String> opties, int correcteOptieIndex) {
+    public MeerkeuzeVraag(String tekst, List<String> opties, int correcteOptieIndex, String hint) {
         this.tekst = tekst;
         this.opties = opties;
         if (correcteOptieIndex < 0 || correcteOptieIndex >= opties.size()) {
@@ -45,5 +46,10 @@ public class MeerkeuzeVraag implements Vraag {
     @Override
     public String getCorrectAntwoord() {
         return (char)('A' + correcteOptieIndex) + ". " + opties.get(correcteOptieIndex);
+    }
+
+    @Override
+    public String getHint() {
+        return this.hint;
     }
 }

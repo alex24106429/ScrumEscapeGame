@@ -10,11 +10,13 @@ public class Matching implements Vraag {
     private List<String> optiesL;
     private List<String> optiesR;
     private List<String> correcteAntwoorden;
+    private String hint;
 
-    public Matching(List<String> optiesL, List<String> optiesR, List<String> correcteAntwoorden) {
+    public Matching(List<String> optiesL, List<String> optiesR, List<String> correcteAntwoorden, String hint) {
         this.optiesL = optiesL;
         this.optiesR = optiesR;
         this.correcteAntwoorden = correcteAntwoorden;
+        this.hint = hint;
     }
 
     @Override
@@ -54,6 +56,11 @@ public class Matching implements Vraag {
     @Override
     public String getCorrectAntwoord() {
         return "Correcte antwoorden zijn: " + String.join(", ", correcteAntwoorden);
+    }
+
+    @Override
+    public String getHint() {
+        return this.hint;
     }
 }
 

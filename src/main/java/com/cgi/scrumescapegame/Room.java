@@ -58,12 +58,12 @@ public abstract class Room {
 
 }
 
-    public void askForHint(Scanner scanner) {
+    public void askForHint(Scanner scanner, Vraag vraag) {
         PrintMethods.printlnColor("Wil je een hint? (ja/nee)", Attribute.BRIGHT_YELLOW_TEXT());
         String choice = scanner.nextLine().trim().toLowerCase();
         if (choice.equals("ja")) {
             HintProvider hintProvider = HintFactory.getRandomHintProvider();
-            PrintMethods.printlnColor(hintProvider.getHint(), Attribute.CYAN_TEXT());
+            PrintMethods.printlnColor(hintProvider.getHint(vraag), Attribute.CYAN_TEXT());
         }
     }
     public abstract void roomLogic(Player player);

@@ -5,4 +5,5 @@ public interface Vraag {
     void toonVraag();
     boolean controleerAntwoord(String antwoord);
     String getCorrectAntwoord();
+    String getHint();
 }

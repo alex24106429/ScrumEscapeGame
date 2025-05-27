@@ -99,18 +99,11 @@ public class InputProcessor {
         } else if (input.equals("items")) {
             player.printItems();
         } else if (input.equals("opslaan")) {
-            game.saveGame();
+            Game.saveGame();
         } else if (input.equals("help")) {
             GamePrints.printHelp();
         } else if (input.equals("quit")) {
-            if (Game.debug) System.exit(0);
-
-            PrintMethods.printlnColor("Wil je opslaan? ja/nee", Attribute.BRIGHT_RED_TEXT());
-            String option = scanner.nextLine();
-            if (option.equals("ja")) {
-                game.saveGame();
-            }
-            System.exit(0);
+            Game.quitGame(true);
         } else {
             System.out.println("Onbekend commando. Typ 'help' voor een lijst met commando's.");
         }

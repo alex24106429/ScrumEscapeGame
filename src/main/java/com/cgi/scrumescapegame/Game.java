@@ -51,8 +51,20 @@ public class Game {
         }
     }
 
-    public void saveGame() {
+    public static void saveGame() {
         PrintMethods.printlnColor("Gamegegevens opslaan...", Attribute.BRIGHT_YELLOW_TEXT());
         // PrintMethods.printlnColor("Opgeslagen!", Attribute.BRIGHT_GREEN_TEXT());
+    }
+
+    @SuppressWarnings("unused")
+    public static void quitGame(boolean promptSave) {
+        if (Game.debug || !promptSave) System.exit(0);
+
+        PrintMethods.printlnColor("Do you want to save? (y/n)", Attribute.BRIGHT_RED_TEXT());
+        String option = scanner.nextLine();
+        if (option.toLowerCase().startsWith("y")) {
+            saveGame();
+        }
+        System.exit(0);
     }
 }

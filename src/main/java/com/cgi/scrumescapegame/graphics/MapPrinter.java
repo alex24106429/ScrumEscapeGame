@@ -53,10 +53,10 @@ public class MapPrinter {
         int pixelImageWidth = logicalMapWidth * 2;
         int pixelImageHeight = logicalMapHeight * 2;
 
-        BufferedImage mapImage = new BufferedImage(pixelImageWidth, pixelImageHeight, BufferedImage.TYPE_INT_RGB);
+        BufferedImage mapImage = new BufferedImage(pixelImageWidth, pixelImageHeight, BufferedImage.TYPE_INT_ARGB);
 
         int playerColor = Color.HSBtoRGB(180f / 360f, 1.0f, 1.0f);
-        int emptySpaceColor = Color.HSBtoRGB(0.0f, 0.0f, 0.2f);
+        int emptySpaceColor = 0x00000000;
         int outlineColor = Color.HSBtoRGB(0.0f, 0.0f, 0.7f);
 
         // Calculate player's top-left pixel coordinates in the mapImage space

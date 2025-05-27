@@ -72,6 +72,7 @@ public class Player {
         if (amount < 0) {
             PrintMethods.printlnColor("You lost " + amount + " gold.", Attribute.BRIGHT_RED_TEXT());
         }
+        if((this.gold + amount) < 0 ) this.gold = 0;
         return this.gold += amount;
     }
 
@@ -139,6 +140,12 @@ public class Player {
                     Attribute.BRIGHT_RED_TEXT());
         } else {
             PrintMethods.printlnColor("Game over! You lost all HP.", Attribute.BRIGHT_RED_TEXT());
+            if(!Game.debug) {
+                Game.quitGame(false);
+            } else {
+                PrintMethods.printlnColor("[Debug] Healing you instead of quitting game.", Attribute.BRIGHT_GREEN_TEXT());
+                this.currentHp = this.maxHp;
+            }
         }
     }
 
@@ -265,6 +272,9 @@ public class Player {
             Item item = items.get(index);
             if (item instanceof BattleItem) {
                 ((BattleItem) item).useBattleItem(this, enemy);
+                if (item instanceof LimitedUseItem && ((LimitedUseItem) item).getUsesLeft() == 0) {
+                    items.remove(index);
+                }
             } else {
                 PrintMethods.printlnColor("The item " + item.getName() + " is not a battle item.", Attribute.RED_TEXT());
             }

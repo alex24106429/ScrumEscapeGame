@@ -7,12 +7,7 @@ import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Room;
 import com.cgi.scrumescapegame.Shop;
-import com.cgi.scrumescapegame.items.DamagePotion;
-import com.cgi.scrumescapegame.items.HealingPotion;
-import com.cgi.scrumescapegame.items.Item;
-import com.cgi.scrumescapegame.items.Shield;
-import com.cgi.scrumescapegame.items.Sword;
-import com.cgi.scrumescapegame.items.Torch;
+import com.cgi.scrumescapegame.items.*;
 
 public class KamerPlanning extends Room {
     public KamerPlanning(int roomX, int roomY) {
@@ -23,7 +18,9 @@ public class KamerPlanning extends Room {
     public void roomLogic(Player player) {
         Shop planningKamerShop = new Shop(new ArrayList<Item>(Arrays.asList(
             new Shield(),
+            new Chestplate(),
             new Sword(),
+            new GoldSword(),
             new HealingPotion(),
             new DamagePotion(),
             new Torch()
