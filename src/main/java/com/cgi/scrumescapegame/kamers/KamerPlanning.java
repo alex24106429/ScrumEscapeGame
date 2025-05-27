@@ -24,7 +24,7 @@ public class KamerPlanning extends Room {
             new HealingPotion(),
             new DamagePotion(),
             new Torch(),
-            new Granaat(),
+            new Grenade(),
             new GoldenGun()
         )));
 

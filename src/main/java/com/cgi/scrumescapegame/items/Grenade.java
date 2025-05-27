@@ -5,10 +5,10 @@ import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.diogonunes.jcolor.Attribute;
 
-public class Granaat extends Item implements BattleItem, LimitedUseItem {
+public class Grenade extends Item implements BattleItem, LimitedUseItem {
     @Override
     public String getName() {
-        return "Granaat";
+        return "Grenade";
     }
 
     @Override
@@ -18,12 +18,12 @@ public class Granaat extends Item implements BattleItem, LimitedUseItem {
 
     @Override
     public String getImagepath() {
-        return "items/Granaat.png";
+        return "items/grenade.png";
     }
 
     @Override
     public void useBattleItem(Player player, Enemy enemy) {
-        PrintMethods.printlnColor("The Granaat dealt 100 damage to " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
+        PrintMethods.printlnColor("The grenade dealt 100 damage to " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
         enemy.takeDamage(100);
     }
 
@@ -32,7 +32,7 @@ public class Granaat extends Item implements BattleItem, LimitedUseItem {
         return 0;
     }
 
-    public Granaat() {
+    public Grenade() {
         super(200);
     }
 }
