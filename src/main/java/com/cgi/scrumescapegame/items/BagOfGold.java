@@ -27,7 +27,7 @@ public class BagOfGold extends Item implements UsableItem, LimitedUseItem {
 
     @Override
     public int getUsesLeft() {
-        return 1;
+        return 0;
     }
 
     public BagOfGold() {
