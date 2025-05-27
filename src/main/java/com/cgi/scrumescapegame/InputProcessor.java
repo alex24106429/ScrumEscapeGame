@@ -5,8 +5,6 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import com.cgi.scrumescapegame.graphics.MapPrinter;
-import com.cgi.scrumescapegame.graphics.PrintMethods;
-import com.diogonunes.jcolor.Attribute;
 
 public class InputProcessor {
     public static void processInput(String input, Player player, Game game, Scanner scanner, GameMap map) {

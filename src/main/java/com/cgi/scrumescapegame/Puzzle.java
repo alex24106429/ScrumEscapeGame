@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
+import com.cgi.scrumescapegame.hints.HintFactory;
+import com.cgi.scrumescapegame.hints.HintProvider;
 import com.cgi.scrumescapegame.observers.PuzzleObserver;
 import com.cgi.scrumescapegame.observers.PuzzleSubject;
 import com.diogonunes.jcolor.Attribute;
@@ -66,7 +68,9 @@ public class Puzzle implements PuzzleSubject {
                 String hintChoice = scanner.nextLine();
                 if (hintChoice.trim().toLowerCase().startsWith("y")) {
                     // Provide hint
-                    player.getCurrentRoom().askForHint(scanner, huidigeVraag);
+                    HintProvider hintProvider = HintFactory.getRandomHintProvider();
+                    PrintMethods.printlnColor(hintProvider.getHint(huidigeVraag), Attribute.CYAN_TEXT());
+                    
                     // Second chance
                     PrintMethods.printlnColor("Try again: ", Attribute.BRIGHT_BLUE_TEXT());
                     String secondAnswer = scanner.nextLine();
