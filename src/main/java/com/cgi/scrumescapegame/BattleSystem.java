@@ -17,6 +17,7 @@ public class BattleSystem {
     public static void startBattle(Player player, Enemy enemy, Scanner scanner) {
         PrintMethods.clearScreen();
         ImagePrinter.printImage(enemy.getImagePath());
+        enemy.setHealth(enemy.getMaxHealth());
         PrintMethods.typeTextColor("\nA wild " + enemy.getName() + " appears!", Attribute.BRIGHT_RED_TEXT());
         System.out.println("HP: " + enemy.getHealth());
         player.printStatus();

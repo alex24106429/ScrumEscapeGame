@@ -27,6 +27,10 @@ public abstract class Enemy {
         return currentHp;
     }
 
+    public void setHealth(int amount) {
+        this.currentHp = amount;
+    }
+
     public int getMaxHealth() {
         return maxHp;
     }
