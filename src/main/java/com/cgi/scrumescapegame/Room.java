@@ -54,52 +54,8 @@ public abstract class Room {
 
     public abstract void roomLogic(Player player);
 
-    public void createSpeechBubble(String[] texts) {
-        int length = 0;
-        for (String t : texts) {
-
-            if (t.length() > length) {
-                length = t.length();
-
-            }
-        }
-        StringBuilder speechBubble = new StringBuilder();
-        speechBubble.append("╭").append("─".repeat(length + 2)).append("╮\n");
-        for (String t : texts) {
-            speechBubble.append("│ ").append(t).append(" ".repeat(length - t.length())).append(" │\n");
-        }
-        speechBubble.append("╰").append("─".repeat(length + 2)).append("╯\n");
-        speechBubble.append(" ".repeat(10)).append("  \\\n");
-        speechBubble.append(" ".repeat(11)).append("  \\\n");
-
-        System.out.print(speechBubble);
-    }
-
     public void setAdjacentRoom(String direction, boolean status) {
         adjacentRooms.put(direction, status);
-    }
-
-    public String availableRooms() {
-
-        StringBuilder availableRooms = new StringBuilder();
-
-        if (adjacentRooms.getOrDefault("up", false)) {
-            availableRooms.append("▲ ");
-        }
-
-        if (adjacentRooms.getOrDefault("left", false)) {
-            availableRooms.append("◀ ");
-        }
-
-        if (adjacentRooms.getOrDefault("down", false)) {
-            availableRooms.append("▼ ");
-        }
-
-        if (adjacentRooms.getOrDefault("right", false)) {
-            availableRooms.append("▶ ");
-        }
-
-        return availableRooms.toString();
     }
 }
 
