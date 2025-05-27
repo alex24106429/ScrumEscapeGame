@@ -47,7 +47,6 @@ public class Matching implements Vraag {
         for (int i = 0; i < correcteAntwoorden.size(); i++) {
             if (antwoord.toLowerCase().contains(correcteAntwoorden.get(i).toLowerCase())) {
                 aantalGoedeAntwoorden++;
-                System.out.println(aantalGoedeAntwoorden);
             }
         }
         return aantalGoedeAntwoorden == correcteAntwoorden.size();
