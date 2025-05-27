@@ -50,7 +50,7 @@ public class BattleSystem {
                     String itemInput = scanner.nextLine().trim().toLowerCase();
 
                     if (itemInput.equals("cancel")) {
-                        break;
+                        continue;
                     }
 
                     try {
