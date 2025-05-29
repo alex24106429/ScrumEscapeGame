@@ -165,6 +165,10 @@ public class Player {
         }
     }
 
+    public void kill() {
+        this.loseHp(this.currentHp);
+    }
+
     public void gainGold(int amount) {
         if (amount > 0) {
             changeGold(amount);

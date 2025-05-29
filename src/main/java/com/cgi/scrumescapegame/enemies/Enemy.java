@@ -46,6 +46,10 @@ public abstract class Enemy {
         }
     }
 
+    public void kill() {
+        this.takeDamage(this.currentHp);
+    }
+
     public boolean isAlive() {
         return currentHp > 0;
     }
