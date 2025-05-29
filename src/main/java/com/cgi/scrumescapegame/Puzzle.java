@@ -43,7 +43,7 @@ public class Puzzle implements PuzzleSubject {
         this.vragen.add(vraag);
     }
 
-    public void start(Player player, Enemy enemy) {
+    public void start(Player player, Enemy enemy, Difficulty difficulty) {
         if (vragen.isEmpty()) {
             System.out.println("De puzzle bevat nog geen vragen.");
             return;
@@ -64,9 +64,16 @@ public class Puzzle implements PuzzleSubject {
             if (correct) {
                 player.changeGold(10);
             } else {
-                PrintMethods.printlnColor("Wrong answer. Do you want a hint? (y/n)", Attribute.BRIGHT_RED_TEXT());
-                String hintChoice = scanner.nextLine();
-                if (hintChoice.trim().toLowerCase().startsWith("y")) {
+                boolean shouldGiveHint;
+                if(difficulty == Difficulty.HARD) {
+                    shouldGiveHint = false;
+                } else {
+                    PrintMethods.printlnColor("Wrong answer. Do you want a hint? (y/n)", Attribute.BRIGHT_RED_TEXT());
+                    String hintChoice = scanner.nextLine();
+                    shouldGiveHint = hintChoice.trim().toLowerCase().startsWith("y");
+                }
+                
+                if (shouldGiveHint) {
                     // Provide hint
                     HintProvider hintProvider = HintFactory.getRandomHintProvider();
                     PrintMethods.printlnColor(hintProvider.getHint(huidigeVraag), Attribute.CYAN_TEXT());

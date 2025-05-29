@@ -1,5 +1,6 @@
 package com.cgi.scrumescapegame.kamers;
 
+import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Room;
 
@@ -9,6 +10,6 @@ public class EindKamer extends Room {
     }
 
     @Override
-    public void roomLogic(Player player) {
+    public void roomLogic(Player player, Difficulty difficulty) {
     }
 }

@@ -1,5 +1,6 @@
 package com.cgi.scrumescapegame.kamers;
 
+import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Room;
 import com.cgi.scrumescapegame.enemies.Enemy;
@@ -15,9 +16,9 @@ public class KamerReview extends Room {
     }
 
     @Override
-    public void roomLogic(Player player) {
+    public void roomLogic(Player player, Difficulty difficulty) {
         Enemy reviewmonster = new ReviewMonster();
-        puzzle.start(player, reviewmonster);
+        puzzle.start(player, reviewmonster, difficulty);
         player.printStatus();
     }
 }

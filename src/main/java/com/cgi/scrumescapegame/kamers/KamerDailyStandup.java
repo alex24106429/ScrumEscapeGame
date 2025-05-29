@@ -1,5 +1,6 @@
 package com.cgi.scrumescapegame.kamers;
 
+import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Room;
@@ -11,7 +12,7 @@ public class KamerDailyStandup extends Room {
     }
 
     @Override
-    public void roomLogic(Player player) {
+    public void roomLogic(Player player, Difficulty difficulty) {
         BlackjackMinigame minigame = new BlackjackMinigame();
         minigame.startMinigame(player, Game.scanner);
         // Specifieke acties voor de dailystandupkamer

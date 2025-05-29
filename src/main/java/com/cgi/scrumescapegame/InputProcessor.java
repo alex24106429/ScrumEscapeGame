@@ -7,7 +7,7 @@ import java.util.Scanner;
 import com.cgi.scrumescapegame.graphics.MapPrinter;
 
 public class InputProcessor {
-    public static void processInput(String input, Player player, Game game, Scanner scanner, GameMap map) {
+    public static void processInput(String input, Player player, Game game, Scanner scanner, GameMap map, Difficulty difficulty) {
         if (input.startsWith("go ")) {
             String direction = input.substring("go ".length()).trim();
             Room currentRoom = player.getCurrentRoom();
@@ -68,7 +68,7 @@ public class InputProcessor {
 
                 if (nextRoom != null) {
                     player.setCurrentRoom(nextRoom);
-                    nextRoom.enterRoom(player);
+                    nextRoom.enterRoom(player, difficulty);
                     MapPrinter.printMap(player, map);
                 } else {
                     // This case should ideally not happen if adjacentRooms is correctly set

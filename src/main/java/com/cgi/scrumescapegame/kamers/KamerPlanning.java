@@ -3,6 +3,7 @@ package com.cgi.scrumescapegame.kamers;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Room;
@@ -15,7 +16,7 @@ public class KamerPlanning extends Room {
     }
 
     @Override
-    public void roomLogic(Player player) {
+    public void roomLogic(Player player, Difficulty difficulty) {
         Shop planningKamerShop = new Shop(new ArrayList<Item>(Arrays.asList(
             new Shield(),
             new Chestplate(),

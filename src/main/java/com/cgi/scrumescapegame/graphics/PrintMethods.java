@@ -60,6 +60,14 @@ public class PrintMethods {
         System.out.println(Ansi.colorize(text, colorAttribute));
     }
 
+    public static void printColor(String text, Attribute[] colorAttributes) {
+        System.out.print(Ansi.colorize(text, colorAttributes));
+    }
+
+    public static void printlnColor(String text, Attribute[] colorAttributes) {
+        System.out.println(Ansi.colorize(text, colorAttributes));
+    }
+
     public static String getProgressBarString(int percentage, int width) {
         if (width <= 0) {
             return "";

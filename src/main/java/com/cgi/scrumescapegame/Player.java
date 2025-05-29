@@ -11,7 +11,7 @@ import com.diogonunes.jcolor.Attribute;
 public class Player {
     private String name = "Avonturier";
     public Room currentRoom;
-    private final int maxHp;
+    private int maxHp;
     private int currentHp;
     private int attack;
     private int defense;
@@ -21,12 +21,7 @@ public class Player {
     private Armor equippedArmor;
 
     public Player() {
-        // Standaard gegevens
-        this.maxHp = 50;
-        this.currentHp = this.maxHp;
         this.gold = 0;
-        this.attack = 10;
-        this.defense = 10;
         this.items = new ArrayList<>();
         addItem(new Book());
         if (Game.debug) addItem(new Torch());
@@ -306,5 +301,34 @@ public class Player {
 
     public int getDefense() {
         return defense;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        switch (difficulty) {
+            case Difficulty.EASY:
+                this.currentHp = 100;
+                this.maxHp = 100;
+                this.attack = 20;
+                this.defense = 20;
+                this.gold = 50;
+                break;
+
+            case Difficulty.NORMAL:
+                this.currentHp = 50;
+                this.maxHp = 50;
+                this.attack = 10;
+                this.defense = 10;
+                break;
+
+            case Difficulty.HARD:
+                this.currentHp = 30;
+                this.maxHp = 30;
+                this.attack = 0;
+                this.defense = 0;
+                break;
+        
+            default:
+                break;
+        }
     }
 }

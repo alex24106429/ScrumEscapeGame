@@ -45,15 +45,15 @@ public abstract class Room {
 
     // Wordt aangeroepen als een speler de kamer binnenkomt.
     // Voor nu print het de beschrijving, kan later uitgebreid worden.
-    public void enterRoom(Player player) {
+    public void enterRoom(Player player, Difficulty difficulty) {
         // System.out.println("\n--- " + getName() + " ---");
 		TextToImageRenderer.printGradientText(getName(), new Color(255, 255, 255), new Color(127, 127, 127), new Color(63, 63, 63), new Color(31, 31, 31), 2, true, false);
         PrintMethods.typeText(getDescription());
         player.printStatus();
-        roomLogic(player);
+        roomLogic(player, difficulty);
     }
 
-    public abstract void roomLogic(Player player);
+    public abstract void roomLogic(Player player, Difficulty difficulty);
 
     public void setAdjacentRoom(String direction, boolean status) {
         adjacentRooms.put(direction, status);
