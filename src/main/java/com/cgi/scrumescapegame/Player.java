@@ -19,10 +19,14 @@ public class Player {
     private final ArrayList<Item> items;
     private Weapon equippedWeapon;
     private Armor equippedArmor;
+    private int level;
+    private int experience;
 
     public Player() {
         this.gold = 0;
         this.items = new ArrayList<>();
+        this.level = 1; // Start at level 1
+        this.experience = 0; // Start with 0 experience
         addItem(new Book());
         if (Game.debug) addItem(new Torch());
         addItem(new BagOfGold());
@@ -98,6 +102,16 @@ public class Player {
                 + Ansi.colorize(" ] ", Attribute.BRIGHT_BLUE_TEXT());
 
         output += "\n";
+
+        // Level
+        output += Ansi.colorize("[ LVL: " + Ansi.colorize("" + getLevel(), Attribute.BOLD()),
+                Attribute.BRIGHT_RED_TEXT())
+                + Ansi.colorize(" ] ", Attribute.BRIGHT_RED_TEXT());
+        
+        // Experience
+        output += Ansi.colorize("[ XP: " + Ansi.colorize("" + getExperience(), Attribute.BOLD()),
+                Attribute.BRIGHT_RED_TEXT())
+                + Ansi.colorize(" ] ", Attribute.BRIGHT_RED_TEXT());
 
         // HP
         output += Ansi.colorize("[ HP: " + getHpString() + " ] ", Attribute.BRIGHT_RED_TEXT());
@@ -326,9 +340,54 @@ public class Player {
                 this.attack = 0;
                 this.defense = 0;
                 break;
-        
+
             default:
                 break;
         }
+    }
+
+    public int getLevel() {
+        return this.level;
+    }
+
+    public int getExperience() {
+        return this.experience;
+    }
+
+    public void gainExperience(int amount) {
+        if (amount < 1) return;
+        
+        this.experience += amount;
+        PrintMethods.printlnColor("You gained " + amount + " experience points!", Attribute.BRIGHT_GREEN_TEXT());
+        checkLevelUp(); // Check for level up after gaining XP
+    }
+
+    private void checkLevelUp() {
+        final int XP_PER_LEVEL = 500;
+
+        // Calculate the potential new level based on total experience
+        // Level 1 requires 0-499 XP, Level 2 requires 500-999 XP, etc.
+        int newLevel = (this.experience / XP_PER_LEVEL) + 1;
+
+        // If the calculated new level is greater than the current level, then level up
+        if (newLevel > this.level) {
+            int levelsGained = newLevel - this.level;
+            this.level = newLevel;
+            PrintMethods.printlnColor("Congratulations! You reached Level " + this.level + "!", Attribute.BRIGHT_GREEN_TEXT());
+            
+            // Apply bonuses for each level gained
+            for (int i = 0; i < levelsGained; i++) {
+                applyLevelUpBonuses();
+            }
+
+            printStatus();
+        }
+    }
+
+    private void applyLevelUpBonuses() {
+        this.maxHp += 10;
+        this.currentHp = this.maxHp; 
+        this.attack += 2;
+        this.defense += 1;
     }
 }

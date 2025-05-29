@@ -15,6 +15,7 @@ import com.cgi.scrumescapegame.items.UsableItem;
 public class BattleSystem {
 
     public static void startBattle(Player player, Enemy enemy, Scanner scanner) {
+        int playerDamageDealt = 0;
         PrintMethods.clearScreen();
         ImagePrinter.printImage(enemy.getImagePath());
         enemy.setHealth(enemy.getMaxHealth());
@@ -35,6 +36,7 @@ public class BattleSystem {
                     int playerDamage = player.getAttack();
                     enemy.takeDamage(playerDamage);
                     PrintMethods.typeTextColor("You attacked " + enemy.getName() + ", and dealt " + playerDamage + " damage!", Attribute.BRIGHT_GREEN_TEXT());
+                    playerDamageDealt += playerDamage;
                     break;
                 case "2":
                     List<Item> items = player.getItems();
@@ -96,6 +98,7 @@ public class BattleSystem {
 
         if (player.isAlive()) {
             PrintMethods.printlnColor("\nBattle won!", Attribute.BRIGHT_GREEN_TEXT());
+            player.gainExperience(playerDamageDealt);
         } else {
             PrintMethods.printlnColor("\nBattle lost!", Attribute.BRIGHT_RED_TEXT());
         }
