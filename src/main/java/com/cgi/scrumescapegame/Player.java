@@ -147,7 +147,7 @@ public class Player {
     }
 
     public void loseHp(int amount) {
-        if (currentHp > 0) {
+        if ((currentHp - amount) > 0) {
             currentHp -= amount;
             if(currentHp < 0) currentHp = 0;
             PrintMethods.printlnColor("You lost " + amount + " HP! Current HP: " + getHpString(),
@@ -356,7 +356,7 @@ public class Player {
 
     public void gainExperience(int amount) {
         if (amount < 1) return;
-        
+
         this.experience += amount;
         PrintMethods.printlnColor("You gained " + amount + " experience points!", Attribute.BRIGHT_GREEN_TEXT());
         checkLevelUp(); // Check for level up after gaining XP
