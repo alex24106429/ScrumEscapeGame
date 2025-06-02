@@ -22,8 +22,6 @@ public abstract class Enemy {
         this.maxHp = maxHp;
         this.currentHp = maxHp;
         this.attackDamage = attackDamage;
-        behaviors.add(new NormalAttackBehavior());
-        behaviors.add(new HeavyAttackBehavior());
     }
 
     public String getName() {

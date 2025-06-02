@@ -8,5 +8,7 @@ public class ReviewMonster extends Enemy {
     
     public ReviewMonster() {
         super(name, imagePath, maxHp, attackDamage);
+        behaviors.add(new NormalAttackBehavior());
+        behaviors.add(new HeavyAttackBehavior());
     }
 }
