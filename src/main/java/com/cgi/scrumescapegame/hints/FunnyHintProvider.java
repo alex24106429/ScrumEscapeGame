@@ -39,4 +39,8 @@ public class FunnyHintProvider implements HintProvider {
     public String getHint(Vraag vraag) {
         return this.jokes.get(new Random().nextInt(this.jokes.size()));
     }
+
+    public String getHint() {
+        return this.jokes.get(new Random().nextInt(this.jokes.size()));
+    }
 }
