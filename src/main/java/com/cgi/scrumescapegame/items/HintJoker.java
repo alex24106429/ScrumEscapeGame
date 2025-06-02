@@ -1,6 +1,7 @@
 package com.cgi.scrumescapegame.items;
 
 import com.cgi.scrumescapegame.Joker;
+import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Room;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.hints.FunnyHintProvider;
@@ -10,7 +11,7 @@ public class HintJoker extends Item implements Joker, LimitedUseItem {
     FunnyHintProvider funnyHintProvider = new FunnyHintProvider();
 
     @Override
-    public void useInRoom(Room room) {
+    public void useInRoom(Room room, Player player) {
         PrintMethods.printlnColor(funnyHintProvider.getHint(), Attribute.BLUE_TEXT());
     }
 
