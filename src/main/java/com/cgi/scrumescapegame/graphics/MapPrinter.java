@@ -171,7 +171,7 @@ public class MapPrinter {
         int playerX = player.currentRoom.getCurrentPosition().x;
         int playerY = player.currentRoom.getCurrentPosition().y;
 
-        PrintMethods.printColor("Available Rooms: ", Attribute.BOLD());
+        PrintMethods.printColor("Beschikbare kamers: ", Attribute.BOLD());
         Map<String, Point> directions = new LinkedHashMap<>();
         directions.put("up", new Point(playerX, playerY + 1));
         directions.put("left", new Point(playerX - 1, playerY));
@@ -193,11 +193,15 @@ public class MapPrinter {
 
                         String displayDirection;
                         if (internalDirectionKey.equals("up")) {
-                            displayDirection = "forward";
+                            displayDirection = "omhoog";
                         } else if (internalDirectionKey.equals("down")) {
-                            displayDirection = "backward";
+                            displayDirection = "omlaag";
+                        } else if (internalDirectionKey.equals("left")) {
+                            displayDirection = "links";
+                        } else if (internalDirectionKey.equals("right")) {
+                            displayDirection = "rechts";
                         } else {
-                            displayDirection = internalDirectionKey; // For "left", "right"
+                            displayDirection = internalDirectionKey; // Fallback for unexpected keys
                         }
                         
                         PrintMethods.printColor(displayDirection + ": " + adjacentRoom.getName() + " ", textColor);

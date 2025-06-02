@@ -112,9 +112,9 @@ public class PrintMethods {
     }
 
     public static void printItem(Item item) {
-        if(item instanceof UsableItem) printBadge("Usable", Attribute.BRIGHT_GREEN_BACK());
+        if(item instanceof UsableItem) printBadge("Bruikbaar", Attribute.BRIGHT_GREEN_BACK());
         if(item instanceof Armor) printBadge("Armor", Attribute.BRIGHT_BLUE_BACK());
-        if(item instanceof Weapon) printBadge("Weapon", Attribute.BRIGHT_YELLOW_BACK());
+        if(item instanceof Weapon) printBadge("Wapen", Attribute.BRIGHT_YELLOW_BACK());
         if(item instanceof BattleItem) printBadge("Battle", Attribute.BRIGHT_RED_BACK());
         printlnColor(item.getName(), Attribute.BOLD());
 
@@ -135,7 +135,7 @@ public class PrintMethods {
                 color = Attribute.BRIGHT_GREEN_TEXT();
             }
 
-            PrintMethods.printColor("Durability ┃", Attribute.CLEAR());
+            PrintMethods.printColor("Bruikbaarheid ┃", Attribute.CLEAR());
             PrintMethods.printColor(PrintMethods.getProgressBarString(durabilityPercentage, 13), color);
             PrintMethods.printColor("┃ ", Attribute.CLEAR());
             PrintMethods.printlnColor(durability + "/" + maxDurability, color);
@@ -144,12 +144,12 @@ public class PrintMethods {
         if(item instanceof LimitedUseItem) {
             LimitedUseItem usableItem = (LimitedUseItem) item;
             int usesLeft = usableItem.getUsesLeft();
-            if(usesLeft != Integer.MAX_VALUE) printlnColor(usesLeft + 1 + " use(s) left", Attribute.DIM());
+            if(usesLeft != Integer.MAX_VALUE) printlnColor(usesLeft + 1 + " gebruik(en) over", Attribute.DIM());
         }
 
         int price = item.getCurrentValue();
 
-        if(price > 0) PrintMethods.printlnColor("Value: "+ price + "G", Attribute.YELLOW_TEXT());
+        if(price > 0) PrintMethods.printlnColor("Prijs: "+ price + "G", Attribute.YELLOW_TEXT());
 
         PrintMethods.printlnColor(item.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
         ImagePrinter.printImage(item.getImagepath());

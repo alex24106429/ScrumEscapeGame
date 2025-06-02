@@ -7,12 +7,12 @@ public class BagOfGold extends Item implements UsableItem, LimitedUseItem {
     private final int goldAmount;
     @Override
     public String getName() {
-        return "Bag of Gold";
+        return "Zak met goud";
     }
 
     @Override
     public String getDescription() {
-        return "+" + goldAmount + " gold";
+        return "+" + goldAmount + " goud";
     }
 
     @Override

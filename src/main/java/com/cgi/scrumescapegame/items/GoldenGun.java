@@ -9,13 +9,13 @@ import java.util.Random;
 public class GoldenGun extends Item implements BattleItem, LimitedUseItem {
     @Override
     public String getName() {
-        return "Golden Gun";
+        return "Gouden Pistool";
     }
 
     @Override
     public String getDescription() {
-        return "A powerful weapon, we think?";
-    }
+        return "Dit is het legendarische gouden pistool. Het schijnt dat het altijd raak is, maar je moet wel geluk hebben.";
+        }
 
     @Override
     public String getImagepath() {
@@ -29,17 +29,17 @@ public class GoldenGun extends Item implements BattleItem, LimitedUseItem {
 
         switch (roll) {
             case 9:
-                PrintMethods.printlnColor("You shoot the Golden Gun and deal 999 damage to " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
+                PrintMethods.printlnColor("Je schiet je gouden pistool en doet 999 schade aan " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
                 enemy.takeDamage(999);
                 break;
 
             case 8:
-                PrintMethods.printlnColor("The Golden Gun slips out of your hand and fires at you!", Attribute.BRIGHT_RED_TEXT());
+                PrintMethods.printlnColor("Het gouden pistool glijd uit je handen en raakt je!", Attribute.BRIGHT_RED_TEXT());
                 player.loseHp(1000000);
                 break;
 
             default:
-                PrintMethods.printlnColor("You try to use the golden gun... turns out it wasn't loaded.", Attribute.BRIGHT_BLUE_TEXT());
+                PrintMethods.printlnColor("Je probeert het gouden pistool te gebruiken... Helaas is hij niet geladen.", Attribute.BRIGHT_BLUE_TEXT());
         }
     }
 

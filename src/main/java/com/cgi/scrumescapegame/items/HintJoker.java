@@ -22,7 +22,7 @@ public class HintJoker extends Item implements Joker, LimitedUseItem {
 
     @Override
     public String getDescription() {
-        return "Shows a hint.";
+        return "Laat de Joker een hint geven over de kamer.";
     }
 
     @Override

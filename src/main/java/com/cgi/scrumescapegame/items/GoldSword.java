@@ -7,7 +7,7 @@ public class GoldSword extends Weapon{
 
     @Override
     public String getName() {
-        return "Gold Sword";
+        return "Goud Zwaard";
     }
 
     @Override

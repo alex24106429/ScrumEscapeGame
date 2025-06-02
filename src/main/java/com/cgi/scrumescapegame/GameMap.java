@@ -151,8 +151,8 @@ public class GameMap {
     public java.util.Map<String, Boolean> getAdjacentRoomStatus(int x, int y) {
         java.util.Map<String, Boolean> adjacentStatus = new java.util.HashMap<>();
 
-        if (Game.debug) System.out.println("Checking adjacent for: (" + x + "," + y + ")");
-        if (Game.debug) System.out.println("Positions list size: " + this.positions.size());
+        if (Game.debug) System.out.println("Scannen voor aanliggende kamers: (" + x + "," + y + ")");
+        if (Game.debug) System.out.println("Positie lijst grootte: " + this.positions.size());
 
         adjacentStatus.put(KEY_RIGHT, hasRoom(x + 1, y));
         adjacentStatus.put(KEY_LEFT, hasRoom(x - 1, y));

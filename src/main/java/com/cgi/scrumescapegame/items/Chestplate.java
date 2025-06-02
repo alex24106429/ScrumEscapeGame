@@ -7,7 +7,7 @@ public class Chestplate extends Armor{
 
     @Override
     public String getName() {
-        return "Chestplate";
+        return "Harnas";
     }
 
     @Override

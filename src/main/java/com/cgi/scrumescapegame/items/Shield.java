@@ -7,7 +7,7 @@ public class Shield extends Armor {
 
     @Override
     public String getName() {
-        return "Shield";
+        return "Schild";
     }
 
     @Override

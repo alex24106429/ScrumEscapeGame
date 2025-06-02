@@ -5,7 +5,7 @@ import com.cgi.scrumescapegame.Player;
 public class HealingPotion extends Item implements UsableItem, LimitedUseItem {
     @Override
     public String getName() {
-        return "Healing Potion";
+        return "Geneesdrankje";
     }
 
     @Override

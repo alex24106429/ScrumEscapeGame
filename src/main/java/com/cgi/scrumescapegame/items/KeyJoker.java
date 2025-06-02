@@ -17,19 +17,19 @@ public class KeyJoker extends Item implements Joker, LimitedUseItem {
         if(room instanceof KeyJokerRoom) {
             player.addItem(new Key());
         } else {
-            PrintMethods.printlnColor("You can't use the Key Joker here.", Attribute.BRIGHT_RED_TEXT());
+            PrintMethods.printlnColor("Je kan hier niet de Sleutel Joker gebruiken.", Attribute.BRIGHT_RED_TEXT());
         }
 
     }
 
     @Override
     public String getName(){
-        return "Key Joker";
+        return "Sleutel Joker";
     }
 
     @Override
     public String getDescription(){
-        return "Get an extra key";
+        return "Krijg een extra sleutel.";
     }
 
     @Override

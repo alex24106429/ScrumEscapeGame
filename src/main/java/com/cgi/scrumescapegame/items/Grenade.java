@@ -8,12 +8,12 @@ import com.diogonunes.jcolor.Attribute;
 public class Grenade extends Item implements BattleItem, LimitedUseItem {
     @Override
     public String getName() {
-        return "Grenade";
+        return "Granaat";
     }
 
     @Override
     public String getDescription() {
-        return "Deals 100 damage to the enemy.";
+        return "Doet 100 schade aan de vijand.";
     }
 
     @Override
@@ -23,7 +23,7 @@ public class Grenade extends Item implements BattleItem, LimitedUseItem {
 
     @Override
     public void useBattleItem(Player player, Enemy enemy) {
-        PrintMethods.printlnColor("The grenade dealt 100 damage to " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
+        PrintMethods.printlnColor("De granaat doet 100 damage aan " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
         enemy.takeDamage(100);
     }
 

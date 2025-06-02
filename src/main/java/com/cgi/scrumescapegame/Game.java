@@ -35,13 +35,13 @@ public class Game {
             PrintMethods.printColor("Enter your name: ", Attribute.BRIGHT_YELLOW_TEXT());
             player.setName(scanner.nextLine());
 
-            PrintMethods.printlnColor("Choose the game difficulty:", Attribute.BRIGHT_BLUE_TEXT());
-            PrintMethods.printlnColor("1. Easy", new Attribute[]{Attribute.GREEN_TEXT(), Attribute.BOLD()});
-            System.out.println("Start with 100 HP, 20 ATK, 20 DEF, and 50 Gold.");
-            PrintMethods.printlnColor("2. Normal", new Attribute[]{Attribute.YELLOW_TEXT(), Attribute.BOLD()});
-            System.out.println("Start with 50 HP, 10 ATK and 10 DEF.");
-            PrintMethods.printlnColor("3. Hard", new Attribute[]{Attribute.RED_TEXT(), Attribute.BOLD()});
-            System.out.println("Start with 30 HP, 0 ATK and 0 DEF. No hints during questions!");
+            PrintMethods.printlnColor("Kies uw moeilijkheidsgraat:", Attribute.BRIGHT_BLUE_TEXT());
+            PrintMethods.printlnColor("1. Makkelijk", new Attribute[]{Attribute.GREEN_TEXT(), Attribute.BOLD()});
+            System.out.println("Begint met 100 HP, 20 ATK, 20 DEF, en 50 Goud.");
+            PrintMethods.printlnColor("2. Normaal", new Attribute[]{Attribute.YELLOW_TEXT(), Attribute.BOLD()});
+            System.out.println("Begint met 50 HP, 10 ATK en 10 DEF.");
+            PrintMethods.printlnColor("3. Moeilijk", new Attribute[]{Attribute.RED_TEXT(), Attribute.BOLD()});
+            System.out.println("Begint met 30 HP, 0 ATK en 0 DEF. Geen hints tijdens vragen!");
 
             PrintMethods.printColor("> ", Attribute.BRIGHT_BLUE_TEXT());
 
@@ -59,7 +59,7 @@ public class Game {
                     break;
             
                 default:
-                    PrintMethods.printlnColor("Unknown input, continuing on Normal mode. ", Attribute.BRIGHT_RED_TEXT());
+                    PrintMethods.printlnColor("Ongeldige invoer, Je gaat verder met normaal. ", Attribute.BRIGHT_RED_TEXT());
                     break;
             }
         }
@@ -92,7 +92,7 @@ public class Game {
     public static void quitGame(boolean promptSave) {
         if (Game.debug || !promptSave) System.exit(0);
 
-        PrintMethods.printlnColor("Do you want to save? (y/n)", Attribute.BRIGHT_RED_TEXT());
+        PrintMethods.printlnColor("Wil je opslaan? (y/n)", Attribute.BRIGHT_RED_TEXT());
         String option = scanner.nextLine();
         if (option.toLowerCase().startsWith("y")) {
             saveGame();

@@ -68,7 +68,7 @@ public class Puzzle implements PuzzleSubject {
                 if(difficulty == Difficulty.HARD) {
                     shouldGiveHint = false;
                 } else {
-                    PrintMethods.printlnColor("Wrong answer. Do you want a hint? (y/n)", Attribute.BRIGHT_RED_TEXT());
+                    PrintMethods.printlnColor("verkeerd antwoord wil je een hint? (y/n)", Attribute.BRIGHT_RED_TEXT());
                     String hintChoice = scanner.nextLine();
                     shouldGiveHint = hintChoice.trim().toLowerCase().startsWith("y");
                 }
@@ -79,7 +79,7 @@ public class Puzzle implements PuzzleSubject {
                     PrintMethods.printlnColor(hintProvider.getHint(huidigeVraag), Attribute.CYAN_TEXT());
                     
                     // Second chance
-                    PrintMethods.printlnColor("Try again: ", Attribute.BRIGHT_BLUE_TEXT());
+                    PrintMethods.printlnColor("Probeer opnieuw: ", Attribute.BRIGHT_BLUE_TEXT());
                     String secondAnswer = scanner.nextLine();
                     boolean secondAnswerCorrect = huidigeVraag.controleerAntwoord(secondAnswer);
                     if (Game.debug && secondAnswer.equals("skip")) secondAnswerCorrect = true;

@@ -21,6 +21,9 @@ public abstract class Room {
         this.description = description;
         this.roomX = roomX;
         this.roomY = roomY;
+        if (Game.debug){
+            isCleared = true; // In debug mode, rooms are considered cleared by default
+        }
     }
 
     public Point getCurrentPosition() {

@@ -3,12 +3,12 @@ package com.cgi.scrumescapegame.items;
 public class Torch extends Item {
 	@Override
 	public String getName() {
-		return "Torch";
+		return "Fakkel";
 	}
 
 	@Override
 	public String getDescription() {
-		return "Allows you to see in the dark.";
+		return "Laat je beter zien in het donker.";
 	}
 
 	@Override

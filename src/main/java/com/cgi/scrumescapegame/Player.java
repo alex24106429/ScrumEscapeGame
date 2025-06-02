@@ -66,9 +66,9 @@ public class Player {
 
     public int changeGold(int amount) {
         if (amount > 0) {
-            PrintMethods.printlnColor("You gained " + amount + " gold!", Attribute.BRIGHT_GREEN_TEXT());
+            PrintMethods.printlnColor("Je krijgt " + amount + " goud!", Attribute.BRIGHT_GREEN_TEXT());
         } else if (amount < 0) {
-            PrintMethods.printlnColor("You lost " + Math.abs(amount) + " gold.", Attribute.BRIGHT_RED_TEXT());
+            PrintMethods.printlnColor("Je verliest " + Math.abs(amount) + " goud.", Attribute.BRIGHT_RED_TEXT());
         }
     
         this.gold += amount;
@@ -117,7 +117,7 @@ public class Player {
         output += Ansi.colorize("[ HP: " + getHpString() + " ] ", Attribute.BRIGHT_RED_TEXT());
 
         // Gold
-        output += Ansi.colorize("[ Gold: " + Ansi.colorize("" + gold, Attribute.BOLD()),
+        output += Ansi.colorize("[ Goud: " + Ansi.colorize("" + gold, Attribute.BOLD()),
                 Attribute.BRIGHT_YELLOW_TEXT())
                 + Ansi.colorize(" ] ", Attribute.BRIGHT_YELLOW_TEXT());
 
@@ -134,7 +134,7 @@ public class Player {
         // Coordinaten (alleen in debug)
         if (Game.debug)
             output += Ansi
-                    .colorize("\n[ Coordianten: " + Ansi.colorize(
+                    .colorize("\n[ Coördinaten: " + Ansi.colorize(
                             currentRoom.getCurrentPosition().x + ", " + currentRoom.getCurrentPosition().y,
                             Attribute.BOLD()), Attribute.BRIGHT_CYAN_TEXT())
                     + Ansi.colorize(" ] ", Attribute.BRIGHT_CYAN_TEXT());
@@ -150,14 +150,14 @@ public class Player {
         if ((currentHp - amount) > 0) {
             currentHp -= amount;
             if(currentHp < 0) currentHp = 0;
-            PrintMethods.printlnColor("You lost " + amount + " HP! Current HP: " + getHpString(),
+            PrintMethods.printlnColor("Je verliest " + amount + " HP! Huidige HP: " + getHpString(),
                     Attribute.BRIGHT_RED_TEXT());
         } else {
-            PrintMethods.printlnColor("Game over! You lost all HP.", Attribute.BRIGHT_RED_TEXT());
+            PrintMethods.printlnColor("Game over! Je hebt al je HP verloren.", Attribute.BRIGHT_RED_TEXT());
             if(!Game.debug) {
                 Game.quitGame(false);
             } else {
-                PrintMethods.printlnColor("[Debug] Healing you instead of quitting game.", Attribute.BRIGHT_GREEN_TEXT());
+                PrintMethods.printlnColor("[Debug] Healt je in plaats van stoppen.", Attribute.BRIGHT_GREEN_TEXT());
                 this.currentHp = this.maxHp;
             }
         }
@@ -167,10 +167,10 @@ public class Player {
         if (currentHp < maxHp) {
             currentHp += amount;
             if(currentHp > maxHp) currentHp = maxHp;
-            PrintMethods.printlnColor("You gained " + amount + " HP.",
+            PrintMethods.printlnColor("Je krijgt " + amount + " HP.",
                     Attribute.BRIGHT_GREEN_TEXT());
         } else {
-            PrintMethods.printlnColor("You already have the maximum HP.", Attribute.BRIGHT_GREEN_TEXT());
+            PrintMethods.printlnColor("Je hebt al de maximale hoeveelheid HP.", Attribute.BRIGHT_GREEN_TEXT());
         }
     }
 
@@ -182,7 +182,7 @@ public class Player {
         if (amount > 0) {
             changeGold(amount);
         } else {
-            PrintMethods.printlnColor("You cannot gain negative gold.", Attribute.RED_TEXT());
+            PrintMethods.printlnColor("Je kan niet een negatieve hoeveelheid goud hebben.", Attribute.RED_TEXT());
         }
     }
 
@@ -200,7 +200,7 @@ public class Player {
 
     public String getWeaponName() {
         Weapon weapon = getWeapon();
-        if(weapon == null) return "Your Fist";
+        if(weapon == null) return "Je bent als eerst";
         return weapon.getName();
     }
 
@@ -275,13 +275,13 @@ public class Player {
                 } else if (item instanceof Armor) {
                     equipArmor((Armor) item);
                 }
-                PrintMethods.printlnColor("You equipped " + item.getName(), Attribute.BRIGHT_GREEN_TEXT());
+                PrintMethods.printlnColor("Je hebt " + item.getName() + " aan gezet.",  Attribute.BRIGHT_GREEN_TEXT());
                 items.remove(index);
             } else {
-                PrintMethods.printlnColor("This item cannot be used or equipped.", Attribute.RED_TEXT());
+                PrintMethods.printlnColor("Dit item kan niet worden gebruikt.", Attribute.RED_TEXT());
             }
         } else {
-            PrintMethods.printlnColor("Invalid item index.", Attribute.RED_TEXT());
+            PrintMethods.printlnColor("Ongeldige item index.", Attribute.RED_TEXT());
         }
     }
 
@@ -294,10 +294,10 @@ public class Player {
                     items.remove(index);
                 }
             } else {
-                PrintMethods.printlnColor("The item " + item.getName() + " is not a battle item.", Attribute.RED_TEXT());
+                PrintMethods.printlnColor("Het item " + item.getName() + " is geen gevechtsitem.", Attribute.RED_TEXT());
             }
         } else {
-            PrintMethods.printlnColor("Invalid item index.", Attribute.RED_TEXT());
+            PrintMethods.printlnColor("Ongeldige item index.", Attribute.RED_TEXT());
         }
     }
 
@@ -358,7 +358,7 @@ public class Player {
         if (amount < 1) return;
 
         this.experience += amount;
-        PrintMethods.printlnColor("You gained " + amount + " experience points!", Attribute.BRIGHT_GREEN_TEXT());
+        PrintMethods.printlnColor("Je krijgt " + amount + " XP!", Attribute.BRIGHT_GREEN_TEXT());
         checkLevelUp(); // Check for level up after gaining XP
     }
 
@@ -373,7 +373,7 @@ public class Player {
         if (newLevel > this.level) {
             int levelsGained = newLevel - this.level;
             this.level = newLevel;
-            PrintMethods.printlnColor("Congratulations! You reached Level " + this.level + "!", Attribute.BRIGHT_GREEN_TEXT());
+            PrintMethods.printlnColor("Gefeliciteerd! Je bent nu level " + this.level + "!", Attribute.BRIGHT_GREEN_TEXT());
             
             // Apply bonuses for each level gained
             for (int i = 0; i < levelsGained; i++) {

@@ -8,12 +8,12 @@ import com.diogonunes.jcolor.Attribute;
 public class DamagePotion extends Item implements BattleItem, LimitedUseItem {
     @Override
     public String getName() {
-        return "Damage Potion";
+        return "Explosie Drankje";
     }
 
     @Override
     public String getDescription() {
-        return "Deals 25 damage to the enemy.";
+        return "Deze drank doet 25 schade aan de vijand.";
     }
 
     @Override
@@ -23,7 +23,7 @@ public class DamagePotion extends Item implements BattleItem, LimitedUseItem {
 
     @Override
     public void useBattleItem(Player player, Enemy enemy) {
-        PrintMethods.printlnColor("The Damage Potion dealt 25 damage to " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
+        PrintMethods.printlnColor("Het explosie drankje doet 25 schade aan " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
         enemy.takeDamage(25);
     }
 

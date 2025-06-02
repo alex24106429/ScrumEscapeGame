@@ -8,8 +8,8 @@ import com.cgi.scrumescapegame.graphics.MapPrinter;
 
 public class InputProcessor {
     public static void processInput(String input, Player player, Game game, Scanner scanner, GameMap map, Difficulty difficulty) {
-        if (input.startsWith("go ")) {
-            String direction = input.substring("go ".length()).trim();
+        if (input.startsWith("ga ")) {
+            String direction = input.substring("ga ".length()).trim();
             Room currentRoom = player.getCurrentRoom();
             Point currentPos = currentRoom.getCurrentPosition();
             int targetX = currentPos.x;
@@ -22,42 +22,42 @@ public class InputProcessor {
             }
 
             switch (direction) {
-                case "forward":
-                case "up":
+                case "vooruit":
+                case "omhoog":
                     if (currentRoom.adjacentRooms.getOrDefault("up", false)) {
                         targetY++;
                         moved = true;
                     } else {
-                        System.out.println("You cannot go forward from here.");
+                        System.out.println("Je kunt niet vooruit gaan vanaf hier.");
                     }
                     break;
-                case "backward":
-                case "down":
+                case "achteruit":
+                case "omlaag":
                     if (currentRoom.adjacentRooms.getOrDefault("down", false)) {
                         targetY--;
                         moved = true;
                     } else {
-                        System.out.println("You cannot go backward from here.");
+                        System.out.println("Je kunt niet achteruit gaan vanaf hier.");
                     }
                     break;
-                case "left":
+                case "links":
                     if (currentRoom.adjacentRooms.getOrDefault("left", false)) {
                         targetX--;
                         moved = true;
                     } else {
-                        System.out.println("You cannot go left from here.");
+                        System.out.println("Je kunt niet naar links gaan vanaf hier.");
                     }
                     break;
-                case "right":
+                case "rechts":
                     if (currentRoom.adjacentRooms.getOrDefault("right", false)) {
                         targetX++;
                         moved = true;
                     } else {
-                        System.out.println("You cannot go right from here.");
+                        System.out.println("Je kunt niet naar rechts gaan vanaf hier.");
                     }
                     break;
                 default:
-                    System.out.println("Invalid direction. Use forward, backward, left, or right.");
+                    System.out.println("Ongeldige richting. Gebruik 'ga ...' gevolgd door omhoog(vooruit), omlaag(achteruit), links of rechts.");
                     break;
             }
 
@@ -76,8 +76,7 @@ public class InputProcessor {
                     nextRoom.enterRoom(player, difficulty);
                     MapPrinter.printMap(player, map);
                 } else {
-                    // This case should ideally not happen if adjacentRooms is correctly set
-                    System.out.println("Error: Could not find the next room.");
+                    System.out.println("Er is geen kamer in die richting.");
                 }
             }
 
@@ -91,9 +90,9 @@ public class InputProcessor {
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Die item bestaat niet. Typ 'items' om beschikbare items te zien.");
             }
-        } else if (input.equals("unequip armor")) {
+        } else if (input.equals("armor opbergen")) {
             player.unequipArmor();
-        } else if (input.equals("unequip weapon")) {
+        } else if (input.equals("wapen opbergen")) {
             player.unequipWeapon();
         } else if (input.equals("status")) {
             player.printStatus();
@@ -101,6 +100,10 @@ public class InputProcessor {
             player.kijkRond();
         } else if (input.equals("start puzzel")){
             if(player.getCurrentRoom() instanceof PuzzleRooms) {
+                if (player.getCurrentRoom().getCleared()) {
+                    System.out.println("Deze kamer is al opgelost.");
+                    return;
+                }
                 ((PuzzleRooms) player.getCurrentRoom()).startPuzzle(player, difficulty);
             } else {
                 System.out.println("Je kunt hier geen puzzel starten.");
@@ -111,7 +114,7 @@ public class InputProcessor {
             Game.saveGame();
         } else if (input.equals("help")) {
             GamePrints.printHelp();
-        } else if (input.equals("quit")) {
+        } else if (input.equals("stop")) {
             Game.quitGame(true);
         } else {
             System.out.println("Onbekend commando. Typ 'help' voor een lijst met commando's.");

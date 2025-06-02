@@ -6,7 +6,7 @@ import com.cgi.scrumescapegame.Room;
 
 public class EindKamer extends Room {
     public EindKamer(int roomX, int roomY) {
-        super("Final Room", "This is the final room.", roomX, roomY);
+        super("Laatse Kamer", "Dit is de Laatse Kamer. JE BENT ER BIJNA!", roomX, roomY);
     }
 
     @Override

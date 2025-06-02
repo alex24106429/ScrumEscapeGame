@@ -3,12 +3,12 @@ package com.cgi.scrumescapegame.items;
 public class Key extends Item {
     @Override
     public String getName() {
-        return "Key";
+        return "Sleutel";
     }
 
     @Override
     public String getDescription() {
-        return "Opens a door";
+        return "Opent alle deuren van de kamer.";
     }
 
     @Override

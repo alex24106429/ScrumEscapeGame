@@ -20,7 +20,7 @@ public class BlackjackMinigame implements Minigame {
 
     @Override public String getName() { return "Blackjack"; }
     @Override public String getDescription() {
-        return "Beat the dealer by getting a hand value as close to 21 as possible without going over.";
+        return "Versla de dealer door een handwaarde zo dicht mogelijk bij 21 te krijgen zonder eroverheen te gaan.";
     }
 
     @Override
@@ -36,16 +36,16 @@ public class BlackjackMinigame implements Minigame {
         hand.add(deck.remove(0)); hand.add(deck.remove(0));
         dealer.add(deck.remove(0)); dealer.add(deck.remove(0));
 
-        PrintMethods.printlnColor("Dealer shows:", Attribute.YELLOW_TEXT());
+        PrintMethods.printlnColor("Dealer toont:", Attribute.YELLOW_TEXT());
         printDealerInitial(dealer);
-        PrintMethods.printlnColor("Value: " + value(dealer.subList(0,1)), Attribute.WHITE_TEXT());
+        PrintMethods.printlnColor("Waarde: " + value(dealer.subList(0,1)), Attribute.WHITE_TEXT());
 
-        PrintMethods.printlnColor("Your hand:", Attribute.GREEN_TEXT());
+        PrintMethods.printlnColor("Jou hand:", Attribute.GREEN_TEXT());
         printHand(hand);
-        PrintMethods.printlnColor("Value: " + value(hand), Attribute.WHITE_TEXT());
+        PrintMethods.printlnColor("Waarde: " + value(hand), Attribute.WHITE_TEXT());
 
         while (value(hand) < 21) {
-            PrintMethods.typeTextColor("Hit or stand? (h/s): ", Attribute.CYAN_TEXT());
+            PrintMethods.typeTextColor("Hit of stand? (h/s): ", Attribute.CYAN_TEXT());
             String inp = scanner.next();
             if ("h".equalsIgnoreCase(inp)) {
                 hand.add(deck.remove(0));
@@ -55,7 +55,7 @@ public class BlackjackMinigame implements Minigame {
 
         int playerVal = value(hand);
         // Reveal dealer hand
-        PrintMethods.printlnColor("Dealer's turn:", Attribute.YELLOW_TEXT());
+        PrintMethods.printlnColor("Dealer's beurt:", Attribute.YELLOW_TEXT());
         printHand(dealer);
         while (value(dealer) < 17) {
             dealer.add(deck.remove(0));
@@ -63,10 +63,10 @@ public class BlackjackMinigame implements Minigame {
         }
 
         int dealerVal = value(dealer);
-        PrintMethods.printlnColor("Your total: " + playerVal + ", Dealer total: " + dealerVal, Attribute.WHITE_TEXT());
+        PrintMethods.printlnColor("Jouw totaal: " + playerVal + ", Dealer's totaal: " + dealerVal, Attribute.WHITE_TEXT());
         success = playerVal <= 21 && (dealerVal > 21 || playerVal > dealerVal);
         if (success) {
-            PrintMethods.printlnColor("You win! +10 gold.", Attribute.GREEN_TEXT());
+            PrintMethods.printlnColor("Je wint! +10 goud.", Attribute.GREEN_TEXT());
             player.changeGold(10);
         } else {
             player.changeGold(-10);
