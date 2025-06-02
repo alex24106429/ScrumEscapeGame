@@ -3,7 +3,7 @@ package com.cgi.scrumescapegame.items;
 import com.cgi.scrumescapegame.Joker;
 import com.cgi.scrumescapegame.Room;
 
-public class KeyJoker extends Item implements Joker {
+public class KeyJoker extends Item implements Joker, LimitedUseItem {
     public KeyJoker(){
         super(0);
     }
@@ -26,5 +26,10 @@ public class KeyJoker extends Item implements Joker {
     @Override
     public String getImagepath(){
         return "";
+    }
+
+    @Override
+    public int getUsesLeft() {
+        return 0;
     }
 }
