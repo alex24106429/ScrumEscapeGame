@@ -4,6 +4,9 @@ import java.util.*;
 
 import com.cgi.scrumescapegame.graphics.MapPrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
+import com.cgi.scrumescapegame.items.BagOfGold;
+import com.cgi.scrumescapegame.items.Book;
+import com.cgi.scrumescapegame.items.Torch;
 import com.diogonunes.jcolor.Attribute;
 import com.google.gson.Gson;
 
@@ -68,6 +71,10 @@ public class Game {
         player.setDifficulty(currentDifficulty);
 
         player.getCurrentRoom().enterRoom(player, this.currentDifficulty); // Roep enterRoom aan voor de initiële kamer
+
+        player.addItem(new Book());
+        player.addItem(new BagOfGold());
+        if (Game.debug) player.addItem(new Torch());
 
         if (rooms.isEmpty()) {
             System.out.println("Fout: Geen kamers gedefinieerd. Het spel kan niet starten.");

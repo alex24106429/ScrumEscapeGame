@@ -27,9 +27,6 @@ public class Player {
         this.items = new ArrayList<>();
         this.level = 1; // Start at level 1
         this.experience = 0; // Start with 0 experience
-        addItem(new Book());
-        if (Game.debug) addItem(new Torch());
-        addItem(new BagOfGold());
     }
 
     public Room getCurrentRoom() {

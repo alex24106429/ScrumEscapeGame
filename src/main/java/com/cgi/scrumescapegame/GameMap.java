@@ -68,11 +68,10 @@ public class GameMap {
             }
         }
 
-        for (int i = 1; i < this.positions.size(); i++) {
-            Point p = this.positions.get(i);
-            if (Game.debug)
-                System.out.println("Kamer " + (i) + " positie: (" + p.x + ", + " + p.y + ")");
-        }
+        // for (int i = 1; i < this.positions.size(); i++) {
+        //     Point p = this.positions.get(i);
+        //     if (Game.debug) System.out.println("Kamer " + (i) + " positie: (" + p.x + ", + " + p.y + ")");
+        // }
     }
 
     public void initializeRooms(List<Room> rooms) {
