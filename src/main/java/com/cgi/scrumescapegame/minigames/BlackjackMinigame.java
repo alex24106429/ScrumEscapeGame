@@ -46,7 +46,7 @@ public class BlackjackMinigame implements Minigame {
 
         while (value(hand) < 21) {
             PrintMethods.typeTextColor("Hit or stand? (h/s): ", Attribute.CYAN_TEXT());
-            String inp = scanner.next();
+            String inp = scanner.nextLine();
             if ("h".equalsIgnoreCase(inp)) {
                 hand.add(deck.remove(0));
                 printHand(Collections.singletonList(hand.get(hand.size() - 1)));

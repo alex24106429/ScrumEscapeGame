@@ -62,6 +62,7 @@ public class Game {
                     PrintMethods.printlnColor("Unknown input, continuing on Normal mode. ", Attribute.BRIGHT_RED_TEXT());
                     break;
             }
+            scanner.nextLine(); // om "Onbekend commando" te voorkomen
         }
 
         player.setDifficulty(currentDifficulty);
