@@ -17,6 +17,7 @@ public class MeerkeuzeVraag implements Vraag {
             throw new IllegalArgumentException("Correcte optie index is ongeldig.");
         }
         this.correcteOptieIndex = correcteOptieIndex;
+        this.hint = hint;
     }
 
     @Override
