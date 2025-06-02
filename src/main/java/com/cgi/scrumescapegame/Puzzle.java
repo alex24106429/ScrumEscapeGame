@@ -97,6 +97,7 @@ public class Puzzle implements PuzzleSubject {
         }
 
         System.out.println("\nPuzzle voltooid!");
+        player.getCurrentRoom().setCleared(true);
     }
 }
 

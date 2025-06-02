@@ -11,5 +11,6 @@ public class EindKamer extends Room {
 
     @Override
     public void roomLogic(Player player, Difficulty difficulty) {
+        setCleared(true);
     }
 }

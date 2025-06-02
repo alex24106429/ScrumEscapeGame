@@ -16,6 +16,11 @@ public class InputProcessor {
             int targetY = currentPos.y;
             boolean moved = false;
 
+            if (!currentRoom.getCleared()){
+                System.out.println("Je moet eerst de kamer oplossen voordat je verder kunt gaan.");
+                return;
+            }
+
             switch (direction) {
                 case "forward":
                 case "up":
@@ -94,6 +99,12 @@ public class InputProcessor {
             player.printStatus();
         } else if (input.equals("kijk rond")) {
             player.kijkRond();
+        } else if (input.equals("start puzzel")){
+            if(player.getCurrentRoom() instanceof PuzzleRooms) {
+                ((PuzzleRooms) player.getCurrentRoom()).startPuzzle(player, difficulty);
+            } else {
+                System.out.println("Je kunt hier geen puzzel starten.");
+            }
         } else if (input.equals("items")) {
             player.printItems();
         } else if (input.equals("opslaan")) {

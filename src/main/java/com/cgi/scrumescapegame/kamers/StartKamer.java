@@ -2,6 +2,7 @@ package com.cgi.scrumescapegame.kamers;
 
 import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Player;
+import com.cgi.scrumescapegame.PuzzleRooms;
 import com.cgi.scrumescapegame.Room;
 
 public class StartKamer extends Room {
@@ -11,6 +12,6 @@ public class StartKamer extends Room {
 
     @Override
     public void roomLogic(Player player, Difficulty difficulty) {
-        // Specifieke acties voor de startkamer kunnen hier komen
+        setCleared(true);
     }
 }

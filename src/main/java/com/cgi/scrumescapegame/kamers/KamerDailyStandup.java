@@ -13,6 +13,7 @@ public class KamerDailyStandup extends Room {
 
     @Override
     public void roomLogic(Player player, Difficulty difficulty) {
+        setCleared(true);
         BlackjackMinigame minigame = new BlackjackMinigame();
         minigame.startMinigame(player, Game.scanner);
         // Specifieke acties voor de dailystandupkamer

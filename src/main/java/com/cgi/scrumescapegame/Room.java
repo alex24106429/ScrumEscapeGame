@@ -66,5 +66,6 @@ public abstract class Room {
     public void setCleared(boolean isCleared) {
         this.isCleared = isCleared;
     }
+
 }
 

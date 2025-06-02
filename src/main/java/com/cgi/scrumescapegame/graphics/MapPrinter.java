@@ -160,7 +160,11 @@ public class MapPrinter {
             }
         }
         ImagePrinter.printBufferedImage(mapImage);
-        printAvailableRooms(player);
+        if (player.getCurrentRoom().getCleared()) {
+            printAvailableRooms(player);
+        } else {
+            PrintMethods.printColor("Alle Deuren zijn gesloten. Maak de puzzel af om de kamer te kunnen verlaten.", Attribute.BRIGHT_RED_TEXT());
+        }
     }
 
     private static void printAvailableRooms(Player player) {

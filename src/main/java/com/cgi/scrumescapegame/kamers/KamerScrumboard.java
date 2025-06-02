@@ -11,6 +11,6 @@ public class KamerScrumboard extends Room {
 
     @Override
     public void roomLogic(Player player, Difficulty difficulty) {
-        // Specifieke acties voor de Scrumboardkamer
+        setCleared(true);
     }
 }

@@ -54,7 +54,6 @@ public class Game {
                 case 2:
                     this.currentDifficulty = Difficulty.NORMAL;
                     break;
-                
                 case 3:
                     this.currentDifficulty = Difficulty.HARD;
                     break;
