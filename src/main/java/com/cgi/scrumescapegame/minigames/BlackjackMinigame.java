@@ -25,6 +25,24 @@ public class BlackjackMinigame implements Minigame {
 
     @Override
     public void startMinigame(Player player, Scanner scanner) {
+        int bet = 0;
+        int playerGold = player.getGold();
+        if(playerGold < 1) {
+            PrintMethods.typeTextColor("You need at least 1 gold to play Blackjack, come back later!", Attribute.BRIGHT_RED_TEXT());
+            return;
+        }
+        PrintMethods.typeTextColor("Enter bet amount (1 to " + playerGold + "): ", Attribute.CYAN_TEXT());
+        while (true) {
+            try {
+                bet = Integer.parseInt(scanner.nextLine());
+                if (bet >= 1 && bet <= playerGold) {
+                    break;
+                }
+            } catch (NumberFormatException e) {}
+            PrintMethods.printlnColor("Invalid bet amount. Please enter a value between 1 and " + playerGold + ".", Attribute.BRIGHT_RED_TEXT());
+        }
+        player.changeGold(-bet);
+
         List<Integer> deck = new ArrayList<>();
         for (int r = 0; r < 13; r++)
             for (int s = 0; s < 4; s++)
@@ -36,17 +54,17 @@ public class BlackjackMinigame implements Minigame {
         hand.add(deck.remove(0)); hand.add(deck.remove(0));
         dealer.add(deck.remove(0)); dealer.add(deck.remove(0));
 
-        PrintMethods.printlnColor("Dealer toont:", Attribute.YELLOW_TEXT());
+        PrintMethods.printlnColor("Dealer shows:", Attribute.YELLOW_TEXT());
         printDealerInitial(dealer);
-        PrintMethods.printlnColor("Waarde: " + value(dealer.subList(0,1)), Attribute.WHITE_TEXT());
+        PrintMethods.printlnColor("Value: " + value(dealer.subList(0,1)), Attribute.WHITE_TEXT());
 
-        PrintMethods.printlnColor("Jou hand:", Attribute.GREEN_TEXT());
+        PrintMethods.printlnColor("Your hand:", Attribute.GREEN_TEXT());
         printHand(hand);
-        PrintMethods.printlnColor("Waarde: " + value(hand), Attribute.WHITE_TEXT());
+        PrintMethods.printlnColor("Value: " + value(hand), Attribute.WHITE_TEXT());
 
         while (value(hand) < 21) {
             PrintMethods.typeTextColor("Hit of stand? (h/s): ", Attribute.CYAN_TEXT());
-            String inp = scanner.next();
+            String inp = scanner.nextLine();
             if ("h".equalsIgnoreCase(inp)) {
                 hand.add(deck.remove(0));
                 printHand(Collections.singletonList(hand.get(hand.size() - 1)));
@@ -55,7 +73,7 @@ public class BlackjackMinigame implements Minigame {
 
         int playerVal = value(hand);
         // Reveal dealer hand
-        PrintMethods.printlnColor("Dealer's beurt:", Attribute.YELLOW_TEXT());
+        PrintMethods.printlnColor("Dealer's turn:", Attribute.YELLOW_TEXT());
         printHand(dealer);
         while (value(dealer) < 17) {
             dealer.add(deck.remove(0));
@@ -63,13 +81,11 @@ public class BlackjackMinigame implements Minigame {
         }
 
         int dealerVal = value(dealer);
-        PrintMethods.printlnColor("Jouw totaal: " + playerVal + ", Dealer's totaal: " + dealerVal, Attribute.WHITE_TEXT());
+        PrintMethods.printlnColor("Your total: " + playerVal + ", Dealer total: " + dealerVal, Attribute.WHITE_TEXT());
         success = playerVal <= 21 && (dealerVal > 21 || playerVal > dealerVal);
         if (success) {
-            PrintMethods.printlnColor("Je wint! +10 goud.", Attribute.GREEN_TEXT());
-            player.changeGold(10);
-        } else {
-            player.changeGold(-10);
+            PrintMethods.printlnColor("Je wint!", Attribute.GREEN_TEXT());
+            player.changeGold(bet);
         }
     }
 

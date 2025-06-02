@@ -3,7 +3,9 @@ package com.cgi.scrumescapegame;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import com.cgi.scrumescapegame.kamers.EindKamer;
@@ -66,11 +68,10 @@ public class GameMap {
             }
         }
 
-        for (int i = 1; i < this.positions.size(); i++) {
-            Point p = this.positions.get(i);
-            if (Game.debug)
-                System.out.println("Kamer " + (i) + " positie: (" + p.x + ", + " + p.y + ")");
-        }
+        // for (int i = 1; i < this.positions.size(); i++) {
+        //     Point p = this.positions.get(i);
+        //     if (Game.debug) System.out.println("Kamer " + (i) + " positie: (" + p.x + ", + " + p.y + ")");
+        // }
     }
 
     public void initializeRooms(List<Room> rooms) {
@@ -99,10 +100,10 @@ public class GameMap {
 
     private void insertAdjacentRoom(List<Room> rooms) {
         for (Room room : rooms) {
-            java.util.Map<String, Boolean> status = getAdjacentRoomStatus(room.roomX, room.roomY);
+            Map<String, Boolean> status = getAdjacentRoomStatus(room.roomX, room.roomY);
 
-            if(Game.debug) System.out.println("Kamernummer: " + room.getName());
-            if(Game.debug) System.out.println(status);
+            // if(Game.debug) System.out.println("Kamernummer: " + room.getName());
+            // if(Game.debug) System.out.println(status);
 
             if (status.get(KEY_RIGHT)) {
                 room.setAdjacentRoom(KEY_RIGHT, true);
@@ -148,11 +149,11 @@ public class GameMap {
         return Collections.unmodifiableList(this.positions);
     }
 
-    public java.util.Map<String, Boolean> getAdjacentRoomStatus(int x, int y) {
-        java.util.Map<String, Boolean> adjacentStatus = new java.util.HashMap<>();
+    public Map<String, Boolean> getAdjacentRoomStatus(int x, int y) {
+        Map<String, Boolean> adjacentStatus = new HashMap<>();
 
-        if (Game.debug) System.out.println("Scannen voor aanliggende kamers: (" + x + "," + y + ")");
-        if (Game.debug) System.out.println("Positie lijst grootte: " + this.positions.size());
+        // if (Game.debug) System.out.println("Checking adjacent for: (" + x + "," + y + ")");
+        // if (Game.debug) System.out.println("Positions list size: " + this.positions.size());
 
         adjacentStatus.put(KEY_RIGHT, hasRoom(x + 1, y));
         adjacentStatus.put(KEY_LEFT, hasRoom(x - 1, y));

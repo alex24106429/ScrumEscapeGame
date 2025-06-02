@@ -117,7 +117,7 @@ public class InputProcessor {
         } else if (input.equals("stop")) {
             Game.quitGame(true);
         } else {
-            System.out.println("Onbekend commando. Typ 'help' voor een lijst met commando's.");
+            System.out.println("Onbekend commando: \"" + input + "\". Typ 'help' voor een lijst met commando's.");
         }
     }
 }
