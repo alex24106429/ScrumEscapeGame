@@ -54,6 +54,10 @@ public abstract class Room {
     }
 
     public abstract void roomLogic(Player player, Difficulty difficulty);
+    
+    public boolean canUseKeyJoker() {
+        return false;
+    }
 
     public void setAdjacentRoom(String direction, boolean status) {
         adjacentRooms.put(direction, status);

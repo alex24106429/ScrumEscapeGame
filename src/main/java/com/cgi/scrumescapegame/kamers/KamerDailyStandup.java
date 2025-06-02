@@ -12,6 +12,11 @@ public class KamerDailyStandup extends Room {
     }
 
     @Override
+    public boolean canUseKeyJoker() {
+        return true;
+    }
+    
+    @Override
     public void roomLogic(Player player, Difficulty difficulty) {
         setCleared(true);
         BlackjackMinigame minigame = new BlackjackMinigame();

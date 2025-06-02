@@ -1,7 +1,6 @@
 package com.cgi.scrumescapegame.items;
 
 import com.cgi.scrumescapegame.Joker;
-import com.cgi.scrumescapegame.KeyJokerRoom;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Room;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
@@ -14,7 +13,7 @@ public class KeyJoker extends Item implements Joker, LimitedUseItem {
 
     @Override
     public void useInRoom(Room room, Player player){
-        if(room instanceof KeyJokerRoom) {
+        if(room.canUseKeyJoker()) {
             player.addItem(new Key());
         } else {
             PrintMethods.printlnColor("You can't use the Key Joker here.", Attribute.BRIGHT_RED_TEXT());
