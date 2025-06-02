@@ -83,9 +83,8 @@ public class BattleSystem {
             }
 
             System.out.println("\n--- " + enemy.getName() + "'s Turn ---");
-            int monsterDamage = enemy.getAttack();
-            PrintMethods.typeTextColor(enemy.getName() + " attacked you and dealt " + monsterDamage + " damage!", Attribute.BRIGHT_RED_TEXT());
-            player.loseHp(monsterDamage);
+            int monsterDamage = enemy.performAttack(player);
+            PrintMethods.typeTextColor(enemy.getName() + " used " + enemy.getLastActionName() + " and dealt " + monsterDamage + " damage!", Attribute.BRIGHT_RED_TEXT());
 
             if (!player.isAlive()) {
                 PrintMethods.typeTextColor("You have been defeated!", Attribute.BRIGHT_RED_TEXT());

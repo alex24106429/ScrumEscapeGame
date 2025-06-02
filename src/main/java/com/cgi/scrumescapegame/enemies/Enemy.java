@@ -1,11 +1,20 @@
 package com.cgi.scrumescapegame.enemies;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
+import com.cgi.scrumescapegame.Player;
+
 public abstract class Enemy {
     protected String name;
     protected String imagePath;
     protected int currentHp;
     protected int maxHp;
     protected int attackDamage;
+    protected List<AttackBehavior> behaviors = new ArrayList<>();
+    protected EnemyState state = EnemyState.HEALTHY;
+    protected Random rand = new Random();
+    protected AttackBehavior lastBehavior;
 
     public Enemy(String name, String imagePath, int maxHp, int attackDamage) {
         this.name = name;
@@ -13,6 +22,8 @@ public abstract class Enemy {
         this.maxHp = maxHp;
         this.currentHp = maxHp;
         this.attackDamage = attackDamage;
+        behaviors.add(new NormalAttackBehavior());
+        behaviors.add(new HeavyAttackBehavior());
     }
 
     public String getName() {
@@ -52,5 +63,23 @@ public abstract class Enemy {
 
     public boolean isAlive() {
         return currentHp > 0;
+    }
+
+    public AttackBehavior chooseBehavior() {
+        state = currentHp < maxHp * 0.3 ? EnemyState.ENRAGED : EnemyState.HEALTHY;
+        if (state == EnemyState.ENRAGED) {
+            return rand.nextInt(3) == 0 ? behaviors.get(1) : behaviors.get(0);
+        }
+        return behaviors.get(0);
+    }
+
+    public int performAttack(Player player) {
+        AttackBehavior behavior = chooseBehavior();
+        lastBehavior = behavior;
+        return behavior.attack(this, player);
+    }
+
+    public String getLastActionName() {
+        return lastBehavior.getName();
     }
 }
