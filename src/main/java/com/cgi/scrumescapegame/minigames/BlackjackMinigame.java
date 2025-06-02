@@ -25,6 +25,24 @@ public class BlackjackMinigame implements Minigame {
 
     @Override
     public void startMinigame(Player player, Scanner scanner) {
+        int bet = 0;
+        int playerGold = player.getGold();
+        if(playerGold < 1) {
+            PrintMethods.typeTextColor("You need at least 1 gold to play Blackjack, come back later!", Attribute.BRIGHT_RED_TEXT());
+            return;
+        }
+        PrintMethods.typeTextColor("Enter bet amount (1 to " + playerGold + "): ", Attribute.CYAN_TEXT());
+        while (true) {
+            try {
+                bet = Integer.parseInt(scanner.nextLine());
+                if (bet >= 1 && bet <= playerGold) {
+                    break;
+                }
+            } catch (NumberFormatException e) {}
+            PrintMethods.printlnColor("Invalid bet amount. Please enter a value between 1 and " + playerGold + ".", Attribute.BRIGHT_RED_TEXT());
+        }
+        player.changeGold(-bet);
+
         List<Integer> deck = new ArrayList<>();
         for (int r = 0; r < 13; r++)
             for (int s = 0; s < 4; s++)
@@ -66,10 +84,8 @@ public class BlackjackMinigame implements Minigame {
         PrintMethods.printlnColor("Your total: " + playerVal + ", Dealer total: " + dealerVal, Attribute.WHITE_TEXT());
         success = playerVal <= 21 && (dealerVal > 21 || playerVal > dealerVal);
         if (success) {
-            PrintMethods.printlnColor("You win! +10 gold.", Attribute.GREEN_TEXT());
-            player.changeGold(10);
-        } else {
-            player.changeGold(-10);
+            PrintMethods.printlnColor("You win", Attribute.GREEN_TEXT());
+            player.changeGold(bet);
         }
     }
 
