@@ -25,7 +25,7 @@ public class KeyJoker extends Item implements Joker, LimitedUseItem {
 
     @Override
     public String getImagepath(){
-        return "";
+        return "items/keyjoker.png";
     }
 
     @Override
