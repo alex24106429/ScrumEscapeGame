@@ -11,6 +11,7 @@ public class OpenVraag implements Vraag {
     public OpenVraag(String tekst, String correctAntwoord, String hint) {
         this.tekst = tekst;
         this.correctAntwoord = correctAntwoord;
+        this.hint = hint;
     }
 
     @Override
