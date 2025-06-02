@@ -4,7 +4,7 @@ import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.PuzzleRooms;
 import com.cgi.scrumescapegame.Room;
-import com.cgi.scrumescapegame.enemies.ReviewMonster;
+import com.cgi.scrumescapegame.enemies.ScopeCreeper;
 import com.cgi.scrumescapegame.puzzles.ReviewPuzzle;
 
 public class KamerReview extends Room implements PuzzleRooms {
@@ -22,7 +22,7 @@ public class KamerReview extends Room implements PuzzleRooms {
     @Override
     public void startPuzzle(Player player, Difficulty difficulty) {
         // Start de review puzzel
-        puzzle.start(player, new ReviewMonster(), difficulty);
+        puzzle.start(player, new ScopeCreeper(), difficulty);
     }
 
     @Override

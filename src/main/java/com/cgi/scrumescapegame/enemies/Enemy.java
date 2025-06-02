@@ -10,18 +10,16 @@ public abstract class Enemy {
     protected String imagePath;
     protected int currentHp;
     protected int maxHp;
-    protected int attackDamage;
     protected List<AttackBehavior> behaviors = new ArrayList<>();
     protected EnemyState state = EnemyState.HEALTHY;
     protected Random rand = new Random();
     protected AttackBehavior lastBehavior;
 
-    public Enemy(String name, String imagePath, int maxHp, int attackDamage) {
+    public Enemy(String name, String imagePath, int maxHp) {
         this.name = name;
         this.imagePath = imagePath;
         this.maxHp = maxHp;
         this.currentHp = maxHp;
-        this.attackDamage = attackDamage;
     }
 
     public String getName() {
@@ -42,10 +40,6 @@ public abstract class Enemy {
 
     public int getMaxHealth() {
         return maxHp;
-    }
-
-    public int getAttack() {
-        return attackDamage;
     }
 
     public void takeDamage(int damage) {
