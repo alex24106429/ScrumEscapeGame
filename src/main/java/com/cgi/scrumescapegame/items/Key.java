@@ -1,6 +1,9 @@
 package com.cgi.scrumescapegame.items;
 
-public class Key extends Item {
+import com.cgi.scrumescapegame.Player;
+import com.cgi.scrumescapegame.Room;
+
+public class Key extends Item implements UsableItem, LimitedUseItem {
     @Override
     public String getName() {
         return "Sleutel";
@@ -18,5 +21,16 @@ public class Key extends Item {
 
     public Key() {
         super(0);
+    }
+
+    @Override
+    public void useItem(Player player) {
+        Room currentRoom = player.getCurrentRoom();
+        currentRoom.setCleared(true);
+    }
+
+    @Override
+    public int getUsesLeft() {
+        return 0;
     }
 }
