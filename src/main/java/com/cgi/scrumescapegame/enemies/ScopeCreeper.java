@@ -5,7 +5,7 @@ import com.cgi.scrumescapegame.enemyattacks.ScopeCreeper_FeatureSwarm;
 
 public class ScopeCreeper extends Enemy {
     private static String name = "Scope Creeper";
-    private static String imagePath = "monsters/reviewmonster.png";
+    private static String imagePath = "monsters/slime.png";
     private static int maxHp = 50;
     
     public ScopeCreeper() {
