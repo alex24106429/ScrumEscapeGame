@@ -23,8 +23,8 @@ public class InputProcessor {
             }
 
             switch (direction) {
+                case "voor":
                 case "vooruit":
-                case "omhoog":
                     if (currentRoom.adjacentRooms.getOrDefault("up", false)) {
                         targetY++;
                         moved = true;
@@ -32,8 +32,8 @@ public class InputProcessor {
                         System.out.println("Je kunt niet vooruit gaan vanaf hier.");
                     }
                     break;
+                case "achter":
                 case "achteruit":
-                case "omlaag":
                     if (currentRoom.adjacentRooms.getOrDefault("down", false)) {
                         targetY--;
                         moved = true;

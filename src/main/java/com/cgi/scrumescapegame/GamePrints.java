@@ -14,10 +14,10 @@ public class GamePrints {
 
     public static void printHelp() {
         PrintMethods.printlnColor("Beschikbare commando's:", Attribute.BOLD());
-        System.out.println("  ga omhoog/omlaag/links/rechts (vooruit/ achteruit) - Verplaats je naar de volgende kamer.");
+        System.out.println("  ga (vooruit/achteruit/links/rechts) - Verplaats je naar de volgende kamer.");
         System.out.println("  gebruik item [nummer]  - Gebruik de opgegeven item (bv. 'gebruik item 1').");
-        System.out.println("  start puzzel            - Start een puzzel in de huidige kamer.");
-        System.out.println("  armor opbergen        - Berg je huidige armor op.");
+        System.out.println("  start puzzel           - Start een puzzel in de huidige kamer.");
+        System.out.println("  armor opbergen         - Berg je huidige armor op.");
         System.out.println("  wapen opbergen         - Berg je huidige wapen op.");
         System.out.println("  status                 - Toon je huidige status en locatie.");
         System.out.println("  kijk rond              - Krijg de beschrijving van de huidige kamer opnieuw.");
