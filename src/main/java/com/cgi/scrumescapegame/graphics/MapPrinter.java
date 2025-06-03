@@ -11,13 +11,6 @@ import com.cgi.scrumescapegame.GameMap;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Room;
 import com.cgi.scrumescapegame.items.Torch;
-import com.cgi.scrumescapegame.kamers.EindKamer;
-import com.cgi.scrumescapegame.kamers.KamerDailyStandup;
-import com.cgi.scrumescapegame.kamers.KamerPlanning;
-import com.cgi.scrumescapegame.kamers.KamerRetrospective;
-import com.cgi.scrumescapegame.kamers.KamerReview;
-import com.cgi.scrumescapegame.kamers.KamerScrumboard;
-import com.cgi.scrumescapegame.kamers.StartKamer;
 import com.diogonunes.jcolor.Attribute;
 
 public class MapPrinter {

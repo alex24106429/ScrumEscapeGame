@@ -30,12 +30,6 @@ public class GameMap {
     private static final String KEY_UP = "up";
     private static final String KEY_DOWN = "down";
 
-    private static final int ROOM_TYPE_DAILY_STANDUP = 0;
-    private static final int ROOM_TYPE_PLANNING = 1;
-    private static final int ROOM_TYPE_RETROSPECTIVE = 2;
-    private static final int ROOM_TYPE_REVIEW = 3;
-    private static final int ROOM_TYPE_SCRUMBOARD = 4;
-
     public void generateMapLayout() {
         this.positions.add(new Point(0, 0));
 
@@ -85,11 +79,11 @@ public class GameMap {
 
             int roomType = rand.nextInt(5);
             switch (roomType) {
-                case ROOM_TYPE_DAILY_STANDUP -> rooms.add(new KamerDailyStandup(x, y));
-                case ROOM_TYPE_PLANNING -> rooms.add(new KamerPlanning(x, y));
-                case ROOM_TYPE_RETROSPECTIVE -> rooms.add(new KamerRetrospective(x, y));
-                case ROOM_TYPE_REVIEW -> rooms.add(new KamerReview(x, y));
-                case ROOM_TYPE_SCRUMBOARD -> rooms.add(new KamerScrumboard(x, y));
+                case 0 -> rooms.add(new KamerDailyStandup(x, y));
+                case 1 -> rooms.add(new KamerPlanning(x, y));
+                case 2 -> rooms.add(new KamerRetrospective(x, y));
+                case 3 -> rooms.add(new KamerReview(x, y));
+                case 4 -> rooms.add(new KamerScrumboard(x, y));
             }
         }
         Room lastRoom = rooms.getLast();
