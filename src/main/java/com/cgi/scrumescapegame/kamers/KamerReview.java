@@ -29,4 +29,9 @@ public class KamerReview extends Room implements PuzzleRooms {
     public boolean canUseKeyJoker() {
         return true;
     }
+
+    @Override
+    public int getHue() {
+        return 170;
+    }
 }

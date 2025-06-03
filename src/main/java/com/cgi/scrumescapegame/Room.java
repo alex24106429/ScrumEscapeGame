@@ -74,5 +74,7 @@ public abstract class Room {
         this.isCleared = isCleared;
     }
 
+    public abstract int getHue();
+
 }
 

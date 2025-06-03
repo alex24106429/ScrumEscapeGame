@@ -23,4 +23,9 @@ public class KamerDailyStandup extends Room {
         minigame.startMinigame(player, Game.scanner);
         // Specifieke acties voor de dailystandupkamer
     }
+
+    @Override
+    public int getHue() {
+        return 45;
+    }
 }

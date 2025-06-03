@@ -29,4 +29,9 @@ public class KamerPlanning extends Room {
         planningKamerShop.interactiveMode(Game.scanner, player);
         // Specifieke acties voor de planningskamer
     }
+
+    @Override
+    public int getHue() {
+        return 90;
+    }
 }

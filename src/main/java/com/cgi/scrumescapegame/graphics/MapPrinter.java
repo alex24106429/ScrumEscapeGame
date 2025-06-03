@@ -193,9 +193,9 @@ public class MapPrinter {
 
                         String displayDirection;
                         if (internalDirectionKey.equals("up")) {
-                            displayDirection = "omhoog";
+                            displayDirection = "vooruit";
                         } else if (internalDirectionKey.equals("down")) {
-                            displayDirection = "omlaag";
+                            displayDirection = "achteruit";
                         } else if (internalDirectionKey.equals("left")) {
                             displayDirection = "links";
                         } else if (internalDirectionKey.equals("right")) {
@@ -212,21 +212,6 @@ public class MapPrinter {
     }
 
     private static float getRoomHue(Room room) {
-        if (room instanceof StartKamer) {
-            return 45f / 360f;
-        } else if (room instanceof KamerScrumboard) {
-            return 140f / 360f;
-        } else if (room instanceof KamerReview) {
-            return 240f / 360f;
-        } else if (room instanceof KamerRetrospective) {
-            return 275f / 360f;
-        } else if (room instanceof KamerPlanning) {
-            return 60f / 360f;
-        } else if (room instanceof KamerDailyStandup) {
-            return 35f / 360f;
-        } else if (room instanceof EindKamer) {
-            return 0f / 360f;
-        }
-        return 0.0f;
+        return (float) room.getHue() / 360f;
     }
 }

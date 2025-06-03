@@ -13,4 +13,9 @@ public class KamerRetrospective extends Room {
     public void roomLogic(Player player, Difficulty difficulty) {
         setCleared(true);
     }
+    
+    @Override
+    public int getHue() {
+        return 135;
+    }
 }
