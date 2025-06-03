@@ -21,7 +21,7 @@ public class KeyJoker extends Item implements Joker, LimitedUseItem {
 
     @Override
     public String getDescription(){
-        return "Get an extra key";
+        return "Krijg een sleutel";
     }
 
     @Override
