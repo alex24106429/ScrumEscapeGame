@@ -100,7 +100,7 @@ public class InputProcessor {
             player.kijkRond();
         } else if (input.equals("start puzzel")){
             if(player.getCurrentRoom() instanceof PuzzleRooms) {
-                if (player.getCurrentRoom().getCleared()) {
+                if (player.getCurrentRoom().getCleared() && !Game.debug) {
                     System.out.println("Deze kamer is al opgelost.");
                     return;
                 }
