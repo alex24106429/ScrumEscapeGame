@@ -7,6 +7,7 @@ import java.util.Scanner;
 import com.cgi.scrumescapegame.graphics.MapPrinter;
 
 public class InputProcessor {
+    @SuppressWarnings("unused")
     public static void processInput(String input, Player player, Game game, Scanner scanner, GameMap map, Difficulty difficulty) {
         if (input.startsWith("ga ")) {
             String direction = input.substring("ga ".length()).trim();
