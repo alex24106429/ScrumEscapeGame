@@ -14,11 +14,29 @@ import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
 
 public class PrintMethods {
+    private static final String ANSI_HIDE_CURSOR = "\u001B[?25l";
+    private static final String ANSI_SHOW_CURSOR = "\u001B[?25h";
+    private static final String ANSI_CURSOR_HOME = "\u001B[H";
+    
+    private static final String ANSI_CLEAR = "\033\143";
+
+    public static void hideCursor() {
+        System.out.print( ANSI_HIDE_CURSOR );
+    }
+
+    public static void showCursor() {
+        System.out.print( ANSI_SHOW_CURSOR );
+    }
+
+    public static void cursorHome() {
+        System.out.print( ANSI_CURSOR_HOME );
+    }
+
     public static void clearScreen() {
         if (Game.debug)
             return;
 
-        System.out.print("\033\143");
+        System.out.print(ANSI_CLEAR);
 
         try {
             if (Game.isWindows) {
