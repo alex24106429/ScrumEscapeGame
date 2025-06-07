@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
+import com.diogonunes.jcolor.Attribute;
+
 public class SplashScreen {
     static BufferedImage logoImage, spriteSheetImage, backgroundImage;
     static int width, height, columns;
@@ -103,10 +105,48 @@ public class SplashScreen {
             graphics.drawImage(logoImage, 0, 0, null);
             graphics.dispose();
 
-            // Render
+            // The text we want to draw
+            String text = "Druk op enter om te starten.";
+
+            // Where in the terminal (row, col) we want the first character
+            int termRow       = 20;
+            int termColStart  = 33;
+
+            // Which scan‐line in the image corresponds to this terminal row
+            int imageTextLine = 38; // (20 * 2) - 2
+
+            // 1) draw background
             PrintMethods.cursorHome();
             ImagePrinter.printBufferedImage(backgroundImage);
-            System.out.print("Druk op enter om te starten.");
+
+            // 2) position cursor at the start of the text
+            PrintMethods.setCursorPosition(termRow, termColStart);
+
+            // 3) for each character: sample its background pixel and print it
+            for (int i = 0; i < text.length(); i++) {
+                char c = text.charAt(i);
+
+                // convert terminal column → image X coordinate
+                int sampleX = (termColStart + i);
+                int sampleY = imageTextLine;
+
+                // get RGB components
+                int rgb = backgroundImage.getRGB(sampleX, sampleY);
+                int r   = (rgb >> 16) & 0xFF;
+                int g   = (rgb >>  8) & 0xFF;
+                int b   =  rgb        & 0xFF;
+
+                // compute rec. 601 luma:
+                int lum = (int)((0.299*r + 0.587*g + 0.114*b));
+
+                // pick white if dark background, otherwise black
+                Attribute fg = (lum < 128
+                                ? Attribute.TEXT_COLOR(255,255,255)
+                                : Attribute.TEXT_COLOR(0,0,0));
+
+                // print one character with its sampled background color
+                PrintMethods.printColor(String.valueOf(c), new Attribute[]{fg, Attribute.BACK_COLOR(r, g, b), Attribute.BOLD()});
+            }
 
             try {
                 Thread.sleep(41);

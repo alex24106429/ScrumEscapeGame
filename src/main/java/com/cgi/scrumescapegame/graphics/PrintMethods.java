@@ -32,6 +32,10 @@ public class PrintMethods {
         System.out.print( ANSI_CURSOR_HOME );
     }
 
+    public static void setCursorPosition(int line, int column) {
+        System.out.print("\033[" + line + ";" + column + "H");
+    }
+
     public static void clearScreen() {
         if (Game.debug)
             return;
