@@ -17,7 +17,7 @@ public class ScopeCreeper_DefinitionErosion implements AttackBehavior {
 		int base = 30;
 		int var = base / 5;
 		int dmg = base - var + rand.nextInt(var * 2 + 1);
-		player.loseHp(dmg);
+		player.changeHp( - dmg);
 		return dmg;
 	}
 }

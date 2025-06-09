@@ -64,9 +64,9 @@ public class Player {
 
     public int changeGold(int amount) {
         if (amount > 0) {
-            PrintMethods.printlnColor("Je krijgt " + amount + " goud!", Attribute.BRIGHT_GREEN_TEXT());
+            PrintMethods.printlnColor("Je hebt " + amount + " goud gekregen!", Attribute.BRIGHT_GREEN_TEXT());
         } else if (amount < 0) {
-            PrintMethods.printlnColor("Je verliest " + Math.abs(amount) + " goud.", Attribute.BRIGHT_RED_TEXT());
+            PrintMethods.printlnColor("Je hebt " + Math.abs(amount) + " goud verloren.", Attribute.BRIGHT_RED_TEXT());
         }
     
         this.gold += amount;
@@ -155,43 +155,43 @@ public class Player {
         return PrintMethods.getProgressBarString((int) ((double) currentHp / maxHp * 100), 5) + " " + currentHp + "/" + maxHp;
     }
 
-    public void loseHp(int amount) {
-        if ((currentHp - amount) > 0) {
-            currentHp -= amount;
-            if(currentHp < 0) currentHp = 0;
-            PrintMethods.printlnColor("Je verliest " + amount + " HP! Huidige HP: " + getHpString(),
-                    Attribute.BRIGHT_RED_TEXT());
-        } else {
-            PrintMethods.printlnColor("Game over! Je hebt al je HP verloren.", Attribute.BRIGHT_RED_TEXT());
-            if(!Game.debug) {
-                Game.quitGame(false);
-            } else {
-                PrintMethods.printlnColor("[Debug] Healt je in plaats van stoppen.", Attribute.BRIGHT_GREEN_TEXT());
-                this.currentHp = this.maxHp;
-            }
+    /**
+     * Changes the player's current HP.
+     * @param amount The amount to change HP by. Positive for gaining, negative for losing.
+     */
+    public void changeHp(int amount) {
+        if (amount == 0) {
+            return; // No change needed
         }
-    }
 
-    public void gainHp(int amount) {
-        if (currentHp < maxHp) {
-            currentHp += amount;
-            if(currentHp > maxHp) currentHp = maxHp;
-            PrintMethods.printlnColor("Je krijgt " + amount + " HP.",
-                    Attribute.BRIGHT_GREEN_TEXT());
-        } else {
-            PrintMethods.printlnColor("Je hebt al de maximale hoeveelheid HP.", Attribute.BRIGHT_GREEN_TEXT());
-        }
-    }
-
-    public void kill() {
-        this.loseHp(this.currentHp);
-    }
-
-    public void gainGold(int amount) {
+        // --- Gaining HP ---
         if (amount > 0) {
-            changeGold(amount);
-        } else {
-            PrintMethods.printlnColor("Je kan niet een negatieve hoeveelheid goud hebben.", Attribute.RED_TEXT());
+            if (currentHp >= maxHp) {
+                PrintMethods.printlnColor("Je hebt al de maximale hoeveelheid HP.", Attribute.BRIGHT_GREEN_TEXT());
+            } else {
+                currentHp += amount;
+                if (currentHp > maxHp) {
+                    currentHp = maxHp;
+                }
+                PrintMethods.printlnColor("Je hebt " + amount + " HP gekregen!", Attribute.BRIGHT_GREEN_TEXT());
+            }
+        // --- Losing HP ---
+        } else { // amount is negative
+            int lossAmount = -amount; // Make it a positive number for calculations and messages
+            if ((currentHp - lossAmount) > 0) {
+                currentHp -= lossAmount;
+                PrintMethods.printlnColor("Je verliest " + lossAmount + " HP! Huidige HP: " + getHpString(),
+                        Attribute.BRIGHT_RED_TEXT());
+            } else {
+                // Game over logic
+                PrintMethods.printlnColor("Game over! Je hebt al je HP verloren.", Attribute.BRIGHT_RED_TEXT());
+                if (!Game.debug) {
+                    Game.quitGame();
+                } else {
+                    PrintMethods.printlnColor("[Debug] Healen in plaats van stoppen.", Attribute.BRIGHT_GREEN_TEXT());
+                    this.currentHp = this.maxHp;
+                }
+            }
         }
     }
 

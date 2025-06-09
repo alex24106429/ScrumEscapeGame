@@ -15,7 +15,7 @@ public class GoldenGun extends Item implements BattleItem, LimitedUseItem {
     @Override
     public String getDescription() {
         return "Dit is het legendarische gouden pistool. Het schijnt dat het altijd raak is, maar je moet wel geluk hebben.";
-        }
+    }
 
     @Override
     public String getImagepath() {
@@ -35,7 +35,7 @@ public class GoldenGun extends Item implements BattleItem, LimitedUseItem {
 
             case 8:
                 PrintMethods.printlnColor("Het gouden pistool glijd uit je handen en raakt je!", Attribute.BRIGHT_RED_TEXT());
-                player.loseHp(1000000);
+                player.changeHp( - 1000000);
                 break;
 
             default:

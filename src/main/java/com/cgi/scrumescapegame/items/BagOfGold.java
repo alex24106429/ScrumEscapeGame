@@ -22,7 +22,7 @@ public class BagOfGold extends Item implements UsableItem, LimitedUseItem {
 
     @Override
     public void useItem(Player player) {
-        player.gainGold(goldAmount);
+        player.changeGold(goldAmount);
     }
 
     @Override

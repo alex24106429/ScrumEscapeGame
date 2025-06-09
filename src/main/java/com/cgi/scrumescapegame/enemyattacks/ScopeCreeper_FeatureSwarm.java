@@ -17,7 +17,7 @@ public class ScopeCreeper_FeatureSwarm implements AttackBehavior {
 		int base = 50;
 		int var = base / 4;
 		int dmg = base - var + rand.nextInt(var * 2 + 1);
-		player.loseHp(dmg);
+		player.changeHp( - dmg);
 		return dmg;
 	}
 }

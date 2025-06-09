@@ -111,12 +111,10 @@ public class InputProcessor {
             }
         } else if (input.equals("items")) {
             player.printItems();
-        } else if (input.equals("opslaan")) {
-            Game.saveGame();
         } else if (input.equals("help")) {
             GamePrints.printHelp();
         } else if (input.equals("stop")) {
-            Game.quitGame(true);
+            Game.quitGame();
         } else {
             System.out.println("Onbekend commando: \"" + input + "\". Typ 'help' voor een lijst met commando's.");
         }
