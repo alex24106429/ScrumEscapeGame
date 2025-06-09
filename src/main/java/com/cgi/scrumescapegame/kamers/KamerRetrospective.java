@@ -15,7 +15,6 @@ public class KamerRetrospective extends Room implements PuzzleRooms {
 
     @Override
     public void roomLogic(Player player, Difficulty difficulty) {
-        setCleared(true);
     }
 
     @Override
