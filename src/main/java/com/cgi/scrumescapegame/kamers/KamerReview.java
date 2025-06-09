@@ -20,7 +20,6 @@ public class KamerReview extends Room implements PuzzleRooms {
 
     @Override
     public void startPuzzle(Player player, Difficulty difficulty) {
-        // Start de review puzzel
         puzzle.start(player, new ScopeCreeper(), difficulty);
     }
 

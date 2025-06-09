@@ -1,6 +1,7 @@
 package com.cgi.scrumescapegame;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
@@ -79,11 +80,22 @@ public class Player {
 
     public void kijkRond() {
         if (currentRoom.hasLookedAround()) {
-            PrintMethods.printlnColor("Je hebt al rondgekeken in deze kamer.", Attribute.BRIGHT_YELLOW_TEXT());
-        } else {
-            PrintMethods.printlnColor("Je kijkt rond in de kamer: ", Attribute.BRIGHT_YELLOW_TEXT());
-            currentRoom.setLookedAround(true);
+            PrintMethods.printlnColor("Je hebt al rondgekeken in deze kamer.", Attribute.BRIGHT_RED_TEXT());
+            return;
         }
+        
+        Random random = new Random();
+        if(random.nextInt(3) == 0) {
+            PrintMethods.typeTextColor("Je kijkt rond in de kamer en vindt een zak met goud!", Attribute.BRIGHT_GREEN_TEXT());
+            addItem(new BagOfGold());
+        } else {
+            if(currentRoom.getCleared()) {
+                PrintMethods.printlnColor("Je kijkt rond in de kamer en ziet een deur.", Attribute.BRIGHT_YELLOW_TEXT());
+            } else {
+                PrintMethods.printlnColor("Je kijkt rond in de kamer en ziet een gesloten deur.", Attribute.BRIGHT_YELLOW_TEXT());
+            }
+        }
+        currentRoom.setLookedAround(true);
 
     }
 

@@ -54,7 +54,6 @@ public class Puzzle implements PuzzleSubject {
         for (int i = 0; i < vragen.size(); i++) {
             Vraag huidigeVraag = vragen.get(i);
             this.currentVraag = huidigeVraag;
-            PrintMethods.printlnColor("Vraag " + (i + 1) + " van " + vragen.size() + ":", Attribute.BOLD());
             huidigeVraag.toonVraag();
 
             String gebruikersAntwoord = scanner.nextLine();

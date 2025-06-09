@@ -2,10 +2,12 @@ package com.cgi.scrumescapegame.kamers;
 
 import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Player;
+import com.cgi.scrumescapegame.PuzzleRooms;
 import com.cgi.scrumescapegame.Room;
+import com.cgi.scrumescapegame.enemies.ScopeCreeper;
 import com.cgi.scrumescapegame.puzzles.RetrospectivePuzzle;
 
-public class KamerRetrospective extends Room {
+public class KamerRetrospective extends Room implements PuzzleRooms {
     public KamerRetrospective(int roomX, int roomY) {
         super("Retrospective kamer", "Wow je bent in de retrospectivekamer", roomX, roomY);
         this.puzzle = new RetrospectivePuzzle().puzzle;
@@ -14,6 +16,11 @@ public class KamerRetrospective extends Room {
     @Override
     public void roomLogic(Player player, Difficulty difficulty) {
         setCleared(true);
+    }
+
+    @Override
+    public void startPuzzle(Player player, Difficulty difficulty) {
+        puzzle.start(player, new ScopeCreeper(), difficulty);
     }
     
     @Override
