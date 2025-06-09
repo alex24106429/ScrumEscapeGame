@@ -36,6 +36,14 @@ public class PrintMethods {
         System.out.print("\033[" + line + ";" + column + "H");
     }
 
+    public static void moveCursorUp(int lines) {
+        System.out.print( "\u001B[" + lines + "A" );
+    }
+
+    public static void moveCursorDown(int lines) {
+        System.out.print( "\u001B[" + lines + "B" );
+    }
+
     public static void clearScreen() {
         if (Game.debug)
             return;
