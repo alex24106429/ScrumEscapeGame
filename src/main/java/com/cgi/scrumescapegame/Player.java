@@ -197,7 +197,7 @@ public class Player {
 
     public String getWeaponName() {
         Weapon weapon = getWeapon();
-        if(weapon == null) return "Je bent als eerst";
+        if(weapon == null) return "je vuist";
         return weapon.getName();
     }
 

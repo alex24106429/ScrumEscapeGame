@@ -10,7 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class QuickTimeEvent {
-	public static int runQuickTimeEvent() {
+	public static float runQuickTimeEvent() {
 		final int barWidth = 50;
 		final int barHeight = 4;
 		final int centerX = barWidth / 2;
@@ -41,7 +41,8 @@ public class QuickTimeEvent {
 
 		int cursorX = 0;
 		int dir = 1; // +1 = moving right, –1 = moving left
-		int score = 0;
+
+		System.out.println("Druk op enter wanneer de lijn in het midden is!");
 
 		// 2) bounce the white line back-and-forth until enter
 		while (true) {
@@ -65,10 +66,9 @@ public class QuickTimeEvent {
 					// compute closeness: 1.0 at center, 0.0 at edges
 					float dist = Math.abs(cursorX - centerX);
 					float closeness = Math.max(0f, 1f - dist / centerX);
-					score = Math.round(closeness * 100f);
 					PrintMethods.moveCursorDown(2);
 					PrintMethods.showCursor();
-					return score;
+					return closeness;
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

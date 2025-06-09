@@ -24,19 +24,21 @@ public class BattleSystem {
         player.printStatus();
 
         while (player.isAlive() && enemy.isAlive()) {
-            PrintMethods.printlnColor("\n--- Your Turn ---", Attribute.BOLD());
-            PrintMethods.printlnColor("1. Attack with " + player.getWeaponName(), Attribute.BRIGHT_CYAN_TEXT());
-            PrintMethods.printlnColor("2. Use Item", Attribute.BRIGHT_CYAN_TEXT());
-            PrintMethods.printlnColor("Choose your action: ", Attribute.BRIGHT_CYAN_TEXT());
+            PrintMethods.printlnColor("\n--- Jouw beurt ---", Attribute.BOLD());
+            PrintMethods.printlnColor("1. Val aan met " + player.getWeaponName(), Attribute.BRIGHT_CYAN_TEXT());
+            PrintMethods.printlnColor("2. Gebruik een item", Attribute.BRIGHT_CYAN_TEXT());
+            PrintMethods.printlnColor("Je actie: ", Attribute.BRIGHT_CYAN_TEXT());
 
             String input = scanner.nextLine();
 
             switch(input) {
                 case "1":
-                    int playerDamage = player.getAttack();
-                    enemy.takeDamage(playerDamage);
-                    PrintMethods.typeTextColor("You attacked " + enemy.getName() + ", and dealt " + playerDamage + " damage!", Attribute.BRIGHT_GREEN_TEXT());
-                    playerDamageDealt += playerDamage;
+                    float multiplier = QuickTimeEvent.runQuickTimeEvent();
+					System.out.println("Je attack damage: " + (int) (multiplier * 200) + "%");
+                    int finalDamage = Math.round((float) player.getAttack() * multiplier * 2);
+                    enemy.takeDamage(finalDamage);
+                    PrintMethods.typeTextColor("Je valt " + enemy.getName() + " aan, en doet " + finalDamage + " hp damage!", Attribute.BRIGHT_GREEN_TEXT());
+                    playerDamageDealt += finalDamage;
                     break;
                 case "2":
                     List<Item> items = player.getItems();
@@ -48,11 +50,11 @@ public class BattleSystem {
                         }
                     }
                     
-                    PrintMethods.printColor("Enter the number of the item you want to use (or 'cancel' to go back): ", Attribute.BRIGHT_BLUE_TEXT());
+                    PrintMethods.printColor("Voer het nummer in van het item dat je wilt gebruiken (of 'terug' om terug te gaan):", Attribute.BRIGHT_BLUE_TEXT());
 
                     String itemInput = scanner.nextLine().trim().toLowerCase();
 
-                    if (itemInput.equals("cancel")) {
+                    if (itemInput.equals("terug")) {
                         continue;
                     }
 
@@ -66,28 +68,28 @@ public class BattleSystem {
                             if (item instanceof UsableItem) player.useItem(itemIndex);
                             if (item instanceof BattleItem) player.useBattleItem(itemIndex, enemy);
                         } else {
-                            PrintMethods.printlnColor("Invalid item number.", Attribute.BRIGHT_RED_TEXT());
+                            PrintMethods.printlnColor("Ongeldig itemnummer.", Attribute.BRIGHT_RED_TEXT());
                         }
                     } catch (NumberFormatException e) {
-                        PrintMethods.printlnColor("Invalid input. Please enter a number or 'cancel'.", Attribute.BRIGHT_RED_TEXT());
+                        PrintMethods.printlnColor("Ongeldige invoer. Voer een getal in of 'terug'.", Attribute.BRIGHT_RED_TEXT());
                     }
                     break;
                 default:
-                    System.out.println("Invalid action.");
+                    System.out.println("Ongeldige invoer. Voer een getal in of 'terug'.");
                     continue;
             }
 
             if (!enemy.isAlive()) {
-                PrintMethods.typeTextColor(enemy.getName() + " has been defeated!", Attribute.BRIGHT_GREEN_TEXT());
+                PrintMethods.typeTextColor(enemy.getName() + " is verslagen!", Attribute.BRIGHT_GREEN_TEXT());
                 break;
             }
 
-            System.out.println("\n--- " + enemy.getName() + "'s Turn ---");
+            System.out.println("\n--- " + enemy.getName() + "'s Beurt ---");
             int monsterDamage = enemy.performAttack(player);
-            PrintMethods.typeTextColor(enemy.getName() + " used " + enemy.getLastActionName() + " and dealt " + monsterDamage + " damage!", Attribute.BRIGHT_RED_TEXT());
+            PrintMethods.typeTextColor(enemy.getName() + " gebruikt " + enemy.getLastActionName() + " and doet " + monsterDamage + " hp damage!", Attribute.BRIGHT_RED_TEXT());
 
             if (!player.isAlive()) {
-                PrintMethods.typeTextColor("You have been defeated!", Attribute.BRIGHT_RED_TEXT());
+                PrintMethods.typeTextColor("Je bent verslagen!", Attribute.BRIGHT_RED_TEXT());
                 break;
             }
 
@@ -96,10 +98,10 @@ public class BattleSystem {
         }
 
         if (player.isAlive()) {
-            PrintMethods.printlnColor("\nBattle won!", Attribute.BRIGHT_GREEN_TEXT());
+            PrintMethods.printlnColor("\nBattle gewonnen!", Attribute.BRIGHT_GREEN_TEXT());
             player.gainExperience(playerDamageDealt);
         } else {
-            PrintMethods.printlnColor("\nBattle lost!", Attribute.BRIGHT_RED_TEXT());
+            PrintMethods.printlnColor("\nBattle verloren!", Attribute.BRIGHT_RED_TEXT());
         }
     }
 }
