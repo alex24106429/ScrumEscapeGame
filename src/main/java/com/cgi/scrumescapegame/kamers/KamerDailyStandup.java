@@ -5,10 +5,12 @@ import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Room;
 import com.cgi.scrumescapegame.minigames.BlackjackMinigame;
+import com.cgi.scrumescapegame.puzzles.DailyStandupPuzzle;
 
 public class KamerDailyStandup extends Room {
     public KamerDailyStandup(int roomX, int roomY) {
         super("Kamer daily standup", "Je bent in de daily standup kamer. Hier bespreken we wat we sinds de volgende standup gedaan hebben en hoe we verder gaan werken.", roomX, roomY);
+        this.puzzle = new DailyStandupPuzzle().puzzle;
     }
 
     @Override
