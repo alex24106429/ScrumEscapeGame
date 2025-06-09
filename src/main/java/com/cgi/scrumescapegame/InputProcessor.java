@@ -58,7 +58,7 @@ public class InputProcessor {
                     }
                     break;
                 default:
-                    System.out.println("Ongeldige richting. Gebruik 'ga ...' gevolgd door omhoog(vooruit), omlaag(achteruit), links of rechts.");
+                    System.out.println("Ongeldige richting. Gebruik 'ga ...' gevolgd door vooruit, achteruit, links of rechts.");
                     break;
             }
 

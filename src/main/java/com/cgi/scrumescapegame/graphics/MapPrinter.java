@@ -156,7 +156,7 @@ public class MapPrinter {
         if (player.getCurrentRoom().getCleared()) {
             printAvailableRooms(player);
         } else {
-            PrintMethods.printColor("Alle Deuren zijn gesloten. Maak de puzzel af om de kamer te kunnen verlaten.", Attribute.BRIGHT_RED_TEXT());
+            PrintMethods.printColor("De deuren zijn gesloten. Maak de puzzel af (\"start puzzel\") om de kamer te kunnen verlaten.", Attribute.BRIGHT_RED_TEXT());
         }
     }
 

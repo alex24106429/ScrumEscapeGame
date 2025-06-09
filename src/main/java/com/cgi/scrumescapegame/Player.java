@@ -6,10 +6,11 @@ import java.util.Random;
 import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.items.*;
-import com.diogonunes.jcolor.Ansi;
 import com.diogonunes.jcolor.Attribute;
 
 public class Player {
+    final int XP_PER_LEVEL = 500;
+
     private String name = "Avonturier";
     public Room currentRoom;
     private int maxHp;
@@ -90,69 +91,32 @@ public class Player {
             addItem(new BagOfGold());
         } else {
             if(currentRoom.getCleared()) {
-                PrintMethods.printlnColor("Je kijkt rond in de kamer en ziet een deur.", Attribute.BRIGHT_YELLOW_TEXT());
+                PrintMethods.printlnColor("Je kijkt rond in de kamer en ziet open deuren.", Attribute.BRIGHT_YELLOW_TEXT());
             } else {
-                PrintMethods.printlnColor("Je kijkt rond in de kamer en ziet een gesloten deur.", Attribute.BRIGHT_YELLOW_TEXT());
+                PrintMethods.printlnColor("Je kijkt rond in de kamer en ziet gesloten deuren.", Attribute.BRIGHT_YELLOW_TEXT());
             }
         }
         currentRoom.setLookedAround(true);
-
     }
 
     public void printStatus() {
-        String output = "";
-        // Speler naam
-        output += Ansi.colorize("[ Speler: " + Ansi.colorize(name, Attribute.BOLD()), Attribute.BRIGHT_CYAN_TEXT())
-                + Ansi.colorize(" ] ", Attribute.BRIGHT_CYAN_TEXT());
-
-        // Kamernaam
-        output += Ansi.colorize("[ Locatie: " + Ansi.colorize(currentRoom.getName(), Attribute.BOLD()),
-                Attribute.BRIGHT_BLUE_TEXT())
-                + Ansi.colorize(" ] ", Attribute.BRIGHT_BLUE_TEXT());
-
-        output += "\n";
-
-        // Level
-        output += Ansi.colorize("[ LVL: " + Ansi.colorize("" + getLevel(), Attribute.BOLD()),
-                Attribute.BRIGHT_RED_TEXT())
-                + Ansi.colorize(" ] ", Attribute.BRIGHT_RED_TEXT());
-        
-        // Experience
-        output += Ansi.colorize("[ XP: " + Ansi.colorize("" + getExperience(), Attribute.BOLD()),
-                Attribute.BRIGHT_RED_TEXT())
-                + Ansi.colorize(" ] ", Attribute.BRIGHT_RED_TEXT());
-
-        // HP
-        output += Ansi.colorize("[ HP: " + getHpString() + " ] ", Attribute.BRIGHT_RED_TEXT());
-
-        // Gold
-        output += Ansi.colorize("[ Goud: " + Ansi.colorize("" + gold, Attribute.BOLD()),
-                Attribute.BRIGHT_YELLOW_TEXT())
-                + Ansi.colorize(" ] ", Attribute.BRIGHT_YELLOW_TEXT());
-
-        // Attack
-        output += Ansi.colorize("[ ATK: " + Ansi.colorize("" + attack, Attribute.BOLD()),
-                Attribute.BRIGHT_RED_TEXT())
-                + Ansi.colorize(" ] ", Attribute.BRIGHT_RED_TEXT());
-
-        // Defense
-        output += Ansi.colorize("[ DEF: " + Ansi.colorize("" + defense, Attribute.BOLD()),
-                Attribute.GREEN_TEXT())
-                + Ansi.colorize(" ] ", Attribute.GREEN_TEXT());
-
-        // Coordinaten (alleen in debug)
-        if (Game.debug)
-            output += Ansi
-                    .colorize("\n[ Coördinaten: " + Ansi.colorize(
-                            currentRoom.getCurrentPosition().x + ", " + currentRoom.getCurrentPosition().y,
-                            Attribute.BOLD()), Attribute.BRIGHT_CYAN_TEXT())
-                    + Ansi.colorize(" ] ", Attribute.BRIGHT_CYAN_TEXT());
-
-        System.out.println(output);
+        PrintMethods.printColor("[ Speler: " + name + " ] ", "#FFD3B6");
+        PrintMethods.printColor("[ Locatie: " + currentRoom.getName() + " ]\n", "#D5ECC2");
+        PrintMethods.printColor("[ LVL: " + "" + getLevel() + " ] ", "#95E1D3");
+        PrintMethods.printColor("[ XP: " + "" + getXPString() + " ] ", "#BE9FE1");
+        PrintMethods.printColor("[ HP: " + "" + getHpString() + " ] ", "#F38181");
+        PrintMethods.printColor("[ Goud: " + "" + getGold() + " ] ", "#FCE38A");
+        PrintMethods.printColor("[ ATK: " + "" + getAttack() + " ] ", "#E23E57");
+        PrintMethods.printColor("[ DEF: " + "" + getDefense() + " ]\n", "#A8D8EA");
     }
 
     public String getHpString() {
         return PrintMethods.getProgressBarString((int) ((double) currentHp / maxHp * 100), 5) + " " + currentHp + "/" + maxHp;
+    }
+
+     public String getXPString() {
+        int xpToNextLevel = xpToNextLevel();
+        return PrintMethods.getProgressBarString((int) ((double) experience / xpToNextLevel * 100), 5) + " " + experience + "/" + xpToNextLevel;
     }
 
     /**
@@ -372,8 +336,6 @@ public class Player {
     }
 
     private void checkLevelUp() {
-        final int XP_PER_LEVEL = 500;
-
         // Calculate the potential new level based on total experience
         // Level 1 requires 0-499 XP, Level 2 requires 500-999 XP, etc.
         int newLevel = (this.experience / XP_PER_LEVEL) + 1;
@@ -398,5 +360,9 @@ public class Player {
         this.currentHp = this.maxHp; 
         this.attack += 2;
         this.defense += 1;
+    }
+
+    private int xpToNextLevel() { 
+        return XP_PER_LEVEL * level; 
     }
 }

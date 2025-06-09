@@ -67,26 +67,24 @@ public class Puzzle implements PuzzleSubject {
                 if(difficulty == Difficulty.HARD) {
                     shouldGiveHint = false;
                 } else {
-                    PrintMethods.printlnColor("verkeerd antwoord wil je een hint? (y/n)", Attribute.BRIGHT_RED_TEXT());
+                    PrintMethods.printlnColor("Verkeerd antwoord! Wil je een hint? (j/n)", Attribute.BRIGHT_RED_TEXT());
                     String hintChoice = scanner.nextLine();
-                    shouldGiveHint = hintChoice.trim().toLowerCase().startsWith("y");
+                    shouldGiveHint = hintChoice.trim().toLowerCase().startsWith("j");
                 }
                 
                 if (shouldGiveHint) {
                     // Provide hint
                     HintProvider hintProvider = HintFactory.getRandomHintProvider();
                     PrintMethods.printlnColor(hintProvider.getHint(huidigeVraag), Attribute.CYAN_TEXT());
-                    
-                    // Second chance
-                    PrintMethods.printlnColor("Probeer opnieuw: ", Attribute.BRIGHT_BLUE_TEXT());
-                    String secondAnswer = scanner.nextLine();
-                    boolean secondAnswerCorrect = huidigeVraag.controleerAntwoord(secondAnswer);
-                    if (Game.debug && secondAnswer.equals("skip")) secondAnswerCorrect = true;
-                    if (secondAnswerCorrect) {
-                        player.changeGold(5);
-                    } else {
-                        BattleSystem.startBattle(player, enemy, scanner);
-                    }
+                }
+
+                // Second chance
+                PrintMethods.printlnColor("Probeer opnieuw: ", Attribute.BRIGHT_BLUE_TEXT());
+                String secondAnswer = scanner.nextLine();
+                boolean secondAnswerCorrect = huidigeVraag.controleerAntwoord(secondAnswer);
+                if (Game.debug && secondAnswer.equals("skip")) secondAnswerCorrect = true;
+                if (secondAnswerCorrect) {
+                    player.changeGold(5);
                 } else {
                     BattleSystem.startBattle(player, enemy, scanner);
                 }

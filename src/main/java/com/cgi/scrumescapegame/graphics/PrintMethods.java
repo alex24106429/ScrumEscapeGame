@@ -1,5 +1,6 @@
 package com.cgi.scrumescapegame.graphics;
 
+import java.awt.Color;
 import java.io.IOException;
 
 import com.cgi.scrumescapegame.Game;
@@ -88,6 +89,14 @@ public class PrintMethods {
 
     public static void printlnColor(String text, Attribute colorAttribute) {
         System.out.println(Ansi.colorize(text, colorAttribute));
+    }
+
+    public static void printColor(String text, String hexColorString) {
+        System.out.print(Ansi.colorize(text, getHexAttribute(hexColorString)));
+    }
+
+    public static void printlnColor(String text, String hexColorString) {
+        System.out.println(Ansi.colorize(text, getHexAttribute(hexColorString)));
     }
 
     public static void printColor(String text, Attribute[] colorAttributes) {
@@ -184,4 +193,20 @@ public class PrintMethods {
         PrintMethods.printlnColor(item.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
         ImagePrinter.printImage(item.getImagepath());
     }
+
+    public static Attribute getHSBAttribute(int h, int s, int b) {
+        Color color = Color.getHSBColor((float) h / 360f, (float) s / 100f, (float) b / 100f);
+        return Attribute.TEXT_COLOR(color.getRed(), color.getGreen(), color.getBlue());
+    }
+
+    public static Attribute getHexAttribute(String hex) {
+        Color c;
+        try {
+            c = Color.decode(hex);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid hex color: " + hex, e);
+        }
+        return Attribute.TEXT_COLOR(c.getRed(), c.getGreen(), c.getBlue());
+    }
+
 }
