@@ -1,4 +1,4 @@
-package com.cgi.scrumescapegame.graphics;
+package com.cgi.scrumescapegame.animations;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
+import com.cgi.scrumescapegame.graphics.ImagePrinter;
+import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.diogonunes.jcolor.Attribute;
 
-public class SplashScreen {
+public class TitleScreenAnimation {
     static BufferedImage logoImage, spriteSheetImage, backgroundImage;
     static int width, height, columns;
     static float hueValue;
@@ -24,11 +26,11 @@ public class SplashScreen {
         BufferedImage image;
     }
 
-    public static void showSplashScreen() {
+    public static void playAnimation() {
         // 1) Load images from classpath
         try {
-            logoImage           = ImageIO.read(SplashScreen.class.getResourceAsStream("/logo_splash.png"));
-            spriteSheetImage    = ImageIO.read(SplashScreen.class.getResourceAsStream("/entities.png"));
+            logoImage           = ImageIO.read(TitleScreenAnimation.class.getResourceAsStream("/logo_splash.png"));
+            spriteSheetImage    = ImageIO.read(TitleScreenAnimation.class.getResourceAsStream("/entities.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,13 +1,12 @@
 package com.cgi.scrumescapegame;
 
-
+import com.cgi.scrumescapegame.animations.TitleScreenAnimation;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
-import com.cgi.scrumescapegame.graphics.SplashScreen;
 import com.diogonunes.jcolor.Attribute;
 
 public class GamePrints {
     public static void printWelcome() {
-        if(!Game.debug) SplashScreen.showSplashScreen();
+        if(!Game.debug) TitleScreenAnimation.playAnimation();
         PrintMethods.clearScreen();
         System.out.println("===================================");
         PrintMethods.printlnColor("     Welkom bij Scrum Escape!", Attribute.BRIGHT_YELLOW_TEXT());
