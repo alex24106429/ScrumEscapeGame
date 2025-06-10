@@ -99,6 +99,8 @@ public class InputProcessor {
             player.printStatus();
         } else if (input.equals("kijk rond")) {
             player.kijkRond();
+        } else if (input.equals("gebruik assistent")) {
+            AssistantService.activate(player);
         } else if (input.equals("start puzzel")){
             if(player.getCurrentRoom() instanceof PuzzleRooms) {
                 if (player.getCurrentRoom().getCleared() && !Game.debug) {

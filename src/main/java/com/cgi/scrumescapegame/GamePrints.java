@@ -22,6 +22,7 @@ public class GamePrints {
         System.out.println("  wapen opbergen         - Berg je huidige wapen op.");
         System.out.println("  status                 - Toon je huidige status en locatie.");
         System.out.println("  kijk rond              - Krijg de beschrijving van de huidige kamer opnieuw.");
+        System.out.println("  gebruik assistent      - Vraag de assistent om een hint, educatief hulpmiddel en motiverende boodschap.");
         System.out.println("  items                  - Toon een lijst van jouw items.");
         System.out.println("  opslaan                - Sla de gamegegevens op.");
         System.out.println("  help                   - Toon dit Help bericht.");
