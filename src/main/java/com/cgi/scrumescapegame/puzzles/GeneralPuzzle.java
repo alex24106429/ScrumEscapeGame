@@ -10,11 +10,8 @@ public class GeneralPuzzle {
 
     public GeneralPuzzle(List<Vraag> kamerVragen) {
         if (!kamerVragen.isEmpty()) {
-            puzzle.addQuestion(kamerVragen.removeFirst();
+            puzzle.addQuestion(kamerVragen.removeFirst());
         }
-    }
-    public Puzzle getPuzzle() {
-        return puzzle;
     }
 }
 
