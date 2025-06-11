@@ -1,12 +1,16 @@
 package com.cgi.scrumescapegame.puzzles;
 
-import java.util.Arrays;
-import java.util.Collections;
-
-import com.cgi.scrumescapegame.Puzzle;
+import com.cgi.scrumescapegame.Vraag;
 import com.cgi.scrumescapegame.vragen.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class PlanningPuzzle extends GeneralPuzzle {
+
+	private static final List<Vraag> vragen = new ArrayList<>();
 	static {
 		vragen.add(new MeerkeuzeVraag(
 				"Aan wie moet je tijdens de review het (deel)product opleveren?",
@@ -15,5 +19,8 @@ public class PlanningPuzzle extends GeneralPuzzle {
 				"Wie zijn de belangrijkste ontvangers van de productdemonstratie en feedback?"
 		));
 		Collections.shuffle(vragen);
+	}
+	public PlanningPuzzle() {
+		super(vragen);
 	}
 }

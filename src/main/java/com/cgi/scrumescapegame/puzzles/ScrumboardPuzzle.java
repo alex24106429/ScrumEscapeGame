@@ -1,15 +1,15 @@
 package com.cgi.scrumescapegame.puzzles;
 
+import com.cgi.scrumescapegame.Vraag;
+import com.cgi.scrumescapegame.vragen.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.cgi.scrumescapegame.Puzzle;
-import com.cgi.scrumescapegame.Vraag;
-import com.cgi.scrumescapegame.vragen.*;
-
 public class ScrumboardPuzzle extends GeneralPuzzle{
+    private static final List<Vraag> vragen = new ArrayList<>();
 	static {
 
 		vragen.add(new Matching(
@@ -39,4 +39,7 @@ public class ScrumboardPuzzle extends GeneralPuzzle{
 		));
 		Collections.shuffle(vragen);
 	}
+    public ScrumboardPuzzle() {
+        super(vragen);
+    }
 }
