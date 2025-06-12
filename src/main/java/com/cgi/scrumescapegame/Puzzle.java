@@ -45,7 +45,8 @@ public class Puzzle implements PuzzleSubject {
 
     public void start(Player player, Enemy enemy, Difficulty difficulty) {
         if (vragen.isEmpty()) {
-            System.out.println("De puzzle bevat nog geen vragen.");
+            PrintMethods.printlnColor("Je hebt geluk! De puzzle bevat geen vragen.", Attribute.BRIGHT_GREEN_TEXT());
+            player.getCurrentRoom().setCleared(true);
             return;
         }
 
