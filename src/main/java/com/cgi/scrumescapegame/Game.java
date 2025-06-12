@@ -166,11 +166,6 @@ public class Game {
     }
 
     private void giveStartingItems() {
-        player.addItem(new GoldSword());
-        player.addItem(new Sword());
-
-        player.addItem(new Chestplate());
-        player.addItem(new Shield());
         player.addItem(new Book());
         if (Game.debug) {
             player.addItem(new Torch());
