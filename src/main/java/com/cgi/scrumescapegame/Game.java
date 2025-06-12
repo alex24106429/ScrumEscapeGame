@@ -17,7 +17,7 @@ public class Game {
 
     public final static Scanner scanner = new Scanner(System.in);
     public final GameMap map;
-    public static final boolean debug = false; // Zet dit op false voor de eindversie
+    public static final boolean debug = true; // Zet dit op false voor de eindversie
     public static boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
 
     public Game() {
