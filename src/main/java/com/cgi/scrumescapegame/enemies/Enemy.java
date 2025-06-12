@@ -11,7 +11,6 @@ public abstract class Enemy {
     protected int currentHp;
     protected int maxHp;
     protected List<AttackBehavior> behaviors = new ArrayList<>();
-    protected EnemyState state = EnemyState.HEALTHY;
     protected Random rand = new Random();
     protected AttackBehavior lastBehavior;
 
@@ -58,11 +57,7 @@ public abstract class Enemy {
     }
 
     public AttackBehavior chooseBehavior() {
-        state = currentHp < maxHp * 0.3 ? EnemyState.ENRAGED : EnemyState.HEALTHY;
-        if (state == EnemyState.ENRAGED) {
-            return rand.nextInt(3) == 0 ? behaviors.get(1) : behaviors.get(0);
-        }
-        return behaviors.get(0);
+        return behaviors.get(new Random().nextInt(behaviors.size()));
     }
 
     public int performAttack(Player player) {
