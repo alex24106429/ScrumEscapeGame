@@ -1,6 +1,7 @@
 package com.cgi.scrumescapegame.observers;
 
 import com.cgi.scrumescapegame.Vraag;
+import com.cgi.scrumescapegame.Player;
 
 public class ScoreBoard implements PuzzleObserver {
     private int score;
@@ -10,9 +11,7 @@ public class ScoreBoard implements PuzzleObserver {
         this.score = 0;
         this.highScore = 0;
     }
-
-    @Override
-    public void update(boolean isCorrect, Vraag vraag) {
+    public void update(boolean isCorrect, Vraag vraag, Player player) {
         if (isCorrect) {
             score += 10;
             System.out.println("Correct! Score: " + score);

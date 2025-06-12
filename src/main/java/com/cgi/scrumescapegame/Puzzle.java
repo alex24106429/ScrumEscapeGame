@@ -8,14 +8,23 @@ import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.hints.HintFactory;
 import com.cgi.scrumescapegame.hints.HintProvider;
+import com.cgi.scrumescapegame.observers.Deur;
 import com.cgi.scrumescapegame.observers.PuzzleObserver;
 import com.cgi.scrumescapegame.observers.PuzzleSubject;
 import com.diogonunes.jcolor.Attribute;
+import com.cgi.scrumescapegame.Player;
+import com.cgi.scrumescapegame.observers.FeedbackObserver;
+import com.cgi.scrumescapegame.observers.Deur;
+import com.cgi.scrumescapegame.observers.ScoreBoard;
 
 public class Puzzle implements PuzzleSubject {
+    PuzzleObserver feedbackObserver = new FeedbackObserver(0);
+    PuzzleObserver deur = new Deur();
+    PuzzleObserver scoreBoard = new ScoreBoard();
     private final List<Vraag> vragen;
     private final List<PuzzleObserver> observers;
     private Vraag currentVraag;
+    private Player player;
 
     public Puzzle() {
         this.vragen = new ArrayList<>();
@@ -35,7 +44,7 @@ public class Puzzle implements PuzzleSubject {
     @Override
     public void notifyObserver(boolean isCorrect){
         for(PuzzleObserver observer : observers){
-            observer.update(isCorrect, currentVraag);
+            observer.update(isCorrect, currentVraag, player);
         }
     }
 
@@ -44,6 +53,11 @@ public class Puzzle implements PuzzleSubject {
     }
 
     public void start(Player player, Enemy enemy, Difficulty difficulty) {
+        this.player = player;
+        registerObserver(feedbackObserver);
+        registerObserver(deur);
+        registerObserver(scoreBoard);
+
         if (vragen.isEmpty()) {
             PrintMethods.printlnColor("Je hebt geluk! De puzzle bevat geen vragen.", Attribute.BRIGHT_GREEN_TEXT());
             player.getCurrentRoom().setCleared(true);
@@ -95,7 +109,8 @@ public class Puzzle implements PuzzleSubject {
         }
 
         System.out.println("\nPuzzle voltooid!");
-        player.getCurrentRoom().setCleared(true);
+        notifyObserver(true);
+
     }
 }
 
