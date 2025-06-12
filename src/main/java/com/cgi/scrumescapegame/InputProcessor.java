@@ -112,6 +112,7 @@ public class InputProcessor {
                     return;
                 }
                 ((PuzzleRooms) player.getCurrentRoom()).startPuzzle(player, difficulty);
+                MapPrinter.printMap(player, map);
             } else {
                 System.out.println("Je kunt hier geen puzzel starten.");
             }
