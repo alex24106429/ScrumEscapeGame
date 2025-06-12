@@ -113,6 +113,8 @@ public class InputProcessor {
             }
         } else if (input.equals("items")) {
             player.printItems();
+        } else if (input.equals("opslaan")) {
+            player.saveData();
         } else if (input.equals("help")) {
             GamePrints.printHelp();
         } else if (input.equals("stop")) {

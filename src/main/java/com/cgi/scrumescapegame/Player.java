@@ -1,5 +1,6 @@
 package com.cgi.scrumescapegame;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -364,5 +365,19 @@ public class Player {
 
     private int xpToNextLevel() { 
         return XP_PER_LEVEL * level; 
+    }
+
+    public void saveData() {
+        String output = "";
+        output += "Name: " + getName() + "\n";
+        output += "Current room: " + getCurrentRoom().getName() + "\n";
+        output += "HP: " + getCurrentHp() + "\n";
+        output += "Max HP: " + getMaxHp() + "\n";
+        output += "ATK: " + getAttack() + "\n";
+        output += "DEF: " + getDefense() + "\n";
+        output += "Gold: " + getGold() + "\n";
+        output += "LVL: " + getLevel() + "\n";
+        output += "XP: " + getExperience() + "\n";
+        FileHandler.writeFile(output, "save_" + Instant.now().toString().split("\\.")[0] + ".txt");
     }
 }
