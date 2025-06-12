@@ -12,13 +12,11 @@ import com.cgi.scrumescapegame.observers.Deur;
 import com.cgi.scrumescapegame.observers.PuzzleObserver;
 import com.cgi.scrumescapegame.observers.PuzzleSubject;
 import com.diogonunes.jcolor.Attribute;
-import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.observers.FeedbackObserver;
-import com.cgi.scrumescapegame.observers.Deur;
 import com.cgi.scrumescapegame.observers.ScoreBoard;
 
 public class Puzzle implements PuzzleSubject {
-    PuzzleObserver feedbackObserver = new FeedbackObserver(0);
+    PuzzleObserver feedbackObserver = new FeedbackObserver();
     PuzzleObserver deur = new Deur();
     PuzzleObserver scoreBoard = new ScoreBoard();
     private final List<Vraag> vragen;
