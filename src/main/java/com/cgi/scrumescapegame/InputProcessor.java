@@ -5,6 +5,8 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import com.cgi.scrumescapegame.graphics.MapPrinter;
+import com.cgi.scrumescapegame.items.Armor;
+import com.cgi.scrumescapegame.items.Weapon;
 
 public class InputProcessor {
     @SuppressWarnings("unused")
@@ -92,9 +94,9 @@ public class InputProcessor {
                 System.out.println("Die item bestaat niet. Typ 'items' om beschikbare items te zien.");
             }
         } else if (input.equals("armor opbergen")) {
-            player.unequipArmor();
+            player.unequipItem(Armor.class);
         } else if (input.equals("wapen opbergen")) {
-            player.unequipWeapon();
+            player.unequipItem(Weapon.class);
         } else if (input.equals("status")) {
             player.printStatus();
         } else if (input.equals("kijk rond")) {

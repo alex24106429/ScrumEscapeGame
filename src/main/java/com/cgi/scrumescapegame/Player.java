@@ -64,7 +64,7 @@ public class Player {
         return gold;
     }
 
-    public int changeGold(int amount) {
+    public void changeGold(int amount) {
         if (amount > 0) {
             PrintMethods.printlnColor("Je hebt " + amount + " goud gekregen!", Attribute.BRIGHT_GREEN_TEXT());
         } else if (amount < 0) {
@@ -76,8 +76,7 @@ public class Player {
         if (this.gold < 0) {
             this.gold = 0;
         }
-    
-        return this.gold;
+
     }
 
     public void kijkRond() {
@@ -103,12 +102,12 @@ public class Player {
     public void printStatus() {
         PrintMethods.printColor("[ Speler: " + name + " ] ", "#FFD3B6");
         PrintMethods.printColor("[ Locatie: " + currentRoom.getName() + " ]\n", "#D5ECC2");
-        PrintMethods.printColor("[ LVL: " + "" + getLevel() + " ] ", "#95E1D3");
-        PrintMethods.printColor("[ XP: " + "" + getXPString() + " ] ", "#BE9FE1");
-        PrintMethods.printColor("[ HP: " + "" + getHpString() + " ] ", "#F38181");
-        PrintMethods.printColor("[ Goud: " + "" + getGold() + " ] ", "#FCE38A");
-        PrintMethods.printColor("[ ATK: " + "" + getAttack() + " ] ", "#E23E57");
-        PrintMethods.printColor("[ DEF: " + "" + getDefense() + " ]\n", "#A8D8EA");
+        PrintMethods.printColor("[ LVL: " + getLevel() + " ] ", "#95E1D3");
+        PrintMethods.printColor("[ XP: " + getXPString() + " ] ", "#BE9FE1");
+        PrintMethods.printColor("[ HP: " + getHpString() + " ] ", "#F38181");
+        PrintMethods.printColor("[ Goud: " + getGold() + " ] ", "#FCE38A");
+        PrintMethods.printColor("[ ATK: " + getAttack() + " ] ", "#E23E57");
+        PrintMethods.printColor("[ DEF: " + getDefense() + " ]\n", "#A8D8EA");
     }
 
     public String getHpString() {
@@ -208,32 +207,37 @@ public class Player {
         items.remove(itemIndex);
     }
 
-    public void equipWeapon(Weapon weapon) {
-        unequipWeapon();
-        this.equippedWeapon = weapon;
-        weapon.equip(this);
+    public void equipItem(EquipableItem newItem) {
+        if (newItem instanceof Weapon) {
+            if (this.equippedWeapon != null) {
+                this.equippedWeapon.unequip(this);
+                items.add(this.equippedWeapon);
+            }
+            this.equippedWeapon = (Weapon) newItem;
+        } else if (newItem instanceof Armor) {
+            if (this.equippedArmor != null) {
+                this.equippedArmor.unequip(this);
+                items.add(this.equippedArmor);
+            }
+            this.equippedArmor = (Armor) newItem;
+        } else {
+            throw new IllegalArgumentException("Unsupported equipable item type");
+        }
+
+        newItem.equip(this);
     }
 
-    public void unequipWeapon() {
-        if (this.equippedWeapon == null)
-            return;
-        this.equippedWeapon.unequip(this);
-        items.add(this.equippedWeapon);
-        this.equippedWeapon = null;
-    }
 
-    public void equipArmor(Armor armor) {
-        unequipArmor();
-        this.equippedArmor = armor;
-        armor.equip(this);
-    }
-
-    public void unequipArmor() {
-        if (this.equippedArmor == null)
-            return;
-        this.equippedArmor.unequip(this);
-        items.add(this.equippedArmor);
-        this.equippedArmor = null;
+    public void unequipItem(Class<? extends EquipableItem> type) {
+        if (type == Weapon.class && equippedWeapon != null) {
+            equippedWeapon.unequip(this);
+            items.add(equippedWeapon);
+            equippedWeapon = null;
+        } else if (type == Armor.class && equippedArmor != null) {
+            equippedArmor.unequip(this);
+            items.add(equippedArmor);
+            equippedArmor = null;
+        }
     }
 
     public void useItem(int index) {
@@ -245,9 +249,9 @@ public class Player {
                     items.remove(index);
             } else if (item instanceof EquipableItem) {
                 if (item instanceof Weapon) {
-                    equipWeapon((Weapon) item);
+                    equipItem((Weapon) item);
                 } else if (item instanceof Armor) {
-                    equipArmor((Armor) item);
+                    equipItem((Armor) item);
                 }
                 PrintMethods.printlnColor("Je hebt " + item.getName() + " aan gezet.",  Attribute.BRIGHT_GREEN_TEXT());
                 items.remove(index);

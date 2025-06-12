@@ -4,10 +4,7 @@ import java.util.*;
 
 import com.cgi.scrumescapegame.graphics.MapPrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
-import com.cgi.scrumescapegame.items.Book;
-import com.cgi.scrumescapegame.items.HintJoker;
-import com.cgi.scrumescapegame.items.KeyJoker;
-import com.cgi.scrumescapegame.items.Torch;
+import com.cgi.scrumescapegame.items.*;
 import com.diogonunes.jcolor.Attribute;
 
 public class Game {
@@ -169,6 +166,11 @@ public class Game {
     }
 
     private void giveStartingItems() {
+        player.addItem(new GoldSword());
+        player.addItem(new Sword());
+
+        player.addItem(new Chestplate());
+        player.addItem(new Shield());
         player.addItem(new Book());
         if (Game.debug) {
             player.addItem(new Torch());
