@@ -1,7 +1,6 @@
 package com.cgi.scrumescapegame;
 
 import java.awt.Point;
-import java.lang.reflect.MalformedParametersException;
 import java.util.Objects;
 import java.util.Scanner;
 
