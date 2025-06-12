@@ -378,6 +378,6 @@ public class Player {
         output += "Gold: " + getGold() + "\n";
         output += "LVL: " + getLevel() + "\n";
         output += "XP: " + getExperience() + "\n";
-        FileHandler.writeFile(output, "save_" + Instant.now().toString().split("\\.")[0] + ".txt");
+        FileHandler.writeFile(output, "save_" + Instant.now().toString().split("\\.")[0].replaceAll("\\:", "_") + ".txt");
     }
 }
