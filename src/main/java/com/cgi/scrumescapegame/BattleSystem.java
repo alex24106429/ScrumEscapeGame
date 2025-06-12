@@ -8,6 +8,7 @@ import com.diogonunes.jcolor.Attribute;
 import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.ImagePrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
+import com.cgi.scrumescapegame.graphics.WallpaperHandler;
 import com.cgi.scrumescapegame.items.BattleItem;
 import com.cgi.scrumescapegame.items.Item;
 import com.cgi.scrumescapegame.items.UsableItem;
@@ -15,6 +16,7 @@ import com.cgi.scrumescapegame.items.UsableItem;
 public class BattleSystem {
 
     public static void startBattle(Player player, Enemy enemy, Scanner scanner) {
+        WallpaperHandler.setWallpaper("boss");
         initializeBattle(player, enemy);
 
         int totalDamageDealt = 0;
@@ -38,6 +40,7 @@ public class BattleSystem {
         }
 
         concludeBattle(player, totalDamageDealt);
+        WallpaperHandler.setWallpaper("dungeon");
     }
 
     private static void initializeBattle(Player player, Enemy enemy) {

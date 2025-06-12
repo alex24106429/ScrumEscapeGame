@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.cgi.scrumescapegame.graphics.MapPrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
+import com.cgi.scrumescapegame.graphics.WallpaperHandler;
 import com.cgi.scrumescapegame.items.*;
 import com.diogonunes.jcolor.Attribute;
 
@@ -15,9 +16,11 @@ public class Game {
     public final static Scanner scanner = new Scanner(System.in);
     public final GameMap map;
     public static final boolean debug = true; // Zet dit op false voor de eindversie
-    public static boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
+    public static final boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
+    public static final boolean isScrumOS = System.getProperty("user.name").equals("mainuser");
 
     public Game() {
+        WallpaperHandler.setWallpaper("dungeon");
         this.player = new Player();
         this.map = new GameMap();
         map.generateMapLayout();

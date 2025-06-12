@@ -10,7 +10,12 @@ import com.diogonunes.jcolor.Attribute;
 
 public class FileHandler {
     public static final String savepath = Paths.get(System.getProperty("user.home"), "ScrumEscapeGameData").toString();
+
     public static void writeFile(String data, String filename) {
+        if(Game.isScrumOS) {
+            PrintMethods.printlnColor("Opslaan is niet beschikbaar in deze omgeving.", Attribute.BRIGHT_RED_TEXT());
+            return;
+        };
         try {
             new File(savepath).mkdirs();
             String filepath = Paths.get(savepath, filename).toString();
