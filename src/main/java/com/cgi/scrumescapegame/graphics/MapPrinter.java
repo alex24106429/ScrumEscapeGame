@@ -15,150 +15,234 @@ import com.diogonunes.jcolor.Attribute;
 
 public class MapPrinter {
 	public static void printMap(Player player, GameMap gameMap) {
-        int playerX = player.currentRoom.getCurrentPosition().x;
-        int playerY = player.currentRoom.getCurrentPosition().y;
+        // 1) Figure out player coords
+        Point playerPos = player.getCurrentRoom().getCurrentPosition();
+        int playerX = playerPos.x;
+        int playerY = playerPos.y;
 
-        int roomExtentXMin = Integer.MAX_VALUE;
-        int roomExtentXMax = Integer.MIN_VALUE;
-        int roomExtentYMin = Integer.MAX_VALUE;
-        int roomExtentYMax = Integer.MIN_VALUE;
+        // 2) Compute room extents and draw‐area
+        int[] extents = calculateRoomExtents(gameMap);
+        int[] draw   = calculateDrawArea(extents[0], extents[1], extents[2], extents[3]);
+        int drawMinX = draw[0], drawMaxX = draw[1], drawMinY = draw[2], drawMaxY = draw[3];
 
-        for (Point p : gameMap.getPositions()) {
-            roomExtentXMin = Math.min(roomExtentXMin, p.x);
-            roomExtentXMax = Math.max(roomExtentXMax, p.x);
-            roomExtentYMin = Math.min(roomExtentYMin, p.y);
-            roomExtentYMax = Math.max(roomExtentYMax, p.y);
-        }
-
-        int drawAreaXMin = roomExtentXMin - 1;
-        int drawAreaXMax = roomExtentXMax + 1;
-        int drawAreaYMin = roomExtentYMin - 1;
-        int drawAreaYMax = roomExtentYMax + 1;
-
-        int logicalMapWidth = drawAreaXMax - drawAreaXMin + 1;
-        int logicalMapHeight = drawAreaYMax - drawAreaYMin + 1;
-
-        if (logicalMapWidth <= 0 || logicalMapHeight <= 0) {
+        // 3) Validate & create image
+        int logicalWidth  = drawMaxX - drawMinX + 1;
+        int logicalHeight = drawMaxY - drawMinY + 1;
+        if (!validateDimensions(logicalWidth, logicalHeight)) {
             System.out.println("Invalid map dimensions calculated. Cannot print map.");
             return;
         }
+        BufferedImage mapImage = new BufferedImage(
+            logicalWidth * 2,
+            logicalHeight * 2,
+            BufferedImage.TYPE_INT_ARGB
+        );
 
-        int pixelImageWidth = logicalMapWidth * 2;
-        int pixelImageHeight = logicalMapHeight * 2;
+        // 4) Prepare colors & player‐rect
+        int playerColor     = computePlayerColor();
+        int emptySpaceColor = computeEmptySpaceColor();
+        int outlineColor    = computeOutlineColor();
+        double[] playerRect = calculatePlayerPixelRect(playerX, playerY, drawMinX, drawMaxY);
 
-        BufferedImage mapImage = new BufferedImage(pixelImageWidth, pixelImageHeight, BufferedImage.TYPE_INT_ARGB);
+        // 5) Render every tile
+        renderMapTiles(
+        mapImage, player, gameMap,
+        drawMinX, drawMaxX, drawMinY, drawMaxY,
+        playerX, playerY,
+        playerColor, emptySpaceColor, outlineColor,
+        playerRect
+        );
 
-        int playerColor = Color.HSBtoRGB(180f / 360f, 1.0f, 1.0f);
-        int emptySpaceColor = 0x00000000;
-        int outlineColor = Color.HSBtoRGB(0.0f, 0.0f, 0.7f);
+        // 6) Show it & footer
+        ImagePrinter.printBufferedImage(mapImage);
+        printMapFooter(player);
+    }
 
-        // Calculate player's top-left pixel coordinates in the mapImage space
-        int playerPxMin = (playerX - drawAreaXMin) * 2;
-        int playerPyMin = (drawAreaYMax - playerY) * 2; // Y is inverted for image coordinates
 
-        // Define the player's 2x2 tile area in continuous pixel coordinates.
-        double playerRectPx1 = (double)playerPxMin;
-        double playerRectPy1 = (double)playerPyMin;
-        double playerRectPx2 = (double)playerPxMin + 2.0;
-        double playerRectPy2 = (double)playerPyMin + 2.0;
+    //-----------------------------------------------------------------------------
+    //  Helpers
+    //-----------------------------------------------------------------------------
 
-        for (int worldY = drawAreaYMax; worldY >= drawAreaYMin; worldY--) {
-            for (int worldX = drawAreaXMin; worldX <= drawAreaXMax; worldX++) {
-                int logicalImgX = worldX - drawAreaXMin;
-                int logicalImgY = drawAreaYMax - worldY;
+    // 2a) Find bounding box of all rooms
+    private static int[] calculateRoomExtents(GameMap gameMap) {
+        int minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE;
+        int minY = Integer.MAX_VALUE, maxY = Integer.MIN_VALUE;
+        for (Point p : gameMap.getPositions()) {
+            minX = Math.min(minX, p.x);
+            maxX = Math.max(maxX, p.x);
+            minY = Math.min(minY, p.y);
+            maxY = Math.max(maxY, p.y);
+        }
+        return new int[]{ minX, maxX, minY, maxY };
+    }
 
-                int imgX = logicalImgX * 2; // Top-left X of the 2x2 pixel block for this world tile
-                int imgY = logicalImgY * 2; // Top-left Y of the 2x2 pixel block for this world tile
+    // 2b) Expand that box by one tile all around
+    private static int[] calculateDrawArea(int roomMinX, int roomMaxX, int roomMinY, int roomMaxY) {
+        return new int[]{
+            roomMinX - 1,  roomMaxX + 1,
+            roomMinY - 1,  roomMaxY + 1
+        };
+    }
+
+    // 3) Make sure we don’t get crazy
+    private static boolean validateDimensions(int w, int h) {
+        return w > 0 && h > 0;
+    }
+
+    // 4a) Colors
+    private static int computePlayerColor() {
+        return Color.HSBtoRGB(180f / 360f, 1.0f, 1.0f);
+    }
+    private static int computeEmptySpaceColor() {
+        return 0x00000000;
+    }
+    private static int computeOutlineColor() {
+        return Color.HSBtoRGB(0f, 0f, 0.7f);
+    }
+
+    // 4b) Player’s pixel rectangle in image coords
+    //    [0]=x1, [1]=y1, [2]=x2, [3]=y2
+    private static double[] calculatePlayerPixelRect(
+        int playerX, int playerY,
+        int drawMinX, int drawMaxY
+    ) {
+        int pxMin = (playerX - drawMinX) * 2;
+        int pyMin = (drawMaxY - playerY) * 2;
+        return new double[]{ pxMin, pyMin, pxMin + 2.0, pyMin + 2.0 };
+    }
+
+    // 5) Walk every world‐tile and dispatch to the right drawer
+    private static void renderMapTiles(
+        BufferedImage mapImage,
+        Player player,
+        GameMap gameMap,
+        int drawMinX, int drawMaxX, int drawMinY, int drawMaxY,
+        int playerX, int playerY,
+        int playerColor, int emptyColor, int outlineColor,
+        double[] playerRect
+    ) {
+        for (int worldY = drawMaxY; worldY >= drawMinY; worldY--) {
+            for (int worldX = drawMinX; worldX <= drawMaxX; worldX++) {
+                int imgX = (worldX - drawMinX) * 2;
+                int imgY = (drawMaxY - worldY) * 2;
 
                 if (worldX == playerX && worldY == playerY) {
-                    // Player tile: fill 2x2 block with playerColor
-                    mapImage.setRGB(imgX,     imgY,     playerColor);
-                    mapImage.setRGB(imgX + 1, imgY,     playerColor);
-                    mapImage.setRGB(imgX,     imgY + 1, playerColor);
-                    mapImage.setRGB(imgX + 1, imgY + 1, playerColor);
-                } else if (gameMap.hasRoom(worldX, worldY)) {
-                    Room currentRoom = GameMap.getRoomAt(worldX, worldY, Game.rooms);
-                    
-                    if (currentRoom != null) {
-                        float hue = getRoomHue(currentRoom);
- 
-                        // Apply pixel-based brightness for visible rooms
-                        for (int py_in_tile = 0; py_in_tile < 2; py_in_tile++) {
-                            for (int px_in_tile = 0; px_in_tile < 2; px_in_tile++) {
-                                int currentPixelXGlobal = imgX + px_in_tile;
-                                int currentPixelYGlobal = imgY + py_in_tile;
-
-                                // Center of the current pixel being rendered
-                                double currentPixelCenterX = currentPixelXGlobal + 0.5;
-                                double currentPixelCenterY = currentPixelYGlobal + 0.5;
-
-                                // Calculate the shortest Euclidean distance from the center of the current pixel
-                                // to any point within the player's 2x2 pixel area.
-                                double closestXInPlayerRect = Math.max(playerRectPx1, Math.min(currentPixelCenterX, playerRectPx2));
-                                double closestYInPlayerRect = Math.max(playerRectPy1, Math.min(currentPixelCenterY, playerRectPy2));
-
-                                double dx = currentPixelCenterX - closestXInPlayerRect;
-                                double dy = currentPixelCenterY - closestYInPlayerRect;
-                                
-                                double pixelEuclideanDistance = Math.sqrt(dx * dx + dy * dy);
-
-                                float minDistance = 1.0f;
-                                float maxDistance = 4.0f;
-                                float fullBrightness = 0.5f;
-                                float noBrightness = 0.0f;
-
-                                // If the player has a Torch, make the lighting brighter
-                                if (player.getItems().stream().anyMatch(item -> item instanceof Torch)) {
-                                    fullBrightness = 0.8f;
-                                    maxDistance = 8.0f;
-                                }
-
-                                float brightness = (float) Math.max(noBrightness, fullBrightness * (float)Math.pow(Math.max(0.0f, 1.0f - Math.max(0.0f, (pixelEuclideanDistance - minDistance) / (maxDistance - minDistance))), 2.0f));
-
-                                Color pixelColor = Color.getHSBColor(hue, 0.5f, brightness);
-                                mapImage.setRGB(currentPixelXGlobal, currentPixelYGlobal, pixelColor.getRGB());
-                            }
-                        }
-                    }
-                } else {
-                    int[] pixelBlockColors = new int[4];
-                    
-                    pixelBlockColors[0] = emptySpaceColor;
-                    pixelBlockColors[1] = emptySpaceColor;
-                    pixelBlockColors[2] = emptySpaceColor;
-                    pixelBlockColors[3] = emptySpaceColor;
-
-                    if (gameMap.hasRoom(worldX, worldY + 1)) {
-                        pixelBlockColors[0] = outlineColor;
-                        pixelBlockColors[1] = outlineColor;
-                    }
-                    if (gameMap.hasRoom(worldX, worldY - 1)) {
-                        pixelBlockColors[2] = outlineColor;
-                        pixelBlockColors[3] = outlineColor;
-                    }
-                    if (gameMap.hasRoom(worldX + 1, worldY)) {
-                        pixelBlockColors[1] = outlineColor;
-                        pixelBlockColors[3] = outlineColor;
-                    }
-                    if (gameMap.hasRoom(worldX - 1, worldY)) {
-                        pixelBlockColors[0] = outlineColor;
-                        pixelBlockColors[2] = outlineColor;
-                    }
-                    
-                    mapImage.setRGB(imgX,     imgY,     pixelBlockColors[0]);
-                    mapImage.setRGB(imgX + 1, imgY,     pixelBlockColors[1]);
-                    mapImage.setRGB(imgX,     imgY + 1, pixelBlockColors[2]);
-                    mapImage.setRGB(imgX + 1, imgY + 1, pixelBlockColors[3]);
+                    drawPlayerTile(mapImage, imgX, imgY, playerColor);
+                }
+                else if (gameMap.hasRoom(worldX, worldY)) {
+                    drawRoomTile(
+                    mapImage, player, worldX, worldY,
+                    imgX, imgY, playerRect
+                    );
+                }
+                else {
+                    drawEmptyTile(
+                    mapImage, gameMap,
+                    worldX, worldY,
+                    imgX, imgY,
+                    emptyColor, outlineColor
+                    );
                 }
             }
         }
-        ImagePrinter.printBufferedImage(mapImage);
+    }
+
+    // 5a) The 2×2 player marker
+    private static void drawPlayerTile(BufferedImage img, int x, int y, int color) {
+        img.setRGB(x,     y,     color);
+        img.setRGB(x + 1, y,     color);
+        img.setRGB(x,     y + 1, color);
+        img.setRGB(x + 1, y + 1, color);
+    }
+
+    // 5b) A “real” room: hue + distance‐based darkness
+    private static void drawRoomTile(
+        BufferedImage img,
+        Player player,
+        int worldX,
+        int worldY,
+        int imgX,
+        int imgY,
+        double[] playerRect
+    ) {
+        Room room = GameMap.getRoomAt(worldX, worldY, Game.rooms);
+        if (room == null) return;
+
+        float hue = getRoomHue(room);
+        boolean hasTorch = player.getItems()
+                                .stream()
+                                .anyMatch(i -> i instanceof Torch);
+
+        for (int py = 0; py < 2; py++) {
+            for (int px = 0; px < 2; px++) {
+                int pixelX = imgX + px;
+                int pixelY = imgY + py;
+                double centerX = pixelX + 0.5;
+                double centerY = pixelY + 0.5;
+                double dist    = computeDistanceToPlayerRect(centerX, centerY, playerRect);
+                float brightness = computeBrightness(dist, hasTorch);
+                int rgb = Color.getHSBColor(hue, 0.5f, brightness).getRGB();
+                img.setRGB(pixelX, pixelY, rgb);
+            }
+        }
+    }
+
+    // 5b-i) distance from pixel center to the player’s 2×2 rect
+    private static double computeDistanceToPlayerRect(
+        double cx, double cy,
+        double[] rect
+    ) {
+        double x1 = rect[0], y1 = rect[1], x2 = rect[2], y2 = rect[3];
+        double closestX = Math.max(x1, Math.min(cx, x2));
+        double closestY = Math.max(y1, Math.min(cy, y2));
+        double dx = cx - closestX, dy = cy - closestY;
+        return Math.sqrt(dx*dx + dy*dy);
+    }
+
+    // 5b-ii) light falloff (torch doubles reach & brightness)
+    private static float computeBrightness(double dist, boolean hasTorch) {
+        float minD = 1.0f;
+        float fullB = hasTorch ? 0.8f : 0.5f;
+        float maxD  = hasTorch ? 8.0f : 4.0f;
+        float norm = Math.max(0f, (float)((dist - minD)/(maxD - minD)));
+        float f    = (float)Math.pow(Math.max(0f, 1f - norm), 2.0f);
+        return Math.max(0f, fullB * f);
+    }
+
+    // 5c) empty tile + outline on any neighbor rooms
+    private static void drawEmptyTile(
+        BufferedImage img,
+        GameMap gameMap,
+        int worldX,
+        int worldY,
+        int imgX,
+        int imgY,
+        int emptyColor,
+        int outlineColor
+    ) {
+        int[] c = { emptyColor, emptyColor, emptyColor, emptyColor };
+        if (gameMap.hasRoom(worldX, worldY + 1)) { c[0] = outlineColor; c[1] = outlineColor; }
+        if (gameMap.hasRoom(worldX, worldY - 1)) { c[2] = outlineColor; c[3] = outlineColor; }
+        if (gameMap.hasRoom(worldX + 1, worldY)) { c[1] = outlineColor; c[3] = outlineColor; }
+        if (gameMap.hasRoom(worldX - 1, worldY)) { c[0] = outlineColor; c[2] = outlineColor; }
+        img.setRGB(imgX,     imgY,     c[0]);
+        img.setRGB(imgX + 1, imgY,     c[1]);
+        img.setRGB(imgX,     imgY + 1, c[2]);
+        img.setRGB(imgX + 1, imgY + 1, c[3]);
+    }
+
+    // 6) footer exactly as before
+    private static void printMapFooter(Player player) {
         if (player.getCurrentRoom().getCleared()) {
             printAvailableRooms(player);
         } else {
-            PrintMethods.printColor("De deuren zijn gesloten. Maak de puzzel af (\"start puzzel\") om de kamer te kunnen verlaten.", Attribute.BRIGHT_RED_TEXT());
+            PrintMethods.printColor(
+                "De deuren zijn gesloten. Maak de puzzel af (\"start puzzel\") om de kamer te kunnen verlaten.",
+                Attribute.BRIGHT_RED_TEXT()
+            );
         }
     }
+
 
     private static void printAvailableRooms(Player player) {
         int playerX = player.currentRoom.getCurrentPosition().x;
