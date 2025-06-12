@@ -1,10 +1,10 @@
 package com.cgi.scrumescapegame.items;
 
 import com.cgi.scrumescapegame.Player;
+import com.cgi.scrumescapegame.Randomizer;
 import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.diogonunes.jcolor.Attribute;
-import java.util.Random;
 
 public class GoldenGun extends Item implements BattleItem, LimitedUseItem {
     @Override
@@ -24,8 +24,7 @@ public class GoldenGun extends Item implements BattleItem, LimitedUseItem {
 
     @Override
     public void useBattleItem(Player player, Enemy enemy) {
-        Random r = new Random();
-        int roll = r.nextInt(10);
+        int roll = Randomizer.getRandomInt(10);
 
         switch (roll) {
             case 9:

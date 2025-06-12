@@ -1,11 +1,10 @@
 package com.cgi.scrumescapegame.hints;
 
-import java.util.Random;
+import com.cgi.scrumescapegame.Randomizer;
 
 public class HintFactory {
     public static HintProvider getRandomHintProvider() {
-        Random rand = new Random();
-        if (rand.nextBoolean()) {
+        if (Randomizer.getRandomBoolean()) {
             return new HelpfulHintProvider();
         } else {
             return new FunnyHintProvider();

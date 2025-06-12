@@ -2,8 +2,8 @@ package com.cgi.scrumescapegame.hints;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
+import com.cgi.scrumescapegame.Randomizer;
 import com.cgi.scrumescapegame.Vraag;
 
 public class FunnyHintProvider implements HintProvider {
@@ -38,10 +38,10 @@ public class FunnyHintProvider implements HintProvider {
 
     @Override
     public String getHint(Vraag vraag) {
-        return this.jokes.get(new Random().nextInt(this.jokes.size()));
+        return this.jokes.get(Randomizer.getRandomInt(this.jokes.size()));
     }
 
     public String getHint() {
-        return this.jokes.get(new Random().nextInt(this.jokes.size()));
+        return this.jokes.get(Randomizer.getRandomInt(this.jokes.size()));
     }
 }

@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import javax.imageio.ImageIO;
 
+import com.cgi.scrumescapegame.Randomizer;
 import com.cgi.scrumescapegame.graphics.ImagePrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.diogonunes.jcolor.Attribute;
@@ -18,7 +18,6 @@ public class TitleScreenAnimation {
     static BufferedImage logoImage, spriteSheetImage, backgroundImage;
     static int width, height, columns;
     static float hueValue;
-    static Random randomGenerator = new Random();
     static List<Entity> entityList = new ArrayList<>();
 
     static class Entity {
@@ -40,7 +39,7 @@ public class TitleScreenAnimation {
         height              = 48;
         backgroundImage     = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         columns             = spriteSheetImage.getWidth() / 18;
-        hueValue            = randomGenerator.nextFloat();
+        hueValue            = Randomizer.getRandomFloat();
 
         PrintMethods.hideCursor();
 
@@ -66,17 +65,17 @@ public class TitleScreenAnimation {
             }
 
             // 7) Spawn a new entity from left or right
-            if (randomGenerator.nextFloat() < 0.15f) {
+            if (Randomizer.getRandomFloat() < 0.15f) {
                 Entity entity = new Entity();
-                entity.positionY = randomGenerator.nextInt(height - 18);
-                if (randomGenerator.nextBoolean()) {
+                entity.positionY = Randomizer.getRandomInt(height - 18);
+                if (Randomizer.getRandomBoolean()) {
                     entity.positionX = -18;
-                    entity.velocityX =  1 + randomGenerator.nextFloat() * 2;
+                    entity.velocityX =  1 + Randomizer.getRandomFloat() * 2;
                 } else {
                     entity.positionX =  width;
-                    entity.velocityX = -(1 + randomGenerator.nextFloat() * 2);
+                    entity.velocityX = -(1 + Randomizer.getRandomFloat() * 2);
                 }
-                int entityIndex = randomGenerator.nextInt(columns * (spriteSheetImage.getHeight() / 18));
+                int entityIndex = Randomizer.getRandomInt(columns * (spriteSheetImage.getHeight() / 18));
                 int spriteX     = (entityIndex % columns) * 18;
                 int spriteY     = (entityIndex / columns) * 18;
                 entity.image    = spriteSheetImage.getSubimage(spriteX, spriteY, 18, 18);

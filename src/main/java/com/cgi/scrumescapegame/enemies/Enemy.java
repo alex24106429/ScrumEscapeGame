@@ -2,8 +2,8 @@ package com.cgi.scrumescapegame.enemies;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Random;
 import com.cgi.scrumescapegame.Player;
+import com.cgi.scrumescapegame.Randomizer;
 
 public abstract class Enemy {
     protected String name;
@@ -11,7 +11,6 @@ public abstract class Enemy {
     protected int currentHp;
     protected int maxHp;
     protected List<AttackBehavior> behaviors = new ArrayList<>();
-    protected Random rand = new Random();
     protected AttackBehavior lastBehavior;
 
     public Enemy(String name, String imagePath, int maxHp) {
@@ -57,7 +56,7 @@ public abstract class Enemy {
     }
 
     public AttackBehavior chooseBehavior() {
-        return behaviors.get(new Random().nextInt(behaviors.size()));
+        return behaviors.get(Randomizer.getRandomInt(behaviors.size()));
     }
 
     public int performAttack(Player player) {

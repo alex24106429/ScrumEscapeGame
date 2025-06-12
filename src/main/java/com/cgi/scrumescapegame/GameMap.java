@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import com.cgi.scrumescapegame.kamers.EindKamer;
 import com.cgi.scrumescapegame.kamers.KamerDailyStandup;
@@ -33,20 +32,18 @@ public class GameMap {
     public void generateMapLayout() {
         this.positions.add(new Point(0, 0));
 
-        Random rand = new Random();
-
         int targetRoomCount = roomCount + 1;
 
         while (this.positions.size() < targetRoomCount) {
             boolean roomAddedThisAttempt = false;
 
             while (!roomAddedThisAttempt) {
-                int randomIndex = rand.nextInt(this.positions.size());
+                int randomIndex = Randomizer.getRandomInt(this.positions.size());
                 Point baseRoom = this.positions.get(randomIndex);
 
                 int newX = baseRoom.x;
                 int newY = baseRoom.y;
-                int direction = rand.nextInt(4);
+                int direction = Randomizer.getRandomInt(4);
 
                 switch (direction) {
                     case DIRECTION_EAST -> newX++;
@@ -71,13 +68,11 @@ public class GameMap {
     public void initializeRooms(List<Room> rooms) {
         rooms.add(new StartKamer(0, 0));
 
-        Random rand = new Random();
-
         for (int i = 1; i < getPositions().size(); i++) {
             int x = getPositions().get(i).x;
             int y = getPositions().get(i).y;
 
-            int roomType = rand.nextInt(5);
+            int roomType = Randomizer.getRandomInt(5);
             switch (roomType) {
                 case 0 -> rooms.add(new KamerDailyStandup(x, y));
                 case 1 -> rooms.add(new KamerPlanning(x, y));

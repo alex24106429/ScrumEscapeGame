@@ -2,7 +2,6 @@ package com.cgi.scrumescapegame;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Random;
 
 import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
@@ -85,8 +84,7 @@ public class Player {
             return;
         }
         
-        Random random = new Random();
-        if(random.nextInt(3) == 0) {
+        if(Randomizer.getRandomInt(3) == 0) {
             PrintMethods.typeTextColor("Je kijkt rond in de kamer en vindt een zak met goud!", Attribute.BRIGHT_GREEN_TEXT());
             addItem(new BagOfGold());
         } else {
