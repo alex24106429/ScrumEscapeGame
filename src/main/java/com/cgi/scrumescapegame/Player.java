@@ -10,7 +10,7 @@ import com.cgi.scrumescapegame.items.*;
 import com.diogonunes.jcolor.Attribute;
 
 public class Player {
-    final int XP_PER_LEVEL = 500;
+    final int XP_PER_LEVEL = 50;
 
     private String name = "Avonturier";
     public Room currentRoom;
