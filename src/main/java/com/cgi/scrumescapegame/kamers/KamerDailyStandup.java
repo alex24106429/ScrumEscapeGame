@@ -5,7 +5,7 @@ import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.PuzzleRooms;
 import com.cgi.scrumescapegame.Room;
-import com.cgi.scrumescapegame.enemies.ScopeCreeper;
+import com.cgi.scrumescapegame.enemies.BacklogHydra;
 import com.cgi.scrumescapegame.minigames.BlackjackMinigame;
 import com.cgi.scrumescapegame.puzzles.DailyStandupPuzzle;
 
@@ -30,7 +30,7 @@ public class KamerDailyStandup extends Room implements PuzzleRooms {
 
     @Override
     public void startPuzzle(Player player, Difficulty difficulty) {
-        puzzle.start(player, new ScopeCreeper(), difficulty);
+        puzzle.start(player, new BacklogHydra(), difficulty);
     }
 
     @Override
