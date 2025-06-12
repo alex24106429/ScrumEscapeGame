@@ -265,7 +265,7 @@ public class MapPrinter {
                     Room adjacentRoom = GameMap.getRoomAt(targetPos.x, targetPos.y, Game.rooms);
                     if (adjacentRoom != null) {
                         float hue = getRoomHue(adjacentRoom);
-                        Color roomColor = Color.getHSBColor(hue, 1.0f, 0.5f);
+                        Color roomColor = Color.getHSBColor(hue, 0.5f, 0.8f);
                         Attribute textColor = Attribute.TEXT_COLOR(roomColor.getRed(), roomColor.getGreen(), roomColor.getBlue());
 
                         String displayDirection;
