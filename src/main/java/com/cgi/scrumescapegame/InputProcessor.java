@@ -1,6 +1,7 @@
 package com.cgi.scrumescapegame;
 
 import java.awt.Point;
+import java.lang.reflect.MalformedParametersException;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -99,6 +100,8 @@ public class InputProcessor {
             player.unequipItem(Weapon.class);
         } else if (input.equals("status")) {
             player.printStatus();
+        } else if (input.equals("map")) {
+            MapPrinter.printMap(player, map);
         } else if (input.equals("kijk rond")) {
             player.kijkRond();
         } else if (input.equals("gebruik assistent")) {
