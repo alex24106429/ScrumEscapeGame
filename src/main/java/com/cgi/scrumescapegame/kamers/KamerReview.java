@@ -11,7 +11,7 @@ public class KamerReview extends Room implements PuzzleRooms {
 
     public KamerReview(int roomX, int roomY) {
         super("Review Kamer", "Welkom in de Sprint Review kamer. Hier presenteer je het werkende product aan de stakeholders.", roomX, roomY);
-        this.puzzle = new ReviewPuzzle().puzzle;
+        this.puzzle = new ReviewPuzzle();
     }
 
     @Override

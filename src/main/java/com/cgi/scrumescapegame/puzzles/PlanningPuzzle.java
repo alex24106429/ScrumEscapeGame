@@ -1,5 +1,6 @@
 package com.cgi.scrumescapegame.puzzles;
 
+import com.cgi.scrumescapegame.Puzzle;
 import com.cgi.scrumescapegame.Vraag;
 import com.cgi.scrumescapegame.vragen.*;
 
@@ -8,7 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class PlanningPuzzle extends GeneralPuzzle {
+public class PlanningPuzzle extends Puzzle {
     private static final List<Vraag> vragen = new ArrayList<>();
     static {
         // Vraag 1
