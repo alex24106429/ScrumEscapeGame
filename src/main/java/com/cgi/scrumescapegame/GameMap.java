@@ -2,6 +2,7 @@ package com.cgi.scrumescapegame;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -9,11 +10,13 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import com.cgi.scrumescapegame.kamers.EindKamer;
+import com.cgi.scrumescapegame.kamers.KamerBlackJack;
 import com.cgi.scrumescapegame.kamers.KamerDailyStandup;
 import com.cgi.scrumescapegame.kamers.KamerPlanning;
 import com.cgi.scrumescapegame.kamers.KamerRetrospective;
 import com.cgi.scrumescapegame.kamers.KamerReview;
 import com.cgi.scrumescapegame.kamers.KamerScrumboard;
+import com.cgi.scrumescapegame.kamers.KamerShop;
 import com.cgi.scrumescapegame.kamers.StartKamer;
 
 public class GameMap {
@@ -30,10 +33,21 @@ public class GameMap {
     private static final String KEY_UP = "up";
     private static final String KEY_DOWN = "down";
 
+    // Plaats hier nieuwe kamers
+    public static final List<Supplier<Room>> roomSuppliers = Arrays.asList(
+            () -> new KamerDailyStandup(0, 0),
+            () -> new KamerPlanning(0, 0),
+            () -> new KamerRetrospective(0, 0),
+            () -> new KamerReview(0, 0),
+            () -> new KamerScrumboard(0, 0),
+            () -> new KamerBlackJack(0, 0),
+            () -> new KamerShop(0, 0)
+    );
+
     public void generateMapLayout(int loopCount) {
         this.positions.add(new Point(0, 0));
-        roomCount = (loopCount * 5);
-        int targetRoomCount = roomCount + 2;
+        roomCount = (loopCount * roomSuppliers.size());
+        int targetRoomCount = roomCount + 2; // StartKamer en EindKamer
 
         while (this.positions.size() < (targetRoomCount)) {
             boolean roomAddedThisAttempt = false;
@@ -59,21 +73,9 @@ public class GameMap {
                 }
             }
         }
-
-        // for (int i = 1; i < this.positions.size(); i++) {
-        //     Point p = this.positions.get(i);
-        //     if (Game.debug) System.out.println("Kamer " + (i) + " positie: (" + p.x + ", + " + p.y + ")");
-        // }
     }
 
     public void initializeRooms(List<Room> rooms) {
-        List<Supplier<Room>> roomSuppliers = List.of(
-                () -> new KamerDailyStandup(0, 0),
-                () -> new KamerPlanning(0, 0),
-                () -> new KamerRetrospective(0, 0),
-                () -> new KamerReview(0, 0),
-                () -> new KamerScrumboard(0, 0)
-        );
         List<Supplier<Room>> shuffleSuppliers = new ArrayList<>(roomSuppliers);
         Collections.shuffle(shuffleSuppliers);
 
@@ -101,9 +103,6 @@ public class GameMap {
     private void insertAdjacentRoom(List<Room> rooms) {
         for (Room room : rooms) {
             Map<String, Boolean> status = getAdjacentRoomStatus(room.roomX, room.roomY);
-
-            // if(Game.debug) System.out.println("Kamernummer: " + room.getName());
-            // if(Game.debug) System.out.println(status);
 
             if (status.get(KEY_RIGHT)) {
                 room.setAdjacentRoom(KEY_RIGHT, true);
@@ -148,9 +147,6 @@ public class GameMap {
 
     public Map<String, Boolean> getAdjacentRoomStatus(int x, int y) {
         Map<String, Boolean> adjacentStatus = new HashMap<>();
-
-        // if (Game.debug) System.out.println("Checking adjacent for: (" + x + "," + y + ")");
-        // if (Game.debug) System.out.println("Positions list size: " + this.positions.size());
 
         adjacentStatus.put(KEY_RIGHT, hasRoom(x + 1, y));
         adjacentStatus.put(KEY_LEFT, hasRoom(x - 1, y));
