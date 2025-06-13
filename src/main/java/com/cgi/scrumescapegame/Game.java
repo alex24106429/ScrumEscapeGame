@@ -1,7 +1,6 @@
 package com.cgi.scrumescapegame;
 
 import java.util.*;
-
 import com.cgi.scrumescapegame.graphics.MapPrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.graphics.WallpaperHandler;
@@ -23,17 +22,20 @@ public class Game {
         WallpaperHandler.setWallpaper("dungeon");
         this.player = new Player();
         this.map = new GameMap();
-        map.generateMapLayout();
-        map.initializeRooms(rooms);
     }
 
     public void start() {
         clearAndWelcome();
-        initializeFirstRoom();
 
         if (!debug) {
             handlePlayerSetup();
         }
+        else {
+            map.generateMapLayout(1);
+        }
+
+        map.initializeRooms(rooms);
+        initializeFirstRoom();
 
         finalizeSetup();
         enterInitialRoom();
@@ -110,12 +112,15 @@ public class Game {
         switch (input) {
             case 1:
                 this.currentDifficulty = Difficulty.EASY;
+                map.generateMapLayout(input);
                 break;
             case 2:
                 this.currentDifficulty = Difficulty.NORMAL;
+                map.generateMapLayout(input);
                 break;
             case 3:
                 this.currentDifficulty = Difficulty.HARD;
+                map.generateMapLayout(input);
                 break;
             default:
                 // Dit hoort nooit te gebeuren

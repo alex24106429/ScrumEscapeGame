@@ -17,7 +17,7 @@ import com.cgi.scrumescapegame.kamers.StartKamer;
 
 public class GameMap {
     private final List<Point> positions = new ArrayList<>();
-    private final int roomCount = 24;
+    private int roomCount;
 
     private static final int DIRECTION_EAST = 0;
     private static final int DIRECTION_SOUTH = 1;
@@ -29,12 +29,12 @@ public class GameMap {
     private static final String KEY_UP = "up";
     private static final String KEY_DOWN = "down";
 
-    public void generateMapLayout() {
+    public void generateMapLayout(int loopCount) {
         this.positions.add(new Point(0, 0));
+        roomCount = (loopCount * 5);
+        int targetRoomCount = roomCount + 2;
 
-        int targetRoomCount = roomCount + 1;
-
-        while (this.positions.size() < targetRoomCount) {
+        while (this.positions.size() < (targetRoomCount)) {
             boolean roomAddedThisAttempt = false;
 
             while (!roomAddedThisAttempt) {
@@ -66,23 +66,34 @@ public class GameMap {
     }
 
     public void initializeRooms(List<Room> rooms) {
+        List<Room> availableRooms = new ArrayList<>();
+        availableRooms.add(new KamerDailyStandup(0, 0));
+        availableRooms.add(new KamerPlanning(0, 0));
+        availableRooms.add(new KamerRetrospective(0, 0));
+        availableRooms.add(new KamerReview(0, 0));
+        availableRooms.add(new KamerScrumboard(0, 0));
+        List<Room> shuffleRooms = new ArrayList<>(availableRooms);
+
         rooms.add(new StartKamer(0, 0));
 
-        for (int i = 1; i < getPositions().size(); i++) {
+        Collections.shuffle(shuffleRooms);
+        for (int i = 1; i < getPositions().size() - 1; i++) {
+            if (shuffleRooms.isEmpty()) {
+                shuffleRooms = new ArrayList<>(availableRooms);
+                Collections.shuffle(shuffleRooms);
+            }
+
+            Room room = shuffleRooms.removeFirst(); // Pak en verwijder eerste element
             int x = getPositions().get(i).x;
             int y = getPositions().get(i).y;
-
-            int roomType = Randomizer.getRandomInt(5);
-            switch (roomType) {
-                case 0 -> rooms.add(new KamerDailyStandup(x, y));
-                case 1 -> rooms.add(new KamerPlanning(x, y));
-                case 2 -> rooms.add(new KamerRetrospective(x, y));
-                case 3 -> rooms.add(new KamerReview(x, y));
-                case 4 -> rooms.add(new KamerScrumboard(x, y));
-            }
+            System.out.println("Kamernummer: " + (i + 1) + " - Kamer: " + room.getName() + " - Positie: (" + x + ", " + y + ")");
+            room.setCurrentPosition(x, y);
+            rooms.add(room);
         }
-        Room lastRoom = rooms.getLast();
-        rooms.set(rooms.size() - 1, new EindKamer(lastRoom.roomX, lastRoom.roomY));
+        int lastX = getPositions().getLast().x;
+        int lastY = getPositions().getLast().y;
+        rooms.add(new EindKamer(lastX, lastY));
+        System.out.println("Kamernummer: " + 8 + " - Kamer: " + "EindKamer" + " - Positie: (" + lastX + ", " + lastY + ")");
 
         insertAdjacentRoom(rooms);
     }

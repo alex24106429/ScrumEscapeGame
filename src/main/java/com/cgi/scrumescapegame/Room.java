@@ -13,7 +13,7 @@ public abstract class Room {
     protected int roomX;
     protected int roomY;
     private boolean lookedAround = false;
-    private boolean isCleared = false;
+    private boolean isCleared;
     public HashMap<String, Boolean> adjacentRooms = new HashMap<>();
 
     public Room(String name, String description, int roomX, int roomY) {
@@ -29,7 +29,10 @@ public abstract class Room {
     public Point getCurrentPosition() {
         return new Point(roomX, roomY);
     }
-
+    public void setCurrentPosition(int x, int y) {
+        this.roomX = x;
+        this.roomY = y;
+    }
     public void setLookedAround(boolean lookedAround) {
         this.lookedAround = lookedAround;
     }
