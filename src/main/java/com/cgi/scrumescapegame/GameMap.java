@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import com.cgi.scrumescapegame.kamers.EindKamer;
 import com.cgi.scrumescapegame.kamers.KamerDailyStandup;
@@ -66,29 +67,31 @@ public class GameMap {
     }
 
     public void initializeRooms(List<Room> rooms) {
-        List<Room> availableRooms = new ArrayList<>();
-        availableRooms.add(new KamerDailyStandup(0, 0));
-        availableRooms.add(new KamerPlanning(0, 0));
-        availableRooms.add(new KamerRetrospective(0, 0));
-        availableRooms.add(new KamerReview(0, 0));
-        availableRooms.add(new KamerScrumboard(0, 0));
-        List<Room> shuffleRooms = new ArrayList<>(availableRooms);
+        List<Supplier<Room>> roomSuppliers = List.of(
+                () -> new KamerDailyStandup(0, 0),
+                () -> new KamerPlanning(0, 0),
+                () -> new KamerRetrospective(0, 0),
+                () -> new KamerReview(0, 0),
+                () -> new KamerScrumboard(0, 0)
+        );
+        List<Supplier<Room>> shuffleSuppliers = new ArrayList<>(roomSuppliers);
+        Collections.shuffle(shuffleSuppliers);
 
         rooms.add(new StartKamer(0, 0));
 
-        Collections.shuffle(shuffleRooms);
         for (int i = 1; i < getPositions().size() - 1; i++) {
-            if (shuffleRooms.isEmpty()) {
-                shuffleRooms = new ArrayList<>(availableRooms);
-                Collections.shuffle(shuffleRooms);
+            if (shuffleSuppliers.isEmpty()) {
+                shuffleSuppliers = new ArrayList<>(roomSuppliers);
+                Collections.shuffle(shuffleSuppliers);
             }
 
-            Room room = shuffleRooms.removeFirst(); // Pak en verwijder eerste element
+            Room room = shuffleSuppliers.removeFirst().get(); // Nieuwe instantie
             int x = getPositions().get(i).x;
             int y = getPositions().get(i).y;
-            System.out.println("Kamernummer: " + (i + 1) + " - Kamer: " + room.getName() + " - Positie: (" + x + ", " + y + ")");
             room.setCurrentPosition(x, y);
             rooms.add(room);
+
+            System.out.println("Kamernummer: " + (i + 1) + " - Kamer: " + room.getName() + " - Positie: (" + x + ", " + y + ")");
         }
         int lastX = getPositions().getLast().x;
         int lastY = getPositions().getLast().y;

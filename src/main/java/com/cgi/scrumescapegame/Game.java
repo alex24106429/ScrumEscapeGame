@@ -31,7 +31,7 @@ public class Game {
             handlePlayerSetup();
         }
         else {
-            map.generateMapLayout(1);
+            map.generateMapLayout(3);
         }
 
         map.initializeRooms(rooms);
