@@ -6,7 +6,6 @@ import java.util.Arrays;
 import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.Player;
-import com.cgi.scrumescapegame.PuzzleRooms;
 import com.cgi.scrumescapegame.Room;
 import com.cgi.scrumescapegame.Shop;
 import com.cgi.scrumescapegame.items.Chestplate;
@@ -19,7 +18,6 @@ import com.cgi.scrumescapegame.items.Item;
 import com.cgi.scrumescapegame.items.Shield;
 import com.cgi.scrumescapegame.items.Sword;
 import com.cgi.scrumescapegame.items.Torch;
-import com.cgi.scrumescapegame.puzzles.PlanningPuzzle;
 
 public class KamerShop extends Room {
     @Override
