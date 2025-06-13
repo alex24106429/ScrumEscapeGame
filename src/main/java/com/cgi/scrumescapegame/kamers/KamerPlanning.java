@@ -1,7 +1,7 @@
 package com.cgi.scrumescapegame.kamers;
 
 import com.cgi.scrumescapegame.*;
-import com.cgi.scrumescapegame.enemies.ScopeCreeper;
+import com.cgi.scrumescapegame.enemies.CodeGolem;
 import com.cgi.scrumescapegame.puzzles.PlanningPuzzle;
 
 public class KamerPlanning extends Room implements PuzzleRooms {
@@ -16,7 +16,7 @@ public class KamerPlanning extends Room implements PuzzleRooms {
 
     @Override
     public void startPuzzle(Player player, Difficulty difficulty) {
-        puzzle.start(player, new ScopeCreeper(), difficulty);
+        puzzle.start(player, new CodeGolem(), difficulty);
     }
 
     @Override
