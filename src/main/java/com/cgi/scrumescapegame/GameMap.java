@@ -90,13 +90,10 @@ public class GameMap {
             int y = getPositions().get(i).y;
             room.setCurrentPosition(x, y);
             rooms.add(room);
-
-            System.out.println("Kamernummer: " + (i + 1) + " - Kamer: " + room.getName() + " - Positie: (" + x + ", " + y + ")");
         }
         int lastX = getPositions().getLast().x;
         int lastY = getPositions().getLast().y;
         rooms.add(new EindKamer(lastX, lastY));
-        System.out.println("Kamernummer: " + 8 + " - Kamer: " + "EindKamer" + " - Positie: (" + lastX + ", " + lastY + ")");
 
         insertAdjacentRoom(rooms);
     }
@@ -124,9 +121,6 @@ public class GameMap {
     }
 
     public boolean checkAddRoom(int x, int y) {
-        if (x < -roomCount / 2 || x > roomCount / 2 || y < 1 || y > roomCount) {
-            return false;
-        }
         return !hasRoom(x, y);
     }
 
