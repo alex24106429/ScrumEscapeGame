@@ -144,11 +144,16 @@ public class BattleSystem {
     private static void enemyTurn(Player player, Enemy enemy) {
         System.out.println("\n--- " + enemy.getName() + "'s Beurt ---");
         int dmg = enemy.performAttack(player);
-        PrintMethods.typeTextColor(
-                enemy.getName() + " gebruikt " + enemy.getLastActionName() +
-                        " and doet " + dmg + " hp damage!",
-                Attribute.BRIGHT_RED_TEXT());
-
+        if(dmg != 0) {
+            PrintMethods.typeTextColor(
+                    enemy.getName() + " gebruikt " + enemy.getLastActionName() +
+                            " en doet " + dmg + " hp damage!",
+                    Attribute.BRIGHT_RED_TEXT());
+        }else{
+            PrintMethods.typeTextColor(
+                    enemy.getName() + " gebruikt " + enemy.getLastActionName(),
+                    Attribute.BRIGHT_RED_TEXT());
+        }
         if (!player.isAlive()) {
             PrintMethods.typeTextColor("Je bent verslagen!", Attribute.BRIGHT_RED_TEXT());
         }
