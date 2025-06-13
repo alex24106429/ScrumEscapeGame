@@ -7,7 +7,7 @@ import com.cgi.scrumescapegame.puzzles.PlanningPuzzle;
 public class KamerPlanning extends Room implements PuzzleRooms {
     public KamerPlanning(int roomX, int roomY) {
         super("Kamer Planning", "Je bent in de Planning kamer. Hier wordt de scope van de sprint bepaald. Wat ga je doen?", roomX, roomY);
-        this.puzzle = new PlanningPuzzle().puzzle;
+        this.puzzle = new PlanningPuzzle();
     }
 
     @Override

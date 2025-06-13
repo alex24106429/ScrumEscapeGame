@@ -10,7 +10,7 @@ import com.cgi.scrumescapegame.puzzles.RetrospectivePuzzle;
 public class KamerRetrospective extends Room implements PuzzleRooms {
     public KamerRetrospective(int roomX, int roomY) {
         super("Retrospective kamer", "Wow je bent in de retrospectivekamer", roomX, roomY);
-        this.puzzle = new RetrospectivePuzzle().puzzle;
+        this.puzzle = new RetrospectivePuzzle();
     }
 
     @Override

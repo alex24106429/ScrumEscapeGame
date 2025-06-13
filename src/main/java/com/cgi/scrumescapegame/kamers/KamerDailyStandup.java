@@ -10,7 +10,7 @@ import com.cgi.scrumescapegame.puzzles.DailyStandupPuzzle;
 public class KamerDailyStandup extends Room implements PuzzleRooms {
     public KamerDailyStandup(int roomX, int roomY) {
         super("Kamer daily standup", "Je bent in de daily standup kamer. Hier bespreken we wat we sinds de volgende standup gedaan hebben en hoe we verder gaan werken.", roomX, roomY);
-        this.puzzle = new DailyStandupPuzzle().puzzle;
+        this.puzzle = new DailyStandupPuzzle();
     }
 
     @Override

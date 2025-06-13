@@ -10,7 +10,7 @@ import com.cgi.scrumescapegame.puzzles.ScrumboardPuzzle;
 public class KamerScrumboard extends Room implements PuzzleRooms {
     public KamerScrumboard(int roomX, int roomY) {
         super("Scrumboard kamer", "Je bent in de Scrumboard kamer. Hier kan je zien welke taken en user stories er nog aan gewerkt moeten worden.", roomX, roomY);
-        this.puzzle = new ScrumboardPuzzle().puzzle;
+        this.puzzle = new ScrumboardPuzzle();
     }
 
     @Override
