@@ -296,25 +296,25 @@ public class Player {
     public void setDifficulty(Difficulty difficulty) {
         switch (difficulty) {
             case Difficulty.EASY:
-                this.currentHp = 100;
-                this.maxHp = 100;
+                this.maxHp = 150;
+                this.currentHp = this.maxHp;
                 this.attack = 20;
                 this.defense = 20;
                 this.gold = 50;
                 break;
 
             case Difficulty.NORMAL:
-                this.currentHp = 50;
-                this.maxHp = 50;
+                this.maxHp = 100;
+                this.currentHp = this.maxHp;
                 this.attack = 10;
                 this.defense = 10;
                 break;
 
             case Difficulty.HARD:
-                this.currentHp = 30;
-                this.maxHp = 30;
-                this.attack = 0;
-                this.defense = 0;
+                this.maxHp = 50;
+                this.currentHp = this.maxHp;
+                this.attack = 5;
+                this.defense = 5;
                 break;
 
             default:
