@@ -1,12 +1,10 @@
 package com.cgi.scrumescapegame.kamers;
 
 import com.cgi.scrumescapegame.Difficulty;
-import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.PuzzleRooms;
 import com.cgi.scrumescapegame.Room;
 import com.cgi.scrumescapegame.enemies.BacklogHydra;
-import com.cgi.scrumescapegame.minigames.BlackjackMinigame;
 import com.cgi.scrumescapegame.puzzles.DailyStandupPuzzle;
 
 public class KamerDailyStandup extends Room implements PuzzleRooms {
@@ -23,8 +21,6 @@ public class KamerDailyStandup extends Room implements PuzzleRooms {
     @Override
     public void roomLogic(Player player, Difficulty difficulty) {
         setCleared(true);
-        BlackjackMinigame minigame = new BlackjackMinigame();
-        minigame.startMinigame(player, Game.scanner);
         // Specifieke acties voor de dailystandupkamer
     }
 

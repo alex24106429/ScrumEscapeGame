@@ -84,11 +84,11 @@ public class Game {
     private void displayDifficultyMenu() {
         PrintMethods.printlnColor("Kies de moeilijkheid:",     Attribute.BRIGHT_YELLOW_TEXT());
         PrintMethods.printlnColor("1. Makkelijk",               new Attribute[]{Attribute.BRIGHT_GREEN_TEXT(), Attribute.BOLD()});
-        System.out.println("   Begin met 100 HP, 20 ATK, 20 DEF, en 50 Goud.");
+        System.out.println("   Begin met 150 HP, 20 ATK, 20 DEF, en 50 Goud.");
         PrintMethods.printlnColor("2. Normaal",                 new Attribute[]{Attribute.BRIGHT_YELLOW_TEXT(), Attribute.BOLD()});
-        System.out.println("   Begin met 50 HP, 10 ATK en 10 DEF.");
+        System.out.println("   Begin met 100 HP, 10 ATK en 10 DEF.");
         PrintMethods.printlnColor("3. Moeilijk",                new Attribute[]{Attribute.BRIGHT_RED_TEXT(), Attribute.BOLD()});
-        System.out.println("   Begin met 30 HP, 0 ATK en 0 DEF. Geen hints tijdens vragen!");
+        System.out.println("   Begin met 50 HP, 5 ATK en 5 DEF. Geen hints tijdens vragen!");
     }
 
     private int readDifficultyChoice() {
