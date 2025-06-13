@@ -6,17 +6,14 @@ import com.cgi.scrumescapegame.enemies.AttackBehavior;
 import com.cgi.scrumescapegame.enemies.Enemy;
 
 public class BacklogHydra_QueueQuake implements AttackBehavior {
-	
 
 	public String getName() {
 		return "Queue Quake";
 	}
 
 	public int attack(Enemy enemy, Player player) {
-		int base = 30;
-		int var = base / 5;
-		int dmg = base - var + Randomizer.getRandomInt(var * 2 + 1);
-		player.changeHp( - dmg);
+		int dmg = Randomizer.getRandomInt(10, 15);
+		player.changeHp(-dmg);
 		return dmg;
 	}
 }

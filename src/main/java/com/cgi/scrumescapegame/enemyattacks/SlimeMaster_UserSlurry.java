@@ -11,10 +11,8 @@ public class SlimeMaster_UserSlurry implements AttackBehavior {
     }
 
     public int attack(Enemy enemy, Player player) {
-        int base = 20;
-        int var = base / 5;
-        int dmg = base - var + Randomizer.getRandomInt(var * 2 + 1);
-        player.changeHp( - dmg);
+        int dmg = Randomizer.getRandomInt(20, 30);
+        player.changeHp(-dmg);
         return dmg;
     }
 }

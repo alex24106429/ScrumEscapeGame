@@ -11,10 +11,7 @@ public class SlimeMaster_CapitalSlime implements AttackBehavior {
     }
 
     public int attack(Enemy enemy, Player player) {
-        int base = 10;
-        int var = base / 2;
-        int gold = base - var + Randomizer.getRandomInt(var * 2 + 1);
-        player.changeGold(gold);
+        player.changeGold(-Randomizer.getRandomInt(7, 15));
         return 0;
     }
 }
