@@ -24,7 +24,7 @@ public class Grenade extends Item implements BattleItem, LimitedUseItem {
     @Override
     public void useBattleItem(Player player, Enemy enemy) {
         PrintMethods.printlnColor("De granaat doet 100 damage aan " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
-        enemy.takeDamage(100);
+        enemy.changeHp(-100);
     }
 
     @Override

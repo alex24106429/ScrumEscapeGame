@@ -29,7 +29,7 @@ public class GoldenGun extends Item implements BattleItem, LimitedUseItem {
         switch (roll) {
             case 9:
                 PrintMethods.printlnColor("Je schiet je gouden pistool en doet 999 schade aan " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
-                enemy.takeDamage(999);
+                enemy.changeHp(-999);
                 break;
 
             case 8:

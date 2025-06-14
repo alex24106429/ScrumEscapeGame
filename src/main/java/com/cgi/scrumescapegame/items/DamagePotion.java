@@ -24,7 +24,7 @@ public class DamagePotion extends Item implements BattleItem, LimitedUseItem {
     @Override
     public void useBattleItem(Player player, Enemy enemy) {
         PrintMethods.printlnColor("Het explosie drankje doet 25 schade aan " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
-        enemy.takeDamage(25);
+        enemy.changeHp(-25);
     }
 
     @Override

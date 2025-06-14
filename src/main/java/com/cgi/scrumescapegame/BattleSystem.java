@@ -46,9 +46,8 @@ public class BattleSystem {
     private static void initializeBattle(Player player, Enemy enemy) {
         PrintMethods.clearScreen();
         ImagePrinter.printImage(enemy.getImagePath());
-        enemy.setHealth(enemy.getMaxHealth());
         PrintMethods.typeTextColor("\nA wild " + enemy.getName() + " appears!", Attribute.BRIGHT_RED_TEXT());
-        System.out.println("HP: " + enemy.getHealth());
+        System.out.println("HP: " + enemy.getCurrentHp());
         player.printStatus();
     }
 
@@ -88,7 +87,7 @@ public class BattleSystem {
         float multiplier = QuickTimeEvent.runQuickTimeEvent();
         System.out.println("Je attack damage: " + (int) (multiplier * 200) + "%");
         int finalDamage = Math.round(player.getAttack() * multiplier * 2);
-        enemy.takeDamage(finalDamage);
+        enemy.changeHp(-finalDamage);
         PrintMethods.typeTextColor(
                 "Je valt " + enemy.getName() + " aan, en doet " + finalDamage + " hp damage!",
                 Attribute.BRIGHT_GREEN_TEXT());
@@ -160,7 +159,7 @@ public class BattleSystem {
     }
 
     private static void printHealthStatus(Player player, Enemy enemy) {
-        System.out.println(enemy.getName() + " HP: " + enemy.getHealth());
+        System.out.println(enemy.getName() + " HP: " + enemy.getCurrentHp());
         System.out.println(player.getName() + " HP: " + player.getCurrentHp());
     }
 

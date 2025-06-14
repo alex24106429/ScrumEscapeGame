@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Randomizer;
+import com.cgi.scrumescapegame.enemyattacks.AttackBehavior;
 
 public abstract class Enemy {
     protected String name;
@@ -28,27 +29,22 @@ public abstract class Enemy {
         return imagePath;
     }
 
-    public int getHealth() {
+    public int getCurrentHp() {
         return currentHp;
     }
 
-    public void setHealth(int amount) {
-        this.currentHp = amount;
-    }
-
-    public int getMaxHealth() {
+    public int getMaxHp() {
         return maxHp;
     }
 
-    public void takeDamage(int damage) {
-        this.currentHp -= damage;
+    public void changeHp(int amount) {
+        this.currentHp += amount;
         if (this.currentHp < 0) {
             this.currentHp = 0;
         }
-    }
-
-    public void kill() {
-        this.takeDamage(this.currentHp);
+        if (this.currentHp > this.maxHp) {
+            this.currentHp = this.maxHp;
+        }
     }
 
     public boolean isAlive() {

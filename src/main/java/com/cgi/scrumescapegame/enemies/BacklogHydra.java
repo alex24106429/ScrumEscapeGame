@@ -1,6 +1,7 @@
 package com.cgi.scrumescapegame.enemies;
 
 import com.cgi.scrumescapegame.enemyattacks.BacklogHydra_DeadlineDoom;
+import com.cgi.scrumescapegame.enemyattacks.BacklogHydra_Multiply;
 import com.cgi.scrumescapegame.enemyattacks.BacklogHydra_QueueQuake;
 
 public class BacklogHydra extends Enemy {
@@ -12,5 +13,6 @@ public class BacklogHydra extends Enemy {
         super(name, imagePath, maxHp);
         behaviors.add(new BacklogHydra_DeadlineDoom());
         behaviors.add(new BacklogHydra_QueueQuake());
+        behaviors.add(new BacklogHydra_Multiply());
     }
 }

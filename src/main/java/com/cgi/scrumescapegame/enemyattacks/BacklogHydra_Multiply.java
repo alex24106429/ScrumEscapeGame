@@ -4,15 +4,14 @@ import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Randomizer;
 import com.cgi.scrumescapegame.enemies.Enemy;
 
-public class ScopeCreeper_FeatureSwarm implements AttackBehavior {
+public class BacklogHydra_Multiply implements AttackBehavior {
 
 	public String getName() {
-		return "Feature Swarm";
+		return "Multiply";
 	}
 
 	public int attack(Enemy enemy, Player player) {
-		int dmg = Randomizer.getRandomInt(5, 15);
-		player.changeHp(-dmg);
-		return dmg;
+		enemy.changeHp(Randomizer.getRandomInt(1, 35));
+		return 0;
 	}
 }
