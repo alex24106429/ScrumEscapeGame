@@ -3,6 +3,8 @@ package com.cgi.scrumescapegame.vragen;
 import java.util.List;
 
 import com.cgi.scrumescapegame.Vraag;
+import com.cgi.scrumescapegame.graphics.PrintMethods;
+import com.diogonunes.jcolor.Attribute;
 
 public class MeerkeuzeVraag implements Vraag {
     private String tekst;
@@ -27,11 +29,13 @@ public class MeerkeuzeVraag implements Vraag {
 
     @Override
     public void toonVraag() {
-        System.out.println("Meerkeuzevraag: " + tekst);
+        PrintMethods.printlnColor(tekst, new Attribute[]{Attribute.BRIGHT_YELLOW_TEXT(), Attribute.BOLD()});
+
         for (int i = 0; i < opties.size(); i++) {
-            System.out.println((char)('A' + i) + ". " + opties.get(i));
+            PrintMethods.printColor((char)('A' + i) + ". ", Attribute.BOLD());
+            System.out.println(opties.get(i));
         }
-        System.out.print("Uw antwoord (A, B, C, ...): ");
+        PrintMethods.printColor("(A/B/C/D) > ", Attribute.BRIGHT_BLUE_TEXT());
     }
 
     @Override

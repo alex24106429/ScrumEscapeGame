@@ -238,7 +238,7 @@ public class MapPrinter {
         } else {
             PrintMethods.printColor(
                 "De deuren zijn gesloten. Maak de puzzel af (\"start puzzel\") om de kamer te kunnen verlaten.",
-                Attribute.BRIGHT_RED_TEXT()
+                Attribute.BRIGHT_YELLOW_TEXT()
             );
         }
     }

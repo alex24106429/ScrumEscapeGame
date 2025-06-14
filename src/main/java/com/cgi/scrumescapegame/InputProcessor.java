@@ -5,8 +5,10 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import com.cgi.scrumescapegame.graphics.MapPrinter;
+import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.items.Armor;
 import com.cgi.scrumescapegame.items.Weapon;
+import com.diogonunes.jcolor.Attribute;
 
 public class InputProcessor {
     @SuppressWarnings("unused")
@@ -19,8 +21,8 @@ public class InputProcessor {
             int targetY = currentPos.y;
             boolean moved = false;
 
-            if (!currentRoom.getCleared()){
-                System.out.println("Je moet eerst de kamer oplossen voordat je verder kunt gaan.");
+            if (!currentRoom.getCleared()) {
+                PrintMethods.printlnColor("De deuren zijn gesloten. Maak de puzzel af (\"start puzzel\") om de kamer te kunnen verlaten.", Attribute.BRIGHT_RED_TEXT());
                 return;
             }
 

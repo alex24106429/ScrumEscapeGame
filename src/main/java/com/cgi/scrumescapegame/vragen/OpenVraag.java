@@ -1,6 +1,8 @@
 package com.cgi.scrumescapegame.vragen;
 
 import com.cgi.scrumescapegame.Vraag;
+import com.cgi.scrumescapegame.graphics.PrintMethods;
+import com.diogonunes.jcolor.Attribute;
 
 public class OpenVraag implements Vraag {
     private String tekst;
@@ -21,8 +23,8 @@ public class OpenVraag implements Vraag {
 
     @Override
     public void toonVraag() {
-        System.out.println("Openvraag: " + tekst);
-        System.out.println("Uw antwoord: ");
+        PrintMethods.printlnColor(tekst, new Attribute[]{Attribute.BRIGHT_YELLOW_TEXT(), Attribute.BOLD()});
+        PrintMethods.printColor("> ", Attribute.BRIGHT_BLUE_TEXT());
     }
 
     @Override

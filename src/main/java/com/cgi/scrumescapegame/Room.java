@@ -22,7 +22,7 @@ public abstract class Room {
         this.roomX = roomX;
         this.roomY = roomY;
         if (Game.debug){
-            isCleared = true; // In debug mode, rooms are considered cleared by default
+            // isCleared = true; // In debug mode, rooms are considered cleared by default
         }
     }
 

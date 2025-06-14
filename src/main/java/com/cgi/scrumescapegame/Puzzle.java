@@ -12,13 +12,9 @@ import com.cgi.scrumescapegame.observers.Deur;
 import com.cgi.scrumescapegame.observers.PuzzleObserver;
 import com.cgi.scrumescapegame.observers.PuzzleSubject;
 import com.diogonunes.jcolor.Attribute;
-import com.cgi.scrumescapegame.observers.FeedbackObserver;
-import com.cgi.scrumescapegame.observers.ScoreBoard;
 
 public class Puzzle implements PuzzleSubject {
-    PuzzleObserver feedbackObserver = new FeedbackObserver();
     PuzzleObserver deur = new Deur();
-    PuzzleObserver scoreBoard = new ScoreBoard();
     protected List<Vraag> vragen;
     private final List<PuzzleObserver> observers = new ArrayList<>();
     private Vraag currentVraag;
@@ -51,11 +47,10 @@ public class Puzzle implements PuzzleSubject {
 
     public void start(Player player, Enemy enemy, Difficulty difficulty) {
         this.player = player;
-        registerObserver(feedbackObserver);
         registerObserver(deur);
-        registerObserver(scoreBoard);
 
         if (vragen.isEmpty()) {
+            // Als je dit ziet is er iets heel erg misgegaan
             PrintMethods.printlnColor("Je hebt geluk! De puzzle bevat geen vragen.", Attribute.BRIGHT_GREEN_TEXT());
             player.getCurrentRoom().setCleared(true);
             return;
@@ -101,11 +96,7 @@ public class Puzzle implements PuzzleSubject {
             }
         }
 
-        System.out.println("----------------------");
-
-        System.out.println("\nPuzzle voltooid!");
         notifyObserver(true);
-
     }
 }
 

@@ -6,12 +6,12 @@ import com.cgi.scrumescapegame.Player;
 public class Deur implements PuzzleObserver {
 
     public void update(boolean isCorrect, Vraag vraag, Player player) {
-        // Implement the logic to update the door state based on the puzzle result
         if (isCorrect) {
-            System.out.println("De deuren gaan open!");
+            player.getCurrentRoom().setCleared(true);
         }
         else {
-            System.out.println("De deuren blijven gesloten.");
+            // Dit runnen wij nooit...
+            // System.out.println("De deuren blijven gesloten.");
         }
     }
 }
