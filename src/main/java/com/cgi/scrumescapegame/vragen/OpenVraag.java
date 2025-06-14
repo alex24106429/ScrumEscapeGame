@@ -1,18 +1,19 @@
 package com.cgi.scrumescapegame.vragen;
 
+import java.util.List;
+
 import com.cgi.scrumescapegame.Vraag;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.diogonunes.jcolor.Attribute;
 
 public class OpenVraag implements Vraag {
-    private String tekst;
-    private String correctAntwoord;
-    private String userinput;
-    private String hint;
+    private final String tekst;
+    private final List<String> correctAntwoordTermen;
+    private final String hint;
 
-    public OpenVraag(String tekst, String correctAntwoord, String hint) {
+    public OpenVraag(String tekst, List<String> correctAntwoordTermen, String hint) {
         this.tekst = tekst;
-        this.correctAntwoord = correctAntwoord;
+        this.correctAntwoordTermen = correctAntwoordTermen;
         this.hint = hint;
     }
 
@@ -23,30 +24,23 @@ public class OpenVraag implements Vraag {
 
     @Override
     public void toonVraag() {
-        PrintMethods.printlnColor(tekst, new Attribute[]{Attribute.BRIGHT_YELLOW_TEXT(), Attribute.BOLD()});
+        PrintMethods.printlnColor(tekst, new Attribute[] { Attribute.BRIGHT_YELLOW_TEXT(), Attribute.BOLD() });
         PrintMethods.printColor("> ", Attribute.BRIGHT_BLUE_TEXT());
     }
 
     @Override
     public boolean controleerAntwoord(String antwoord) {
-        if (antwoord == null || antwoord.trim().isEmpty()) {
-            return false;
+        for (String term : correctAntwoordTermen) {
+            if (antwoord.toLowerCase().contains(term.toLowerCase())) {
+                return true;
+            }
         }
-        String userinput = antwoord.trim().toLowerCase();
-        if(userinput.equals(correctAntwoord.toLowerCase())){
-            return true;
-        }else{
-            return false;
-        }
+        return false;
     }
 
     @Override
     public String getCorrectAntwoord() {
-        return correctAntwoord;
-    }
-
-    public String getUserinput(){
-        return userinput;
+        return "Het correcte antwoord bevat: " + String.join(" of ", correctAntwoordTermen);
     }
 
     @Override

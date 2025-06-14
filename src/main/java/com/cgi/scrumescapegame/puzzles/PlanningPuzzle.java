@@ -15,7 +15,7 @@ public class PlanningPuzzle extends Puzzle {
         // Vraag 1
         vragen.add(new OpenVraag(
                 "Wat is de maximale timebox voor een Sprint Planning meeting voor een sprint van één maand (in uren)?",
-                "8",
+                Arrays.asList("8"),
                 "Het is één volledige werkdag."
         ));
         // Vraag 2
@@ -42,7 +42,7 @@ public class PlanningPuzzle extends Puzzle {
         // Vraag 5
         vragen.add(new OpenVraag(
                 "Welke bekende schattingstechniek gebruikt vaak een reeks kaarten gebaseerd op de Fibonacci-reeks?",
-                "Planning Poker",
+                Arrays.asList("Planning Poker", "Scrum Poker"),
                 "Het is een vorm van poker."
         ));
         // Vraag 6
@@ -62,7 +62,7 @@ public class PlanningPuzzle extends Puzzle {
         // Vraag 8
         vragen.add(new OpenVraag(
                 "Uit welke twee elementen bestaat de Sprint Backlog?",
-                "Het Sprint Doel en de geselecteerde Product Backlog Items",
+                Arrays.asList("Sprint Doel en Product Backlog Items", "Sprint Goal en Product Backlog Items"),
                 "Het 'waarom' en het 'wat'."
         ));
         // Vraag 9

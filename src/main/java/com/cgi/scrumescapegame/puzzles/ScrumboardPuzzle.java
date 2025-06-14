@@ -22,7 +22,7 @@ public class ScrumboardPuzzle extends Puzzle {
         // Vraag 2
         vragen.add(new OpenVraag(
                 "Waar staat de afkorting 'WIP' voor op een scrumbord?",
-                "Work In Progress",
+                Arrays.asList("Work In Progress", "Work in Process"),
                 "Het refereert aan al het werk dat onderhanden is."
         ));
         // Vraag 3
@@ -42,7 +42,7 @@ public class ScrumboardPuzzle extends Puzzle {
         // Vraag 5
         vragen.add(new OpenVraag(
                 "Hoe heet een item op het scrumbord dat de voortgang van een ander item blokkeert?",
-                "Impediment",
+                Arrays.asList("Impediment", "belemmering", "blocker"),
                 "Een ander woord is belemmering of 'blocker'."
         ));
         // Vraag 6
@@ -69,7 +69,7 @@ public class ScrumboardPuzzle extends Puzzle {
         // Vraag 9
         vragen.add(new OpenVraag(
                 "Hoe heet een grafiek die de voortgang van het resterende werk in een sprint over tijd laat zien?",
-                "Burndown Chart",
+                Arrays.asList("Burndown Chart", "Burndown"),
                 "De lijn in de grafiek zou idealiter naar beneden moeten gaan."
         ));
         // Vraag 10

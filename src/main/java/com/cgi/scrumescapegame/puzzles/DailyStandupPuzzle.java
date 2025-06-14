@@ -15,7 +15,7 @@ public class DailyStandupPuzzle extends Puzzle {
         // Vraag 1
         vragen.add(new OpenVraag(
                 "Hoeveel minuten is de timebox voor een Daily Standup maximaal?",
-                "15",
+                Arrays.asList("15"),
                 "Het is gelijk aan een kwartier."
         ));
         // Vraag 2
@@ -35,7 +35,7 @@ public class DailyStandupPuzzle extends Puzzle {
         // Vraag 4
         vragen.add(new OpenVraag(
                 "Wat is een andere, meer formele naam voor de Daily Standup?",
-                "Daily Scrum",
+                Arrays.asList("Daily Scrum"),
                 "Het staat in de Scrum Gids."
         ));
         // Vraag 5
@@ -69,7 +69,7 @@ public class DailyStandupPuzzle extends Puzzle {
         // Vraag 9
         vragen.add(new OpenVraag(
                 "Als de Daily Standup langer duurt dan de timebox, wie grijpt dan in?",
-                "Scrum Master",
+                Arrays.asList("Scrum Master"),
                 "Deze rol bewaakt het Scrum proces."
         ));
         // Vraag 10

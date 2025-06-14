@@ -15,7 +15,7 @@ public class RetrospectivePuzzle extends Puzzle {
         // Vraag 1
         vragen.add(new OpenVraag(
                 "Wat is de maximale timebox voor een Sprint Retrospective voor een sprint van één maand (in uren)?",
-                "3",
+                Arrays.asList("3"),
                 "Het is drie kwartier per week van de sprint."
         ));
         // Vraag 2
@@ -35,7 +35,7 @@ public class RetrospectivePuzzle extends Puzzle {
         // Vraag 4
         vragen.add(new OpenVraag(
                 "Wat is het belangrijkste resultaat (output) van een Sprint Retrospective?",
-                "Een lijst met concrete verbeteracties",
+                Arrays.asList("verbeteracties", "verbeterpunten", "actie-items", "actiepunten"),
                 "Het doel is om niet alleen te praten, maar ook te doen."
         ));
         // Vraag 5
@@ -69,7 +69,7 @@ public class RetrospectivePuzzle extends Puzzle {
         // Vraag 9
         vragen.add(new OpenVraag(
                 "Hoe noem je de regel dat iedereen tijdens een Retrospective open en eerlijk mag zijn zonder angst voor vergelding?",
-                "Prime Directive",
+                Arrays.asList("Prime Directive"),
                 "Het begint met 'Prime'..."
         ));
         // Vraag 10

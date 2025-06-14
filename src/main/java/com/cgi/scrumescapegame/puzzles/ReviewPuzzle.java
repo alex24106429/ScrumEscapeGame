@@ -22,7 +22,7 @@ public class ReviewPuzzle extends Puzzle{
         // Vraag 2
         vragen.add(new OpenVraag(
                 "Wat is de maximale timebox voor een Sprint Review voor een sprint van één maand (in uren)?",
-                "4",
+                Arrays.asList("4"),
                 "Het is een uur per week van de sprint."
         ));
         // Vraag 3
@@ -42,7 +42,7 @@ public class ReviewPuzzle extends Puzzle{
         // Vraag 5
         vragen.add(new OpenVraag(
                 "Hoe heet het belangrijkste artefact dat tijdens de Sprint Review wordt gedemonstreerd en geïnspecteerd?",
-                "Increment",
+                Arrays.asList("Increment", "Product Increment"),
                 "Het is de som van al het voltooide werk in de sprint."
         ));
         // Vraag 6
@@ -62,7 +62,7 @@ public class ReviewPuzzle extends Puzzle{
         // Vraag 8
         vragen.add(new OpenVraag(
                 "Wat gebeurt er met Product Backlog Items die aan het einde van de sprint niet 'Done' zijn?",
-                "Ze gaan terug op de Product Backlog",
+                Arrays.asList("terug op de Product Backlog"),
                 "Ze worden opnieuw ingeschat en geprioriteerd."
         ));
         // Vraag 9
