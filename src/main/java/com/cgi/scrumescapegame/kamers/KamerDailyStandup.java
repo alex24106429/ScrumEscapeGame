@@ -20,8 +20,6 @@ public class KamerDailyStandup extends Room implements PuzzleRooms {
     
     @Override
     public void roomLogic(Player player, Difficulty difficulty) {
-        setCleared(true);
-        // Specifieke acties voor de dailystandupkamer
     }
 
     @Override

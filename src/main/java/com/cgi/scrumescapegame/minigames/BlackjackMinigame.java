@@ -28,10 +28,10 @@ public class BlackjackMinigame implements Minigame {
         int bet = 0;
         int playerGold = player.getGold();
         if(playerGold < 1) {
-            PrintMethods.typeTextColor("You need at least 1 gold to play Blackjack, come back later!", Attribute.BRIGHT_RED_TEXT());
+            PrintMethods.typeTextColor("Je hebt minstens 1 Goud nodig om Blackjack te spelen, kom later terug!", Attribute.BRIGHT_RED_TEXT());
             return;
         }
-        PrintMethods.typeTextColor("Enter bet amount (1 to " + playerGold + "): ", Attribute.CYAN_TEXT());
+        PrintMethods.printColor("Hoeveel Goud zet je in? (1 tot " + playerGold + "): ", Attribute.CYAN_TEXT());
         while (true) {
             try {
                 bet = Integer.parseInt(scanner.nextLine());
@@ -39,7 +39,7 @@ public class BlackjackMinigame implements Minigame {
                     break;
                 }
             } catch (NumberFormatException e) {}
-            PrintMethods.printlnColor("Invalid bet amount. Please enter a value between 1 and " + playerGold + ".", Attribute.BRIGHT_RED_TEXT());
+            PrintMethods.printlnColor("Ongeldig inzetbedrag. Voer een waarde in tussen 1 en " + playerGold + ".", Attribute.BRIGHT_RED_TEXT());
         }
         player.changeGold(-bet);
 
@@ -54,13 +54,13 @@ public class BlackjackMinigame implements Minigame {
         hand.add(deck.remove(0)); hand.add(deck.remove(0));
         dealer.add(deck.remove(0)); dealer.add(deck.remove(0));
 
-        PrintMethods.printlnColor("Dealer shows:", Attribute.YELLOW_TEXT());
+        PrintMethods.printlnColor("De dealer laat zien:", Attribute.YELLOW_TEXT());
         printDealerInitial(dealer);
-        PrintMethods.printlnColor("Value: " + value(dealer.subList(0,1)), Attribute.WHITE_TEXT());
+        System.out.println("Waarde: " + value(dealer.subList(0,1)));
 
-        PrintMethods.printlnColor("Your hand:", Attribute.GREEN_TEXT());
+        PrintMethods.printlnColor("Jouw hand:", Attribute.GREEN_TEXT());
         printHand(hand);
-        PrintMethods.printlnColor("Value: " + value(hand), Attribute.WHITE_TEXT());
+        System.out.println("Waarde: " + value(hand));
 
         while (value(hand) < 21) {
             PrintMethods.typeTextColor("Hit of stand? (h/s): ", Attribute.CYAN_TEXT());
@@ -68,12 +68,13 @@ public class BlackjackMinigame implements Minigame {
             if ("h".equalsIgnoreCase(inp)) {
                 hand.add(deck.remove(0));
                 printHand(Collections.singletonList(hand.get(hand.size() - 1)));
+                System.out.println("Waarde: " + value(hand));
             } else break;
         }
 
         int playerVal = value(hand);
         // Reveal dealer hand
-        PrintMethods.printlnColor("Dealer's turn:", Attribute.YELLOW_TEXT());
+        PrintMethods.printlnColor("Dealer's beurt:", Attribute.YELLOW_TEXT());
         printHand(dealer);
         while (value(dealer) < 17) {
             dealer.add(deck.remove(0));
@@ -81,11 +82,13 @@ public class BlackjackMinigame implements Minigame {
         }
 
         int dealerVal = value(dealer);
-        PrintMethods.printlnColor("Your total: " + playerVal + ", Dealer total: " + dealerVal, Attribute.WHITE_TEXT());
+        System.out.println("Jouw totaal: " + playerVal + ", Dealer's totaal: " + dealerVal);
         success = playerVal <= 21 && (dealerVal > 21 || playerVal > dealerVal);
         if (success) {
-            PrintMethods.printlnColor("Je wint!", Attribute.GREEN_TEXT());
-            player.changeGold(bet);
+            PrintMethods.printlnColor("Je wint!", Attribute.BRIGHT_GREEN_TEXT());
+            player.changeGold(bet * 2);
+        } else {
+            PrintMethods.printlnColor("Je verliest!", Attribute.BRIGHT_RED_TEXT());
         }
     }
 
