@@ -84,12 +84,12 @@ public class Game {
     }
 
     private void displayDifficultyMenu() {
-        PrintMethods.printlnColor("Kies de moeilijkheid:",     Attribute.BRIGHT_YELLOW_TEXT());
-        PrintMethods.printlnColor("1. Makkelijk",               new Attribute[]{Attribute.BRIGHT_GREEN_TEXT(), Attribute.BOLD()});
+        PrintMethods.printlnColor("Kies de moeilijkheid:", Attribute.BRIGHT_YELLOW_TEXT());
+        PrintMethods.printlnColor("1. Makkelijk", Attribute.BRIGHT_GREEN_TEXT(), Attribute.BOLD());
         System.out.println("   Begin met 150 HP, 20 ATK, 20 DEF, en 50 Goud.");
-        PrintMethods.printlnColor("2. Normaal",                 new Attribute[]{Attribute.BRIGHT_YELLOW_TEXT(), Attribute.BOLD()});
+        PrintMethods.printlnColor("2. Normaal", Attribute.BRIGHT_YELLOW_TEXT(), Attribute.BOLD());
         System.out.println("   Begin met 100 HP, 10 ATK en 10 DEF.");
-        PrintMethods.printlnColor("3. Moeilijk",                new Attribute[]{Attribute.BRIGHT_RED_TEXT(), Attribute.BOLD()});
+        PrintMethods.printlnColor("3. Moeilijk", Attribute.BRIGHT_RED_TEXT(), Attribute.BOLD());
         System.out.println("   Begin met 50 HP, 5 ATK en 5 DEF. Geen hints tijdens vragen!");
     }
 

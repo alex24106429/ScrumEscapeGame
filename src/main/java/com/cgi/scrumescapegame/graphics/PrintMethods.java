@@ -79,16 +79,24 @@ public class PrintMethods {
         System.out.println();
     }
 
-    public static void typeTextColor(String text, Attribute colorAttribute) {
-        typeText(Ansi.colorize(text, colorAttribute));
+    public static void typeTextColor(String text, Attribute attribute) {
+        typeText(Ansi.colorize(text, attribute));
     }
 
-    public static void printColor(String text, Attribute colorAttribute) {
-        System.out.print(Ansi.colorize(text, colorAttribute));
+    public static void printColor(String text, Attribute attribute) {
+        System.out.print(Ansi.colorize(text, attribute));
     }
 
-    public static void printlnColor(String text, Attribute colorAttribute) {
-        System.out.println(Ansi.colorize(text, colorAttribute));
+    public static void printlnColor(String text, Attribute attribute) {
+        System.out.println(Ansi.colorize(text, attribute));
+    }
+
+    public static void printColor(String text, Attribute attribute1, Attribute attribute2) {
+        System.out.print(Ansi.colorize(text, new Attribute[]{attribute1, attribute2}));
+    }
+
+    public static void printlnColor(String text, Attribute attribute1, Attribute attribute2) {
+        System.out.println(Ansi.colorize(text, new Attribute[]{attribute1, attribute2}));
     }
 
     public static void printColor(String text, String hexColorString) {
@@ -99,12 +107,12 @@ public class PrintMethods {
         System.out.println(Ansi.colorize(text, getHexAttribute(hexColorString)));
     }
 
-    public static void printColor(String text, Attribute[] colorAttributes) {
-        System.out.print(Ansi.colorize(text, colorAttributes));
+    public static void printColor(String text, Attribute[] attributes) {
+        System.out.print(Ansi.colorize(text, attributes));
     }
 
-    public static void printlnColor(String text, Attribute[] colorAttributes) {
-        System.out.println(Ansi.colorize(text, colorAttributes));
+    public static void printlnColor(String text, Attribute[] attributes) {
+        System.out.println(Ansi.colorize(text, attributes));
     }
 
     public static String getProgressBarString(int percentage, int width) {
@@ -145,8 +153,8 @@ public class PrintMethods {
         return sb.toString();
     }
 
-    public static void printBadge(String text, Attribute colorAttribute) {
-        printColor(" " + text + " ", colorAttribute);
+    public static void printBadge(String text, Attribute attribute) {
+        printColor(" " + text + " ", attribute, Attribute.BLACK_TEXT());
         System.out.print(" ");
     }
 
@@ -174,7 +182,7 @@ public class PrintMethods {
                 color = Attribute.BRIGHT_GREEN_TEXT();
             }
 
-            PrintMethods.printColor("Bruikbaarheid ┃", Attribute.CLEAR());
+            PrintMethods.printColor("Levensduur ┃", Attribute.CLEAR());
             PrintMethods.printColor(PrintMethods.getProgressBarString(durabilityPercentage, 13), color);
             PrintMethods.printColor("┃ ", Attribute.CLEAR());
             PrintMethods.printlnColor(durability + "/" + maxDurability, color);
