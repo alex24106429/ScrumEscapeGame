@@ -19,6 +19,6 @@ public class KamerBlackJack extends Room {
 
     @Override
     public int getHue() {
-        return 45;
+        return 40;
     }
 }

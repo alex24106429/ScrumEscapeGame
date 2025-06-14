@@ -24,6 +24,6 @@ public class KamerRetrospective extends Room implements PuzzleRooms {
     
     @Override
     public int getHue() {
-        return 135;
+        return 160;
     }
 }

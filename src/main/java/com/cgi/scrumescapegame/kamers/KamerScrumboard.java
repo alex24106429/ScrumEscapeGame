@@ -24,6 +24,6 @@ public class KamerScrumboard extends Room implements PuzzleRooms {
 
     @Override
     public int getHue() {
-        return 215;
+        return 240;
     }
 }

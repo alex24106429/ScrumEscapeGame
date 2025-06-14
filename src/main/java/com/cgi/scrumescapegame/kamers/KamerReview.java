@@ -30,6 +30,6 @@ public class KamerReview extends Room implements PuzzleRooms {
 
     @Override
     public int getHue() {
-        return 170;
+        return 200;
     }
 }

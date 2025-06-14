@@ -44,6 +44,6 @@ public class KamerShop extends Room {
 
     @Override
     public int getHue() {
-        return 90;
+        return 280;
     }
 }

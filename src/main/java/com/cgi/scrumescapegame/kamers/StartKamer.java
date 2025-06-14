@@ -16,6 +16,6 @@ public class StartKamer extends Room {
 
     @Override
     public int getHue() {
-        return 260;
+        return 320;
     }
 }

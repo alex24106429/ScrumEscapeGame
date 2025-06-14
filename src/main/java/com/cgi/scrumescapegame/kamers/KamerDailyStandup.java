@@ -29,6 +29,6 @@ public class KamerDailyStandup extends Room implements PuzzleRooms {
 
     @Override
     public int getHue() {
-        return 45;
+        return 80;
     }
 }
