@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.graphics.ImagePrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 
@@ -31,11 +32,7 @@ public class DoorOpeningAnimation {
             graphics.drawImage(frames.getSubimage(width * i, 0, width, height), 0, 0, null);
             ImagePrinter.printBufferedImage(door);
             PrintMethods.moveCursorUp(height / 2);
-            try {
-                Thread.sleep(frameDelayMs);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Game.pause(frameDelayMs);
         }
         PrintMethods.moveCursorDown(height / 2);
         PrintMethods.showCursor();

@@ -24,7 +24,7 @@ public class OpenVraag implements Vraag {
 
     @Override
     public void toonVraag() {
-        PrintMethods.printlnColor(tekst, Attribute.BRIGHT_YELLOW_TEXT(), Attribute.BOLD());
+        PrintMethods.typeTextColor(tekst, Attribute.BRIGHT_YELLOW_TEXT(), Attribute.BOLD());
         PrintMethods.printColor("> ", Attribute.BRIGHT_BLUE_TEXT());
     }
 

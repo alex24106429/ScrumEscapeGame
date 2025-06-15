@@ -72,15 +72,17 @@ public class PrintMethods {
         }
         for (char c : text.toCharArray()) {
             System.out.print(c);
-            try {
-                Thread.sleep(30);
-            } catch (InterruptedException ignored) {}
+            Game.pause(30);
         }
         System.out.println();
     }
 
     public static void typeTextColor(String text, Attribute attribute) {
         typeText(Ansi.colorize(text, attribute));
+    }
+
+    public static void typeTextColor(String text, Attribute attribute1, Attribute attribute2) {
+        typeText(Ansi.colorize(text, new Attribute[]{attribute1, attribute2}));
     }
 
     public static void printColor(String text, Attribute attribute) {

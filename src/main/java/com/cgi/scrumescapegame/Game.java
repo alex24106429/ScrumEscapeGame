@@ -207,4 +207,18 @@ public class Game {
     public static void quitGame() {
         System.exit(0);
     }
+
+    public static void pause(int ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+        }
+    }
+
+    public static void pause(long ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+        }
+    }
 }

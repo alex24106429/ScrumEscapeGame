@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.imageio.ImageIO;
 
+import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.Randomizer;
 import com.cgi.scrumescapegame.graphics.ImagePrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
@@ -149,11 +150,7 @@ public class TitleScreenAnimation {
                 PrintMethods.printColor(String.valueOf(c), new Attribute[]{fg, Attribute.BACK_COLOR(r, g, b), Attribute.BOLD()});
             }
 
-            try {
-                Thread.sleep(41);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Game.pause(41);
 
             try {
                 if (System.in.available() > 0 && System.in.read() == '\n') {

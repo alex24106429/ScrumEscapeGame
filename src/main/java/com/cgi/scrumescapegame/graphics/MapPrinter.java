@@ -91,13 +91,13 @@ public class MapPrinter {
 
     // 4a) Colors
     private static int computePlayerColor() {
-        return Color.HSBtoRGB(180f / 360f, 1.0f, 1.0f);
+        return Color.HSBtoRGB(0, 0.0f, 1.0f);
     }
     private static int computeEmptySpaceColor() {
         return 0x00000000;
     }
     private static int computeOutlineColor() {
-        return Color.HSBtoRGB(0f, 0f, 0.7f);
+        return Color.HSBtoRGB(0f, 0f, 0.5f);
     }
 
     // 4b) Player’s pixel rectangle in image coords
@@ -181,7 +181,12 @@ public class MapPrinter {
                 double centerY = pixelY + 0.5;
                 double dist    = computeDistanceToPlayerRect(centerX, centerY, playerRect);
                 float brightness = computeBrightness(dist, hasTorch);
-                int rgb = Color.getHSBColor(hue, 0.5f, brightness).getRGB();
+                int rgb;
+                if(!room.getCleared()) {
+                    rgb = Color.getHSBColor(hue, 0.5f, brightness).getRGB();
+                } else {
+                    rgb = Color.getHSBColor(hue, 0.1f, brightness).getRGB();
+                }
                 img.setRGB(pixelX, pixelY, rgb);
             }
         }

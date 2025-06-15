@@ -59,7 +59,6 @@ public class WallpaperHandler {
 		args.add("hsetroot");
 		args.add("-fill");
 		args.add(wallpaperPath);
-		System.out.print(args);
 
 		ProcessBuilder builder = new ProcessBuilder(args);
 

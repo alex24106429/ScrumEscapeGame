@@ -73,7 +73,8 @@ public class Puzzle implements PuzzleSubject {
             if(difficulty == Difficulty.HARD) {
                 shouldGiveHint = false;
             } else {
-                PrintMethods.printlnColor("Verkeerd antwoord! Wil je een hint? (j/n)", Attribute.BRIGHT_RED_TEXT());
+                PrintMethods.printlnColor("Verkeerd antwoord! Wil je een hint?", Attribute.BRIGHT_RED_TEXT());
+                PrintMethods.printColor("(j/n) > ", Attribute.BRIGHT_BLUE_TEXT());
                 String hintChoice = scanner.nextLine();
                 shouldGiveHint = hintChoice.trim().toLowerCase().startsWith("j");
             }
@@ -92,6 +93,8 @@ public class Puzzle implements PuzzleSubject {
             if (secondAnswerCorrect) {
                 player.changeGold(5);
             } else {
+                PrintMethods.typeTextColor("Het juiste antwoord was: " + huidigeVraag.getCorrectAntwoord(), Attribute.BRIGHT_YELLOW_TEXT());
+                Game.pause(1000);
                 BattleSystem.startBattle(player, enemy, scanner);
             }
         }

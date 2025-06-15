@@ -29,7 +29,7 @@ public class MeerkeuzeVraag implements Vraag {
 
     @Override
     public void toonVraag() {
-        PrintMethods.printlnColor(tekst, Attribute.BRIGHT_YELLOW_TEXT(), Attribute.BOLD());
+        PrintMethods.typeTextColor(tekst, Attribute.BRIGHT_YELLOW_TEXT(), Attribute.BOLD());
 
         for (int i = 0; i < opties.size(); i++) {
             PrintMethods.printColor((char)('A' + i) + ". ", Attribute.BOLD());

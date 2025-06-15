@@ -85,11 +85,7 @@ public class QuickTimeEvent {
 			}
 
 			// frame delay
-			try {
-				Thread.sleep(frameDelay);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			Game.pause(frameDelay);
 		}
 	}
 }
