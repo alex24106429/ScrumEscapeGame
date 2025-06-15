@@ -6,7 +6,7 @@ import com.cgi.scrumescapegame.enemyattacks.SlimeMaster_UserSlurry;
 
 public class SlimeMaster extends Enemy{
     private static String name = "Slime Master";
-    private static String imagepath = "monsters/slime";
+    private static String imagepath = "monsters/slime.png";
     private static int maxHp = 90;
 
     public SlimeMaster(){

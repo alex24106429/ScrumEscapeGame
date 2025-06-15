@@ -12,8 +12,8 @@ public class DoorOpeningAnimation {
     private static final BufferedImage frames;
     private static final int width = 28;
     private static final int height = 44;
-    private static final int frameCount = 4;
-    private static final int frameDelayMs = 100;
+    private static final int frameCount = 6;
+    private static final int frameDelayMs = 83;
 
     static {
         try {
