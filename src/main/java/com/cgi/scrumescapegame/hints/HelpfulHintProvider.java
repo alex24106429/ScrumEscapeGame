@@ -1,6 +1,6 @@
 package com.cgi.scrumescapegame.hints;
 
-import com.cgi.scrumescapegame.Vraag;
+import com.cgi.scrumescapegame.vragen.Vraag;
 
 public class HelpfulHintProvider implements HintProvider {
     @Override

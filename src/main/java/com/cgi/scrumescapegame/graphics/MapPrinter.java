@@ -9,8 +9,8 @@ import java.util.Map;
 import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.GameMap;
 import com.cgi.scrumescapegame.Player;
-import com.cgi.scrumescapegame.Room;
 import com.cgi.scrumescapegame.items.Torch;
+import com.cgi.scrumescapegame.kamers.Room;
 import com.diogonunes.jcolor.Attribute;
 
 public class MapPrinter {

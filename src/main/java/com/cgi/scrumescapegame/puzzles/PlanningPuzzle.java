@@ -1,7 +1,5 @@
 package com.cgi.scrumescapegame.puzzles;
 
-import com.cgi.scrumescapegame.Puzzle;
-import com.cgi.scrumescapegame.Vraag;
 import com.cgi.scrumescapegame.vragen.*;
 
 import java.util.ArrayList;

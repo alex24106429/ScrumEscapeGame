@@ -6,7 +6,6 @@ import java.util.Arrays;
 import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.Player;
-import com.cgi.scrumescapegame.Room;
 import com.cgi.scrumescapegame.Shop;
 import com.cgi.scrumescapegame.items.Chestplate;
 import com.cgi.scrumescapegame.items.DamagePotion;

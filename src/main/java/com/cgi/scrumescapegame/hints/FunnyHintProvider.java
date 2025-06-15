@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cgi.scrumescapegame.Randomizer;
-import com.cgi.scrumescapegame.Vraag;
+import com.cgi.scrumescapegame.vragen.Vraag;
 
 public class FunnyHintProvider implements HintProvider {
     

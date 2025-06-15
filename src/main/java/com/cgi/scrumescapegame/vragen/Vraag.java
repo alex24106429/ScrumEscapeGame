@@ -1,4 +1,4 @@
-package com.cgi.scrumescapegame;
+package com.cgi.scrumescapegame.vragen;
 
 public interface Vraag {
     String getTekst();

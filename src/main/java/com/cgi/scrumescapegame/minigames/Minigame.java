@@ -1,6 +1,8 @@
-package com.cgi.scrumescapegame;
+package com.cgi.scrumescapegame.minigames;
 
 import java.util.Scanner;
+
+import com.cgi.scrumescapegame.Player;
 
 public interface Minigame {
     String getName();

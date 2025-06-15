@@ -1,6 +1,5 @@
 package com.cgi.scrumescapegame.minigames;
 
-import com.cgi.scrumescapegame.Minigame;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.graphics.CardPrinter;
 import com.cgi.scrumescapegame.graphics.ImagePrinter;

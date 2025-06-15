@@ -2,7 +2,7 @@ package com.cgi.scrumescapegame.items;
 
 import com.cgi.scrumescapegame.Joker;
 import com.cgi.scrumescapegame.Player;
-import com.cgi.scrumescapegame.Room;
+import com.cgi.scrumescapegame.kamers.Room;
 
 public class KeyJoker extends Item implements Joker, LimitedUseItem {
     public KeyJoker(){

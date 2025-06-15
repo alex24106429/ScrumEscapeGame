@@ -1,7 +1,7 @@
 package com.cgi.scrumescapegame.observers;
 
 import com.cgi.scrumescapegame.Player;
-import com.cgi.scrumescapegame.Vraag;
+import com.cgi.scrumescapegame.vragen.Vraag;
 
 public class MonsterObserver implements PuzzleObserver {
     Player player;

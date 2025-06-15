@@ -2,7 +2,6 @@ package com.cgi.scrumescapegame.vragen;
 
 import java.util.List;
 
-import com.cgi.scrumescapegame.Vraag;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.diogonunes.jcolor.Attribute;
 

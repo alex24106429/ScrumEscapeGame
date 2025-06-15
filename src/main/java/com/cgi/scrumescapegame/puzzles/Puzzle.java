@@ -1,9 +1,14 @@
-package com.cgi.scrumescapegame;
+package com.cgi.scrumescapegame.puzzles;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.cgi.scrumescapegame.BattleSystem;
+import com.cgi.scrumescapegame.Difficulty;
+import com.cgi.scrumescapegame.Game;
+import com.cgi.scrumescapegame.Player;
+import com.cgi.scrumescapegame.Randomizer;
 import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.hints.HintFactory;
@@ -11,6 +16,7 @@ import com.cgi.scrumescapegame.hints.HintProvider;
 import com.cgi.scrumescapegame.observers.Deur;
 import com.cgi.scrumescapegame.observers.PuzzleObserver;
 import com.cgi.scrumescapegame.observers.PuzzleSubject;
+import com.cgi.scrumescapegame.vragen.Vraag;
 import com.diogonunes.jcolor.Attribute;
 
 public class Puzzle implements PuzzleSubject {

@@ -8,6 +8,8 @@ import com.cgi.scrumescapegame.graphics.MapPrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.items.Armor;
 import com.cgi.scrumescapegame.items.Weapon;
+import com.cgi.scrumescapegame.kamers.Room;
+import com.cgi.scrumescapegame.puzzles.PuzzleRooms;
 import com.diogonunes.jcolor.Attribute;
 
 public class InputProcessor {

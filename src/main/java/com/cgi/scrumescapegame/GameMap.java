@@ -17,6 +17,7 @@ import com.cgi.scrumescapegame.kamers.KamerRetrospective;
 import com.cgi.scrumescapegame.kamers.KamerReview;
 import com.cgi.scrumescapegame.kamers.KamerScrumboard;
 import com.cgi.scrumescapegame.kamers.KamerShop;
+import com.cgi.scrumescapegame.kamers.Room;
 import com.cgi.scrumescapegame.kamers.StartKamer;
 
 public class GameMap {

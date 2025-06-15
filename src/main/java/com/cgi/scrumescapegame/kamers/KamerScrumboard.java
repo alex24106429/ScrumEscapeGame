@@ -2,9 +2,8 @@ package com.cgi.scrumescapegame.kamers;
 
 import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Player;
-import com.cgi.scrumescapegame.PuzzleRooms;
-import com.cgi.scrumescapegame.Room;
 import com.cgi.scrumescapegame.enemies.ScopeCreeper;
+import com.cgi.scrumescapegame.puzzles.PuzzleRooms;
 import com.cgi.scrumescapegame.puzzles.ScrumboardPuzzle;
 
 public class KamerScrumboard extends Room implements PuzzleRooms {

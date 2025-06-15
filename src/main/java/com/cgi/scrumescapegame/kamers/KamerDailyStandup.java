@@ -2,10 +2,9 @@ package com.cgi.scrumescapegame.kamers;
 
 import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Player;
-import com.cgi.scrumescapegame.PuzzleRooms;
-import com.cgi.scrumescapegame.Room;
 import com.cgi.scrumescapegame.enemies.BacklogHydra;
 import com.cgi.scrumescapegame.puzzles.DailyStandupPuzzle;
+import com.cgi.scrumescapegame.puzzles.PuzzleRooms;
 
 public class KamerDailyStandup extends Room implements PuzzleRooms {
     public KamerDailyStandup(int roomX, int roomY) {

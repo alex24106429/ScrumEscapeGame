@@ -1,8 +1,8 @@
 package com.cgi.scrumescapegame.observers;
 
-import com.cgi.scrumescapegame.Vraag;
 import com.cgi.scrumescapegame.animations.DoorOpeningAnimation;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
+import com.cgi.scrumescapegame.vragen.Vraag;
 import com.diogonunes.jcolor.Attribute;
 import com.cgi.scrumescapegame.Player;
 

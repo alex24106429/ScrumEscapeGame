@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.items.*;
+import com.cgi.scrumescapegame.kamers.Room;
 import com.diogonunes.jcolor.Attribute;
 
 public class Player {

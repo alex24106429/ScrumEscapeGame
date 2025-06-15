@@ -2,9 +2,9 @@ package com.cgi.scrumescapegame.items;
 
 import com.cgi.scrumescapegame.Joker;
 import com.cgi.scrumescapegame.Player;
-import com.cgi.scrumescapegame.Room;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.hints.FunnyHintProvider;
+import com.cgi.scrumescapegame.kamers.Room;
 import com.diogonunes.jcolor.Attribute;
 
 public class HintJoker extends Item implements Joker, LimitedUseItem {

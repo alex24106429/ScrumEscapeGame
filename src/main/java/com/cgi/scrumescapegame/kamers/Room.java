@@ -1,17 +1,22 @@
-package com.cgi.scrumescapegame;
+package com.cgi.scrumescapegame.kamers;
 
 import java.awt.Color;
 import java.awt.Point;
 import java.util.HashMap;
+
+import com.cgi.scrumescapegame.Difficulty;
+import com.cgi.scrumescapegame.Game;
+import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.graphics.TextToImageRenderer;
+import com.cgi.scrumescapegame.puzzles.Puzzle;
 
 public abstract class Room {
     protected String name;
     protected String description;
     protected Puzzle puzzle;
-    protected int roomX;
-    protected int roomY;
+    public int roomX;
+    public int roomY;
     private boolean lookedAround = false;
     private boolean isCleared;
     public HashMap<String, Boolean> adjacentRooms = new HashMap<>();

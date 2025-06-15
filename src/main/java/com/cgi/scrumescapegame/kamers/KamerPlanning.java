@@ -3,6 +3,7 @@ package com.cgi.scrumescapegame.kamers;
 import com.cgi.scrumescapegame.*;
 import com.cgi.scrumescapegame.enemies.CodeGolem;
 import com.cgi.scrumescapegame.puzzles.PlanningPuzzle;
+import com.cgi.scrumescapegame.puzzles.PuzzleRooms;
 
 public class KamerPlanning extends Room implements PuzzleRooms {
     public KamerPlanning(int roomX, int roomY) {
