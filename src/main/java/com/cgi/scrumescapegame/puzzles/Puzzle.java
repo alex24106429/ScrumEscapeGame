@@ -73,6 +73,7 @@ public class Puzzle implements PuzzleSubject {
         boolean correct = huidigeVraag.controleerAntwoord(gebruikersAntwoord);
         if(Game.debug && gebruikersAntwoord.equals("skip")) correct = true;
         if (correct) {
+            player.gainExperience(50);
             player.changeGold(10);
         } else {
             boolean shouldGiveHint;
@@ -98,6 +99,7 @@ public class Puzzle implements PuzzleSubject {
             if (Game.debug && secondAnswer.equals("skip")) secondAnswerCorrect = true;
             if (secondAnswerCorrect) {
                 player.changeGold(5);
+                player.gainExperience(25);
             } else {
                 PrintMethods.typeTextColor("Het juiste antwoord was: " + huidigeVraag.getCorrectAntwoord(), Attribute.BRIGHT_YELLOW_TEXT());
                 Game.pause(1000);
