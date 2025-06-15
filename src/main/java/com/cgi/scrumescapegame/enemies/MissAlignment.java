@@ -1,8 +1,6 @@
 package com.cgi.scrumescapegame.enemies;
 
-import com.cgi.scrumescapegame.enemyattacks.MissAlignment_DefinitionofHealed;
-import com.cgi.scrumescapegame.enemyattacks.SlimeMaster_SprintSnare;
-import com.cgi.scrumescapegame.enemyattacks.SlimeMaster_UserSlurry;
+import com.cgi.scrumescapegame.enemyattacks.*;
 
 public class MissAlignment extends Enemy{
     private static String name = "Miss Alignment";
@@ -12,7 +10,7 @@ public class MissAlignment extends Enemy{
     public MissAlignment(){
         super(name, imagepath, maxHp);
         behaviors.add(new MissAlignment_DefinitionofHealed());
-        behaviors.add(new SlimeMaster_SprintSnare());
-        behaviors.add(new SlimeMaster_UserSlurry());
+        behaviors.add(new MissAlignment_BacklogBombardment());
+        behaviors.add(new MissAlignment_ForcedAlignment());
     }
 }

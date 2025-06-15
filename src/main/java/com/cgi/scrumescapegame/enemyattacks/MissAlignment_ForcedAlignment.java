@@ -4,7 +4,7 @@ import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Randomizer;
 import com.cgi.scrumescapegame.enemies.Enemy;
 
-public class MissAlignment_ForcedAlignment {
+public class MissAlignment_ForcedAlignment implements AttackBehavior{
     public String getName() {
         return "Forced Alignment";
     }
