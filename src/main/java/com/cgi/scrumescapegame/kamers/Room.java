@@ -18,7 +18,8 @@ public abstract class Room {
     public int roomX;
     public int roomY;
     private boolean lookedAround = false;
-    private boolean isCleared;
+    private boolean isCleared = false;
+    private boolean hasUsedHintJoker = false;
     public HashMap<String, Boolean> adjacentRooms = new HashMap<>();
 
     public Room(String name, String description, int roomX, int roomY) {
@@ -83,6 +84,14 @@ public abstract class Room {
     }
 
     public abstract int getHue();
+
+    public boolean getHasUsedHintJoker() {
+        return this.hasUsedHintJoker;
+    }
+
+    public void setHasUsedHintJoker(boolean value) {
+        this.hasUsedHintJoker = value;
+    }
 
 }
 

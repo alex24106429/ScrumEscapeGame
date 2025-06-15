@@ -190,6 +190,8 @@ public class Game {
         player.addItem(new Book());
         if (Game.debug) {
             player.addItem(new Torch());
+            player.addItem(new HintJoker());
+            player.addItem(new KeyJoker());
         }
     }
 
