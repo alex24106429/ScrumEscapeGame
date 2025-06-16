@@ -1,9 +1,7 @@
 package com.cgi.scrumescapegame.tests;
 
 import com.cgi.scrumescapegame.Difficulty;
-import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.Player;
-import com.cgi.scrumescapegame.Timer;
 import com.cgi.scrumescapegame.enemies.CodeGolem;
 import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.kamers.StartKamer;
