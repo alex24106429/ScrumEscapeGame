@@ -1,4 +1,4 @@
-package com.cgi.scrumescapegame.puzzles.testing;
+package com.cgi.scrumescapegame.tests;
 
 import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Game;
