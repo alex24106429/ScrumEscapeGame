@@ -1,5 +1,6 @@
 package com.cgi.scrumescapegame;
 
+import com.cgi.scrumescapegame.graphics.ImagePrinter;
 import com.cgi.scrumescapegame.hints.FunnyHintProvider;
 import com.cgi.scrumescapegame.items.Key;
 import com.cgi.scrumescapegame.Player;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 public class AssistantService {
     static boolean keyAcquired = false;
     static ArrayList<String> boodschap = new ArrayList<>();
-    private static String imagePath = "monsters/krab.png";
+    private static String imagePath = "assistent.png";
 
 
     public static void voegBoodschapToe(String nieuweBoodschap) {
@@ -18,6 +19,7 @@ public class AssistantService {
 
     public static void activate(Player player) {
         // Toon plaatje van assistent
+        ImagePrinter.printImage(imagePath);
 
         // 1) Toon een hint
         FunnyHintProvider hintProv = new FunnyHintProvider();
