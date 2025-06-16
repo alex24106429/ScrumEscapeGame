@@ -16,7 +16,6 @@ public class Game {
 
     public final static Scanner scanner = new Scanner(System.in);
     public final GameMap map;
-    public static final boolean debug = true; // Zet dit op false voor de eindversie
     public static final boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
     public static final boolean isScrumOS = System.getProperty("user.name").equals("mainuser");
 
@@ -29,12 +28,7 @@ public class Game {
     public void start() {
         clearAndWelcome();
 
-        if (!debug) {
-            handlePlayerSetup();
-        }
-        else {
-            map.generateMapLayout(3);
-        }
+        handlePlayerSetup();
 
         map.initializeRooms(rooms);
         timer.setStartTime();
@@ -191,11 +185,6 @@ public class Game {
 
     private void giveStartingItems() {
         player.addItem(new Book());
-        if (Game.debug) {
-            player.addItem(new Torch());
-            player.addItem(new HintJoker());
-            player.hasChosenKeyJoker = true;
-        }
     }
 
     private void gameLoop() {

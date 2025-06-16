@@ -5,7 +5,6 @@ import java.awt.Point;
 import java.util.HashMap;
 
 import com.cgi.scrumescapegame.Difficulty;
-import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.graphics.TextToImageRenderer;
@@ -27,9 +26,6 @@ public abstract class Room {
         this.description = description;
         this.roomX = roomX;
         this.roomY = roomY;
-        if (Game.debug){
-            // isCleared = true; // In debug mode, rooms are considered cleared by default
-        }
     }
 
     public Point getCurrentPosition() {

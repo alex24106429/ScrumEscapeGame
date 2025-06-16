@@ -76,7 +76,6 @@ public class Puzzle implements PuzzleSubject {
         String gebruikersAntwoord = scanner.nextLine();
 
         boolean correct = huidigeVraag.controleerAntwoord(gebruikersAntwoord);
-        if(Game.debug && gebruikersAntwoord.equals("skip")) correct = true;
         if (correct) {
             player.gainExperience(50);
             player.changeGold(10);
@@ -101,7 +100,6 @@ public class Puzzle implements PuzzleSubject {
             PrintMethods.printlnColor("Probeer opnieuw: ", Attribute.BRIGHT_BLUE_TEXT());
             String secondAnswer = scanner.nextLine();
             boolean secondAnswerCorrect = huidigeVraag.controleerAntwoord(secondAnswer);
-            if (Game.debug && secondAnswer.equals("skip")) secondAnswerCorrect = true;
             if (secondAnswerCorrect) {
                 player.changeGold(5);
                 player.gainExperience(25);

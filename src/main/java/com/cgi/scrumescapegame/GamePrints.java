@@ -6,7 +6,7 @@ import com.diogonunes.jcolor.Attribute;
 
 public class GamePrints {
     public static void printWelcome() {
-        if(!Game.debug) TitleScreenAnimation.playAnimation();
+        TitleScreenAnimation.playAnimation();
         PrintMethods.clearScreen();
         System.out.println("===================================");
         PrintMethods.printlnColor("     Welkom bij Scrum Escape!", Attribute.BRIGHT_YELLOW_TEXT());

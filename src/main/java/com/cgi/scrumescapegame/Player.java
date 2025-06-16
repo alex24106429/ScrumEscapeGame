@@ -151,12 +151,7 @@ public class Player {
             } else {
                 // Game over logic
                 PrintMethods.printlnColor("Game over! Je hebt al je HP verloren.", Attribute.BRIGHT_RED_TEXT());
-                if (!Game.debug) {
-                    Game.quitGame();
-                } else {
-                    PrintMethods.printlnColor("[Debug] Healen in plaats van stoppen.", Attribute.BRIGHT_GREEN_TEXT());
-                    this.currentHp = this.maxHp;
-                }
+                Game.quitGame();
             }
         }
     }

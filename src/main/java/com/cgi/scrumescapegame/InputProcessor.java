@@ -13,7 +13,6 @@ import com.cgi.scrumescapegame.puzzles.PuzzleRooms;
 import com.diogonunes.jcolor.Attribute;
 
 public class InputProcessor {
-    @SuppressWarnings("unused")
     public static void processInput(String input, Player player, Game game, Scanner scanner, GameMap map, Difficulty difficulty) {
         if (input.startsWith("ga ")) {
             String direction = input.substring("ga ".length()).trim();
@@ -111,7 +110,7 @@ public class InputProcessor {
             AssistantService.activate(player);
         } else if (input.equals("start puzzel")){
             if(player.getCurrentRoom() instanceof PuzzleRooms) {
-                if (player.getCurrentRoom().getCleared() && !Game.debug) {
+                if (player.getCurrentRoom().getCleared()) {
                     System.out.println("Deze kamer is al opgelost.");
                     return;
                 }

@@ -46,9 +46,6 @@ public class PrintMethods {
     }
 
     public static void clearScreen() {
-        if (Game.debug)
-            return;
-
         System.out.print(ANSI_CLEAR);
 
         try {
@@ -60,16 +57,10 @@ public class PrintMethods {
                 new ProcessBuilder("clear").inheritIO().start().waitFor();
             }
         } catch (IOException | InterruptedException e) {
-            if (Game.debug)
-                System.err.println("Error clearing console: " + e.getMessage());
         }
     }
 
     public static void typeText(String text) {
-        if(Game.debug) {
-            System.out.println(text);
-            return;
-        }
         for (char c : text.toCharArray()) {
             System.out.print(c);
             Game.pause(30);
