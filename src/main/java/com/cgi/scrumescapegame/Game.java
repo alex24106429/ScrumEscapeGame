@@ -12,7 +12,7 @@ public class Game {
     private final Player player;
     public static final List<Room> rooms = new ArrayList<>();
     private Difficulty currentDifficulty = Difficulty.NORMAL;
-    public static final Timer timer = new Timer();
+    public static Timer timer = new Timer();
 
     public final static Scanner scanner = new Scanner(System.in);
     public final GameMap map;
