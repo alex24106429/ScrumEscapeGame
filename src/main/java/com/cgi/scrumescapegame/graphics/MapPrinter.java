@@ -51,10 +51,11 @@ public class MapPrinter {
         playerX, playerY,
         playerColor, emptySpaceColor, outlineColor,
         playerRect
-        );
+        );      
 
-        // 6) Show it & footer
+        // 6) Show it & tutorial & footer
         ImagePrinter.printBufferedImage(mapImage);
+        Game.tutorial.mapTutorial();
         printMapFooter(player);
     }
 
