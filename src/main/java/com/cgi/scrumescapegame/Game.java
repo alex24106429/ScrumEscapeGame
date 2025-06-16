@@ -177,7 +177,7 @@ public class Game {
         if (input == 1) {
             player.addItem(new HintJoker());
         } else {
-            player.addItem(new KeyJoker());
+            player.hasChosenKeyJoker = true;
         }
     }
 
@@ -194,7 +194,7 @@ public class Game {
         if (Game.debug) {
             player.addItem(new Torch());
             player.addItem(new HintJoker());
-            player.addItem(new KeyJoker());
+            player.hasChosenKeyJoker = true;
         }
     }
 

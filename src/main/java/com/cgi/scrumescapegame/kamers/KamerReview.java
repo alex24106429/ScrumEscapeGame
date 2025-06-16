@@ -3,6 +3,7 @@ package com.cgi.scrumescapegame.kamers;
 import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.enemies.SlimeMaster;
+import com.cgi.scrumescapegame.items.KeyJoker;
 import com.cgi.scrumescapegame.puzzles.PuzzleRooms;
 import com.cgi.scrumescapegame.puzzles.ReviewPuzzle;
 
@@ -15,11 +16,15 @@ public class KamerReview extends Room implements PuzzleRooms {
 
     @Override
     public void roomLogic(Player player, Difficulty difficulty) {
+        if(player.hasChosenKeyJoker && !player.hasUsedKeyJoker) {
+            player.addItem(new KeyJoker());
+        }
     }
 
     @Override
     public void startPuzzle(Player player, Difficulty difficulty) {
         puzzle.start(player, new SlimeMaster(), difficulty);
+        player.getItems().removeIf(item -> item instanceof KeyJoker);
     }
 
     @Override

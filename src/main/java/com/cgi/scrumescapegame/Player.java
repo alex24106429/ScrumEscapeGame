@@ -24,6 +24,8 @@ public class Player {
     private Armor equippedArmor;
     private int level;
     private int experience;
+    public boolean hasChosenKeyJoker = false;
+    public boolean hasUsedKeyJoker = false;
 
     public Player() {
         this.gold = 0;

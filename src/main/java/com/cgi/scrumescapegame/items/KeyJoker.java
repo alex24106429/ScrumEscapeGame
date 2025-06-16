@@ -4,7 +4,7 @@ import com.cgi.scrumescapegame.Joker;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.kamers.Room;
 
-public class KeyJoker extends Item implements Joker, LimitedUseItem {
+public class KeyJoker extends Item implements Joker, UsableItem {
     public KeyJoker(){
         super(0);
     }
@@ -12,6 +12,13 @@ public class KeyJoker extends Item implements Joker, LimitedUseItem {
     @Override
     public void useInRoom(Room room, Player player){
         if(room.canUseKeyJoker()) player.addItem(new Key());
+        player.getItems().removeIf(item -> item instanceof KeyJoker);
+        player.hasUsedKeyJoker = true;
+    }
+
+    @Override
+    public void useItem(Player player) {
+        useInRoom(player.getCurrentRoom(), player);
     }
 
     @Override
@@ -27,10 +34,5 @@ public class KeyJoker extends Item implements Joker, LimitedUseItem {
     @Override
     public String getImagepath(){
         return "items/keyjoker.png";
-    }
-
-    @Override
-    public int getUsesLeft() {
-        return 0;
     }
 }

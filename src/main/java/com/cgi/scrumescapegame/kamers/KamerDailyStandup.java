@@ -3,6 +3,7 @@ package com.cgi.scrumescapegame.kamers;
 import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.enemies.BacklogHydra;
+import com.cgi.scrumescapegame.items.KeyJoker;
 import com.cgi.scrumescapegame.puzzles.DailyStandupPuzzle;
 import com.cgi.scrumescapegame.puzzles.PuzzleRooms;
 
@@ -19,11 +20,15 @@ public class KamerDailyStandup extends Room implements PuzzleRooms {
     
     @Override
     public void roomLogic(Player player, Difficulty difficulty) {
+        if(player.hasChosenKeyJoker && !player.hasUsedKeyJoker) {
+            player.addItem(new KeyJoker());
+        }
     }
 
     @Override
     public void startPuzzle(Player player, Difficulty difficulty) {
         puzzle.start(player, new BacklogHydra(), difficulty);
+        player.getItems().removeIf(item -> item instanceof KeyJoker);
     }
 
     @Override
