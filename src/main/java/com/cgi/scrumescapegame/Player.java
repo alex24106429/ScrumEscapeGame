@@ -100,7 +100,8 @@ public class Player {
 
     public void printStatus() {
         PrintMethods.printColor("[ Speler: " + name + " ] ", "#FFD3B6");
-        PrintMethods.printColor("[ Locatie: " + currentRoom.getName() + " ]\n", "#D5ECC2");
+        PrintMethods.printColor("[ Locatie: " + currentRoom.getName() + " ] ", "#D5ECC2");
+        PrintMethods.printColor("[ Tijd: " + Game.timer.getTimeSinceStartString() + " ]\n", "#D5ECC2");
         PrintMethods.printColor("[ LVL: " + getLevel() + " ] ", "#95E1D3");
         PrintMethods.printColor("[ XP: " + getXPString() + " ] ", "#BE9FE1");
         PrintMethods.printColor("[ HP: " + getHpString() + " ] ", "#F38181");

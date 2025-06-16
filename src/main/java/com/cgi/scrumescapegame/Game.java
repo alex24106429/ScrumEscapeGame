@@ -12,6 +12,7 @@ public class Game {
     private final Player player;
     public static final List<Room> rooms = new ArrayList<>();
     private Difficulty currentDifficulty = Difficulty.NORMAL;
+    public static final Timer timer = new Timer();
 
     public final static Scanner scanner = new Scanner(System.in);
     public final GameMap map;
@@ -36,6 +37,8 @@ public class Game {
         }
 
         map.initializeRooms(rooms);
+        timer.setStartTime();
+        
         initializeFirstRoom();
 
         finalizeSetup();
@@ -190,6 +193,8 @@ public class Game {
         player.addItem(new Book());
         if (Game.debug) {
             player.addItem(new Torch());
+            player.addItem(new HintJoker());
+            player.addItem(new KeyJoker());
         }
     }
 

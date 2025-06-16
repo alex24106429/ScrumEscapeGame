@@ -68,6 +68,11 @@ public class Puzzle implements PuzzleSubject {
         this.currentVraag = huidigeVraag;
         huidigeVraag.toonVraag();
 
+        if(player.getCurrentRoom().getHasUsedHintJoker()) {
+            PrintMethods.printlnColor("\nHint Joker: " + huidigeVraag.getHint(), Attribute.BRIGHT_GREEN_TEXT());
+            PrintMethods.printColor("> ", Attribute.BRIGHT_BLUE_TEXT());
+        }
+
         String gebruikersAntwoord = scanner.nextLine();
 
         boolean correct = huidigeVraag.controleerAntwoord(gebruikersAntwoord);
