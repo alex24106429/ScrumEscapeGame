@@ -11,8 +11,8 @@ import com.cgi.scrumescapegame.graphics.PrintMethods;
 
 public class DoorOpeningAnimation {
     private static final BufferedImage frames;
-    private static final int width = 28;
-    private static final int height = 44;
+    private static final int width = 94;
+    private static final int height = 46;
     private static final int frameCount = 6;
     private static final int frameDelayMs = 83;
 
@@ -29,7 +29,7 @@ public class DoorOpeningAnimation {
         for (int i = 0; i < frameCount; i++) {
             BufferedImage door = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
             Graphics2D graphics = door.createGraphics();
-            graphics.drawImage(frames.getSubimage(width * i, 0, width, height), 0, 0, null);
+            graphics.drawImage(frames.getSubimage(0, height * i, width, height), 0, 0, null);
             ImagePrinter.printBufferedImage(door);
             PrintMethods.moveCursorUp(height / 2);
             Game.pause(frameDelayMs);
