@@ -2,7 +2,7 @@ package com.cgi.scrumescapegame.items;
 
 public class GoldSword extends Weapon{
     public GoldSword() {
-        super(20, 20, 100);
+        super(30, 40, 100);
     }
 
     @Override

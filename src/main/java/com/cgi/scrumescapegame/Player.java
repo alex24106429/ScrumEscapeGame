@@ -197,6 +197,12 @@ public class Player {
 
     public void addItem(Item item) {
         PrintMethods.printlnColor("Je hebt de item " + item.getName() + " gekregen!", Attribute.BRIGHT_GREEN_TEXT());
+        Game.tutorial.itemTutorial();
+        if(item instanceof EquipableItem) Game.tutorial.equipableItemTutorial();
+        items.add(item);
+    }
+
+    public void addItemQuiet(Item item) {
         items.add(item);
     }
 

@@ -10,7 +10,7 @@ public class HealingPotion extends Item implements UsableItem, LimitedUseItem {
 
     @Override
     public String getDescription() {
-        return "+10 HP";
+        return "+50 HP";
     }
 
     @Override
@@ -20,7 +20,7 @@ public class HealingPotion extends Item implements UsableItem, LimitedUseItem {
 
     @Override
     public void useItem(Player player) {
-        player.changeHp(10);
+        player.changeHp(50);
     }
 
     @Override

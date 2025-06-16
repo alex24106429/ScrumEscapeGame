@@ -291,6 +291,7 @@ public class MapPrinter {
                 }
             }
         }
+        System.out.println();
     }
 
     private static float getRoomHue(Room room) {

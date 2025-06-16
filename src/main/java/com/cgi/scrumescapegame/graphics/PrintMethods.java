@@ -63,7 +63,7 @@ public class PrintMethods {
     public static void typeText(String text) {
         for (char c : text.toCharArray()) {
             System.out.print(c);
-            Game.pause(30);
+            Game.pause(20);
         }
         System.out.println();
     }

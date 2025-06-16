@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Randomizer;
 import com.cgi.scrumescapegame.enemyattacks.AttackBehavior;
+import com.cgi.scrumescapegame.graphics.PrintMethods;
 
 public abstract class Enemy {
     protected String name;
@@ -49,6 +50,10 @@ public abstract class Enemy {
 
     public boolean isAlive() {
         return currentHp > 0;
+    }
+
+    public String getHpString() {
+        return PrintMethods.getProgressBarString((int) ((double) currentHp / maxHp * 100), 5) + " " + currentHp + "/" + maxHp;
     }
 
     public AttackBehavior chooseBehavior() {

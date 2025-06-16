@@ -13,7 +13,7 @@ public class DamagePotion extends Item implements BattleItem, LimitedUseItem {
 
     @Override
     public String getDescription() {
-        return "Deze drank doet 25 schade aan de vijand.";
+        return "Deze drank doet 50 schade aan de vijand.";
     }
 
     @Override
@@ -23,8 +23,8 @@ public class DamagePotion extends Item implements BattleItem, LimitedUseItem {
 
     @Override
     public void useBattleItem(Player player, Enemy enemy) {
-        PrintMethods.printlnColor("Het explosie drankje doet 25 schade aan " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
-        enemy.changeHp(-25);
+        PrintMethods.printlnColor("Het explosie drankje doet 50 schade aan " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
+        enemy.changeHp(-50);
     }
 
     @Override

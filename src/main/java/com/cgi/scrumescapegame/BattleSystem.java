@@ -77,7 +77,7 @@ public class BattleSystem {
 
                 default:
                     // invalid top-level choice → re-prompt, no enemy turn
-                    System.out.println("Ongeldige invoer. Voer een getal in of 'terug'.");
+                    System.out.println("Ongeldige invoer. Voer een getal in.");
                     continue;
             }
         }
@@ -159,8 +159,8 @@ public class BattleSystem {
     }
 
     private static void printHealthStatus(Player player, Enemy enemy) {
-        System.out.println(enemy.getName() + " HP: " + enemy.getCurrentHp());
-        System.out.println(player.getName() + " HP: " + player.getCurrentHp());
+        System.out.println(enemy.getName() + "'s HP: " + enemy.getHpString());
+        System.out.println("Jouw HP: " + player.getHpString());
     }
 
     private static void printEnemyDefeated(Enemy enemy) {

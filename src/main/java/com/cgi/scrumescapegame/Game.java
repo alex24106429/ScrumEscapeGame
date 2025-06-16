@@ -12,9 +12,10 @@ public class Game {
     private final Player player;
     public static final List<Room> rooms = new ArrayList<>();
     private Difficulty currentDifficulty = Difficulty.NORMAL;
-    public static Timer timer = new Timer();
+    public final static Timer timer = new Timer();
 
     public final static Scanner scanner = new Scanner(System.in);
+    public final static Tutorial tutorial = new Tutorial();
     public final GameMap map;
     public static final boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
     public static final boolean isScrumOS = System.getProperty("user.name").equals("mainuser");
@@ -30,15 +31,20 @@ public class Game {
 
         handlePlayerSetup();
 
+        int jokerChoice = promptJoker();
+
         map.initializeRooms(rooms);
         timer.setStartTime();
         
         initializeFirstRoom();
 
         finalizeSetup();
+        PrintMethods.clearScreen();
         enterInitialRoom();
-        giveStartingItems();
         MapPrinter.printMap(player, this.map);
+        applyJokerChoice(jokerChoice);
+        player.addItem(new Book());
+        tutorial.directionTutorial();
 
         gameLoop();
     }
@@ -55,7 +61,6 @@ public class Game {
     private void handlePlayerSetup() {
         promptPlayerName();
         promptDifficulty();
-        promptJoker();
     }
 
     private void promptPlayerName() {
@@ -130,10 +135,9 @@ public class Game {
         }
     }
 
-    private void promptJoker() {
+    private int promptJoker() {
         displayJokerMenu();
-        int choice = readJokerChoice();
-        applyJokerChoice(choice);
+        return readJokerChoice();
     }
 
     private void displayJokerMenu() {
@@ -181,10 +185,6 @@ public class Game {
 
     private void enterInitialRoom() {
         player.getCurrentRoom().enterRoom(player, this.currentDifficulty);
-    }
-
-    private void giveStartingItems() {
-        player.addItem(new Book());
     }
 
     private void gameLoop() {
