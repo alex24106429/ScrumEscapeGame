@@ -4,7 +4,7 @@ import java.time.Duration;
 import java.time.LocalTime;
 
 public class Timer {
-	private LocalTime startTime;
+	private LocalTime startTime = LocalTime.now();
 
 	public void setStartTime() {
 		this.startTime = LocalTime.now();

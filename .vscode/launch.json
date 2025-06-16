@@ -3,6 +3,20 @@
     "configurations": [
 		{
 			"type": "java",
+			"name": "MockPuzzleTest",
+			"request": "launch",
+			"mainClass": "com.cgi.scrumescapegame.tests.MockPuzzleTest",
+			"projectName": "scrumescape"
+		},
+		{
+			"type": "java",
+			"name": "MockRoomTest",
+			"request": "launch",
+			"mainClass": "com.cgi.scrumescapegame.tests.MockRoomTest",
+			"projectName": "scrumescape"
+		},
+		{
+			"type": "java",
 			"name": "Run ScrumEscapeGame",
 			"request": "launch",
 			"mainClass": "com.cgi.scrumescapegame.ScrumEscapeGame",

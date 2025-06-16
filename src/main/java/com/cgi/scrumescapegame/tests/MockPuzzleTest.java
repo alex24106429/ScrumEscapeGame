@@ -18,10 +18,6 @@ import java.util.List;
 public class MockPuzzleTest {
 
     public static void main(String[] args) {
-        Game.timer = new Timer();
-        Game.timer.setStartTime();
-
-
         // Setup dummy vraag
         Vraag vraag = new OpenVraag(
                 "Hoeveel vingers steek ik op?",
