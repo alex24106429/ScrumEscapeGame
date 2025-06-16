@@ -12,5 +12,6 @@ public class MissAlignment extends Enemy{
         behaviors.add(new MissAlignment_DefinitionofHealed());
         behaviors.add(new MissAlignment_BacklogBombardment());
         behaviors.add(new MissAlignment_ForcedAlignment());
+        behaviors.add(new MissAlignment_FinalScrum());
     }
 }
