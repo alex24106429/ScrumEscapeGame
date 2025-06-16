@@ -3,7 +3,6 @@ package com.cgi.scrumescapegame.enemyattacks;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Randomizer;
 import com.cgi.scrumescapegame.enemies.Enemy;
-import com.cgi.scrumescapegame.enemies.SprintSnipper;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.diogonunes.jcolor.Attribute;
 

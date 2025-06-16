@@ -1,7 +1,10 @@
 package com.cgi.scrumescapegame.items;
 
 import com.cgi.scrumescapegame.Player;
+import com.cgi.scrumescapegame.animations.DoorOpeningAnimation;
+import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.kamers.Room;
+import com.diogonunes.jcolor.Attribute;
 
 public class Key extends Item implements UsableItem, LimitedUseItem {
     @Override
@@ -27,6 +30,8 @@ public class Key extends Item implements UsableItem, LimitedUseItem {
     public void useItem(Player player) {
         Room currentRoom = player.getCurrentRoom();
         currentRoom.setCleared(true);
+        DoorOpeningAnimation.playAnimation();
+        PrintMethods.printlnColor("De deuren in de kamer zijn geopend!", Attribute.BRIGHT_GREEN_TEXT());
     }
 
     @Override
