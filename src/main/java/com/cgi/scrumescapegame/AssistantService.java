@@ -3,7 +3,6 @@ package com.cgi.scrumescapegame;
 import com.cgi.scrumescapegame.graphics.ImagePrinter;
 import com.cgi.scrumescapegame.hints.FunnyHintProvider;
 import com.cgi.scrumescapegame.items.Key;
-import com.cgi.scrumescapegame.Player;
 
 import java.util.ArrayList;
 
