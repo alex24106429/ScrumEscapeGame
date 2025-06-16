@@ -11,7 +11,7 @@ import com.cgi.scrumescapegame.items.Chestplate;
 import com.cgi.scrumescapegame.items.DamagePotion;
 import com.cgi.scrumescapegame.items.GoldSword;
 import com.cgi.scrumescapegame.items.GoldenGun;
-import com.cgi.scrumescapegame.items.Grenade;
+import com.cgi.scrumescapegame.items.Bomb;
 import com.cgi.scrumescapegame.items.HealingPotion;
 import com.cgi.scrumescapegame.items.Item;
 import com.cgi.scrumescapegame.items.Shield;
@@ -30,7 +30,7 @@ public class KamerShop extends Room {
             new HealingPotion(),
             new DamagePotion(),
             new Torch(),
-            new Grenade(),
+            new Bomb(),
             new GoldenGun()
         )));
 
