@@ -2,7 +2,7 @@ package com.cgi.scrumescapegame.kamers;
 
 import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Player;
-import com.cgi.scrumescapegame.enemies.ScopeCreeper;
+import com.cgi.scrumescapegame.enemies.SprintSnipper;
 import com.cgi.scrumescapegame.puzzles.PuzzleRooms;
 import com.cgi.scrumescapegame.puzzles.RetrospectivePuzzle;
 
@@ -18,7 +18,7 @@ public class KamerRetrospective extends Room implements PuzzleRooms {
 
     @Override
     public void startPuzzle(Player player, Difficulty difficulty) {
-        puzzle.start(player, new ScopeCreeper(), difficulty);
+        puzzle.start(player, new SprintSnipper(), difficulty);
     }
     
     @Override
