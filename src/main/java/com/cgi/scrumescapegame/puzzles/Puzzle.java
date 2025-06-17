@@ -77,8 +77,8 @@ public class Puzzle implements PuzzleSubject {
 
         boolean correct = huidigeVraag.controleerAntwoord(gebruikersAntwoord);
         if (correct) {
-            player.gainExperience(50);
             player.changeGold(10);
+            player.gainExperience(50);
         } else {
             boolean shouldGiveHint;
             if(difficulty == Difficulty.HARD) {
