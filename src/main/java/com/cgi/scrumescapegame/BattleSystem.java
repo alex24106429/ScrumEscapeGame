@@ -12,6 +12,7 @@ import com.cgi.scrumescapegame.graphics.WallpaperHandler;
 import com.cgi.scrumescapegame.items.BattleItem;
 import com.cgi.scrumescapegame.items.Item;
 import com.cgi.scrumescapegame.items.UsableItem;
+import com.cgi.scrumescapegame.items.Weapon;
 
 public class BattleSystem {
 
@@ -93,6 +94,10 @@ public class BattleSystem {
         PrintMethods.typeTextColor(
                 "Je valt " + enemy.getName() + " aan, en doet " + finalDamage + " HP schade!",
                 Attribute.BRIGHT_GREEN_TEXT());
+        player.getWeapon().changeDurability(-1);
+        if(player.getWeapon().getCurrentDurability() < 1) {
+            player.unequipItem(Weapon.class);
+        }
         return finalDamage;
     }
 

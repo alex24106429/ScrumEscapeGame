@@ -180,16 +180,21 @@ public class Player {
     }
 
     public void printItems() {
+        PrintMethods.printColor("Huidig wapen: ", Attribute.BOLD());
         if (equippedWeapon != null) {
-            PrintMethods.printlnColor("Huidig wapen: ", Attribute.BOLD());
+            System.out.println();
             PrintMethods.printItem(equippedWeapon);
-
+        } else {
+            System.out.println("geen");
         }
+        PrintMethods.printColor("Huidig armor: ", Attribute.BOLD());
         if (equippedArmor != null) {
-            PrintMethods.printlnColor("Huidig armor: ", Attribute.BOLD());
+            System.out.println();
             PrintMethods.printItem(equippedArmor);
+        } else {
+            System.out.println("geen");
         }
-        PrintMethods.printlnColor("\nJe items:", Attribute.BOLD());
+        PrintMethods.printlnColor("Je items:", Attribute.BOLD());
         for (int i = 0; i < items.size(); i++) {
             System.out.printf("%d. ", i + 1);
             PrintMethods.printItem(items.get(i));
