@@ -189,7 +189,7 @@ public class Game {
 
     private void gameLoop() {
         while (true) {
-            System.out.print("\n> ");
+            PrintMethods.printColor("\n> ", Attribute.BRIGHT_BLUE_TEXT());
             String input = scanner.nextLine().trim().toLowerCase();
             InputProcessor.processInput(
                 input, player, this,
