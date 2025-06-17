@@ -18,6 +18,7 @@ public class GamePrints {
         System.out.println("  ga (vooruit/achteruit/links/rechts) - Verplaats je naar de volgende kamer.");
         System.out.println("  gebruik item [nummer]  - Gebruik de opgegeven item (bv. 'gebruik item 1').");
         System.out.println("  start puzzel           - Start een puzzel in de huidige kamer.");
+        System.out.println("  start boss fight       - Start de boss fight in de boss room.");
         System.out.println("  armor opbergen         - Berg je huidige armor op.");
         System.out.println("  wapen opbergen         - Berg je huidige wapen op.");
         System.out.println("  status                 - Toon je huidige status en locatie.");

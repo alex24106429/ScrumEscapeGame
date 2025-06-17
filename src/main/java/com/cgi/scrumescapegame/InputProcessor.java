@@ -8,6 +8,7 @@ import com.cgi.scrumescapegame.graphics.MapPrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.items.Armor;
 import com.cgi.scrumescapegame.items.Weapon;
+import com.cgi.scrumescapegame.kamers.EindKamer;
 import com.cgi.scrumescapegame.kamers.Room;
 import com.cgi.scrumescapegame.puzzles.PuzzleRooms;
 import com.diogonunes.jcolor.Attribute;
@@ -23,7 +24,11 @@ public class InputProcessor {
             boolean moved = false;
 
             if (!currentRoom.getCleared()) {
-                PrintMethods.printlnColor("De deuren zijn gesloten. Maak de puzzel af (\"start puzzel\") om de kamer te kunnen verlaten.", Attribute.BRIGHT_RED_TEXT());
+                if (currentRoom instanceof EindKamer) {
+                    PrintMethods.printlnColor("De deuren zijn gesloten. Versla de eindbaas (\"start boss fight\") om te winnen!", Attribute.BRIGHT_RED_TEXT());
+                } else {
+                    PrintMethods.printlnColor("De deuren zijn gesloten. Maak de puzzel af (\"start puzzel\") om de kamer te kunnen verlaten.", Attribute.BRIGHT_RED_TEXT());
+                }
                 return;
             }
 
@@ -125,7 +130,14 @@ public class InputProcessor {
             player.saveData();
         } else if (input.equals("help")) {
             GamePrints.printHelp();
-        } else if (input.equals("stop")) {
+        } else if (input.equals("start boss fight")){
+            if(player.getCurrentRoom() instanceof EindKamer eindKamer){
+                eindKamer.finalBoss(player, scanner);
+            }else{
+                System.out.println("Je kunt hier niet de boss fight starten.");
+            }
+        }
+                else if (input.equals("stop")) {
             Game.quitGame();
         } else {
             System.out.println("Onbekend commando: \"" + input + "\". Typ 'help' voor een lijst met commando's.");
