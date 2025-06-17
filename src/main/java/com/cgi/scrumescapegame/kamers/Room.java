@@ -53,12 +53,12 @@ public abstract class Room {
 
     // Wordt aangeroepen als een speler de kamer binnenkomt.
     public void enterRoom(Player player, Difficulty difficulty) {
-		TextToImageRenderer.printGradientTextWithShadow(getName(), new Color(255, 255, 255), new Color(127, 127, 127), new Color(31, 31, 31), 2, true, false);
         if(getCleared()) {
             System.out.println(getDescription());
         } else {
             PrintMethods.typeText(getDescription());
         }
+		TextToImageRenderer.printGradientTextWithShadow(getName(), new Color(255, 255, 255), new Color(127, 127, 127), new Color(31, 31, 31), 2, true, false);
         player.printStatus();
         roomLogic(player, difficulty);
     }

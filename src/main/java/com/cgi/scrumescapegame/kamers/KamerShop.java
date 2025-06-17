@@ -39,7 +39,7 @@ public class KamerShop extends Room {
     }
 
     public KamerShop(int roomX, int roomY) {
-        super("Shop", "Je bent in de shop, hier kun je items kopen en verkopen.", roomX, roomY);
+        super("Shop", "Tussen de kamers van de kerker vind je een onverwachte oase. Een wezen van pure transactie, de 'Proces-Handelaar', biedt hier zijn waren aan.\nHij ruilt de artefacten van de Architect voor het goud dat je verdient met vooruitgang.", roomX, roomY);
     }
 
     @Override

@@ -10,7 +10,7 @@ import com.diogonunes.jcolor.Attribute;
 public class KamerBlackJack extends Room {
     private static final BlackjackMinigame minigame = new BlackjackMinigame();
     public KamerBlackJack(int roomX, int roomY) {
-        super("Blackjack Kamer", "Blackjack en Scrum zijn raamwerken om risico's te beheren en met onzekerheid om te gaan, door gebruik te maken van korte, iteratieve cycli waarin je met onvolledige informatie de best mogelijke beslissing neemt, het resultaat inspecteert en de strategie daarop aanpast.", roomX, roomY);
+        super("Blackjack Kamer", "Je stapt een kamer binnen waar de wetten van de kerker lijken te vervagen. Een enkele tafel staat in het midden, uitnodigend.\nDit is de Kamer van het Gecalculeerde Risico. De Architect geloofde dat het nemen van beslissingen met onvolledige informatie een cruciale vaardigheid is.\nBewijs hier je meesterschap in het inschatten van kansen.", roomX, roomY);
     }
     @Override
     public void roomLogic(Player player, Difficulty difficulty) {
