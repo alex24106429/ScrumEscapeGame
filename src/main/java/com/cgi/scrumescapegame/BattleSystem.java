@@ -41,6 +41,7 @@ public class BattleSystem {
 
         concludeBattle(player, totalDamageDealt);
         WallpaperHandler.setWallpaper("dungeon");
+        Game.pause(2000);
     }
 
     private static void initializeBattle(Player player, Enemy enemy) {
