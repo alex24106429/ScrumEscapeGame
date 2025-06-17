@@ -88,8 +88,9 @@ public class Player {
         }
         
         if(Randomizer.getRandomInt(3) == 0) {
-            PrintMethods.typeTextColor("Je kijkt rond in de kamer en vindt een zak met goud!", Attribute.BRIGHT_GREEN_TEXT());
-            addItem(new BagOfGold());
+            Item loot = LootTable.roomLoot.get(Randomizer.getRandomInt(LootTable.roomLoot.size()));
+            PrintMethods.typeTextColor("Je kijkt rond in de kamer en vindt een " + loot.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
+            addItemQuiet(loot);
         } else {
             if(currentRoom.getCleared()) {
                 PrintMethods.printlnColor("Je kijkt rond in de kamer en ziet open deuren.", Attribute.BRIGHT_YELLOW_TEXT());
