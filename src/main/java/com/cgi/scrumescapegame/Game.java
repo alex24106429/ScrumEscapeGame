@@ -43,7 +43,7 @@ public class Game {
         enterInitialRoom();
         MapPrinter.printMap(player, this.map);
         applyJokerChoice(jokerChoice);
-        player.addItem(new Book());
+        player.addItemQuiet(new Book());
         tutorial.directionTutorial();
 
         gameLoop();
@@ -173,7 +173,7 @@ public class Game {
 
     private void applyJokerChoice(int input) {
         if (input == 1) {
-            player.addItem(new HintJoker());
+            player.addItemQuiet(new HintJoker());
         } else {
             player.hasChosenKeyJoker = true;
         }

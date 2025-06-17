@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import com.cgi.scrumescapegame.items.Apple;
 import com.cgi.scrumescapegame.items.BagOfGold;
-import com.cgi.scrumescapegame.items.DamagePotion;
+import com.cgi.scrumescapegame.items.MiniBomb;
 import com.cgi.scrumescapegame.items.HealingPotion;
 import com.cgi.scrumescapegame.items.Item;
 import com.cgi.scrumescapegame.items.Shield;
@@ -21,7 +21,7 @@ public class LootTable {
     public static final ArrayList<Item> battleLoot = new ArrayList<>(Arrays.asList(
         new Sword(Randomizer.getWeightedRandomInt(10)),
         new HealingPotion(),
-        new DamagePotion(),
+        new MiniBomb(),
         new Shield(Randomizer.getWeightedRandomInt(10))
     ));
 }

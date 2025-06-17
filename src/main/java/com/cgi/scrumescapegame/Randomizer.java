@@ -29,8 +29,7 @@ public class Randomizer {
 	 * @return A random integer, more likely to be close to 0.
 	 */
 	public static int getWeightedRandomInt(int max) {
-		// Using a default weight strength of 2.0 (quadratic bias)
-		return getWeightedRandomInt(0, max, 2.0);
+		return getWeightedRandomInt(0, max, 3.0);
 	}
 
 	/**
@@ -43,8 +42,7 @@ public class Randomizer {
 	 * @return A random integer, more likely to be close to min.
 	 */
 	public static int getWeightedRandomInt(int min, int max) {
-		// Using a default weight strength of 2.0 (quadratic bias)
-		return getWeightedRandomInt(min, max, 2.0);
+		return getWeightedRandomInt(min, max, 3.0);
 	}
 
 	/**

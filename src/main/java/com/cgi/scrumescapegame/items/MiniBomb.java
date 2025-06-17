@@ -5,26 +5,26 @@ import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.diogonunes.jcolor.Attribute;
 
-public class DamagePotion extends Item implements BattleItem, LimitedUseItem {
+public class MiniBomb extends Item implements BattleItem, LimitedUseItem {
     @Override
     public String getName() {
-        return "Explosie Drankje";
+        return "Mini Bom";
     }
 
     @Override
     public String getDescription() {
-        return "Deze drank doet 50 schade aan de vijand.";
+        return "Doet 100 HP schade aan de vijand.";
     }
 
     @Override
     public String getImagepath() {
-        return "items/damagepotion.png";
+        return "items/minibomb.png";
     }
 
     @Override
     public void useBattleItem(Player player, Enemy enemy) {
-        PrintMethods.printlnColor("Het explosie drankje doet 50 schade aan " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
-        enemy.changeHp(-50);
+        PrintMethods.printlnColor("De mini bom doet 100 HP schade aan " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
+        enemy.changeHp(-100);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class DamagePotion extends Item implements BattleItem, LimitedUseItem {
         return 0;
     }
 
-    public DamagePotion() {
+    public MiniBomb() {
         super(50);
     }
 }

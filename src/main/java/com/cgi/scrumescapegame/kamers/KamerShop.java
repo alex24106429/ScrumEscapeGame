@@ -9,7 +9,7 @@ import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Randomizer;
 import com.cgi.scrumescapegame.Shop;
 import com.cgi.scrumescapegame.items.Chestplate;
-import com.cgi.scrumescapegame.items.DamagePotion;
+import com.cgi.scrumescapegame.items.MiniBomb;
 import com.cgi.scrumescapegame.items.GoldSword;
 import com.cgi.scrumescapegame.items.GoldenGun;
 import com.cgi.scrumescapegame.items.Bomb;
@@ -20,21 +20,21 @@ import com.cgi.scrumescapegame.items.Sword;
 import com.cgi.scrumescapegame.items.Torch;
 
 public class KamerShop extends Room {
+    private final Shop shop = new Shop(new ArrayList<Item>(Arrays.asList(
+        new Shield(Randomizer.getWeightedRandomInt(10)),
+        new Chestplate(Randomizer.getWeightedRandomInt(10)),
+        new Sword(Randomizer.getWeightedRandomInt(10)),
+        new GoldSword(Randomizer.getWeightedRandomInt(10)),
+        new HealingPotion(),
+        new MiniBomb(),
+        new Torch(),
+        new Bomb(),
+        new GoldenGun()
+    )));
+    
     @Override
     public void roomLogic(Player player, Difficulty difficulty) {
         setCleared(true);
-        Shop shop = new Shop(new ArrayList<Item>(Arrays.asList(
-            new Shield(Randomizer.getWeightedRandomInt(10)),
-            new Chestplate(Randomizer.getWeightedRandomInt(10)),
-            new Sword(Randomizer.getWeightedRandomInt(10)),
-            new GoldSword(Randomizer.getWeightedRandomInt(10)),
-            new HealingPotion(),
-            new DamagePotion(),
-            new Torch(),
-            new Bomb(),
-            new GoldenGun()
-        )));
-
         shop.interactiveMode(Game.scanner, player);
     }
 

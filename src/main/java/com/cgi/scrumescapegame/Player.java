@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 
 import com.cgi.scrumescapegame.enemies.Enemy;
+import com.cgi.scrumescapegame.graphics.ImagePrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.items.*;
 import com.cgi.scrumescapegame.kamers.Room;
@@ -125,36 +126,35 @@ public class Player {
     /**
      * Changes the player's current HP.
      * @param amount The amount to change HP by. Positive for gaining, negative for losing.
+     * @return the amount of HP lost
      */
-    public void changeHp(int amount) {
-        if (amount == 0) {
-            return; // No change needed
-        }
+    public int changeHp(int amount) {
+        if (amount == 0) return 0;
 
         // --- Gaining HP ---
         if (amount > 0) {
             if (currentHp >= maxHp) {
                 PrintMethods.printlnColor("Je hebt al de maximale hoeveelheid HP.", Attribute.BRIGHT_GREEN_TEXT());
-            } else {
-                currentHp += amount;
-                if (currentHp > maxHp) {
-                    currentHp = maxHp;
-                }
-                PrintMethods.printlnColor("Je hebt " + amount + " HP gekregen!", Attribute.BRIGHT_GREEN_TEXT());
+                return 0;
             }
-        // --- Losing HP ---
-        } else { // amount is negative
-            int lossAmount = -amount; // Make it a positive number for calculations and messages
-            if ((currentHp - lossAmount) > 0) {
-                currentHp -= lossAmount;
-                PrintMethods.printlnColor("Je verliest " + lossAmount + " HP! Huidige HP: " + getHpString(),
-                        Attribute.BRIGHT_RED_TEXT());
-            } else {
-                // Game over logic
-                PrintMethods.printlnColor("Game over! Je hebt al je HP verloren.", Attribute.BRIGHT_RED_TEXT());
-                Game.quitGame();
-            }
+            currentHp += amount;
+            if (currentHp > maxHp) currentHp = maxHp;
+            PrintMethods.printlnColor("Je hebt " + amount + " HP gekregen!", Attribute.BRIGHT_GREEN_TEXT());
+            return 0;
         }
+        // --- Losing HP ---
+        // amount is negative
+        int lossAmount = -amount - getDefense();
+        if (lossAmount < 0) lossAmount = 0;
+        if ((currentHp - lossAmount) > 0) {
+            currentHp -= lossAmount;
+            PrintMethods.printlnColor("Je verliest " + lossAmount + " HP! Huidige HP: " + getHpString(), Attribute.BRIGHT_RED_TEXT());
+            return lossAmount;
+        }
+        // Game over logic
+        PrintMethods.printlnColor("Game over! Je hebt al je HP verloren.", Attribute.BRIGHT_RED_TEXT());
+        Game.quitGame();
+        return lossAmount;
     }
 
     public Item getItem(int itemIndex) {
@@ -197,6 +197,7 @@ public class Player {
     }
 
     public void addItem(Item item) {
+        ImagePrinter.printImage(item.getImagepath());
         PrintMethods.printlnColor("Je hebt de item " + item.getName() + " gekregen!", Attribute.BRIGHT_GREEN_TEXT());
         Game.tutorial.itemTutorial();
         if(item instanceof EquipableItem) Game.tutorial.equipableItemTutorial();

@@ -8,12 +8,12 @@ import com.diogonunes.jcolor.Attribute;
 public class Bomb extends Item implements BattleItem, LimitedUseItem {
     @Override
     public String getName() {
-        return "Bom";
+        return "Mega Bom";
     }
 
     @Override
     public String getDescription() {
-        return "Doet 100 schade aan de vijand.";
+        return "Doet 200 HP schade aan de vijand.";
     }
 
     @Override
@@ -23,8 +23,8 @@ public class Bomb extends Item implements BattleItem, LimitedUseItem {
 
     @Override
     public void useBattleItem(Player player, Enemy enemy) {
-        PrintMethods.printlnColor("De bom doet 100 damage aan " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
-        enemy.changeHp(-100);
+        PrintMethods.printlnColor("De bom doet 200 HP schade aan " + enemy.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
+        enemy.changeHp(-200);
     }
 
     @Override

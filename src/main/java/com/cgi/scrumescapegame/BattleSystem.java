@@ -41,7 +41,8 @@ public class BattleSystem {
 
         concludeBattle(player, totalDamageDealt);
         WallpaperHandler.setWallpaper("dungeon");
-        Game.pause(2000);
+        PrintMethods.typeTextColor("Druk op Enter om door te gaan...", Attribute.BRIGHT_YELLOW_TEXT());
+        scanner.nextLine();
     }
 
     private static void initializeBattle(Player player, Enemy enemy) {
@@ -86,11 +87,11 @@ public class BattleSystem {
 
     private static int handlePlayerAttack(Player player, Enemy enemy) {
         float multiplier = QuickTimeEvent.runQuickTimeEvent();
-        System.out.println("Je attack damage: " + (int) (multiplier * 200) + "%");
+        System.out.println("Je attack schade: " + (int) (multiplier * 200) + "%");
         int finalDamage = Math.round(player.getAttack() * multiplier * 2);
         enemy.changeHp(-finalDamage);
         PrintMethods.typeTextColor(
-                "Je valt " + enemy.getName() + " aan, en doet " + finalDamage + " hp damage!",
+                "Je valt " + enemy.getName() + " aan, en doet " + finalDamage + " HP schade!",
                 Attribute.BRIGHT_GREEN_TEXT());
         return finalDamage;
     }
@@ -144,14 +145,14 @@ public class BattleSystem {
     private static void enemyTurn(Player player, Enemy enemy) {
         System.out.println("\n--- " + enemy.getName() + "'s Beurt ---");
         int dmg = enemy.performAttack(player);
-        if(dmg != 0) {
+        if (dmg != 0) {
             PrintMethods.typeTextColor(
-                    enemy.getName() + " gebruikt " + enemy.getLastActionName() +
-                            " en doet " + dmg + " hp damage!",
+                    enemy.getName() + " gebruikte " + enemy.getLastActionName() +
+                            " en doet " + dmg + " HP schade!",
                     Attribute.BRIGHT_RED_TEXT());
-        }else{
+        } else {
             PrintMethods.typeTextColor(
-                    enemy.getName() + " gebruikt " + enemy.getLastActionName(),
+                    enemy.getName() + " gebruikte " + enemy.getLastActionName(),
                     Attribute.BRIGHT_RED_TEXT());
         }
         if (!player.isAlive()) {

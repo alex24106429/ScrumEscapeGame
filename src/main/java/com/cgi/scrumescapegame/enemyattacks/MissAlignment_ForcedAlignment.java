@@ -12,11 +12,9 @@ public class MissAlignment_ForcedAlignment implements AttackBehavior{
     }
 
     public int attack(Enemy enemy, Player player) {
-        int heal = Randomizer.getRandomInt(5, 10);
-        int dmg = Randomizer.getRandomInt(5, 10);
-        player.changeHp(-dmg);
+        int heal = Randomizer.getRandomInt(10, 20);
         enemy.changeHp(heal);
         PrintMethods.printlnColor(enemy + " healde " + heal + " HP!", Attribute.BRIGHT_RED_TEXT());
-        return dmg;
+		return player.changeHp(-Randomizer.getRandomInt(40, 80));
     }
 }

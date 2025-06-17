@@ -11,8 +11,7 @@ public class CodeGolem_StackOverflowStomp implements AttackBehavior {
     }
 
     public int attack(Enemy enemy, Player player) {
-        int dmg = Randomizer.getRandomInt(5, 17);
-        player.changeHp(-dmg);
-        return dmg;
+		return player.changeHp(-Randomizer.getRandomInt(10, 20));
+
     }
 }

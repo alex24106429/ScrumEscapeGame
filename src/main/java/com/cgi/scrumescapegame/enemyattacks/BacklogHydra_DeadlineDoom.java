@@ -11,8 +11,6 @@ public class BacklogHydra_DeadlineDoom implements AttackBehavior {
 	}
 
 	public int attack(Enemy enemy, Player player) {
-		int dmg = Randomizer.getRandomInt(20, 30);
-		player.changeHp(-dmg);
-		return dmg;
+		return player.changeHp(-Randomizer.getRandomInt(20, 30));
 	}
 }

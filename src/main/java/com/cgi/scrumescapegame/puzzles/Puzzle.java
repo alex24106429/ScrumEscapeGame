@@ -104,8 +104,8 @@ public class Puzzle implements PuzzleSubject {
                 player.changeGold(5);
                 player.gainExperience(25);
             } else {
-                PrintMethods.typeTextColor(huidigeVraag.getCorrectAntwoord(), Attribute.BRIGHT_YELLOW_TEXT());
-                Game.pause(1000);
+                PrintMethods.typeTextColor(huidigeVraag.getCorrectAntwoord() + "\nDruk op Enter om door te gaan...", Attribute.BRIGHT_YELLOW_TEXT());
+                scanner.nextLine();
                 BattleSystem.startBattle(player, enemy, scanner);
             }
         }
