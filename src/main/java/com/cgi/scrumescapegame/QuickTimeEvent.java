@@ -14,7 +14,7 @@ public class QuickTimeEvent {
 		final int barWidth = 50;
 		final int barHeight = 4;
 		final int centerX = barWidth / 2;
-		final long frameDelay = 20; // ~50 FPS
+		final long frameDelay = 16; // ~60 FPS
 
 		// 1) build the red→green→red background
 		BufferedImage barBg = new BufferedImage(barWidth, barHeight, BufferedImage.TYPE_INT_RGB);
@@ -22,8 +22,16 @@ public class QuickTimeEvent {
 			float t = (x <= centerX)
 					? (float) x / centerX
 					: (float) (barWidth - 1 - x) / centerX;
-			int red = (int) ((1 - t) * 255);
-			int green = (int) (t * 255);
+			int red;
+			int green;
+			if (t < 0.5) {
+				red = 255;
+				green = (int) ((t * 2) * 255);
+			} else {
+				red = (int) ((1.0 - (t - 0.5) * 2) * 255);
+				green = 255;
+			}
+
 			int rgb = (red << 16) | (green << 8);
 			for (int y = 0; y < barHeight; y++) {
 				barBg.setRGB(x, y, rgb);
