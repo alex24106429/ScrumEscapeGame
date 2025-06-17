@@ -171,6 +171,7 @@ public class BattleSystem {
         if (player.isAlive()) {
             PrintMethods.printlnColor("\nBattle gewonnen!", Attribute.BRIGHT_GREEN_TEXT());
             player.gainExperience(totalDamageDealt);
+            player.addItem(LootTable.battleLoot.get(Randomizer.getRandomInt(LootTable.battleLoot.size())));
         } else {
             PrintMethods.printlnColor("\nBattle verloren!", Attribute.BRIGHT_RED_TEXT());
         }
