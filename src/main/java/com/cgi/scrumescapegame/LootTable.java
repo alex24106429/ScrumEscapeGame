@@ -13,6 +13,15 @@ import com.cgi.scrumescapegame.items.Sword;
 import com.cgi.scrumescapegame.items.Torch;
 
 public class LootTable {
-    public static final ArrayList<Item> roomLoot = new ArrayList<>(Arrays.asList(new Apple(), new BagOfGold(), new Torch()));
-    public static final ArrayList<Item> battleLoot = new ArrayList<>(Arrays.asList(new Sword(), new HealingPotion(), new DamagePotion(), new Shield()));
+    public static final ArrayList<Item> roomLoot = new ArrayList<>(Arrays.asList(
+        new Apple(),
+        new BagOfGold(),
+        new Torch()
+    ));
+    public static final ArrayList<Item> battleLoot = new ArrayList<>(Arrays.asList(
+        new Sword(Randomizer.getWeightedRandomInt(10)),
+        new HealingPotion(),
+        new DamagePotion(),
+        new Shield(Randomizer.getWeightedRandomInt(10))
+    ));
 }

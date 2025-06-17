@@ -1,12 +1,18 @@
 package com.cgi.scrumescapegame.items;
 
 public class Sword extends Weapon {
-    public Sword() {
-        super(20, 20, 50);
+    private int buff = 0;
+
+    public Sword(int buff) {
+        super(20 + buff, 20 + buff, 50 + buff * 2);
+        this.buff = buff;
     }
 
     @Override
     public String getName() {
+        if (this.buff > 0) {
+            return "Ijzeren Zwaard +" + buff;
+        }
         return "Ijzeren Zwaard";
     }
 

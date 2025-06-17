@@ -1,12 +1,18 @@
 package com.cgi.scrumescapegame.items;
 
-public class Chestplate extends Armor{
-    public Chestplate() {
-        super(20, 20, 100);
+public class Chestplate extends Armor {
+    private int buff = 0;
+
+    public Chestplate(int buff) {
+        super(20 + buff, 20 + buff, 100 + buff * 2);
+        this.buff = buff;
     }
 
     @Override
     public String getName() {
+        if (this.buff > 0) {
+            return "Harnas +" + buff;
+        }
         return "Harnas";
     }
 

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.Player;
+import com.cgi.scrumescapegame.Randomizer;
 import com.cgi.scrumescapegame.Shop;
 import com.cgi.scrumescapegame.items.Chestplate;
 import com.cgi.scrumescapegame.items.DamagePotion;
@@ -23,10 +24,10 @@ public class KamerShop extends Room {
     public void roomLogic(Player player, Difficulty difficulty) {
         setCleared(true);
         Shop shop = new Shop(new ArrayList<Item>(Arrays.asList(
-            new Shield(),
-            new Chestplate(),
-            new Sword(),
-            new GoldSword(),
+            new Shield(Randomizer.getWeightedRandomInt(10)),
+            new Chestplate(Randomizer.getWeightedRandomInt(10)),
+            new Sword(Randomizer.getWeightedRandomInt(10)),
+            new GoldSword(Randomizer.getWeightedRandomInt(10)),
             new HealingPotion(),
             new DamagePotion(),
             new Torch(),
