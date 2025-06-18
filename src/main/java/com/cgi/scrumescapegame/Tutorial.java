@@ -8,6 +8,7 @@ public class Tutorial {
 	private boolean hasSeenItemTutorial = false;
 	private boolean hasSeenEquipableItemTutorial = false;
 	private boolean hasSeenMapTutorial = false;
+	private boolean hasSeenLookAroundTutorial = false;
 
 	public void directionTutorial() {
 		if (this.hasSeenDirectionTutorial) return;
@@ -31,5 +32,11 @@ public class Tutorial {
 		if (this.hasSeenMapTutorial) return;
 		PrintMethods.printlnColor("Hierboven is de map. Iedere gekleurde tegel is een kamer. Jouw locatie is de witte tegel.\nDe mogelijke richtingen staan hieronder.", Attribute.DIM(), Attribute.ITALIC());
 		this.hasSeenMapTutorial = true;
+	}
+
+	public void lookAroundTutorial() {
+		if (this.hasSeenLookAroundTutorial) return;
+		PrintMethods.printlnColor("Typ 'kijk rond' om rond te kijken in de kamer, misschien liggen er items.", Attribute.DIM(), Attribute.ITALIC());
+		this.hasSeenLookAroundTutorial = true;
 	}
 }

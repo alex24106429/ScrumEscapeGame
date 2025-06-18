@@ -60,7 +60,7 @@ public class ReviewPuzzle extends Puzzle{
         // Vraag 8
         vragen.add(new OpenVraag(
                 "Wat gebeurt er met Product Backlog Items die aan het einde van de sprint niet 'Done' zijn?",
-                Arrays.asList("terug op de Product Backlog"),
+                Arrays.asList("terug", "backlog"),
                 "Ze worden opnieuw ingeschat en geprioriteerd."
         ));
         // Vraag 9

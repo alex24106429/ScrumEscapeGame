@@ -53,7 +53,7 @@ public class Matching implements Vraag {
 
     @Override
     public String getCorrectAntwoord() {
-        return "Correcte antwoorden zijn: " + String.join(", ", correcteAntwoorden);
+        return "De correcte antwoorden zijn: " + String.join(", ", correcteAntwoorden);
     }
 
     @Override

@@ -77,8 +77,8 @@ public class Puzzle implements PuzzleSubject {
 
         boolean correct = huidigeVraag.controleerAntwoord(gebruikersAntwoord);
         if (correct) {
+            player.changeGold(25);
             player.gainExperience(50);
-            player.changeGold(10);
         } else {
             boolean shouldGiveHint;
             if(difficulty == Difficulty.HARD) {
@@ -101,11 +101,11 @@ public class Puzzle implements PuzzleSubject {
             String secondAnswer = scanner.nextLine();
             boolean secondAnswerCorrect = huidigeVraag.controleerAntwoord(secondAnswer);
             if (secondAnswerCorrect) {
-                player.changeGold(5);
+                player.changeGold(10);
                 player.gainExperience(25);
             } else {
-                PrintMethods.typeTextColor("Het juiste antwoord was: " + huidigeVraag.getCorrectAntwoord(), Attribute.BRIGHT_YELLOW_TEXT());
-                Game.pause(1000);
+                PrintMethods.typeTextColor(huidigeVraag.getCorrectAntwoord() + "\nDruk op Enter om door te gaan...", Attribute.BRIGHT_YELLOW_TEXT());
+                scanner.nextLine();
                 BattleSystem.startBattle(player, enemy, scanner);
             }
         }

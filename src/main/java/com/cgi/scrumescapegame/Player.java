@@ -4,13 +4,14 @@ import java.time.Instant;
 import java.util.ArrayList;
 
 import com.cgi.scrumescapegame.enemies.Enemy;
+import com.cgi.scrumescapegame.graphics.ImagePrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.items.*;
 import com.cgi.scrumescapegame.kamers.Room;
 import com.diogonunes.jcolor.Attribute;
 
 public class Player {
-    final int XP_PER_LEVEL = 50;
+    final int XP_PER_LEVEL = 100;
 
     private String name = "Avonturier";
     public Room currentRoom;
@@ -88,8 +89,10 @@ public class Player {
         }
         
         if(Randomizer.getRandomInt(3) == 0) {
-            PrintMethods.typeTextColor("Je kijkt rond in de kamer en vindt een zak met goud!", Attribute.BRIGHT_GREEN_TEXT());
-            addItem(new BagOfGold());
+            LootTable lootTable = new LootTable();
+            Item loot = lootTable.roomLoot.get(Randomizer.getRandomInt(lootTable.roomLoot.size()));
+            PrintMethods.typeTextColor("Je kijkt rond in de kamer en vindt een " + loot.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
+            addItemQuiet(loot);
         } else {
             if(currentRoom.getCleared()) {
                 PrintMethods.printlnColor("Je kijkt rond in de kamer en ziet open deuren.", Attribute.BRIGHT_YELLOW_TEXT());
@@ -124,36 +127,37 @@ public class Player {
     /**
      * Changes the player's current HP.
      * @param amount The amount to change HP by. Positive for gaining, negative for losing.
+     * @return the amount of HP lost
      */
-    public void changeHp(int amount) {
-        if (amount == 0) {
-            return; // No change needed
-        }
+    public int changeHp(int amount) {
+        if (amount == 0) return 0;
 
         // --- Gaining HP ---
         if (amount > 0) {
             if (currentHp >= maxHp) {
                 PrintMethods.printlnColor("Je hebt al de maximale hoeveelheid HP.", Attribute.BRIGHT_GREEN_TEXT());
-            } else {
-                currentHp += amount;
-                if (currentHp > maxHp) {
-                    currentHp = maxHp;
-                }
-                PrintMethods.printlnColor("Je hebt " + amount + " HP gekregen!", Attribute.BRIGHT_GREEN_TEXT());
+                return 0;
             }
-        // --- Losing HP ---
-        } else { // amount is negative
-            int lossAmount = -amount; // Make it a positive number for calculations and messages
-            if ((currentHp - lossAmount) > 0) {
-                currentHp -= lossAmount;
-                PrintMethods.printlnColor("Je verliest " + lossAmount + " HP! Huidige HP: " + getHpString(),
-                        Attribute.BRIGHT_RED_TEXT());
-            } else {
-                // Game over logic
-                PrintMethods.printlnColor("Game over! Je hebt al je HP verloren.", Attribute.BRIGHT_RED_TEXT());
-                Game.quitGame();
-            }
+            currentHp += amount;
+            if (currentHp > maxHp) currentHp = maxHp;
+            PrintMethods.printlnColor("Je hebt " + amount + " HP gekregen!", Attribute.BRIGHT_GREEN_TEXT());
+            return 0;
         }
+        // --- Losing HP ---
+        // amount is negative
+        int lossAmount = -amount - getDefense();
+        if (lossAmount < 0) lossAmount = 0;
+        if ((currentHp - lossAmount) > 0) {
+            currentHp -= lossAmount;
+            PrintMethods.printlnColor("Je verliest " + lossAmount + " HP! Huidige HP: " + getHpString(), Attribute.BRIGHT_RED_TEXT());
+            return lossAmount;
+        }
+        // Game over logic
+        PrintMethods.typeTextColor("Game over! Je hebt al je HP verloren.", Attribute.BRIGHT_RED_TEXT());
+        PrintMethods.typeTextColor("Druk op Enter om door te gaan...", Attribute.BRIGHT_YELLOW_TEXT());
+        Game.scanner.nextLine();
+        Game.quitGame();
+        return lossAmount;
     }
 
     public Item getItem(int itemIndex) {
@@ -179,16 +183,21 @@ public class Player {
     }
 
     public void printItems() {
+        PrintMethods.printColor("Huidig wapen: ", Attribute.BOLD());
         if (equippedWeapon != null) {
-            PrintMethods.printlnColor("Huidig wapen: ", Attribute.BOLD());
+            System.out.println();
             PrintMethods.printItem(equippedWeapon);
-
+        } else {
+            PrintMethods.printlnColor("geen", Attribute.BRIGHT_RED_TEXT());
         }
+        PrintMethods.printColor("Huidig armor: ", Attribute.BOLD());
         if (equippedArmor != null) {
-            PrintMethods.printlnColor("Huidig armor: ", Attribute.BOLD());
+            System.out.println();
             PrintMethods.printItem(equippedArmor);
+        } else {
+            PrintMethods.printlnColor("geen", Attribute.BRIGHT_RED_TEXT());
         }
-        PrintMethods.printlnColor("\nJe items:", Attribute.BOLD());
+        PrintMethods.printlnColor("Je items:", Attribute.BOLD());
         for (int i = 0; i < items.size(); i++) {
             System.out.printf("%d. ", i + 1);
             PrintMethods.printItem(items.get(i));
@@ -196,7 +205,8 @@ public class Player {
     }
 
     public void addItem(Item item) {
-        PrintMethods.printlnColor("Je hebt de item " + item.getName() + " gekregen!", Attribute.BRIGHT_GREEN_TEXT());
+        ImagePrinter.printImage(item.getImagepath());
+        PrintMethods.typeTextColor("Je hebt de item " + item.getName() + " gekregen!", Attribute.BRIGHT_GREEN_TEXT());
         Game.tutorial.itemTutorial();
         if(item instanceof EquipableItem) Game.tutorial.equipableItemTutorial();
         items.add(item);
@@ -208,6 +218,18 @@ public class Player {
 
     public void removeItem(int itemIndex) {
         items.remove(itemIndex);
+    }
+
+    public void removeItem(Item itemToRemove) {
+        if (itemToRemove == this.equippedWeapon) {
+            unequipItem(Weapon.class, false);
+            return;
+        }
+        if (itemToRemove == this.equippedArmor) {
+            unequipItem(Armor.class, false);
+            return;
+        }
+        items.remove(itemToRemove);
     }
 
     public void equipItem(EquipableItem newItem) {
@@ -231,39 +253,56 @@ public class Player {
     }
 
 
-    public void unequipItem(Class<? extends EquipableItem> type) {
+    public void unequipItem(Class<? extends EquipableItem> type, boolean addtoInventory) {
         if (type == Weapon.class && equippedWeapon != null) {
             equippedWeapon.unequip(this);
-            items.add(equippedWeapon);
+            if (addtoInventory) items.add(equippedWeapon);
             equippedWeapon = null;
         } else if (type == Armor.class && equippedArmor != null) {
             equippedArmor.unequip(this);
-            items.add(equippedArmor);
+            if (addtoInventory) items.add(equippedArmor);
             equippedArmor = null;
         }
     }
 
     public void useItem(int index) {
-        if (index >= 0 && index < items.size()) {
-            Item item = items.get(index);
-            if (item instanceof UsableItem) {
-                ((UsableItem) item).useItem(this);
-                if (item instanceof LimitedUseItem && ((LimitedUseItem) item).getUsesLeft() == 0)
-                    items.remove(index);
-            } else if (item instanceof EquipableItem) {
-                if (item instanceof Weapon) {
-                    equipItem((Weapon) item);
-                } else if (item instanceof Armor) {
-                    equipItem((Armor) item);
-                }
-                PrintMethods.printlnColor("Je hebt " + item.getName() + " aan gezet.",  Attribute.BRIGHT_GREEN_TEXT());
-                items.remove(index);
-            } else {
-                PrintMethods.printlnColor("Dit item kan niet worden gebruikt.", Attribute.RED_TEXT());
-            }
-        } else {
+        // Guard Clause: controleer op een ongeldige index en stop direct als dat zo is.
+        if (index < 0 || index >= items.size()) {
             PrintMethods.printlnColor("Ongeldige item index.", Attribute.RED_TEXT());
+            return;
         }
+
+        Item item = items.get(index);
+
+        // Handel het geval af waar het een 'UsableItem' is en stop daarna.
+        if (item instanceof UsableItem) {
+            ((UsableItem) item).useItem(this);
+            if (item instanceof LimitedUseItem && ((LimitedUseItem) item).getUsesLeft() == 0) {
+                items.remove(index);
+            }
+            return;
+        }
+
+        // Handel het geval af waar het een 'EquipableItem' is en stop daarna.
+        if (item instanceof EquipableItem) {
+            if (item instanceof Weapon) {
+                equipItem((Weapon) item);
+                PrintMethods.printlnColor(item.getName() + " is nu je huidige wapen. (+" + ((Weapon) item).getAttackBonus() + " ATK)",  Attribute.BRIGHT_YELLOW_TEXT());
+            } else if (item instanceof Armor) {
+                equipItem((Armor) item);
+                PrintMethods.printlnColor(item.getName() + " is nu je huidige armor. (+" + ((Armor) item).getDefenseBonus() + " DEF)",  Attribute.BRIGHT_YELLOW_TEXT());
+            }
+            items.remove(index);
+            return;
+        }
+
+        if (item instanceof BattleItem) {
+            PrintMethods.printlnColor("Dit item kan alleen worden gebruikt tijdens een battle.", Attribute.RED_TEXT());
+            return;
+        }
+
+        // Als geen van de bovenstaande gevallen van toepassing was, is het item niet bruikbaar.
+        PrintMethods.printlnColor("Dit item kan niet worden gebruikt.", Attribute.RED_TEXT());
     }
 
     public void useBattleItem(int index, Enemy enemy) {
@@ -303,9 +342,9 @@ public class Player {
             case Difficulty.EASY:
                 this.maxHp = 150;
                 this.currentHp = this.maxHp;
-                this.attack = 20;
-                this.defense = 20;
-                this.gold = 50;
+                this.attack = 15;
+                this.defense = 15;
+                this.gold = 100;
                 break;
 
             case Difficulty.NORMAL:
@@ -313,6 +352,7 @@ public class Player {
                 this.currentHp = this.maxHp;
                 this.attack = 10;
                 this.defense = 10;
+                this.gold = 50;
                 break;
 
             case Difficulty.HARD:

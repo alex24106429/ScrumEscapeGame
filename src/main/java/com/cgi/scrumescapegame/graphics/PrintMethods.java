@@ -8,7 +8,6 @@ import com.cgi.scrumescapegame.items.Armor;
 import com.cgi.scrumescapegame.items.BattleItem;
 import com.cgi.scrumescapegame.items.EquipableItem;
 import com.cgi.scrumescapegame.items.Item;
-import com.cgi.scrumescapegame.items.LimitedUseItem;
 import com.cgi.scrumescapegame.items.UsableItem;
 import com.cgi.scrumescapegame.items.Weapon;
 import com.diogonunes.jcolor.Ansi;
@@ -63,7 +62,11 @@ public class PrintMethods {
     public static void typeText(String text) {
         for (char c : text.toCharArray()) {
             System.out.print(c);
-            Game.pause(20);
+            if(c == ',' || c == '.' || c == '!') {
+                Game.pause(300);
+            } else {
+                Game.pause(30);
+            }
         }
         System.out.println();
     }
@@ -181,15 +184,9 @@ public class PrintMethods {
             PrintMethods.printlnColor(durability + "/" + maxDurability, color);
         }
 
-        if(item instanceof LimitedUseItem) {
-            LimitedUseItem usableItem = (LimitedUseItem) item;
-            int usesLeft = usableItem.getUsesLeft();
-            if(usesLeft != Integer.MAX_VALUE) printlnColor(usesLeft + 1 + " gebruik(en) over", Attribute.DIM());
-        }
-
         int price = item.getCurrentValue();
 
-        if(price > 0) PrintMethods.printlnColor("Prijs: "+ price + "G", Attribute.YELLOW_TEXT());
+        if(price > 0) PrintMethods.printlnColor("Waarde: "+ price + "G", Attribute.YELLOW_TEXT());
 
         PrintMethods.printlnColor(item.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
         ImagePrinter.printImage(item.getImagepath());

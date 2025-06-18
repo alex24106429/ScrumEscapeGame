@@ -1,6 +1,7 @@
 package com.cgi.scrumescapegame.items;
 
 import com.cgi.scrumescapegame.Player;
+import com.cgi.scrumescapegame.Randomizer;
 
 public class BagOfGold extends Item implements UsableItem, LimitedUseItem {
 
@@ -31,11 +32,7 @@ public class BagOfGold extends Item implements UsableItem, LimitedUseItem {
     }
 
     public BagOfGold() {
-        super(0);
-        int min = 2;
-        int max = 10;
-        int randGetal = (int) (Math.random() * (max - min + 1)) + min;
-        this.goldAmount = randGetal * 5; // Random amount of gold between 10 and 50
-
+        super(Randomizer.getRandomInt(15, 75));
+        this.goldAmount = getCurrentValue();
     }
 }

@@ -8,7 +8,7 @@ import com.cgi.scrumescapegame.puzzles.RetrospectivePuzzle;
 
 public class KamerRetrospective extends Room implements PuzzleRooms {
     public KamerRetrospective(int roomX, int roomY) {
-        super("Retrospective kamer", "Wow je bent in de retrospectivekamer", roomX, roomY);
+        super("Retrospective kamer", "Een serene, stille kamer. De muren zijn als spiegels die niet je uiterlijk, maar je acties en processen reflecteren.\nDit is het Heiligdom van de Reflectie. Kijk terug om vooruit te komen, en wees eerlijk zonder schuld te zoeken.\nWant waar vingerwijzen en kritiek de overhand nemen, scherpt de Sprint Snipper zijn scharen om je teamgeest aan stukken te knippen.", roomX, roomY);
         this.puzzle = new RetrospectivePuzzle();
     }
 

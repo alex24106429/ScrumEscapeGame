@@ -9,9 +9,11 @@ import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.ImagePrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.graphics.WallpaperHandler;
+import com.cgi.scrumescapegame.items.Armor;
 import com.cgi.scrumescapegame.items.BattleItem;
 import com.cgi.scrumescapegame.items.Item;
 import com.cgi.scrumescapegame.items.UsableItem;
+import com.cgi.scrumescapegame.items.Weapon;
 
 public class BattleSystem {
 
@@ -41,6 +43,8 @@ public class BattleSystem {
 
         concludeBattle(player, totalDamageDealt);
         WallpaperHandler.setWallpaper("dungeon");
+        PrintMethods.typeTextColor("Druk op Enter om door te gaan...", Attribute.BRIGHT_YELLOW_TEXT());
+        scanner.nextLine();
     }
 
     private static void initializeBattle(Player player, Enemy enemy) {
@@ -85,12 +89,20 @@ public class BattleSystem {
 
     private static int handlePlayerAttack(Player player, Enemy enemy) {
         float multiplier = QuickTimeEvent.runQuickTimeEvent();
-        System.out.println("Je attack damage: " + (int) (multiplier * 200) + "%");
+        System.out.println("Je attack schade: " + (int) (multiplier * 200) + "%");
         int finalDamage = Math.round(player.getAttack() * multiplier * 2);
         enemy.changeHp(-finalDamage);
         PrintMethods.typeTextColor(
-                "Je valt " + enemy.getName() + " aan, en doet " + finalDamage + " hp damage!",
+                "Je valt " + enemy.getName() + " aan, en doet " + finalDamage + " HP schade!",
                 Attribute.BRIGHT_GREEN_TEXT());
+        Weapon playerWeapon = player.getWeapon();
+        if(playerWeapon != null) {
+            playerWeapon.changeDurability(-1);
+            if(playerWeapon.getCurrentDurability() < 1) {
+                player.unequipItem(Weapon.class, false);
+                PrintMethods.typeTextColor("Je wapen is kapot!", Attribute.BRIGHT_RED_TEXT());
+            }
+        }
         return finalDamage;
     }
 
@@ -100,16 +112,22 @@ public class BattleSystem {
      */
     private static boolean handleItemUse(Player player, Enemy enemy, Scanner scanner) {
         List<Item> items = player.getItems();
+        int count = 0;
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
             if (item instanceof UsableItem || item instanceof BattleItem) {
                 System.out.print((i + 1) + ". ");
                 PrintMethods.printItem(item);
+                count++;
             }
+        }
+        if(count < 1) {
+            PrintMethods.printColor("Je hebt geen Bruikbare of Battle items.", Attribute.BRIGHT_RED_TEXT());
+            return true;
         }
 
         PrintMethods.printColor(
-                "Voer het nummer in van het item dat je wilt gebruiken (of 'terug' om terug te gaan):",
+                "Voer het nummer in van het item dat je wilt gebruiken (of 'terug' om terug te gaan): ",
                 Attribute.BRIGHT_BLUE_TEXT());
         String itemInput = scanner.nextLine().trim().toLowerCase();
 
@@ -143,14 +161,22 @@ public class BattleSystem {
     private static void enemyTurn(Player player, Enemy enemy) {
         System.out.println("\n--- " + enemy.getName() + "'s Beurt ---");
         int dmg = enemy.performAttack(player);
-        if(dmg != 0) {
+        if (dmg != 0) {
             PrintMethods.typeTextColor(
-                    enemy.getName() + " gebruikt " + enemy.getLastActionName() +
-                            " en doet " + dmg + " hp damage!",
+                    enemy.getName() + " gebruikte " + enemy.getLastActionName() +
+                            " en deed " + dmg + " HP schade!",
                     Attribute.BRIGHT_RED_TEXT());
-        }else{
+            Armor playerArmor = player.getArmor();
+            if(playerArmor != null) {
+                playerArmor.changeDurability(-1);
+                if(playerArmor.getCurrentDurability() < 1) {
+                    player.unequipItem(Armor.class, false);
+                    PrintMethods.typeTextColor("Je armor is kapot!", Attribute.BRIGHT_RED_TEXT());
+                }
+            }
+        } else {
             PrintMethods.typeTextColor(
-                    enemy.getName() + " gebruikt " + enemy.getLastActionName(),
+                    enemy.getName() + " gebruikte " + enemy.getLastActionName(),
                     Attribute.BRIGHT_RED_TEXT());
         }
         if (!player.isAlive()) {
@@ -170,7 +196,10 @@ public class BattleSystem {
     private static void concludeBattle(Player player, int totalDamageDealt) {
         if (player.isAlive()) {
             PrintMethods.printlnColor("\nBattle gewonnen!", Attribute.BRIGHT_GREEN_TEXT());
+            player.changeGold(totalDamageDealt / 4);
             player.gainExperience(totalDamageDealt);
+            LootTable lootTable = new LootTable();
+            player.addItem(lootTable.battleLoot.get(Randomizer.getRandomInt(lootTable.battleLoot.size())));
         } else {
             PrintMethods.printlnColor("\nBattle verloren!", Attribute.BRIGHT_RED_TEXT());
         }

@@ -9,7 +9,7 @@ import com.cgi.scrumescapegame.puzzles.PuzzleRooms;
 
 public class KamerDailyStandup extends Room implements PuzzleRooms {
     public KamerDailyStandup(int roomX, int roomY) {
-        super("Kamer daily standup", "Je bent in de daily standup kamer. Hier bespreken we wat we sinds de volgende standup gedaan hebben en hoe we verder gaan werken.", roomX, roomY);
+        super("Kamer daily standup", "Een cirkelvormige kamer, met in het midden een gigantisch, pulserend uurwerk dat de tijd in blokken van 24 uur wegtikt.\nDit is het Hart van het Ritme. De dagelijkse synchronisatie houdt de muren hier sterk.\nVerspil geen tijd, want elke seconde van onduidelijkheid voedt de veelkoppige Backlog Hydra die loert in de schaduwen van onafgemaakt werk.", roomX, roomY);
         this.puzzle = new DailyStandupPuzzle();
     }
 

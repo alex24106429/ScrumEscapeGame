@@ -10,7 +10,7 @@ import com.cgi.scrumescapegame.puzzles.ReviewPuzzle;
 public class KamerReview extends Room implements PuzzleRooms {
 
     public KamerReview(int roomX, int roomY) {
-        super("Review Kamer", "Welkom in de Sprint Review kamer. Hier presenteer je het werkende product aan de stakeholders.", roomX, roomY);
+        super("Review Kamer", "Je staat in een amfitheater, badend in een helder, onthullend licht.\nDit is de Arena van de Waarde, waar het resultaat van je werk wordt geïnspecteerd. De echo's van talloze stakeholders hangen in de lucht.\nToon wat je hebt gebouwd en verzamel hun feedback, voordat de vage wensen en onduidelijke eisen samensmelten tot een glibberige Slime Master.", roomX, roomY);
         this.puzzle = new ReviewPuzzle();
     }
 

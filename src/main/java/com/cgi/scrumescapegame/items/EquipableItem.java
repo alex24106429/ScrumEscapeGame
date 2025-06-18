@@ -14,6 +14,7 @@ public abstract class EquipableItem extends Item {
 
     public abstract void equip(Player player);
     public abstract void unequip(Player player);
+    public abstract int getBuff();
 
     public int getCurrentDurability() {
         return currentDurability;

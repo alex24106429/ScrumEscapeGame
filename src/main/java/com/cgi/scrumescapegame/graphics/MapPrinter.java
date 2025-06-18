@@ -242,7 +242,7 @@ public class MapPrinter {
         if (player.getCurrentRoom().getCleared()) {
             printAvailableRooms(player);
         } else {
-            PrintMethods.printColor(
+            PrintMethods.printlnColor(
                 "De deuren zijn gesloten. Maak de puzzel af (\"start puzzel\") om de kamer te kunnen verlaten.",
                 Attribute.BRIGHT_YELLOW_TEXT()
             );

@@ -8,7 +8,7 @@ import com.cgi.scrumescapegame.puzzles.ScrumboardPuzzle;
 
 public class KamerScrumboard extends Room implements PuzzleRooms {
     public KamerScrumboard(int roomX, int roomY) {
-        super("Scrumboard kamer", "Je bent in de Scrumboard kamer. Hier kan je zien welke taken en user stories er nog aan gewerkt moeten worden.", roomX, roomY);
+        super("Scrumboard kamer", "De muren van dit vertrek zijn een levend mozaïek van bewegende tegels die de stroom van werk visualiseren.\nDit is de Galerij van Transparantie, waar elke taak zichtbaar is voor iedereen. Maar wees op je hoede.\nIn de kieren van het bord, waar de 'Definition of Done' vaag is, sluipt de Scope Creeper, altijd op zoek naar een kans om ongemerkt werk toe te voegen.", roomX, roomY);
         this.puzzle = new ScrumboardPuzzle();
     }
 

@@ -49,7 +49,7 @@ public class MeerkeuzeVraag implements Vraag {
 
     @Override
     public String getCorrectAntwoord() {
-        return (char)('A' + correcteOptieIndex) + ". " + opties.get(correcteOptieIndex);
+        return "Het correcte antwoord is: " + (char)('A' + correcteOptieIndex) + ". " + opties.get(correcteOptieIndex);
     }
 
     @Override

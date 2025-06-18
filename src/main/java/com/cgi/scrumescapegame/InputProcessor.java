@@ -97,9 +97,9 @@ public class InputProcessor {
                 System.out.println("Die item bestaat niet. Typ 'items' om beschikbare items te zien.");
             }
         } else if (input.equals("armor opbergen")) {
-            player.unequipItem(Armor.class);
+            player.unequipItem(Armor.class, true);
         } else if (input.equals("wapen opbergen")) {
-            player.unequipItem(Weapon.class);
+            player.unequipItem(Weapon.class, true);
         } else if (input.equals("status")) {
             player.printStatus();
         } else if (input.equals("map")) {
