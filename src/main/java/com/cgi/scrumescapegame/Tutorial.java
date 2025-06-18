@@ -9,6 +9,7 @@ public class Tutorial {
 	private boolean hasSeenEquipableItemTutorial = false;
 	private boolean hasSeenMapTutorial = false;
 	private boolean hasSeenLookAroundTutorial = false;
+	private boolean hasSeenBlackjackTutorial = false;
 
 	public void directionTutorial() {
 		if (this.hasSeenDirectionTutorial) return;
@@ -38,5 +39,21 @@ public class Tutorial {
 		if (this.hasSeenLookAroundTutorial) return;
 		PrintMethods.printlnColor("Typ 'kijk rond' om rond te kijken in de kamer, misschien liggen er items.", Attribute.DIM(), Attribute.ITALIC());
 		this.hasSeenLookAroundTutorial = true;
+	}
+
+	public void blackjackTutorial() {
+		if (this.hasSeenBlackjackTutorial) return;
+		PrintMethods.typeTextColor("1. Het Doel: Kom zo dicht mogelijk bij 21 punten, zonder eroverheen te gaan. Je speelt tegen de dealer.", Attribute.WHITE_TEXT());
+		PrintMethods.typeTextColor("2. Kaartwaarden:", Attribute.WHITE_TEXT());
+		PrintMethods.printlnColor("   - Kaarten 2 t/m 10 hebben hun eigen waarde.", Attribute.DIM());
+		PrintMethods.printlnColor("   - Boer, Vrouw en Koning zijn 10 punten waard.", Attribute.DIM());
+		PrintMethods.printlnColor("   - Aas is 1 of 11 punten waard, wat voor jou het beste uitkomt.", Attribute.DIM());
+		PrintMethods.typeTextColor("3. Jouw Beurt:", Attribute.WHITE_TEXT());
+		PrintMethods.printlnColor("   - 'Hit' (h): Vraag om een extra kaart.", Attribute.DIM());
+		PrintMethods.printlnColor("   - 'Stand' (s): Je past en neemt geen kaarten meer. De beurt gaat naar de dealer.", Attribute.DIM());
+		PrintMethods.typeTextColor("4. Bust: Als je totaal boven de 21 komt, ben je 'bust' en verlies je direct je inzet.", Attribute.WHITE_TEXT());
+		PrintMethods.typeTextColor("5. De Dealer: De dealer moet kaarten nemen ('hit') totdat hij 17 of meer punten heeft. Daarna moet hij passen ('stand').", Attribute.WHITE_TEXT());
+		PrintMethods.typeTextColor("6. Winnen: Je wint als jouw puntentotaal hoger is dan dat van de dealer (zonder 'bust' te gaan), of als de dealer 'bust' gaat.", Attribute.WHITE_TEXT());
+		this.hasSeenBlackjackTutorial = true;
 	}
 }

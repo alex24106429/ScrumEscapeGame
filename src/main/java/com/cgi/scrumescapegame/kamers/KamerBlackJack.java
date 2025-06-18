@@ -14,6 +14,7 @@ public class KamerBlackJack extends Room {
     }
     @Override
     public void roomLogic(Player player, Difficulty difficulty) {
+        Game.tutorial.blackjackTutorial();
         if(getCleared()) {
             PrintMethods.typeTextColor("Wil je Blackjack spelen?", Attribute.BRIGHT_YELLOW_TEXT());
             PrintMethods.printColor("(j/n) > ", Attribute.BRIGHT_BLUE_TEXT());
