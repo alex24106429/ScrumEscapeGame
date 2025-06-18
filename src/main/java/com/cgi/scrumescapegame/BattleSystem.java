@@ -188,7 +188,8 @@ public class BattleSystem {
             PrintMethods.printlnColor("\nBattle gewonnen!", Attribute.BRIGHT_GREEN_TEXT());
             player.gainExperience(totalDamageDealt);
             player.changeGold(totalDamageDealt / 3);
-            player.addItem(LootTable.battleLoot.get(Randomizer.getRandomInt(LootTable.battleLoot.size())));
+            LootTable lootTable = new LootTable();
+            player.addItem(lootTable.battleLoot.get(Randomizer.getRandomInt(lootTable.battleLoot.size())));
         } else {
             PrintMethods.printlnColor("\nBattle verloren!", Attribute.BRIGHT_RED_TEXT());
         }

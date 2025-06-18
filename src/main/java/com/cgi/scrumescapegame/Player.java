@@ -89,7 +89,8 @@ public class Player {
         }
         
         if(Randomizer.getRandomInt(3) == 0) {
-            Item loot = LootTable.roomLoot.get(Randomizer.getRandomInt(LootTable.roomLoot.size()));
+            LootTable lootTable = new LootTable();
+            Item loot = lootTable.roomLoot.get(Randomizer.getRandomInt(lootTable.roomLoot.size()));
             PrintMethods.typeTextColor("Je kijkt rond in de kamer en vindt een " + loot.getName() + "!", Attribute.BRIGHT_GREEN_TEXT());
             addItemQuiet(loot);
         } else {
