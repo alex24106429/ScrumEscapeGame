@@ -20,4 +20,9 @@ public class Chestplate extends Armor {
     public String getImagepath() {
         return "items/chestplate.png";
     }
+
+    @Override
+    public int getBuff() {
+        return this.buff;
+    }
 }

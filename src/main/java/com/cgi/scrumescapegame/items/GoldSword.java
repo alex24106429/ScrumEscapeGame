@@ -20,4 +20,9 @@ public class GoldSword extends Weapon {
     public String getImagepath() {
         return "items/goldsword.png";
     }
+
+    @Override
+    public int getBuff() {
+        return this.buff;
+    }
 }

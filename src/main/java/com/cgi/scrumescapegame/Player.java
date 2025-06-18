@@ -220,6 +220,18 @@ public class Player {
         items.remove(itemIndex);
     }
 
+    public void removeItem(Item itemToRemove) {
+        if (itemToRemove == this.equippedWeapon) {
+            unequipItem(Weapon.class, false);
+            return;
+        }
+        if (itemToRemove == this.equippedArmor) {
+            unequipItem(Armor.class, false);
+            return;
+        }
+        items.remove(itemToRemove);
+    }
+
     public void equipItem(EquipableItem newItem) {
         if (newItem instanceof Weapon) {
             if (this.equippedWeapon != null) {

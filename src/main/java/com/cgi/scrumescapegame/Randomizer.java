@@ -1,14 +1,40 @@
 package com.cgi.scrumescapegame;
 
 public class Randomizer {
+	/**
+	 * Generates a random integer within a specified inclusive range.
+	 * <p>
+	 * This method ensures that the generated number will be greater than or equal to
+	 * {@code min} and less than or equal to {@code max}.
+	 *
+	 * @param min The minimum value of the range (inclusive).
+	 * @param max The maximum value of the range (inclusive).
+	 * @return A random integer between min and max, inclusive.
+	 * @throws IllegalArgumentException if max is less than min.
+	 */
 	public static int getRandomInt(int min, int max) {
 		if (min > max) {
 			throw new IllegalArgumentException("max must be greater than or equal to min");
 		}
+		// Math.random() returns a double from 0.0 (inclusive) to 1.0 (exclusive).
+		// (max - min + 1) calculates the size of the range.
+		// The result is a random integer from min to max.
 		return min + (int) (Math.random() * (max - min + 1));
 	}
 
+	/**
+	 * Generates a random integer between 0 (inclusive) and a specified
+	 * upper bound (exclusive).
+	 * <p>
+	 * This is an overload of {@link #getRandomInt(int, int)} with a default
+	 * minimum value of 0. The behavior is similar to {@code java.util.Random.nextInt(int)}.
+	 *
+	 * @param max The upper bound for the generated random number (exclusive). Must be positive.
+	 * @return A random integer between 0 (inclusive) and max (exclusive).
+	 */
 	public static int getRandomInt(int max) {
+		// Math.random() * max results in a value from 0.0 to (max - 1).999...
+		// Casting to int truncates the decimal, resulting in an integer from 0 to max-1.
 		return (int) (Math.random() * max);
 	}
 

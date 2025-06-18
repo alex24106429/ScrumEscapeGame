@@ -20,4 +20,9 @@ public class Shield extends Armor {
     public String getImagepath() {
         return "items/shield.png";
     }
+
+    @Override
+    public int getBuff() {
+        return this.buff;
+    }
 }
