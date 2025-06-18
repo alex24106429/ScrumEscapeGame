@@ -50,9 +50,7 @@ public class GamePrints {
         System.out.println("\n\n===================================");
         PrintMethods.printlnColor("          EINDSTAND", Attribute.BOLD());
         System.out.println("===================================");
-        PrintMethods.printlnColor("  Speler: " + player.getName(), Attribute.CYAN_TEXT());
-        PrintMethods.printlnColor("  Eindtijd: " + Game.timer.getTimeSinceStartString(), Attribute.CYAN_TEXT());
-        PrintMethods.printlnColor("  Level: " + player.getLevel(), Attribute.CYAN_TEXT());
+        player.printStatus();
         System.out.println("===================================");
 
         PrintMethods.typeTextColor("\nBedankt voor het spelen!", Attribute.BRIGHT_MAGENTA_TEXT());
