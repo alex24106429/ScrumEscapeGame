@@ -119,7 +119,7 @@ public class BattleSystem {
         }
 
         PrintMethods.printColor(
-                "Voer het nummer in van het item dat je wilt gebruiken (of 'terug' om terug te gaan):",
+                "Voer het nummer in van het item dat je wilt gebruiken (of 'terug' om terug te gaan): ",
                 Attribute.BRIGHT_BLUE_TEXT());
         String itemInput = scanner.nextLine().trim().toLowerCase();
 

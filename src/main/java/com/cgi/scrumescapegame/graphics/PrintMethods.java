@@ -181,12 +181,6 @@ public class PrintMethods {
             PrintMethods.printlnColor(durability + "/" + maxDurability, color);
         }
 
-        if(item instanceof LimitedUseItem) {
-            LimitedUseItem usableItem = (LimitedUseItem) item;
-            int usesLeft = usableItem.getUsesLeft();
-            if(usesLeft != Integer.MAX_VALUE) printlnColor(usesLeft + 1 + " gebruik(en) over", Attribute.DIM());
-        }
-
         int price = item.getCurrentValue();
 
         if(price > 0) PrintMethods.printlnColor("Prijs: "+ price + "G", Attribute.YELLOW_TEXT());

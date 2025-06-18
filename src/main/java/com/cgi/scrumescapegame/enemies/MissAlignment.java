@@ -5,7 +5,7 @@ import com.cgi.scrumescapegame.enemyattacks.*;
 public class MissAlignment extends Enemy{
     private static String name = "Miss Alignment";
     private static String imagepath = "monsters/healer.png";
-    private static int maxHp = 100;
+    private static int maxHp = 500;
 
     public MissAlignment(){
         super(name, imagepath, maxHp);
