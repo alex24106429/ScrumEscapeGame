@@ -251,26 +251,38 @@ public class Player {
     }
 
     public void useItem(int index) {
-        if (index >= 0 && index < items.size()) {
-            Item item = items.get(index);
-            if (item instanceof UsableItem) {
-                ((UsableItem) item).useItem(this);
-                if (item instanceof LimitedUseItem && ((LimitedUseItem) item).getUsesLeft() == 0)
-                    items.remove(index);
-            } else if (item instanceof EquipableItem) {
-                if (item instanceof Weapon) {
-                    equipItem((Weapon) item);
-                } else if (item instanceof Armor) {
-                    equipItem((Armor) item);
-                }
-                PrintMethods.printlnColor("Je hebt " + item.getName() + " aan gezet.",  Attribute.BRIGHT_GREEN_TEXT());
-                items.remove(index);
-            } else {
-                PrintMethods.printlnColor("Dit item kan niet worden gebruikt.", Attribute.RED_TEXT());
-            }
-        } else {
+        // Guard Clause: controleer op een ongeldige index en stop direct als dat zo is.
+        if (index < 0 || index >= items.size()) {
             PrintMethods.printlnColor("Ongeldige item index.", Attribute.RED_TEXT());
+            return;
         }
+
+        Item item = items.get(index);
+
+        // Handel het geval af waar het een 'UsableItem' is en stop daarna.
+        if (item instanceof UsableItem) {
+            ((UsableItem) item).useItem(this);
+            if (item instanceof LimitedUseItem && ((LimitedUseItem) item).getUsesLeft() == 0) {
+                items.remove(index);
+            }
+            return;
+        }
+
+        // Handel het geval af waar het een 'EquipableItem' is en stop daarna.
+        if (item instanceof EquipableItem) {
+            if (item instanceof Weapon) {
+                equipItem((Weapon) item);
+                PrintMethods.printlnColor(item.getName() + " is nu je huidige wapen. (+" + ((Weapon) item).getAttackBonus() + " ATK)",  Attribute.BRIGHT_YELLOW_TEXT());
+            } else if (item instanceof Armor) {
+                equipItem((Armor) item);
+                PrintMethods.printlnColor(item.getName() + " is nu je huidige armor. (+" + ((Armor) item).getDefenseBonus() + " DEF)",  Attribute.BRIGHT_YELLOW_TEXT());
+            }
+            items.remove(index);
+            return;
+        }
+
+        // Als geen van de bovenstaande gevallen van toepassing was, is het item niet bruikbaar.
+        PrintMethods.printlnColor("Dit item kan niet worden gebruikt.", Attribute.RED_TEXT());
     }
 
     public void useBattleItem(int index, Enemy enemy) {

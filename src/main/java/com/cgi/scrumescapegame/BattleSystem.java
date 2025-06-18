@@ -156,7 +156,7 @@ public class BattleSystem {
         if (dmg != 0) {
             PrintMethods.typeTextColor(
                     enemy.getName() + " gebruikte " + enemy.getLastActionName() +
-                            " en doet " + dmg + " HP schade!",
+                            " en deed " + dmg + " HP schade!",
                     Attribute.BRIGHT_RED_TEXT());
         } else {
             PrintMethods.typeTextColor(
