@@ -63,9 +63,9 @@ public class PrintMethods {
         for (char c : text.toCharArray()) {
             System.out.print(c);
             if(c == ',' || c == '.' || c == '!') {
-                Game.pause(300);
+                Game.pause(250);
             } else {
-                Game.pause(30);
+                Game.pause(25);
             }
         }
         System.out.println();
