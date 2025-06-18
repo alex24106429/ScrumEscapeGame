@@ -77,7 +77,7 @@ public class Puzzle implements PuzzleSubject {
 
         boolean correct = huidigeVraag.controleerAntwoord(gebruikersAntwoord);
         if (correct) {
-            player.changeGold(10);
+            player.changeGold(25);
             player.gainExperience(50);
         } else {
             boolean shouldGiveHint;
@@ -101,7 +101,7 @@ public class Puzzle implements PuzzleSubject {
             String secondAnswer = scanner.nextLine();
             boolean secondAnswerCorrect = huidigeVraag.controleerAntwoord(secondAnswer);
             if (secondAnswerCorrect) {
-                player.changeGold(5);
+                player.changeGold(10);
                 player.gainExperience(25);
             } else {
                 PrintMethods.typeTextColor(huidigeVraag.getCorrectAntwoord() + "\nDruk op Enter om door te gaan...", Attribute.BRIGHT_YELLOW_TEXT());

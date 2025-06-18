@@ -11,7 +11,7 @@ import com.cgi.scrumescapegame.kamers.Room;
 import com.diogonunes.jcolor.Attribute;
 
 public class Player {
-    final int XP_PER_LEVEL = 50;
+    final int XP_PER_LEVEL = 100;
 
     private String name = "Avonturier";
     public Room currentRoom;
@@ -324,7 +324,7 @@ public class Player {
                 this.currentHp = this.maxHp;
                 this.attack = 20;
                 this.defense = 20;
-                this.gold = 50;
+                this.gold = 100;
                 break;
 
             case Difficulty.NORMAL:
@@ -332,6 +332,7 @@ public class Player {
                 this.currentHp = this.maxHp;
                 this.attack = 10;
                 this.defense = 10;
+                this.gold = 50;
                 break;
 
             case Difficulty.HARD:
