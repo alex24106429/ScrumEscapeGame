@@ -71,9 +71,18 @@ public class QuickTimeEvent {
 			// check for enter
 			try {
 				if (System.in.available() > 0 && System.in.read() == '\n') {
-					// compute closeness: 1.0 at center, 0.0 at edges
+					// 1. Calculate the normalized distance from the center (0.0 at center, 1.0 at edge)
 					float dist = Math.abs(cursorX - centerX);
-					float closeness = Math.max(0f, 1f - dist / centerX);
+					float normalizedDist = dist / centerX;
+
+					// 2. Calculate linear closeness (1.0 at center, 0.0 at edge)
+					float linearCloseness = 1f - normalizedDist;
+
+					// 3. Square the linear closeness to make it non-linear and stricter.
+					float closeness = linearCloseness * linearCloseness;
+
+					// 4. Clamp the value to ensure it's never negative (good practice)
+					closeness = Math.max(0f, closeness);
 					PrintMethods.moveCursorDown(2);
 					PrintMethods.showCursor();
 					return closeness;

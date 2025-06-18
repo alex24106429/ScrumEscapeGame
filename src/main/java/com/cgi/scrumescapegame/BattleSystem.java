@@ -98,7 +98,7 @@ public class BattleSystem {
         if(playerWeapon != null) {
             playerWeapon.changeDurability(-1);
             if(playerWeapon.getCurrentDurability() < 1) {
-                player.unequipItem(Weapon.class);
+                player.unequipItem(Weapon.class, false);
             }
         }
         return finalDamage;
@@ -110,12 +110,18 @@ public class BattleSystem {
      */
     private static boolean handleItemUse(Player player, Enemy enemy, Scanner scanner) {
         List<Item> items = player.getItems();
+        int count = 0;
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
             if (item instanceof UsableItem || item instanceof BattleItem) {
                 System.out.print((i + 1) + ". ");
                 PrintMethods.printItem(item);
+                count++;
             }
+        }
+        if(count < 1) {
+            PrintMethods.printColor("Je hebt geen Bruikbare of Battle items.", Attribute.BRIGHT_RED_TEXT());
+            return true;
         }
 
         PrintMethods.printColor(
@@ -181,6 +187,7 @@ public class BattleSystem {
         if (player.isAlive()) {
             PrintMethods.printlnColor("\nBattle gewonnen!", Attribute.BRIGHT_GREEN_TEXT());
             player.gainExperience(totalDamageDealt);
+            player.changeGold(totalDamageDealt / 3);
             player.addItem(LootTable.battleLoot.get(Randomizer.getRandomInt(LootTable.battleLoot.size())));
         } else {
             PrintMethods.printlnColor("\nBattle verloren!", Attribute.BRIGHT_RED_TEXT());

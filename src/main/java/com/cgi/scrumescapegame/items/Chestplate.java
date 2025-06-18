@@ -4,7 +4,7 @@ public class Chestplate extends Armor {
     private int buff = 0;
 
     public Chestplate(int buff) {
-        super(20 + buff, 20 + buff, 100 + buff * 2);
+        super(20 + buff, 10 + buff, 100 + buff * 2);
         this.buff = buff;
     }
 

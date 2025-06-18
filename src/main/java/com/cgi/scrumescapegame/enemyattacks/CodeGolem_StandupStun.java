@@ -11,6 +11,6 @@ public class CodeGolem_StandupStun implements AttackBehavior {
     }
 
     public int attack(Enemy enemy, Player player) {
-		return player.changeHp(-Randomizer.getWeightedRandomInt(20, 100));
+		return player.changeHp(-Randomizer.getWeightedRandomInt(20, 60, 3.0));
     }
 }

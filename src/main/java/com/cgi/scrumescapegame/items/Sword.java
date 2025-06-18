@@ -4,7 +4,7 @@ public class Sword extends Weapon {
     private int buff = 0;
 
     public Sword(int buff) {
-        super(20 + buff, 20 + buff, 50 + buff * 2);
+        super(1, 20 + buff, 50 + buff * 2);
         this.buff = buff;
     }
 

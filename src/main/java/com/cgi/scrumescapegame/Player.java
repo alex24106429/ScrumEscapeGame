@@ -152,7 +152,9 @@ public class Player {
             return lossAmount;
         }
         // Game over logic
-        PrintMethods.printlnColor("Game over! Je hebt al je HP verloren.", Attribute.BRIGHT_RED_TEXT());
+        PrintMethods.typeTextColor("Game over! Je hebt al je HP verloren.", Attribute.BRIGHT_RED_TEXT());
+        PrintMethods.typeTextColor("Druk op Enter om door te gaan...", Attribute.BRIGHT_YELLOW_TEXT());
+        Game.scanner.nextLine();
         Game.quitGame();
         return lossAmount;
     }
@@ -238,14 +240,14 @@ public class Player {
     }
 
 
-    public void unequipItem(Class<? extends EquipableItem> type) {
+    public void unequipItem(Class<? extends EquipableItem> type, boolean addtoInventory) {
         if (type == Weapon.class && equippedWeapon != null) {
             equippedWeapon.unequip(this);
-            items.add(equippedWeapon);
+            if (addtoInventory) items.add(equippedWeapon);
             equippedWeapon = null;
         } else if (type == Armor.class && equippedArmor != null) {
             equippedArmor.unequip(this);
-            items.add(equippedArmor);
+            if (addtoInventory) items.add(equippedArmor);
             equippedArmor = null;
         }
     }
@@ -278,6 +280,11 @@ public class Player {
                 PrintMethods.printlnColor(item.getName() + " is nu je huidige armor. (+" + ((Armor) item).getDefenseBonus() + " DEF)",  Attribute.BRIGHT_YELLOW_TEXT());
             }
             items.remove(index);
+            return;
+        }
+
+        if (item instanceof BattleItem) {
+            PrintMethods.printlnColor("Dit item kan alleen worden gebruikt tijdens een battle.", Attribute.RED_TEXT());
             return;
         }
 

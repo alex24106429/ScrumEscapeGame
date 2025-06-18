@@ -4,7 +4,7 @@ public class Shield extends Armor {
     private int buff = 0;
 
     public Shield(int buff) {
-        super(10 + buff, 10 + buff, 50 + buff * 2);
+        super(10 + buff, 5 + buff, 50 + buff * 2);
         this.buff = buff;
     }
 

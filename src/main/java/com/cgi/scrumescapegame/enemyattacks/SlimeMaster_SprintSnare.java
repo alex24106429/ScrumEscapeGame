@@ -10,6 +10,6 @@ public class SlimeMaster_SprintSnare implements AttackBehavior {
     }
 
     public int attack(Enemy enemy, Player player) {
-		return player.changeHp(-Randomizer.getRandomInt(15, 30));
+		return player.changeHp(-Randomizer.getRandomInt(20, 40));
     }
 }

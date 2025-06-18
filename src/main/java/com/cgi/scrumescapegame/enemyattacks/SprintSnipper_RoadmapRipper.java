@@ -10,6 +10,6 @@ public class SprintSnipper_RoadmapRipper implements AttackBehavior {
     }
 
     public int attack(Enemy enemy, Player player) {
-		return player.changeHp(-Randomizer.getWeightedRandomInt(20, 150, 3.0));
+		return player.changeHp(-Randomizer.getWeightedRandomInt(20, 80, 3.0));
     }
 }
