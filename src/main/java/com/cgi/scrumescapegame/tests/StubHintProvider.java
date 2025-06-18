@@ -1,4 +1,4 @@
-package com.cgi.scrumescapegame.hints.testing;
+package com.cgi.scrumescapegame.tests;
 
 import com.cgi.scrumescapegame.hints.HintProvider;
 import com.cgi.scrumescapegame.vragen.Vraag;
