@@ -94,9 +94,12 @@ public class BattleSystem {
         PrintMethods.typeTextColor(
                 "Je valt " + enemy.getName() + " aan, en doet " + finalDamage + " HP schade!",
                 Attribute.BRIGHT_GREEN_TEXT());
-        player.getWeapon().changeDurability(-1);
-        if(player.getWeapon().getCurrentDurability() < 1) {
-            player.unequipItem(Weapon.class);
+        Weapon playerWeapon = player.getWeapon();
+        if(playerWeapon != null) {
+            playerWeapon.changeDurability(-1);
+            if(playerWeapon.getCurrentDurability() < 1) {
+                player.unequipItem(Weapon.class);
+            }
         }
         return finalDamage;
     }
