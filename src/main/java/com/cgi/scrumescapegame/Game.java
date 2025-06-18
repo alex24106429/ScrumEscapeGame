@@ -45,6 +45,7 @@ public class Game {
         applyJokerChoice(jokerChoice);
         player.addItemQuiet(new Book());
         tutorial.directionTutorial();
+        tutorial.lookAroundTutorial();
 
         gameLoop();
     }
