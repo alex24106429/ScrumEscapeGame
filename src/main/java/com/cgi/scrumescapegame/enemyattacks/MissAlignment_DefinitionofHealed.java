@@ -12,7 +12,7 @@ public class MissAlignment_DefinitionofHealed implements AttackBehavior {
     }
 
     public int attack(Enemy enemy, Player player) {
-        int heal = Randomizer.getRandomInt(5, 20);
+        int heal = Randomizer.getRandomInt(5, 50);
         enemy.changeHp(heal);
         PrintMethods.printlnColor(enemy.getName() + " healde " + heal + " HP!", Attribute.BRIGHT_RED_TEXT());
         return 0;
