@@ -197,7 +197,7 @@ public class AssistantService {
             int choice = Integer.parseInt(input) - 1;
             if (choice >= 0 && choice < allEquipables.size()) {
                 EquipableItem itemToUpgrade = allEquipables.get(choice);
-                int cost = 50 * (itemToUpgrade.getBuff() + 1);
+                int cost = itemToUpgrade.getCurrentValue() + 10 * (itemToUpgrade.getBuff() + 1);
 
                 if (player.getGold() >= cost) {
                     player.changeGold(-cost);
