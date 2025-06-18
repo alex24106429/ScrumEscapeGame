@@ -11,6 +11,6 @@ public class BacklogHydra_QueueQuake implements AttackBehavior {
 	}
 
 	public int attack(Enemy enemy, Player player) {
-		return player.changeHp(-Randomizer.getRandomInt(10, 15));
+		return player.changeHp(-Randomizer.getRandomInt(15, 30));
 	}
 }

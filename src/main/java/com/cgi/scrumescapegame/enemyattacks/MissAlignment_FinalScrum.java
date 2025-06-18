@@ -10,6 +10,6 @@ public class MissAlignment_FinalScrum implements AttackBehavior{
     }
 
     public int attack(Enemy enemy, Player player) {
-		return player.changeHp(-Randomizer.getRandomInt(50, 150));
+		return player.changeHp(-Randomizer.getWeightedRandomInt(50, 200, 3.0));
     }
 }

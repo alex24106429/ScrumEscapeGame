@@ -10,6 +10,6 @@ public class MissAlignment_BacklogBombardment implements AttackBehavior{
     }
 
     public int attack(Enemy enemy, Player player) {
-		return player.changeHp(-Randomizer.getRandomInt(25, 35));
+		return player.changeHp(-Randomizer.getRandomInt(25, 50));
     }
 }

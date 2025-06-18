@@ -8,7 +8,6 @@ import com.cgi.scrumescapegame.items.Armor;
 import com.cgi.scrumescapegame.items.BattleItem;
 import com.cgi.scrumescapegame.items.EquipableItem;
 import com.cgi.scrumescapegame.items.Item;
-import com.cgi.scrumescapegame.items.LimitedUseItem;
 import com.cgi.scrumescapegame.items.UsableItem;
 import com.cgi.scrumescapegame.items.Weapon;
 import com.diogonunes.jcolor.Ansi;
