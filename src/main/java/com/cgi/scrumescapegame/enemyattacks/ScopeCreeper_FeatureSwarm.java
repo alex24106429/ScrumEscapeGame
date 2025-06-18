@@ -11,6 +11,6 @@ public class ScopeCreeper_FeatureSwarm implements AttackBehavior {
 	}
 
 	public int attack(Enemy enemy, Player player) {
-		return player.changeHp(-Randomizer.getRandomInt(15, 40));
+		return player.changeHp(-Randomizer.getWeightedRandomInt(10, 40));
 	}
 }

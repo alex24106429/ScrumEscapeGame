@@ -10,6 +10,6 @@ public class SlimeMaster_UserSlurry implements AttackBehavior {
     }
 
     public int attack(Enemy enemy, Player player) {
-		return player.changeHp(-Randomizer.getWeightedRandomInt(40, 80));
+        return player.changeHp(-Randomizer.getWeightedRandomInt(25, 50));
     }
 }
