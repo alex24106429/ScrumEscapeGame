@@ -13,8 +13,9 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AssistantService {
+    public static boolean hasBeenIntroduced = false;
     private static boolean keyAcquired = false;
-    private static String imagePath = "assistent.png";
+    public static String imagePath = "assistent.png";
     
     private static final ArrayList<String> boodschappen = new ArrayList<>(Arrays.asList(
         "Je bent sterker dan je denkt.",
@@ -231,5 +232,14 @@ public class AssistantService {
         if (oldItem instanceof Shield) return new Shield(newBuff);
         if (oldItem instanceof Chestplate) return new Chestplate(newBuff);
         return null; // Not upgradable
+    }
+
+    public static void playIntroduction() {
+        if (hasBeenIntroduced) return;
+        ImagePrinter.printImage(imagePath);
+        PrintMethods.typeTextColor("'Gegroet, reiziger.'", Attribute.CYAN_TEXT(), Attribute.ITALIC());
+        PrintMethods.typeTextColor("'Ik ben de Assistent, een overblijfsel van de wil van de Architect, hier om je te helpen.'", Attribute.CYAN_TEXT(), Attribute.ITALIC());
+        PrintMethods.typeTextColor("'Wanneer je mijn hulp nodig hebt, typ dan 'gebruik assistent'. Ik kan je uitrusting repareren, verbeteren, of je voorzien van advies.'", Attribute.CYAN_TEXT(), Attribute.ITALIC());
+        hasBeenIntroduced = true;
     }
 }

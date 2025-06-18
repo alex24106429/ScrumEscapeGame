@@ -1,5 +1,6 @@
 package com.cgi.scrumescapegame.kamers;
 
+import com.cgi.scrumescapegame.AssistantService;
 import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Player;
 
@@ -10,6 +11,7 @@ public class StartKamer extends Room {
 
     @Override
     public void roomLogic(Player player, Difficulty difficulty) {
+        AssistantService.playIntroduction();
         setCleared(true);
     }
 
