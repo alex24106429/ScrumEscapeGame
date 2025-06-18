@@ -3,6 +3,7 @@ package com.cgi.scrumescapegame.kamers;
 import com.cgi.scrumescapegame.BattleSystem;
 import com.cgi.scrumescapegame.Difficulty;
 import com.cgi.scrumescapegame.Game;
+import com.cgi.scrumescapegame.GamePrints;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.enemies.MissAlignment;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
@@ -26,6 +27,8 @@ public class EindKamer extends Room {
         String input = Game.scanner.nextLine();
         if(input.trim().toLowerCase().startsWith("j")) {
             BattleSystem.startBattle(player, new MissAlignment(), Game.scanner);
+        
+            GamePrints.printGameEnd(player);
         }
     }
 
