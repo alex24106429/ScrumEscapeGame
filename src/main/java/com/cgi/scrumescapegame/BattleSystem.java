@@ -9,6 +9,7 @@ import com.cgi.scrumescapegame.enemies.Enemy;
 import com.cgi.scrumescapegame.graphics.ImagePrinter;
 import com.cgi.scrumescapegame.graphics.PrintMethods;
 import com.cgi.scrumescapegame.graphics.WallpaperHandler;
+import com.cgi.scrumescapegame.items.Armor;
 import com.cgi.scrumescapegame.items.BattleItem;
 import com.cgi.scrumescapegame.items.Item;
 import com.cgi.scrumescapegame.items.UsableItem;
@@ -164,6 +165,13 @@ public class BattleSystem {
                     enemy.getName() + " gebruikte " + enemy.getLastActionName() +
                             " en deed " + dmg + " HP schade!",
                     Attribute.BRIGHT_RED_TEXT());
+            Armor playerArmor = player.getArmor();
+            if(playerArmor != null) {
+                playerArmor.changeDurability(-1);
+                if(playerArmor.getCurrentDurability() < 1) {
+                    player.unequipItem(Armor.class, false);
+                }
+            }
         } else {
             PrintMethods.typeTextColor(
                     enemy.getName() + " gebruikte " + enemy.getLastActionName(),
