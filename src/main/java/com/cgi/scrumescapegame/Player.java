@@ -188,14 +188,14 @@ public class Player {
             System.out.println();
             PrintMethods.printItem(equippedWeapon);
         } else {
-            System.out.println("geen");
+            PrintMethods.printlnColor("geen", Attribute.BRIGHT_RED_TEXT());
         }
         PrintMethods.printColor("Huidig armor: ", Attribute.BOLD());
         if (equippedArmor != null) {
             System.out.println();
             PrintMethods.printItem(equippedArmor);
         } else {
-            System.out.println("geen");
+            PrintMethods.printlnColor("geen", Attribute.BRIGHT_RED_TEXT());
         }
         PrintMethods.printlnColor("Je items:", Attribute.BOLD());
         for (int i = 0; i < items.size(); i++) {
@@ -206,7 +206,7 @@ public class Player {
 
     public void addItem(Item item) {
         ImagePrinter.printImage(item.getImagepath());
-        PrintMethods.printlnColor("Je hebt de item " + item.getName() + " gekregen!", Attribute.BRIGHT_GREEN_TEXT());
+        PrintMethods.typeTextColor("Je hebt de item " + item.getName() + " gekregen!", Attribute.BRIGHT_GREEN_TEXT());
         Game.tutorial.itemTutorial();
         if(item instanceof EquipableItem) Game.tutorial.equipableItemTutorial();
         items.add(item);
@@ -330,8 +330,8 @@ public class Player {
             case Difficulty.EASY:
                 this.maxHp = 150;
                 this.currentHp = this.maxHp;
-                this.attack = 20;
-                this.defense = 20;
+                this.attack = 15;
+                this.defense = 15;
                 this.gold = 100;
                 break;
 

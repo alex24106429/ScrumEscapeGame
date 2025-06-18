@@ -8,6 +8,7 @@ import com.cgi.scrumescapegame.Game;
 import com.cgi.scrumescapegame.Player;
 import com.cgi.scrumescapegame.Randomizer;
 import com.cgi.scrumescapegame.Shop;
+import com.cgi.scrumescapegame.graphics.ImagePrinter;
 import com.cgi.scrumescapegame.items.Chestplate;
 import com.cgi.scrumescapegame.items.MiniBomb;
 import com.cgi.scrumescapegame.items.GoldSword;
@@ -21,9 +22,9 @@ import com.cgi.scrumescapegame.items.Torch;
 
 public class KamerShop extends Room {
     private final Shop shop = new Shop(new ArrayList<Item>(Arrays.asList(
-        new Shield(Randomizer.getWeightedRandomInt(10)),
+        new Shield(0),
         new Chestplate(Randomizer.getWeightedRandomInt(10)),
-        new Sword(Randomizer.getWeightedRandomInt(10)),
+        new Sword(0),
         new GoldSword(Randomizer.getWeightedRandomInt(10)),
         new HealingPotion(),
         new MiniBomb(),
@@ -35,6 +36,7 @@ public class KamerShop extends Room {
     @Override
     public void roomLogic(Player player, Difficulty difficulty) {
         setCleared(true);
+        ImagePrinter.printImage("shopkeeper.png");
         shop.interactiveMode(Game.scanner, player);
     }
 

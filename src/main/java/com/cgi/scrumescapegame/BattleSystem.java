@@ -100,6 +100,7 @@ public class BattleSystem {
             playerWeapon.changeDurability(-1);
             if(playerWeapon.getCurrentDurability() < 1) {
                 player.unequipItem(Weapon.class, false);
+                PrintMethods.typeTextColor("Je wapen is kapot!", Attribute.BRIGHT_RED_TEXT());
             }
         }
         return finalDamage;
@@ -170,6 +171,7 @@ public class BattleSystem {
                 playerArmor.changeDurability(-1);
                 if(playerArmor.getCurrentDurability() < 1) {
                     player.unequipItem(Armor.class, false);
+                    PrintMethods.typeTextColor("Je armor is kapot!", Attribute.BRIGHT_RED_TEXT());
                 }
             }
         } else {
@@ -194,8 +196,8 @@ public class BattleSystem {
     private static void concludeBattle(Player player, int totalDamageDealt) {
         if (player.isAlive()) {
             PrintMethods.printlnColor("\nBattle gewonnen!", Attribute.BRIGHT_GREEN_TEXT());
+            player.changeGold(totalDamageDealt / 4);
             player.gainExperience(totalDamageDealt);
-            player.changeGold(totalDamageDealt / 3);
             LootTable lootTable = new LootTable();
             player.addItem(lootTable.battleLoot.get(Randomizer.getRandomInt(lootTable.battleLoot.size())));
         } else {

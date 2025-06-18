@@ -62,7 +62,11 @@ public class PrintMethods {
     public static void typeText(String text) {
         for (char c : text.toCharArray()) {
             System.out.print(c);
-            Game.pause(20);
+            if(c == ',' || c == '.' || c == '!') {
+                Game.pause(300);
+            } else {
+                Game.pause(30);
+            }
         }
         System.out.println();
     }
@@ -182,7 +186,7 @@ public class PrintMethods {
 
         int price = item.getCurrentValue();
 
-        if(price > 0) PrintMethods.printlnColor("Prijs: "+ price + "G", Attribute.YELLOW_TEXT());
+        if(price > 0) PrintMethods.printlnColor("Waarde: "+ price + "G", Attribute.YELLOW_TEXT());
 
         PrintMethods.printlnColor(item.getDescription(), Attribute.BRIGHT_BLUE_TEXT());
         ImagePrinter.printImage(item.getImagepath());
