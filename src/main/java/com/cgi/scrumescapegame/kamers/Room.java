@@ -57,7 +57,7 @@ public abstract class Room {
             PrintMethods.clearScreen();
             PrintMethods.typeText(getDescription());
         }
-		TextToImageRenderer.printGradientTextWithShadow(getName(), new Color(255, 255, 255), new Color(127, 127, 127), new Color(31, 31, 31), 2, true, false);
+		TextToImageRenderer.printGradientTextWithShadow(getName(), new Color(255, 255, 255), new Color(127, 127, 127), new Color(31, 31, 31), 2, true);
         player.printStatus();
         roomLogic(player, difficulty);
     }
